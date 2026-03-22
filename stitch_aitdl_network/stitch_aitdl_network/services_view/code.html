@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AITDL Network - Services</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400&amp;family=Space+Grotesk:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0de3f2",
+                        "background-light": "#f5f8f8",
+                        "background-dark": "#070B14",
+                        "surface": "rgba(17, 24, 39, 0.6)",
+                        "text-main": "#F8FAFC",
+                        "muted": "#8A96AA",
+                        "accent": "#00FF9D",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"],
+                        "body": ["Outfit", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "0.75rem", // 12px
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                    boxShadow: {
+                        'glass': '0 8px 32px rgba(0, 0, 0, 0.4)',
+                        'glow': '0 0 20px rgba(13, 227, 242, 0.3)'
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            background-color: #070B14;
+            color: #F8FAFC;
+        }
+        
+        /* Glassmorphism Utilities */
+        .glass-panel {
+            background-color: rgba(17, 24, 39, 0.6);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            transition: all 0.3s ease;
+        }
+        
+        .glass-panel:hover {
+            border-color: #0de3f2;
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5), 0 0 20px rgba(13, 227, 242, 0.15);
+        }
+
+        /* Glowing Backgrounds */
+        .bg-glow-cyan {
+            background: radial-gradient(circle, rgba(13, 227, 242, 0.15) 0%, transparent 70%);
+        }
+        
+        .bg-glow-emerald {
+            background: radial-gradient(circle, rgba(0, 255, 157, 0.1) 0%, transparent 70%);
+        }
+
+        /* Stagger Fade Animation */
+        .stagger-fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUpIn 0.8s ease forwards;
+        }
+
+        @keyframes fadeUpIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .delay-100 { animation-delay: 100ms; }
+        .delay-200 { animation-delay: 200ms; }
+        .delay-300 { animation-delay: 300ms; }
+        .delay-400 { animation-delay: 400ms; }
+
+        /* Typography */
+        .text-gradient {
+            background: linear-gradient(to right, #F8FAFC, #8A96AA);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+    </style>
+</head>
+<body class="font-body antialiased min-h-screen relative overflow-x-hidden selection:bg-primary/30 selection:text-white">
+<!-- Background Ambient Glows -->
+<div class="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none z-0 hidden md:block">
+<div class="absolute top-[10%] left-[20%] w-[600px] h-[600px] bg-glow-cyan rounded-full mix-blend-screen opacity-60"></div>
+<div class="absolute bottom-[20%] right-[10%] w-[500px] h-[500px] bg-glow-emerald rounded-full mix-blend-screen opacity-50"></div>
+</div>
+<main class="relative z-10 container mx-auto px-6 py-24 md:py-32 lg:py-40 max-w-[1200px]">
+<!-- Section Header -->
+<div class="mb-16 md:mb-24 flex flex-col items-center md:items-start stagger-fade-in">
+<h2 class="font-display font-bold text-4xl md:text-5xl lg:text-6xl text-gradient mb-4 text-center md:text-left">
+                Core Capabilities
+            </h2>
+<p class="text-muted text-lg md:text-xl max-w-2xl text-center md:text-left">
+                Our premium technical offerings tailored for enterprise-grade scalability and intelligence.
+            </p>
+</div>
+<!-- Asymmetrical Services Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10 relative">
+<!-- Card 1: AI & Deep Learning -->
+<div class="glass-panel rounded-lg p-8 flex flex-col h-full min-h-[240px] relative overflow-hidden group stagger-fade-in delay-100 md:translate-y-8">
+<!-- Subtle internal hover glow -->
+<div class="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
+<div class="mb-6 flex-shrink-0">
+<div class="w-12 h-12 rounded-lg bg-surface border border-white/5 flex items-center justify-center text-primary group-hover:scale-110 transition-transform duration-300">
+<span class="material-symbols-outlined text-[28px]">neurology</span>
+</div>
+</div>
+<div class="flex-grow flex flex-col justify-end">
+<h3 class="font-display font-bold text-xl md:text-2xl text-text-main mb-2">AI &amp; Deep Learning Solutions</h3>
+<p class="text-muted text-sm md:text-base leading-relaxed">Predictive modeling, natural language processing, and intelligent systems designed to automate complex decision-making.</p>
+</div>
+</div>
+<!-- Card 2: Software Development -->
+<div class="glass-panel rounded-lg p-8 flex flex-col h-full min-h-[240px] relative overflow-hidden group stagger-fade-in delay-200">
+<div class="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
+<div class="mb-6 flex-shrink-0">
+<div class="w-12 h-12 rounded-lg bg-surface border border-white/5 flex items-center justify-center text-primary group-hover:scale-110 transition-transform duration-300">
+<span class="material-symbols-outlined text-[28px]">code</span>
+</div>
+</div>
+<div class="flex-grow flex flex-col justify-end">
+<h3 class="font-display font-bold text-xl md:text-2xl text-text-main mb-2">Custom Software Development</h3>
+<p class="text-muted text-sm md:text-base leading-relaxed">Scalable, secure, and highly performant custom applications built with modern frameworks to drive business growth.</p>
+</div>
+</div>
+<!-- Card 3: Intelligent Automation -->
+<div class="glass-panel rounded-lg p-8 flex flex-col h-full min-h-[240px] relative overflow-hidden group stagger-fade-in delay-300 md:translate-y-8">
+<div class="absolute inset-0 bg-gradient-to-br from-accent/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
+<div class="mb-6 flex-shrink-0">
+<div class="w-12 h-12 rounded-lg bg-surface border border-white/5 flex items-center justify-center text-accent group-hover:scale-110 transition-transform duration-300">
+<span class="material-symbols-outlined text-[28px]">account_tree</span>
+</div>
+</div>
+<div class="flex-grow flex flex-col justify-end">
+<h3 class="font-display font-bold text-xl md:text-2xl text-text-main mb-2">Intelligent Automation</h3>
+<p class="text-muted text-sm md:text-base leading-relaxed">Streamlining workflows and eliminating redundancies through advanced robotic process automation and smart integrations.</p>
+</div>
+</div>
+<!-- Card 4: Cloud & DevOps -->
+<div class="glass-panel rounded-lg p-8 flex flex-col h-full min-h-[240px] relative overflow-hidden group stagger-fade-in delay-400">
+<div class="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
+<div class="mb-6 flex-shrink-0">
+<div class="w-12 h-12 rounded-lg bg-surface border border-white/5 flex items-center justify-center text-primary group-hover:scale-110 transition-transform duration-300">
+<span class="material-symbols-outlined text-[28px]">cloud</span>
+</div>
+</div>
+<div class="flex-grow flex flex-col justify-end">
+<h3 class="font-display font-bold text-xl md:text-2xl text-text-main mb-2">Cloud &amp; DevOps Infrastructure</h3>
+<p class="text-muted text-sm md:text-base leading-relaxed">Reliable, scalable cloud architectures and continuous integration pipelines ensuring zero-downtime deployments.</p>
+</div>
+</div>
+</div>
+</main>
+<script>
+        // Simple Intersection Observer to trigger animations when scrolling into view
+        document.addEventListener('DOMContentLoaded', () => {
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animationPlayState = 'running';
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            // Initially pause animations so they wait for scroll
+            const animatedElements = document.querySelectorAll('.stagger-fade-in');
+            animatedElements.forEach(el => {
+                el.style.animationPlayState = 'paused';
+                observer.observe(el);
+            });
+        });
+    </script>
+</body></html>

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AITDL Network - Portfolio &amp; About</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400&amp;family=Space+Grotesk:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0de3f2",
+                        "background-light": "#f5f8f8",
+                        "background-dark": "#070B14",
+                        "surface": "rgba(17, 24, 39, 0.6)",
+                        "muted": "#8A96AA",
+                        "accent": "#00FF9D",
+                        "whatsapp": "#25D366"
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"],
+                        "body": ["Outfit", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.5rem", "lg": "0.75rem", "xl": "1.5rem", "full": "9999px"},
+                    boxShadow: {
+                        'glow': '0 8px 32px rgba(0, 0, 0, 0.4)',
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .glass-panel {
+            background-color: rgba(17, 24, 39, 0.6);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        @keyframes pulse-soft {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        .animate-pulse-soft {
+            animation: pulse-soft 2s infinite ease-in-out;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-body text-slate-900 dark:text-slate-100 min-h-screen flex flex-col relative overflow-x-hidden selection:bg-primary/30 selection:text-white">
+<!-- Background Glow Effect -->
+<div class="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-[1000px] h-[500px] bg-primary/10 rounded-full blur-[120px] pointer-events-none -z-10"></div>
+<div class="layout-container flex h-full grow flex-col relative z-10">
+<div class="px-4 md:px-10 lg:px-40 flex flex-1 justify-center py-10 md:py-20">
+<div class="layout-content-container flex flex-col w-full max-w-[1200px] flex-1">
+<header class="flex items-center justify-between whitespace-nowrap border-b border-white/10 px-4 md:px-10 py-4 mb-12 glass-panel rounded-2xl sticky top-4 z-50">
+<div class="flex items-center gap-4 text-slate-100">
+<div class="size-6 text-primary">
+<svg fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path d="M24 45.8096C19.6865 45.8096 15.4698 44.5305 11.8832 42.134C8.29667 39.7376 5.50128 36.3314 3.85056 32.3462C2.19985 28.361 1.76794 23.9758 2.60947 19.7452C3.451 15.5145 5.52816 11.6284 8.57829 8.5783C11.6284 5.52817 15.5145 3.45101 19.7452 2.60948C23.9758 1.76795 28.361 2.19986 32.3462 3.85057C36.3314 5.50129 39.7376 8.29668 42.134 11.8833C44.5305 15.4698 45.8096 19.6865 45.8096 24L24 24L24 45.8096Z" fill="currentColor"></path>
+</svg>
+</div>
+<h2 class="text-slate-100 text-xl font-display font-bold leading-tight tracking-[-0.015em]">AITDL Network</h2>
+</div>
+<div class="hidden md:flex flex-1 justify-end gap-8">
+<div class="flex items-center gap-9">
+<a class="text-muted hover:text-primary transition-colors text-sm font-medium leading-normal font-display" href="#">Home</a>
+<a class="text-muted hover:text-primary transition-colors text-sm font-medium leading-normal font-display" href="#">Services</a>
+<a class="text-primary text-sm font-bold leading-normal font-display" href="#">Portfolio</a>
+<a class="text-muted hover:text-primary transition-colors text-sm font-medium leading-normal font-display" href="#">Contact</a>
+</div>
+<button class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-md h-10 px-6 bg-primary text-background-dark text-sm font-display font-bold leading-normal tracking-[0.015em] hover:scale-105 hover:shadow-[0_0_15px_rgba(13,227,242,0.4)] transition-all duration-300">
+<span class="truncate">Get Free Demo</span>
+</button>
+</div>
+<button class="md:hidden text-slate-100">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+</header>
+<div class="flex flex-col lg:flex-row justify-between gap-10 lg:gap-20 mb-12 px-4 md:px-0">
+<!-- About Section -->
+<div class="flex flex-col gap-6 max-w-2xl">
+<h1 class="text-slate-100 font-display text-4xl md:text-5xl lg:text-6xl font-bold leading-tight tracking-tight">
+                            AI-First. <br/>
+<span class="text-transparent bg-clip-text bg-gradient-to-r from-slate-100 to-muted">Future-Ready.</span>
+</h1>
+<p class="text-muted text-lg md:text-xl font-body leading-relaxed max-w-xl">
+                            We architect and deploy scalable, intelligent systems. Our mission is to transform complex enterprise challenges into elegant, automated solutions leveraging cutting-edge deep learning and modern software practices.
+                        </p>
+<div class="flex items-center gap-4 mt-4">
+<div class="h-[1px] w-12 bg-primary/50"></div>
+<span class="text-primary font-display text-sm tracking-widest uppercase">Select Deployments</span>
+</div>
+</div>
+</div>
+<!-- Portfolio Carousel Container -->
+<div class="relative w-full pb-10">
+<!-- Fade gradient for right edge to indicate scroll -->
+<div class="absolute right-0 top-0 bottom-10 w-24 bg-gradient-to-l from-background-dark to-transparent z-20 pointer-events-none hidden md:block"></div>
+<div class="flex overflow-x-auto hide-scrollbar snap-x snap-mandatory gap-6 md:gap-8 px-4 md:px-0 pb-8">
+<!-- Project 1 -->
+<div class="group snap-start flex-none w-[320px] md:w-[400px] flex flex-col gap-5 glass-panel rounded-xl p-4 md:p-5 transition-all duration-300 hover:border-primary/50 hover:shadow-glow cursor-pointer relative overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+<div class="w-full aspect-video rounded-lg overflow-hidden bg-[#111827] relative border border-white/5">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 ease-out group-hover:scale-105" data-alt="Dark themed SaaS CRM dashboard interface" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCw2m2_Pkj6zhWdWc6XJi3XWk-nHBOQ90DYAZHbW1LUKIzrPgS3O8wJPKoKZfd2WtZ0lsnNdz1CfqrLG-zCnBqT5353hOHPxXCwBe0LNS-CYXE27bkEBj7NHEozdCRO4l6XTlKW6mLpmtzOr_xBlpZuAWvab93CPXgmDCJMZLbqkbCloyL0I7oeepm2G0lJdqG49aTx7zPwVg-d6WlZ1JvrnHMzwqwG7_hu2nfWS8PyWPgyZ84g4UBWUIu29fSewr07Slj5oq9fIemb');"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-background-dark/80 via-transparent to-transparent opacity-60"></div>
+</div>
+<div class="flex flex-col gap-2 z-10">
+<h3 class="text-slate-100 font-display text-xl font-bold leading-tight group-hover:text-primary transition-colors">Track students, fees, attendance in one dashboard</h3>
+<div class="flex items-center justify-between mt-2">
+<span class="px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-primary text-xs font-display font-bold tracking-wide">Get Free Demo</span>
+<span class="material-symbols-outlined text-muted group-hover:text-primary transition-colors text-xl" data-icon="arrow_outward">arrow_outward</span>
+</div>
+</div>
+</div>
+<!-- Project 2 -->
+<div class="group snap-start flex-none w-[320px] md:w-[400px] flex flex-col gap-5 glass-panel rounded-xl p-4 md:p-5 transition-all duration-300 hover:border-primary/50 hover:shadow-glow cursor-pointer relative overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+<div class="w-full aspect-video rounded-lg overflow-hidden bg-[#111827] relative border border-white/5">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 ease-out group-hover:scale-105" data-alt="POS System Interface" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBXyJyeiGllX44WNldXAVq28fK6EYB7uPocRxQanCwMTYzSz52Z7shCTQiVKc2OR14v4iGL6KrYQwn2ele-RR7vIThkKkYLpa-IY99GohqPf48-ytm4uOO1idNF2a7pqJyBkGo7StMCkFF8KpG2WEhdSEouq5iWynEwYZZbd_ys2PPaivaBYqTUfS2JmUe9l1AgudgCwc1SXyhkpDw-B9RnTRe05xP95jYpze2VHRiSM2tsYDfXQNypof24Y93tUPhN6ASCJcVjImLO');"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-background-dark/80 via-transparent to-transparent opacity-60"></div>
+</div>
+<div class="flex flex-col gap-2 z-10">
+<h3 class="text-slate-100 font-display text-xl font-bold leading-tight group-hover:text-primary transition-colors">Fast billing, GST invoices, inventory tracking</h3>
+<div class="flex items-center justify-between mt-2">
+<span class="px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-primary text-xs font-display font-bold tracking-wide">Get Free Demo</span>
+<span class="material-symbols-outlined text-muted group-hover:text-primary transition-colors text-xl" data-icon="arrow_outward">arrow_outward</span>
+</div>
+</div>
+</div>
+<!-- Project 3 -->
+<div class="group snap-start flex-none w-[320px] md:w-[400px] flex flex-col gap-5 glass-panel rounded-xl p-4 md:p-5 transition-all duration-300 hover:border-primary/50 hover:shadow-glow cursor-pointer relative overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+<div class="w-full aspect-video rounded-lg overflow-hidden bg-[#111827] relative border border-white/5">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 ease-out group-hover:scale-105" data-alt="WhatsApp Automation Dashboard" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCDzgZo0MA17uNkR0SuzziuBW7ZbA2X0mzm3hz34EL4lTMMhYg_xx7KkmBO0XHIniYcC7uDs96S2s7cWQmCr8wq7qQ6baiYUXEO7bNFiWS8IdSF7XyLUAdQExxf0W3_MlPjr3HvBQZxrYnAI_SfNzlkdErInzaihW1F2cuXASC_bchQ2C0dAtZfRLzOBFD2_pKdwdrkNX1qi2Treqz2vOPf5jnsQYL-QdRI2rUBhE_AWA5R4daAfv-SnhtMMHeAijmEosvU5whmx1Vc');"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-background-dark/80 via-transparent to-transparent opacity-60"></div>
+</div>
+<div class="flex flex-col gap-2 z-10">
+<h3 class="text-slate-100 font-display text-xl font-bold leading-tight group-hover:text-primary transition-colors">Auto-reply to student queries &amp; leads</h3>
+<div class="flex items-center justify-between mt-2">
+<span class="px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-primary text-xs font-display font-bold tracking-wide">Get Free Demo</span>
+<span class="material-symbols-outlined text-muted group-hover:text-primary transition-colors text-xl" data-icon="arrow_outward">arrow_outward</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Floating WhatsApp Button -->
+<a class="fixed bottom-6 right-6 z-[100] group flex items-center justify-center size-16 bg-whatsapp text-white rounded-full shadow-lg hover:shadow-whatsapp/20 hover:scale-110 transition-all duration-300 animate-pulse-soft" href="#">
+<svg class="size-8" fill="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M17.472 14.382c-.301-.15-1.767-.872-2.04-.971-.272-.1-.47-.15-.67.15-.199.3-.77.971-.944 1.17-.175.199-.349.224-.651.075-1.203-.603-1.998-1.003-2.793-1.688-.63-.544-1.066-1.218-1.192-1.442-.125-.224-.012-.345.113-.494.113-.135.251-.299.375-.45.125-.15.166-.254.251-.424.084-.17.042-.319-.021-.47-.064-.15-.67-1.614-.919-2.214-.242-.584-.488-.505-.67-.514-.171-.008-.368-.01-.565-.01-.197 0-.517.074-.787.374-.27.299-1.031 1.007-1.031 2.455 0 1.448 1.054 2.846 1.202 3.045.148.199 2.074 3.167 5.024 4.444.701.304 1.248.486 1.673.621.704.223 1.346.192 1.853.116.565-.084 1.767-.722 2.016-1.42.25-.697.25-1.294.175-1.42-.075-.126-.275-.199-.576-.35zM12.004 0C5.373 0 0 5.373 0 12c0 2.123.55 4.118 1.512 5.856L0 24l6.337-1.663c1.741.948 3.73 1.492 5.667 1.492 6.63 0 12.003-5.373 12.003-12s-5.373-12-12-12zM12 21.993c-1.815 0-3.591-.489-5.135-1.41l-.368-.22-3.825 1.003 1.021-3.729-.241-.383A9.943 9.943 0 012.005 12c0-5.513 4.487-10 10-10s10 4.487 10 10-4.487 10-10 10z"></path>
+</svg>
+<span class="absolute right-full mr-4 bg-surface backdrop-blur-md px-3 py-1.5 rounded-lg text-sm font-medium border border-white/10 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">Chat on WhatsApp</span>
+</a>
+</body></html>

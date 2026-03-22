@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AITDL Network - Intelligent Systems</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&amp;family=Space+Grotesk:wght@600;700;900&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Configuration -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0de3f2",
+                        "background-light": "#f5f8f8",
+                        "background-dark": "#070B14",
+                        "surface-dark": "rgba(17, 24, 39, 0.6)",
+                        "text-primary": "#F8FAFC",
+                        "text-muted": "#8A96AA",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"],
+                        "body": ["Outfit", "sans-serif"],
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "0.75rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                    backgroundImage: {
+                        'hero-glow': 'radial-gradient(circle at 50% 0%, rgba(13, 227, 242, 0.15) 0%, transparent 60%)',
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        /* Base styles */
+        body {
+            background-color: theme('colors.background-dark');
+            color: theme('colors.text-primary');
+            font-family: theme('fontFamily.body');
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        /* Glassmorphism Utilities */
+        .glass-nav {
+            background-color: theme('colors.surface-dark');
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        /* Typography */
+        h1, h2, h3, h4, h5, h6, .font-display {
+            font-family: theme('fontFamily.display');
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .animate-fade-in {
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+
+        .animate-slide-up {
+            opacity: 0;
+            animation: slideUp 0.8s ease-out 0.2s forwards;
+        }
+
+        /* Text Gradient */
+        .text-gradient {
+            background: linear-gradient(180deg, #F8FAFC 0%, #8A96AA 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Button Hover Effects */
+        .btn-primary {
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(13, 227, 242, 0.15);
+        }
+        
+        .btn-primary:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 32px rgba(13, 227, 242, 0.3);
+        }
+
+        .btn-secondary {
+            transition: all 0.3s ease;
+            border: 1px solid theme('colors.text-muted');
+            color: theme('colors.text-primary');
+        }
+
+        .btn-secondary:hover {
+            border-color: theme('colors.primary');
+            color: theme('colors.primary');
+        }
+
+        /* Responsive Background Glow */
+        @media (max-width: 768px) {
+            .bg-hero-glow {
+                background-image: none !important;
+            }
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen relative">
+<!-- Background Glow -->
+<div class="absolute inset-0 z-0 bg-hero-glow pointer-events-none md:block hidden"></div>
+<!-- Navigation -->
+<nav class="fixed top-0 left-0 right-0 z-50 glass-nav h-[72px] transition-all duration-300">
+<div class="max-w-[1200px] mx-auto px-6 h-full flex items-center justify-between">
+<!-- Logo -->
+<a class="flex items-center gap-3 group" href="#">
+<div class="size-8 text-primary transition-transform group-hover:scale-105">
+<svg fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path d="M24 45.8096C19.6865 45.8096 15.4698 44.5305 11.8832 42.134C8.29667 39.7376 5.50128 36.3314 3.85056 32.3462C2.19985 28.361 1.76794 23.9758 2.60947 19.7452C3.451 15.5145 5.52816 11.6284 8.57829 8.5783C11.6284 5.52817 15.5145 3.45101 19.7452 2.60948C23.9758 1.76795 28.361 2.19986 32.3462 3.85057C36.3314 5.50129 39.7376 8.29668 42.134 11.8833C44.5305 15.4698 45.8096 19.6865 45.8096 24L24 24L24 45.8096Z" fill="currentColor"></path>
+</svg>
+</div>
+<span class="font-display font-bold text-xl tracking-tight text-text-primary">AITDL Network</span>
+</a>
+<!-- Desktop Links -->
+<div class="hidden md:flex items-center gap-8">
+<a class="text-sm font-medium text-text-muted hover:text-primary transition-colors" href="#services">Services</a>
+<a class="text-sm font-medium text-text-muted hover:text-primary transition-colors" href="#portfolio">Portfolio</a>
+<a class="text-sm font-medium text-text-muted hover:text-primary transition-colors" href="#contact">Contact</a>
+</div>
+<!-- Mobile Menu Toggle (Visual Only) -->
+<button class="md:hidden text-text-muted hover:text-primary">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+</nav>
+<!-- Hero Section -->
+<main class="relative z-10 flex flex-col items-center justify-center min-h-screen px-6 pt-[72px] animate-fade-in">
+<div class="max-w-[1200px] w-full mx-auto flex flex-col items-center text-center">
+<!-- Headline -->
+<h1 class="font-display font-bold text-4xl md:text-5xl lg:text-[64px] leading-[1.1] tracking-[-0.02em] mb-6 max-w-4xl text-gradient">Smart Solutions for Modern Education &amp; Seamless Business</h1>
+<!-- Subtext -->
+<p class="text-lg md:text-[20px] text-text-muted font-light mb-10 max-w-2xl leading-relaxed">Premium Education Technology and POS Systems designed to scale your institution and streamline your sales.</p>
+<!-- CTA Buttons -->
+<div class="flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto animate-slide-up">
+<a class="btn-primary w-full sm:w-auto flex items-center justify-center h-12 px-8 rounded-lg bg-primary text-background-dark font-display font-semibold text-[15px] tracking-[0.01em]" href="#contact">
+                    Get Started
+                </a>
+<a class="btn-secondary w-full sm:w-auto flex items-center justify-center h-12 px-8 rounded-lg bg-transparent font-display font-semibold text-[15px] tracking-[0.01em]" href="#services">
+                    View Services
+                </a>
+</div>
+</div>
+</main>
+</body></html>

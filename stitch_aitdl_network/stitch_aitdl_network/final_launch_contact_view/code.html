@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Contact - AITDL Network</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Outfit:wght@300;400;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0de3f2",
+                        "background-light": "#f5f8f8",
+                        "background-dark": "#102122",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"],
+                        "body": ["Outfit", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .glass-panel {
+            background-color: rgba(17, 24, 39, 0.6);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+        }
+        .emerald-glow {
+            box-shadow: 0 0 20px rgba(0, 255, 157, 0.3);
+        }
+        .emerald-glow:hover {
+            box-shadow: 0 0 30px rgba(0, 255, 157, 0.5);
+        }
+        .primary-glow {
+            box-shadow: 0 0 20px rgba(13, 227, 242, 0.3);
+        }
+        .primary-glow:hover {
+            box-shadow: 0 0 30px rgba(13, 227, 242, 0.5);
+        }
+        @keyframes pulse-soft {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.05); }
+        }
+        .animate-pulse-soft {
+            animation: pulse-soft 3s infinite ease-in-out;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 min-h-screen flex flex-col relative overflow-x-hidden antialiased">
+<!-- Ambient Space Glows -->
+<div class="fixed inset-0 pointer-events-none z-0">
+<div class="absolute top-0 right-1/4 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[120px]"></div>
+<div class="absolute bottom-0 left-1/4 w-[500px] h-[500px] bg-[#00FF9D]/5 rounded-full blur-[100px]"></div>
+</div>
+<!-- Minimal Back Header -->
+<header class="w-full px-6 py-4 flex items-center z-10 relative">
+<button class="flex items-center gap-2 text-slate-400 hover:text-primary transition-colors group">
+<span class="material-symbols-outlined text-xl group-hover:-translate-x-1 transition-transform">arrow_back</span>
+<span class="text-sm font-medium tracking-wide">Return to Main</span>
+</button>
+</header>
+<!-- Main Content -->
+<main class="flex-1 w-full max-w-[1200px] mx-auto px-6 py-12 flex flex-col justify-center z-10 relative">
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+<!-- Left Side: Direct Contact -->
+<div class="flex flex-col gap-10">
+<div class="space-y-4">
+<h1 class="text-4xl md:text-5xl font-bold tracking-tight text-white leading-tight">
+                        Get a Free Demo for Your Coaching Institute or Business
+                    </h1>
+<p class="text-slate-400 font-body text-lg max-w-md">
+                        Transform your operations with enterprise-grade AI. Let's build your custom solution today.
+                    </p>
+</div>
+<div class="flex flex-col gap-4">
+<!-- WhatsApp CTA -->
+<a class="w-full rounded-xl p-6 flex items-center justify-between bg-[#00FF9D]/15 border-2 border-[#00FF9D]/40 emerald-glow transition-all hover:bg-[#00FF9D]/25 group relative overflow-hidden" href="https://wa.me/910000000000" target="_blank">
+<div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+<div class="flex items-center gap-4 relative z-10">
+<div class="w-14 h-14 rounded-lg bg-[#00FF9D] flex items-center justify-center text-black shadow-lg">
+<span class="material-symbols-outlined scale-125">chat</span>
+</div>
+<div class="text-left">
+<h2 class="text-[#00FF9D] text-xl font-bold leading-tight">Chat on WhatsApp</h2>
+<p class="text-slate-200 text-sm font-body font-medium">Immediate response • +91 [Your Number]</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-[#00FF9D] group-hover:translate-x-2 transition-transform relative z-10 text-3xl">arrow_forward</span>
+</a>
+<!-- Email Panel -->
+<div class="glass-panel rounded-xl p-6 flex items-center gap-4 transition-all hover:border-primary/50 group">
+<div class="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined">mail_outline</span>
+</div>
+<div>
+<p class="text-xs text-slate-400 uppercase tracking-widest mb-1 font-body">Official Inquiries</p>
+<h2 class="text-white text-lg font-mono font-medium tracking-tight">contact@aitdl.com</h2>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Side: Form -->
+<div class="glass-panel rounded-2xl p-8 lg:p-10 border-t-2 border-t-primary/20">
+<form class="flex flex-col gap-8">
+<div class="relative group">
+<input class="peer w-full bg-transparent border-0 border-b border-slate-600 px-0 py-3 text-white font-body focus:ring-0 focus:border-primary placeholder-transparent transition-colors" id="name" placeholder="Name" required="" type="text"/>
+<label class="absolute left-0 top-3 text-slate-400 font-body transition-all peer-placeholder-shown:text-base peer-placeholder-shown:top-3 peer-focus:-top-4 peer-focus:text-xs peer-focus:text-primary cursor-text" for="name">Your Name</label>
+</div>
+<div class="relative group">
+<input class="peer w-full bg-transparent border-0 border-b border-slate-600 px-0 py-3 text-white font-body focus:ring-0 focus:border-primary placeholder-transparent transition-colors" id="email" placeholder="Email" required="" type="email"/>
+<label class="absolute left-0 top-3 text-slate-400 font-body transition-all peer-placeholder-shown:text-base peer-placeholder-shown:top-3 peer-focus:-top-4 peer-focus:text-xs peer-focus:text-primary cursor-text" for="email">Business Email</label>
+</div>
+<div class="relative group mt-2">
+<textarea class="peer w-full bg-transparent border-0 border-b border-slate-600 px-0 py-3 text-white font-body focus:ring-0 focus:border-primary placeholder-transparent transition-colors resize-none" id="project" placeholder="Tell us about your business" required="" rows="4"></textarea>
+<label class="absolute left-0 top-3 text-slate-400 font-body transition-all peer-placeholder-shown:text-base peer-placeholder-shown:top-3 peer-focus:-top-5 peer-focus:text-xs peer-focus:text-primary cursor-text" for="project">How can we help you?</label>
+</div>
+<div class="space-y-4">
+<button class="w-full bg-primary text-black font-bold py-4 rounded-lg tracking-wide uppercase text-sm primary-glow hover:bg-primary/90 flex items-center justify-center gap-2 transition-all group" type="button">
+<span>INITIALIZE DEMO</span>
+<span class="material-symbols-outlined text-lg group-hover:translate-x-1 transition-transform">bolt</span>
+</button>
+<p class="text-[10px] text-center text-slate-500 uppercase tracking-widest font-medium">Built for Indian businesses • Engineered for Global Scale</p>
+</div>
+</form>
+</div>
+</div>
+</main>
+<!-- Floating WhatsApp Button -->
+<a aria-label="Quick WhatsApp Support" class="fixed bottom-8 right-8 z-50 w-16 h-16 bg-[#00FF9D] text-black rounded-full flex items-center justify-center shadow-2xl emerald-glow animate-pulse-soft hover:scale-110 transition-transform group" href="https://wa.me/910000000000" target="_blank">
+<span class="material-symbols-outlined text-3xl group-hover:rotate-12 transition-transform">chat</span>
+<span class="absolute right-full mr-4 px-3 py-1 bg-black/80 backdrop-blur text-[#00FF9D] text-xs font-bold rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap border border-[#00FF9D]/20">Quick Support</span>
+</a>
+<!-- Footer -->
+<footer class="h-[100px] w-full border-t border-white/10 mt-auto z-10 relative flex items-center justify-center px-6 glass-panel border-b-0 border-l-0 border-r-0 rounded-none shadow-none bg-opacity-30">
+<div class="w-full max-w-[1200px] mx-auto flex flex-col md:flex-row items-center justify-between gap-4 text-xs font-body text-slate-500">
+<div class="flex flex-col items-center md:items-start gap-1">
+<div class="font-display font-bold text-slate-400 tracking-wider">AITDL NETWORK</div>
+<div class="text-[10px] uppercase tracking-tighter opacity-60">Architecting India's AI Future</div>
+</div>
+<div class="flex flex-col items-center gap-1">
+<div class="text-center">Designed &amp; Architected by Jawahar R Mallah</div>
+<div class="text-[10px] text-primary/60 font-medium">Proudly Built for Indian Businesses</div>
+</div>
+<div class="flex items-center gap-4">
+<a aria-label="X (Twitter)" class="hover:text-primary transition-colors flex items-center" href="#">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</a>
+<a aria-label="LinkedIn" class="hover:text-primary transition-colors flex items-center" href="#">
+<span class="material-symbols-outlined text-[20px]">work</span>
+</a>
+<a aria-label="GitHub" class="hover:text-primary transition-colors flex items-center" href="#">
+<span class="material-symbols-outlined text-[20px]">code</span>
+</a>
+</div>
+</div>
+</footer>
+</body></html>
