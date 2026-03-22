@@ -15,7 +15,16 @@ Copyright © AITDL Network 2026 | Vikram Samvat 2083
 // AITDL Network © 2026 | Vikram Samvat 2083
 // Designed & Architected by JRM
 
+import type { Metadata } from 'next';
 import React from 'react';
+import { generateSEO } from '@/lib/seo/seo';
+
+export const metadata: Metadata = generateSEO({
+  title: 'Contact Us – Get a Free Demo | AITDL Network',
+  description: 'Book a free demo with AITDL Network. WhatsApp us or fill the form to get a custom software solution for your school, clinic, or business.',
+  path: '/contact',
+  keywords: ['contact AITDL', 'free software demo India', 'school software demo', 'clinic software India', 'book free demo'],
+});
 
 export default function Contact() {
   return (

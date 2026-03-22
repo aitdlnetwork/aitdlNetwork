@@ -15,8 +15,17 @@ Copyright © AITDL Network 2026 | Vikram Samvat 2083
 // AITDL Network © 2026 | Vikram Samvat 2083
 // Designed & Architected by JRM
 
+import type { Metadata } from 'next';
 import React from 'react';
 import Link from 'next/link';
+import { generateSEO } from '@/lib/seo/seo';
+
+export const metadata: Metadata = generateSEO({
+  title: 'AITDL Network – Smart Software for Education & Business Growth',
+  description: 'LMS, POS, Clinic Management, NGO Systems and AI solutions for Indian businesses and institutions. Get a free demo today.',
+  path: '/',
+  keywords: ['LMS India', 'school management software', 'POS billing India', 'AI learning platform', 'coaching software'],
+});
 
 export default function Home() {
   return (
@@ -63,39 +72,25 @@ export default function Home() {
             <h2 className="font-display font-bold text-3xl md:text-4xl mb-4">Who We Serve</h2>
             <div className="h-1 w-20 bg-primary mx-auto rounded-full"></div>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {/* Coaching */}
-            <div className="glass-card p-8 rounded-xl flex flex-col items-start gap-4">
-              <div className="size-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
-                <span className="material-symbols-outlined text-3xl">school</span>
+          <div className="flex flex-wrap justify-center gap-6">
+            {[
+              { icon: 'school', title: 'Coaching Institutes', desc: 'Streamline student management and fee tracking with our specialized tools.' },
+              { icon: 'account_balance', title: 'Schools & Training', desc: 'Modern LMS and digital infrastructure designed for enterprise-level learning.' },
+              { icon: 'shopping_cart', title: 'Retail & Businesses', desc: 'Fast POS and automated billing systems to handle high-volume sales seamlessly.' },
+              { icon: 'fitness_center', title: 'Gym & Fitness', desc: 'Membership management and automated alerts for your fitness community.' },
+              { icon: 'terrain', title: 'Hiking & Trekking', desc: 'Booking management, equipment tracking, and safety alerts for outdoor adventure operators.' },
+              { icon: 'real_estate_agent', title: 'Real Estate & Property', desc: 'Tenant portals, lease automation, and ticketing frameworks for modern building managers.' },
+              { icon: 'diversity_3', title: 'NGOs & Societies', desc: 'Donor management, fundraising tracking, and member-portals for non-profits and housing societies.' },
+              { icon: 'psychology', title: 'Adaptive AI Learning', desc: 'Personalized study paths, smart quizzes, and teacher self-evaluation portals for student self-learning.' }
+            ].map((item, index) => (
+              <div key={index} className="glass-card p-8 rounded-xl flex flex-col items-start gap-4 transition-all hover:border-primary/50 hover:-translate-y-1 w-full md:w-[calc(50%-12px)] lg:w-[calc(33.33%-16px)]">
+                <div className="size-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
+                  <span className="material-symbols-outlined text-3xl">{item.icon}</span>
+                </div>
+                <h3 className="font-display font-bold text-xl">{item.title}</h3>
+                <p className="text-text-muted leading-relaxed text-sm">{item.desc}</p>
               </div>
-              <h3 className="font-display font-bold text-xl">Coaching Institutes</h3>
-              <p className="text-text-muted leading-relaxed">Streamline student management and fee tracking with our specialized tools.</p>
-            </div>
-            {/* Schools */}
-            <div className="glass-card p-8 rounded-xl flex flex-col items-start gap-4">
-              <div className="size-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
-                <span className="material-symbols-outlined text-3xl">account_balance</span>
-              </div>
-              <h3 className="font-display font-bold text-xl">Schools & Training</h3>
-              <p className="text-text-muted leading-relaxed">Modern LMS and digital infrastructure designed for enterprise-level learning.</p>
-            </div>
-            {/* Retail */}
-            <div className="glass-card p-8 rounded-xl flex flex-col items-start gap-4">
-              <div className="size-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
-                <span className="material-symbols-outlined text-3xl">shopping_cart</span>
-              </div>
-              <h3 className="font-display font-bold text-xl">Retail & Businesses</h3>
-              <p className="text-text-muted leading-relaxed">Fast POS and automated billing systems to handle high-volume sales seamlessly.</p>
-            </div>
-            {/* Gym */}
-            <div className="glass-card p-8 rounded-xl flex flex-col items-start gap-4">
-              <div className="size-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
-                <span className="material-symbols-outlined text-3xl">fitness_center</span>
-              </div>
-              <h3 className="font-display font-bold text-xl">Gym & Fitness</h3>
-              <p className="text-text-muted leading-relaxed">Membership management and automated alerts for your fitness community.</p>
-            </div>
+            ))}
           </div>
           <div className="mt-16 text-center">
             <Link href="/contact" className="btn-primary inline-flex items-center justify-center h-14 px-10 rounded-lg bg-primary text-background-dark font-display font-semibold text-[16px]">

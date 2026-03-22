@@ -15,15 +15,20 @@ Copyright © AITDL Network 2026 | Vikram Samvat 2083
 // AITDL Network © 2026 | Vikram Samvat 2083
 // Designed & Architected by JRM
 
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import './globals.css';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import { generateSEO } from '@/lib/seo/seo';
 
-export const metadata: Metadata = {
-  title: 'AITDL Network - Intelligent Systems',
-  description: 'Smart Software for Education & Business Growth by AITDL Network.',
+export const metadata: Metadata = generateSEO({});
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  themeColor: '#00F0FF',
 };
+
 
 export default function RootLayout({
   children,
