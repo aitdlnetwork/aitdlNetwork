@@ -1,0 +1,132 @@
+/*
+AITDL Network
+Artificial Intelligence Technology & Deep Learning
+
+Designed & Architected by JRM
+
+Contact:
+aitdl.com
+aitdlnetwork@outlook.com
+jawahar.mallah@gmail.com
+
+Copyright © AITDL Network 2026 | Vikram Samvat 2083
+*/
+
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #0de3f2;
+  --color-whatsapp: #10B981;
+  --color-background-light: #f5f8f8;
+  --color-background-dark: #070B14;
+  --color-surface-dark: rgba(17, 24, 39, 0.6);
+  --color-text-primary: #F8FAFC;
+  --color-text-muted: #8A96AA;
+
+  --font-display: "Space Grotesk", sans-serif;
+  --font-body: "Outfit", sans-serif;
+
+  --radius-DEFAULT: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1.5rem;
+  --radius-full: 9999px;
+
+  --bg-hero-glow: radial-gradient(circle at 50% 0%, rgba(13, 227, 242, 0.15) 0%, transparent 60%);
+}
+
+@layer base {
+  body {
+    background-color: var(--color-background-dark);
+    color: var(--color-text-primary);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+    margin: 0;
+  }
+  h1, h2, h3, h4, h5, h6, .font-display {
+    font-family: var(--font-display);
+  }
+}
+
+@layer components {
+  .glass-nav {
+    background-color: var(--color-surface-dark);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .glass-card {
+    transition: all 300ms;
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  .glass-card:hover {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(13, 227, 242, 0.3);
+    transform: translateY(-4px);
+  }
+
+  .text-gradient {
+    background: linear-gradient(180deg, #F8FAFC 0%, #8A96AA 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .btn-primary {
+    transition: all 300ms;
+    box-shadow: 0 4px 20px rgba(13, 227, 242, 0.15);
+  }
+  
+  .btn-primary:hover {
+    transform: scale(1.02);
+    box-shadow: 0 8px 32px rgba(13, 227, 242, 0.3);
+  }
+
+  .btn-secondary {
+    transition: all 300ms;
+    color: var(--color-text-primary);
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--color-text-muted);
+  }
+
+  .btn-secondary:hover {
+    color: var(--color-primary);
+    border-color: var(--color-primary);
+  }
+}
+
+@layer utilities {
+  .animate-fade-in {
+    animation: fadeIn 0.8s ease-out forwards;
+  }
+
+  .animate-slide-up {
+    opacity: 0;
+    animation: slideUp 0.8s ease-out 0.2s forwards;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes slideUp {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+
+  .hide-scrollbar::-webkit-scrollbar {
+      display: none;
+  }
+  .hide-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+  }
+}
