@@ -5,8 +5,6 @@ import React from 'react';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
-export const runtime = 'edge';
-
 const projectData: Record<string, { title: string; category: string; description: string; challenge: string; solution: string; tags: string[]; image: string }> = {
   "crm-dashboard": {
     title: "CRM Dashboard",

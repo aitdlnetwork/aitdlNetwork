@@ -5,8 +5,6 @@ import type { Metadata } from 'next';
 import { generateSEO } from '@/lib/seo/seo';
 import ServicePageClient from './ServicePageClient';
 
-export const runtime = 'edge';
-
 /* ── Per-slug SEO metadata map ── */
 const slugMeta: Record<string, { title: string; description: string }> = {
   "edtech-ecosystems": {
