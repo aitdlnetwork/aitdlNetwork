@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "cf-build": "opennextjs-cloudflare build"
+    "cf-build": "next build"
   },
   "dependencies": {
     "@supabase/ssr": "^0.9.0",
