@@ -8,7 +8,9 @@ Contact: aitdlnetwork@outlook.com | jawahar.mallah@gmail.com
 import { type NextRequest } from 'next/server'
 import { updateSession } from '@/utils/supabase/middleware'
 
-export async function proxy(request: NextRequest) {
+export const runtime = 'edge';
+
+export async function middleware(request: NextRequest) {
   return await updateSession(request)
 }
 
