@@ -1,40 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://aitdl.com/</loc><priority>1.0</priority></url>
-  <url><loc>https://aitdl.com/about</loc><priority>0.8</priority></url>
-  <url><loc>https://aitdl.com/services</loc><priority>0.8</priority></url>
-  <url><loc>https://aitdl.com/portfolio</loc><priority>0.8</priority></url>
-  <url><loc>https://aitdl.com/blog</loc><priority>0.8</priority></url>
-  <url><loc>https://aitdl.com/contact</loc><priority>0.8</priority></url>
-  <url><loc>https://aitdl.com/gorakhpur</loc><priority>0.9</priority></url>
-  <url><loc>https://aitdl.com/dashboard</loc><priority>0.5</priority></url>
-  <url><loc>https://aitdl.com/login</loc><priority>0.5</priority></url>
-  <url><loc>https://aitdl.com/privacy</loc><priority>0.3</priority></url>
-  <url><loc>https://aitdl.com/terms</loc><priority>0.3</priority></url>
+  <url><loc>https://aitdl.in/</loc><priority>1.0</priority></url>
+  <url><loc>https://aitdl.in/about</loc><priority>0.8</priority></url>
+  <url><loc>https://aitdl.in/founders</loc><priority>0.9</priority></url>
+  <url><loc>https://aitdl.in/services</loc><priority>0.8</priority></url>
+  <url><loc>https://aitdl.in/portfolio</loc><priority>0.8</priority></url>
+  <url><loc>https://aitdl.in/blog</loc><priority>0.8</priority></url>
+  <url><loc>https://aitdl.in/contact</loc><priority>0.8</priority></url>
+  <url><loc>https://aitdl.in/gorakhpur</loc><priority>0.9</priority></url>
+  <url><loc>https://aitdl.in/dashboard</loc><priority>0.5</priority></url>
+  <url><loc>https://aitdl.in/login</loc><priority>0.5</priority></url>
+  <url><loc>https://aitdl.in/privacy</loc><priority>0.3</priority></url>
+  <url><loc>https://aitdl.in/terms</loc><priority>0.3</priority></url>
 
   <!-- Tools -->
-  <url><loc>https://aitdl.com/tools/roi-calculator</loc><priority>0.9</priority></url>
-  <url><loc>https://aitdl.com/tools/attendance-calculator</loc><priority>0.9</priority></url>
+  <url><loc>https://aitdl.in/tools/roi-calculator</loc><priority>0.9</priority></url>
+  <url><loc>https://aitdl.in/tools/attendance-calculator</loc><priority>0.9</priority></url>
 
   <!-- Services Dynamic Slugs -->
-  <url><loc>https://aitdl.com/services/edtech-ecosystems</loc><priority>0.8</priority></url>
-  <url><loc>https://aitdl.com/services/academic-automation</loc><priority>0.8</priority></url>
-  <url><loc>https://aitdl.com/services/pos-retail</loc><priority>0.8</priority></url>
-  <url><loc>https://aitdl.com/services/clinic-management</loc><priority>0.8</priority></url>
-  <url><loc>https://aitdl.com/services/gym-management</loc><priority>0.8</priority></url>
-  <url><loc>https://aitdl.com/services/real-estate</loc><priority>0.8</priority></url>
-  <url><loc>https://aitdl.com/services/ngo-frameworks</loc><priority>0.8</priority></url>
-  <url><loc>https://aitdl.com/services/custom-saas</loc><priority>0.8</priority></url>
-  <url><loc>https://aitdl.com/services/secure-infrastructure</loc><priority>0.8</priority></url>
-  <url><loc>https://aitdl.com/services/deep-learning</loc><priority>0.8</priority></url>
+  <url><loc>https://aitdl.in/services/edtech-ecosystems</loc><priority>0.8</priority></url>
+  <url><loc>https://aitdl.in/services/academic-automation</loc><priority>0.8</priority></url>
+  <url><loc>https://aitdl.in/services/pos-retail</loc><priority>0.8</priority></url>
+  <url><loc>https://aitdl.in/services/clinic-management</loc><priority>0.8</priority></url>
+  <url><loc>https://aitdl.in/services/gym-management</loc><priority>0.8</priority></url>
+  <url><loc>https://aitdl.in/services/real-estate</loc><priority>0.8</priority></url>
+  <url><loc>https://aitdl.in/services/ngo-frameworks</loc><priority>0.8</priority></url>
+  <url><loc>https://aitdl.in/services/custom-saas</loc><priority>0.8</priority></url>
+  <url><loc>https://aitdl.in/services/secure-infrastructure</loc><priority>0.8</priority></url>
+  <url><loc>https://aitdl.in/services/deep-learning</loc><priority>0.8</priority></url>
 
   <!-- Blog Dynamic Slugs -->
-  <url><loc>https://aitdl.com/blog/choosing-lms-coaching-up</loc><priority>0.8</priority></url>
-  <url><loc>https://aitdl.com/blog/gst-pos-retail-checklist</loc><priority>0.8</priority></url>
-  <url><loc>https://aitdl.com/blog/sovereign-ai-enterprise-security</loc><priority>0.8</priority></url>
+  <url><loc>https://aitdl.in/blog/choosing-lms-coaching-up</loc><priority>0.8</priority></url>
+  <url><loc>https://aitdl.in/blog/gst-pos-retail-checklist</loc><priority>0.8</priority></url>
+  <url><loc>https://aitdl.in/blog/sovereign-ai-enterprise-security</loc><priority>0.8</priority></url>
 
   <!-- Portfolio Dynamic Slugs -->
-  <url><loc>https://aitdl.com/portfolio/crm-dashboard</loc><priority>0.8</priority></url>
-  <url><loc>https://aitdl.com/portfolio/ai-chatbot</loc><priority>0.8</priority></url>
-  <url><loc>https://aitdl.com/portfolio/business-website</loc><priority>0.8</priority></url>
+  <url><loc>https://aitdl.in/portfolio/crm-dashboard</loc><priority>0.8</priority></url>
+  <url><loc>https://aitdl.in/portfolio/ai-chatbot</loc><priority>0.8</priority></url>
+  <url><loc>https://aitdl.in/portfolio/business-website</loc><priority>0.8</priority></url>
 </urlset>
+
