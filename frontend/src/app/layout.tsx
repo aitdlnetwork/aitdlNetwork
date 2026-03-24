@@ -22,6 +22,7 @@ import Footer from '@/components/Footer';
 import { generateSEO } from '@/lib/seo/seo';
 import Script from 'next/script';
 import { I18nProvider } from '@/lib/i18n/I18nContext';
+import { AccessibilityProvider } from '@/lib/accessibility/AccessibilityContext';
 
 export const metadata: Metadata = generateSEO({});
 
@@ -67,20 +68,22 @@ export default function RootLayout({
           ></iframe>
         </noscript>
         <div className="min-h-screen flex flex-col relative overflow-x-hidden pt-[72px]">
-          <I18nProvider>
-            {/* Ambient Space Glow - Background */}
-            <div className="fixed inset-0 pointer-events-none z-0">
-              <div className="absolute top-0 right-1/4 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[120px] hidden md:block"></div>
-              <div className="absolute bottom-0 left-1/4 w-[500px] h-[500px] bg-[#10B981]/5 rounded-full blur-[100px] hidden md:block"></div>
-              <div className="absolute hidden md:block inset-0 bg-hero-glow"></div>
-            </div>
-            
-            <Header />
-            <main className="flex-1 w-full z-10 relative">
-              {children}
-            </main>
-            <Footer />
-          </I18nProvider>
+          <AccessibilityProvider>
+            <I18nProvider>
+              {/* Ambient Space Glow - Background */}
+              <div className="fixed inset-0 pointer-events-none z-0">
+                <div className="absolute top-0 right-1/4 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[120px] hidden md:block"></div>
+                <div className="absolute bottom-0 left-1/4 w-[500px] h-[500px] bg-[#10B981]/5 rounded-full blur-[100px] hidden md:block"></div>
+                <div className="absolute hidden md:block inset-0 bg-hero-glow"></div>
+              </div>
+              
+              <Header />
+              <main className="flex-1 w-full z-10 relative">
+                {children}
+              </main>
+              <Footer />
+            </I18nProvider>
+          </AccessibilityProvider>
 
           {/* Runtime Watermarks & Fingerprinting scripts */}
           <script dangerouslySetInnerHTML={{

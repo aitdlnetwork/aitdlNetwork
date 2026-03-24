@@ -19,11 +19,13 @@ Copyright © AITDL Network 2026 | Vikram Samvat 2083
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { useI18n, Language } from '@/lib/i18n/I18nContext';
+import { useAccessibility } from '@/lib/accessibility/AccessibilityContext';
 
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isLangOpen, setIsLangOpen] = useState(false);
   const { language, setLanguage } = useI18n();
+  const { fontSize, setFontSize } = useAccessibility();
 
   const langLabels: Record<Language, { label: string; flag: string }> = {
     en: { label: "EN", flag: "🇬🇧" },
@@ -51,6 +53,13 @@ export default function Header() {
           <Link href="/about" className="text-xs font-medium text-text-muted hover:text-primary transition-colors">About</Link>
           <Link href="/login" className="text-xs font-medium text-text-muted hover:text-primary transition-colors">Portal</Link>
           <Link href="/contact" className="text-xs font-medium text-text-muted hover:text-primary transition-colors">Contact</Link>
+
+          {/* Font Sizer */}
+          <div className="flex items-center gap-1 bg-white/5 border border-white/10 rounded-lg p-0.5">
+            <button onClick={() => setFontSize('sm')} className={`px-2 py-1 rounded-md text-[10px] font-bold transition-all ${fontSize === 'sm' ? 'bg-primary text-background-dark' : 'text-slate-400 hover:text-white hover:bg-white/5'}`}>A-</button>
+            <button onClick={() => setFontSize('md')} className={`px-2 py-1 rounded-md text-[11px] font-bold transition-all ${fontSize === 'md' ? 'bg-primary text-background-dark' : 'text-slate-400 hover:text-white hover:bg-white/5'}`}>A</button>
+            <button onClick={() => setFontSize('lg')} className={`px-2 py-1 rounded-md text-[12px] font-bold transition-all ${fontSize === 'lg' ? 'bg-primary text-background-dark' : 'text-slate-400 hover:text-white hover:bg-white/5'}`}>A+</button>
+          </div>
 
           {/* Lang Switcher */}
           <div className="relative">
@@ -88,6 +97,16 @@ export default function Header() {
       {/* Mobile Menu Dropdown */}
       {isMobileMenuOpen && (
         <div className="md:hidden absolute top-[72px] left-0 right-0 glass-nav border-t border-white/5 py-4 px-6 flex flex-col gap-4 shadow-xl">
+          {/* Mobile Accessibility Switcher */}
+          <div className="flex items-center justify-between gap-4 border-t border-white/5 pt-4 mt-1">
+            <span className="text-xs text-slate-400 font-medium">Text Size</span>
+            <div className="flex items-center gap-1 bg-white/5 border border-white/10 rounded-lg p-0.5">
+              <button onClick={() => { setFontSize('sm'); setIsMobileMenuOpen(false); }} className={`px-3 py-1 rounded-md text-[11px] font-bold transition-all ${fontSize === 'sm' ? 'bg-primary text-background-dark' : 'text-slate-400'}`}>A-</button>
+              <button onClick={() => { setFontSize('md'); setIsMobileMenuOpen(false); }} className={`px-3 py-1 rounded-md text-[12px] font-bold transition-all ${fontSize === 'md' ? 'bg-primary text-background-dark' : 'text-slate-400'}`}>A</button>
+              <button onClick={() => { setFontSize('lg'); setIsMobileMenuOpen(false); }} className={`px-3 py-1 rounded-md text-[14px] font-bold transition-all ${fontSize === 'lg' ? 'bg-primary text-background-dark' : 'text-slate-400'}`}>A+</button>
+            </div>
+          </div>
+
           {/* Mobile Lang Switcher */}
           <div className="flex items-center gap-2 border-t border-white/5 pt-4 mt-2">
             {(Object.keys(langLabels) as Language[]).map((lang) => (
