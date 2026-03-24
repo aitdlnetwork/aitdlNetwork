@@ -29,10 +29,17 @@ import Link from 'next/link';
 import { useI18n } from '@/lib/i18n/I18nContext';
 
 export default function Footer() {
-  const { t } = useI18n();
+  const { t, language } = useI18n();
   const currentYear = new Date().getFullYear();
 
+  const t_local = (en: string, hi: string, sa: string) => {
+    if (language === 'hi') return hi;
+    if (language === 'sa') return sa;
+    return en;
+  };
+
   return (
+
     <footer className="w-full border-t border-white/5 mt-auto pt-16 pb-8 px-6 glass-nav border-b-0 border-l-0 border-r-0 rounded-none shadow-none bg-opacity-30 relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-t from-background-dark/80 to-transparent pointer-events-none"></div>
 
@@ -78,8 +85,10 @@ export default function Footer() {
           <span className="text-white font-display font-semibold text-sm tracking-wide">{t('footer_col_corporate')}</span>
           <ul className="flex flex-col gap-2.5 text-xs text-slate-400 font-body">
             <li><Link href="/about" className="hover:text-primary transition-colors">{t('footer_link_mission')}</Link></li>
+            <li><Link href="/founders" className="hover:text-primary transition-colors">{t_local('Founders', 'हमारे संस्थापक', 'अस्माकं संस्थापकाः')}</Link></li>
             <li><Link href="/blog" className="hover:text-primary transition-colors">{t('footer_link_knowledge')}</Link></li>
             <li><Link href="/gorakhpur" className="hover:text-primary transition-colors">{t('footer_link_gorakhpur')}</Link></li>
+
             <li><Link href="/tools/roi-calculator" className="hover:text-primary transition-colors">{t('footer_link_fee')}</Link></li>
             <li><Link href="/tools/attendance-calculator" className="hover:text-primary transition-colors">{t('footer_link_attendance')}</Link></li>
             <li><Link href="/portfolio" className="hover:text-primary transition-colors">{t('footer_link_portfolio')}</Link></li>
