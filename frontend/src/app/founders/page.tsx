@@ -80,9 +80,48 @@ export default function Founders() {
     return en;
   };
 
+  const schemaData = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Person",
+        "name": "Pushpa Devi",
+        "jobTitle": "Co-Founder & Director of Operations",
+        "image": "https://www.aitdl.com/images/avatar_pushpadevi.png",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "AITDL Network",
+          "url": "https://www.aitdl.com"
+        },
+        "telephone": "+91-9324117007",
+        "url": "https://www.aitdl.com/founders"
+      },
+      {
+        "@type": "Person",
+        "name": "Jawahar R Mallah",
+        "jobTitle": "Founder & Lead Architect",
+        "image": "https://www.aitdl.com/images/avatar_jrm.png",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "AITDL Network",
+          "url": "https://www.aitdl.com"
+        },
+        "url": "https://www.aitdl.com/founders"
+      }
+    ]
+  };
+
+
   return (
     <div className="flex-1 w-full max-w-[1200px] mx-auto px-6 py-12 flex flex-col justify-center z-10 relative animate-fade-in">
+      {/* Structured Data for SEO */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }}
+      />
+      
       <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-primary/5 pointer-events-none"></div>
+
 
       {/* Header */}
       <div className="text-center mb-16 flex flex-col items-center">
