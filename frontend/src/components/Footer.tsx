@@ -15,10 +15,14 @@ Copyright © AITDL Network 2026 | Vikram Samvat 2083
 // AITDL Network © 2026 | Vikram Samvat 2083
 // Designed & Architected by JRM
 
+"use client";
+
 import React from 'react';
 import Link from 'next/link';
+import { useI18n } from '@/lib/i18n/I18nContext';
 
 export default function Footer() {
+  const { t } = useI18n();
   const currentYear = new Date().getFullYear();
 
   return (
@@ -37,43 +41,41 @@ export default function Footer() {
             <span className="text-sm">AITDL NETWORK</span>
           </div>
           <p className="text-slate-400 text-xs leading-relaxed max-w-xs font-body">
-            Architecting intelligent sovereign infrastructures and secure deep learning pipelines for enterprise scalability.
+            {t('footer_tagline')}
           </p>
-          {/* Social Links placeholder removed for production readiness */}
         </div>
 
         {/* Column 2: Core Services */}
         <div className="flex flex-col gap-4">
-          <span className="text-white font-display font-semibold text-sm tracking-wide">Core Services</span>
+          <span className="text-white font-display font-semibold text-sm tracking-wide">{t('footer_col_services')}</span>
           <ul className="flex flex-col gap-2.5 text-xs text-slate-400 font-body">
-            <li><Link href="/services/edtech-ecosystems" className="hover:text-primary transition-colors">AI & ML Pipelines</Link></li>
-            <li><Link href="/services/academic-automation" className="hover:text-primary transition-colors">Enterprise Systems</Link></li>
-            <li><Link href="/services/pos-retail" className="hover:text-primary transition-colors">Cloud Solutions</Link></li>
-            <li><Link href="/services" className="text-primary hover:underline flex items-center gap-1">View All <span className="material-symbols-outlined text-[12px]">east</span></Link></li>
+            <li><Link href="/services/edtech-ecosystems" className="hover:text-primary transition-colors">{t('footer_link_aiml')}</Link></li>
+            <li><Link href="/services/academic-automation" className="hover:text-primary transition-colors">{t('footer_link_enterprise')}</Link></li>
+            <li><Link href="/services/pos-retail" className="hover:text-primary transition-colors">{t('footer_link_cloud')}</Link></li>
+            <li><Link href="/services" className="text-primary hover:underline flex items-center gap-1">{t('footer_link_viewall')} <span className="material-symbols-outlined text-[12px]">east</span></Link></li>
           </ul>
         </div>
 
         {/* Column 3: Client Office */}
         <div className="flex flex-col gap-4">
-          <span className="text-white font-display font-semibold text-sm tracking-wide">Client Office</span>
+          <span className="text-white font-display font-semibold text-sm tracking-wide">{t('footer_col_office')}</span>
           <ul className="flex flex-col gap-2.5 text-xs text-slate-400 font-body">
-            <li><Link href="/login" className="hover:text-primary transition-colors">Sovereign Login</Link></li>
-            <li><Link href="/dashboard" className="hover:text-primary transition-colors">Analytics Workspace</Link></li>
-            <li><Link href="/contact" className="hover:text-primary transition-colors">Request Support</Link></li>
+            <li><Link href="/login" className="hover:text-primary transition-colors">{t('footer_link_login')}</Link></li>
+            <li><Link href="/dashboard" className="hover:text-primary transition-colors">{t('footer_link_analytics')}</Link></li>
+            <li><Link href="/contact" className="hover:text-primary transition-colors">{t('footer_link_support')}</Link></li>
           </ul>
         </div>
 
         {/* Column 4: Corporate */}
         <div className="flex flex-col gap-4">
-          <span className="text-white font-display font-semibold text-sm tracking-wide">Corporate</span>
+          <span className="text-white font-display font-semibold text-sm tracking-wide">{t('footer_col_corporate')}</span>
           <ul className="flex flex-col gap-2.5 text-xs text-slate-400 font-body">
-            <li><Link href="/about" className="hover:text-primary transition-colors">Our Mission</Link></li>
-            <li><Link href="/blog" className="hover:text-primary transition-colors">Knowledge Base</Link></li>
-            <li><Link href="/gorakhpur" className="hover:text-primary transition-colors">Gorakhpur Node</Link></li>
-            <li><Link href="/tools/roi-calculator" className="hover:text-primary transition-colors">Fee Calculator</Link></li>
-            <li><Link href="/tools/attendance-calculator" className="hover:text-primary transition-colors">Attendance Tool</Link></li>
-            <li><Link href="/portfolio" className="hover:text-primary transition-colors">Deployments</Link></li>
-            <li><Link href="/contact" className="hover:text-primary transition-colors">Secure Contact</Link></li>
+            <li><Link href="/about" className="hover:text-primary transition-colors">{t('footer_link_mission')}</Link></li>
+            <li><Link href="/blog" className="hover:text-primary transition-colors">{t('footer_link_knowledge')}</Link></li>
+            <li><Link href="/gorakhpur" className="hover:text-primary transition-colors">{t('footer_link_gorakhpur')}</Link></li>
+            <li><Link href="/tools/roi-calculator" className="hover:text-primary transition-colors">{t('footer_link_fee')}</Link></li>
+            <li><Link href="/tools/attendance-calculator" className="hover:text-primary transition-colors">{t('footer_link_attendance')}</Link></li>
+            <li><Link href="/portfolio" className="hover:text-primary transition-colors">{t('footer_link_portfolio')}</Link></li>
           </ul>
         </div>
       </div>

@@ -81,22 +81,22 @@ export default function Home() {
         <div className="max-w-[1200px] mx-auto flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
           <div className="flex flex-col gap-1">
             <span className="text-primary font-display font-black text-2xl tracking-tight">10,000+</span>
-            <span className="text-slate-500 text-[10px] font-body tracking-wider uppercase">Students Managed</span>
+            <span className="text-slate-500 text-[10px] font-body tracking-wider uppercase">{t('stat_students')}</span>
           </div>
           <div className="h-8 w-px bg-white/5 hidden md:block"></div>
           <div className="flex flex-col gap-1">
             <span className="text-primary font-display font-black text-2xl tracking-tight">50+</span>
-            <span className="text-slate-500 text-[10px] font-body tracking-wider uppercase">Live Systems Deployed</span>
+            <span className="text-slate-500 text-[10px] font-body tracking-wider uppercase">{t('stat_systems')}</span>
           </div>
           <div className="h-8 w-px bg-white/5 hidden md:block"></div>
           <div className="flex flex-col gap-1">
             <span className="text-primary font-display font-black text-2xl tracking-tight">99.9%</span>
-            <span className="text-slate-500 text-[10px] font-body tracking-wider uppercase">Uptime Performance</span>
+            <span className="text-slate-500 text-[10px] font-body tracking-wider uppercase">{t('stat_uptime')}</span>
           </div>
           <div className="h-8 w-px bg-white/5 hidden md:block"></div>
           <div className="flex flex-col md:flex-row items-center gap-3">
             <div className="text-slate-400 text-[10px] font-display font-semibold tracking-wider uppercase">
-              Trusted in
+              {t('stat_trusted_in')}
             </div>
             <div className="flex items-center gap-1 text-slate-300 font-bold text-xs font-sans flex-wrap justify-center md:justify-start">
               <span className="px-2 py-0.5 rounded bg-white/5 border border-white/10">Mumbai</span>
@@ -112,19 +112,19 @@ export default function Home() {
       <section className="relative z-10 py-24 px-6 bg-background-dark/50" id="services">
         <div className="max-w-[1200px] mx-auto">
           <div className="text-center mb-16">
-            <h2 className="font-display font-bold text-3xl md:text-4xl mb-4">Who We Serve</h2>
+            <h2 className="font-display font-bold text-3xl md:text-4xl mb-4">{t('serve_title')}</h2>
             <div className="h-1 w-20 bg-primary mx-auto rounded-full"></div>
           </div>
           <div className="flex flex-wrap justify-center gap-6">
             {[
-              { icon: 'school', title: 'Coaching Institutes', desc: 'Streamline student management and fee tracking with our specialized tools.' },
-              { icon: 'account_balance', title: 'Schools & Training', desc: 'Modern LMS and digital infrastructure designed for enterprise-level learning.' },
-              { icon: 'shopping_cart', title: 'Retail & Businesses', desc: 'Fast POS and automated billing systems to handle high-volume sales seamlessly.' },
-              { icon: 'fitness_center', title: 'Gym & Fitness', desc: 'Membership management and automated alerts for your fitness community.' },
-              { icon: 'terrain', title: 'Hiking & Trekking', desc: 'Booking management, equipment tracking, and safety alerts for outdoor adventure operators.' },
-              { icon: 'real_estate_agent', title: 'Real Estate & Property', desc: 'Tenant portals, lease automation, and ticketing frameworks for modern building managers.' },
-              { icon: 'diversity_3', title: 'NGOs & Societies', desc: 'Donor management, fundraising tracking, and member-portals for non-profits and housing societies.' },
-              { icon: 'psychology', title: 'Adaptive AI Learning', desc: 'Personalized study paths, smart quizzes, and teacher self-evaluation portals for student self-learning.' }
+              { icon: 'school', title: t('serve_coaching'), desc: t('serve_coaching_desc') },
+              { icon: 'account_balance', title: t('serve_schools'), desc: t('serve_schools_desc') },
+              { icon: 'shopping_cart', title: t('serve_retail'), desc: t('serve_retail_desc') },
+              { icon: 'fitness_center', title: t('serve_gym'), desc: t('serve_gym_desc') },
+              { icon: 'terrain', title: t('serve_hiking'), desc: t('serve_hiking_desc') },
+              { icon: 'real_estate_agent', title: t('serve_realestate'), desc: t('serve_realestate_desc') },
+              { icon: 'diversity_3', title: t('serve_ngo'), desc: t('serve_ngo_desc') },
+              { icon: 'psychology', title: t('serve_ai'), desc: t('serve_ai_desc') }
             ].map((item, index) => (
               <div key={index} className="glass-card p-8 rounded-xl flex flex-col items-start gap-4 transition-all hover:border-primary/50 hover:-translate-y-1 w-full md:w-[calc(50%-12px)] lg:w-[calc(33.33%-16px)]">
                 <div className="size-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
@@ -137,7 +137,7 @@ export default function Home() {
           </div>
           <div className="mt-16 text-center">
             <Link href="/contact" className="btn-primary inline-flex items-center justify-center h-14 px-10 rounded-lg bg-primary text-background-dark font-display font-semibold text-[16px]">
-              Get Free Demo
+              {t('cta_free_demo')}
             </Link>
           </div>
         </div>
