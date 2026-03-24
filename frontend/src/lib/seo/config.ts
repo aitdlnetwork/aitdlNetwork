@@ -3,13 +3,14 @@
 
 export const SEO_CONFIG = {
   siteName: "AITDL Network",
-  siteUrl: "https://aitdl.com",
+  siteUrl: "https://aitdl.in",
   title: "AITDL Network – Smart Software for Education & Business Growth",
   description:
     "AITDL Network builds custom LMS, POS, Clinic Management, NGO systems, and AI-powered solutions for Indian businesses and institutions.",
   author: "Jawahar R Mallah",
   twitterHandle: "@aitdlnetwork",
-  ogImage: "https://aitdl.com/og-image.png",
+  ogImage: "https://aitdl.in/og-image.png",
+
   keywords: [
     "LMS software India",
     "education management system",

@@ -3,4 +3,4 @@ Allow: /
 Disallow: /dashboard
 Disallow: /login
 
-Sitemap: https://aitdl.com/sitemap.xml
+Sitemap: https://aitdl.in/sitemap.xml
