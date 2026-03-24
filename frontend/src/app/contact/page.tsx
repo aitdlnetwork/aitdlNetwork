@@ -30,7 +30,7 @@ export default function Contact() {
 
     // Dynamic WhatsApp Pre-fill Link forwarding for static setup
     const message = `Hi AITDL Network,%0A%0AI would like to request a demo.%0A*Name:* ${formData.name}%0A*Email:* ${formData.email}%0A*Message:* ${formData.project}`;
-    const whatsappUrl = `https://wa.me/919876543210?text=${message}`; // Replace with actual company number
+    const whatsappUrl = `https://wa.me/919323023007?text=${message}`;
 
     setTimeout(() => {
       setIsSubmitting(false);
@@ -55,17 +55,30 @@ export default function Contact() {
             </p>
           </div>
           <div className="flex flex-col gap-4">
-            <a className="w-full rounded-xl p-6 flex items-center justify-between bg-[#00FF9D]/10 border border-[#00FF9D]/30 transition-all hover:bg-[#00FF9D]/20 group relative overflow-hidden" href="https://wa.me/919876543210" target="_blank" rel="noreferrer">
+            <a className="w-full rounded-xl p-6 flex items-center justify-between bg-[#00FF9D]/10 border border-[#00FF9D]/30 transition-all hover:bg-[#00FF9D]/20 group relative overflow-hidden" href="https://wa.me/919323023007" target="_blank" rel="noreferrer">
               <div className="flex items-center gap-4 relative z-10">
                 <div className="w-14 h-14 rounded-lg bg-[#00FF9D] flex items-center justify-center text-black shadow-lg">
                   <span className="material-symbols-outlined scale-125">chat</span>
                 </div>
                 <div className="text-left">
-                  <h2 className="text-[#00FF9D] text-xl font-bold leading-tight">Chat on WhatsApp</h2>
-                  <p className="text-slate-200 text-sm font-body font-medium">Immediate response • +91 98765 43210</p>
+                  <h2 className="text-[#00FF9D] text-xl font-bold leading-tight">Primary Support</h2>
+                  <p className="text-slate-200 text-sm font-body font-medium">Immediate response • +91 93230 23007</p>
                 </div>
               </div>
               <span className="material-symbols-outlined text-[#00FF9D] group-hover:translate-x-2 transition-transform relative z-10 text-3xl">arrow_forward</span>
+            </a>
+
+            <a className="w-full rounded-xl p-6 flex items-center justify-between bg-primary/10 border border-primary/30 transition-all hover:bg-primary/20 group relative overflow-hidden" href="https://wa.me/919324117007" target="_blank" rel="noreferrer">
+              <div className="flex items-center gap-4 relative z-10">
+                <div className="w-14 h-14 rounded-lg bg-primary/20 flex items-center justify-center text-primary shadow-lg">
+                  <span className="material-symbols-outlined scale-125">chat</span>
+                </div>
+                <div className="text-left">
+                  <h2 className="text-primary text-xl font-bold leading-tight">Chat with Pushpa</h2>
+                  <p className="text-slate-200 text-sm font-body font-medium">Secondary Support • +91 93241 17007</p>
+                </div>
+              </div>
+              <span className="material-symbols-outlined text-primary group-hover:translate-x-2 transition-transform relative z-10 text-3xl">arrow_forward</span>
             </a>
             
             <div className="glass-card rounded-xl p-6 flex items-center gap-4 transition-all hover:border-primary/50 group">
