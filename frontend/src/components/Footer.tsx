@@ -78,6 +78,23 @@ export default function Footer() {
         </div>
       </div>
 
+      {/* Secure Payment Badges */}
+      <div className="w-full max-w-[1200px] mx-auto mb-6 flex flex-col md:flex-row items-center justify-between gap-4 border-t border-white/5 pt-6">
+        <div className="flex items-center gap-2 text-slate-500 font-display text-[10px] tracking-widest">
+          <span>SECURE TRANSACTIONS</span>
+          <div className="flex items-center gap-1.5 ml-2">
+            <span className="px-2 py-0.5 rounded bg-primary/10 border border-primary/30 text-primary font-display font-extrabold text-[11px] shadow-sm">UPI</span>
+            <span className="px-2 py-0.5 rounded bg-slate-800/80 border border-slate-700/50 text-slate-300 font-sans font-extrabold text-[11px]">RuPay</span>
+            <span className="px-2 py-0.5 rounded bg-slate-800/80 border border-slate-700/50 text-slate-300 font-sans font-extrabold text-[11px]">VISA</span>
+            <span className="px-2 py-0.5 rounded bg-slate-800/80 border border-slate-700/50 text-slate-300 font-sans font-extrabold text-[11px]">MASTER</span>
+          </div>
+        </div>
+        <div className="text-[10px] text-slate-500 font-body flex items-center gap-1">
+          <span className="material-symbols-outlined text-xs text-primary">lock</span>
+          256-Bit Encrypted Secure Server Gateway
+        </div>
+      </div>
+
       {/* Bottom Copyright Bar */}
       <div className="w-full max-w-[1200px] mx-auto border-t border-white/5 pt-6 flex flex-col md:flex-row items-center justify-between gap-4 text-[11px] font-body text-slate-500">
         <div className="text-center md:text-left leading-relaxed">

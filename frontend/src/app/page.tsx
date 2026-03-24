@@ -80,6 +80,37 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Trusted By Banner / Stats */}
+      <section className="border-y border-white/5 bg-background-dark/20 py-8 px-6 relative z-10">
+        <div className="max-w-[1200px] mx-auto flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
+          <div className="flex flex-col gap-1">
+            <span className="text-primary font-display font-black text-2xl tracking-tight">10,000+</span>
+            <span className="text-slate-500 text-[10px] font-body tracking-wider uppercase">Students Managed</span>
+          </div>
+          <div className="h-8 w-px bg-white/5 hidden md:block"></div>
+          <div className="flex flex-col gap-1">
+            <span className="text-primary font-display font-black text-2xl tracking-tight">50+</span>
+            <span className="text-slate-500 text-[10px] font-body tracking-wider uppercase">Live Systems Deployed</span>
+          </div>
+          <div className="h-8 w-px bg-white/5 hidden md:block"></div>
+          <div className="flex flex-col gap-1">
+            <span className="text-primary font-display font-black text-2xl tracking-tight">99.9%</span>
+            <span className="text-slate-500 text-[10px] font-body tracking-wider uppercase">Uptime Performance</span>
+          </div>
+          <div className="h-8 w-px bg-white/5 hidden md:block"></div>
+          <div className="flex flex-col md:flex-row items-center gap-3">
+            <div className="text-slate-400 text-[10px] font-display font-semibold tracking-wider uppercase">
+              Trusted in
+            </div>
+            <div className="flex items-center gap-1 text-slate-300 font-bold text-xs font-sans">
+              <span className="px-2 py-0.5 rounded bg-white/5 border border-white/10">Mumbai</span>
+              <span className="px-2 py-0.5 rounded bg-white/5 border border-white/10">Pune</span>
+              <span className="px-2 py-0.5 rounded bg-white/5 border border-white/10">Tier-2 Hubs</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Who We Serve Section */}
       <section className="relative z-10 py-24 px-6 bg-background-dark/50" id="services">
         <div className="max-w-[1200px] mx-auto">
