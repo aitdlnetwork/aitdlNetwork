@@ -42,7 +42,7 @@ export default function Header() {
           <Link href="/about" className="text-sm font-medium text-text-muted hover:text-primary transition-colors">About</Link>
           <Link href="/login" className="text-sm font-medium text-text-muted hover:text-primary transition-colors">Client Portal</Link>
           <Link href="/contact" className="text-sm font-medium text-text-muted hover:text-primary transition-colors">Contact</Link>
-          <Link href="/contact" className="btn-primary flex items-center justify-center h-10 px-5 rounded-lg bg-primary text-background-dark font-display font-semibold text-[14px]">Get Free Demo</Link>
+          <Link href="/demo" className="btn-primary flex items-center justify-center h-10 px-5 rounded-lg bg-primary text-background-dark font-display font-semibold text-[14px]">Get Free Demo</Link>
         </div>
         
         {/* Mobile Menu Toggle */}
@@ -64,7 +64,7 @@ export default function Header() {
           <Link href="/about" onClick={() => setIsMobileMenuOpen(false)} className="text-base font-medium text-text-primary py-2">About</Link>
           <Link href="/login" onClick={() => setIsMobileMenuOpen(false)} className="text-base font-medium text-text-primary py-2">Client Portal</Link>
           <Link href="/contact" onClick={() => setIsMobileMenuOpen(false)} className="text-base font-medium text-text-primary py-2">Contact</Link>
-          <Link href="/contact" onClick={() => setIsMobileMenuOpen(false)} className="btn-primary flex items-center justify-center h-12 w-full rounded-lg bg-primary text-background-dark font-display font-semibold text-[15px] mt-2">Get Free Demo</Link>
+          <Link href="/demo" onClick={() => setIsMobileMenuOpen(false)} className="btn-primary flex items-center justify-center h-12 w-full rounded-lg bg-primary text-background-dark font-display font-semibold text-[15px] mt-2">Get Free Demo</Link>
         </div>
       )}
     </nav>
