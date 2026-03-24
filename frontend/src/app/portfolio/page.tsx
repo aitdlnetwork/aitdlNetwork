@@ -9,19 +9,19 @@ export default function Portfolio() {
     {
       title: "CRM Dashboard",
       category: "React / Node",
-      image: "https://lh3.googleusercontent.com/aida-public/AB6AXuCw2m2_Pkj6zhWdWc6XJi3XWk-nHBOQ90DYAZHbW1LUKIzrPgS3O8wJPKoKZfd2WtZ0lsnNdz1CfqrLG-zCnBqT5353hOHPxXCwBe0LNS-CYXE27bkEBj7NHEozdCRO4l6XTlKW6mLpmtzOr_xBlpZuAWvab93CPXgmDCJMZLbqkbCloyL0I7oeepm2G0lJdqG49aTx7zPwVg-d6WlZ1JvrnHMzwqwG7_hu2nfWS8PyWPgyZ84g4UBWUIu29fSewr07Slj5oq9fIemb",
+      image: "/images/portfolio_crm.png",
       slug: "crm-dashboard"
     },
     {
       title: "AI Chatbot System",
       category: "OpenAI / Python",
-      image: "https://lh3.googleusercontent.com/aida-public/AB6AXuBXyJyeiGllX44WNldXAVq28fK6EYB7uPocRxQanCwMTYzSz52Z7shCTQiVKc2OR14v4iGL6KrYQwn2ele-RR7vIThkKkYLpa-IY99GohqPf48-ytm4uOO1idNF2a7pqJyBkGo7StMCkFF8KpG2WEhdSEouq5iWynEwYZZbd_ys2PPaivaBYqTUfS2JmUe9l1AgudgCwc1SXyhkpDw-B9RnTRe05xP95jYpze2VHRiSM2tsYDfXQNypof24Y93tUPhN6ASCJcVjImLO",
+      image: "/images/portfolio_chatbot.png",
       slug: "ai-chatbot"
     },
     {
       title: "Business Website",
       category: "Next.js / Tailwind",
-      image: "https://lh3.googleusercontent.com/aida-public/AB6AXuCDzgZo0MA17uNkR0SuzziuBW7ZbA2X0mzm3hz34EL4lTMMhYg_xx7KkmBO0XHIniYcC7uDs96S2s7cWQmCr8wq7qQ6baiYUXEO7bNFiWS8IdSF7XyLUAdQExxf0W3_MlPjr3HvBQZxrYnAI_SfNzlkdErInzaihW1F2cuXASC_bchQ2C0dAtZfRLzOBFD2_pKdwdrkNX1qi2Treqz2vOPf5jnsQYL-QdRI2rUBhE_AWA5R4daAfv-SnhtMMHeAijmEosvU5whmx1Vc",
+      image: "/images/portfolio_business.png",
       slug: "business-website"
     }
   ];

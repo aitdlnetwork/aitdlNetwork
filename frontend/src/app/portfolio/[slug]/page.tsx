@@ -23,7 +23,7 @@ const projectData: Record<string, {
     challenge: "Managing sales pipelines with legacy tools led to high lead leakage and delayed response times for representatives.",
     solution: "We designed a unified dashboard utilizing WebSockets for live feed updates, modular reporting structures, and automated follow-up triggers.",
     tags: ["React", "Node.js", "WebSockets", "Material UI"],
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuCw2m2_Pkj6zhWdWc6XJi3XWk-nHBOQ90DYAZHbW1LUKIzrPgS3O8wJPKoKZfd2WtZ0lsnNdz1CfqrLG-zCnBqT5353hOHPxXCwBe0LNS-CYXE27bkEBj7NHEozdCRO4l6XTlKW6mLpmtzOr_xBlpZuAWvab93CPXgmDCJMZLbqkbCloyL0I7oeepm2G0lJdqG49aTx7zPwVg-d6WlZ1JvrnHMzwqwG7_hu2nfWS8PyWPgyZ84g4UBWUIu29fSewr07Slj5oq9fIemb",
+    image: "/images/portfolio_crm.png",
     results: [
       "No more lead leakages on support desk triggers",
       "Response times dropped from 24h setup to 1h average",
@@ -42,7 +42,7 @@ const projectData: Record<string, {
     challenge: "Handling 10,000+ support tickets monthly with manually managed support desks creates unsustainable overhead costs.",
     solution: "Leveraged OpenAI LLM sets coupled with Pinecone vector DB queries for addressing domain-matched company document context reads fully automated.",
     tags: ["Python", "LangChain", "OpenAI", "Pinecone"],
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuBXyJyeiGllX44WNldXAVq28fK6EYB7uPocRxQanCwMTYzSz52Z7shCTQiVKc2OR14v4iGL6KrYQwn2ele-RR7vIThkKkYLpa-IY99GohqPf48-ytm4uOO1idNF2a7pqJyBkGo7StMCkFF8KpG2WEhdSEouq5iWynEwYZZbd_ys2PPaivaBYqTUfS2JmUe9l1AgudgCwc1SXyhkpDw-B9RnTRe05xP95jYpze2VHRiSM2tsYDfXQNypof24Y93tUPhN6ASCJcVjImLO",
+    image: "/images/portfolio_chatbot.png",
     results: [
       "Supports 85% tickets resolution without human loop intervention",
       "Decreased support desk overhead dispatch costs by 50%",
@@ -61,7 +61,7 @@ const projectData: Record<string, {
     challenge: "Original static pages loaded slowly and failed to rank across SERP results, missing organic client acquisitions effectively.",
     solution: "Built on Next.js setup combining Static Route generations for speed rendering coupled with Server-Side rendering for dynamic feeds hydration correctly.",
     tags: ["Next.js", "Tailwind CSS", "SEO", "Vercel"],
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuCDzgZo0MA17uNkR0SuzziuBW7ZbA2X0mzm3hz34EL4lTMMhYg_xx7KkmBO0XHIniYcC7uDs96S2s7cWQmCr8wq7qQ6baiYUXEO7bNFiWS8IdSF7XyLUAdQExxf0W3_MlPjr3HvBQZxrYnAI_SfNzlkdErInzaihW1F2cuXASC_bchQ2C0dAtZfRLzOBFD2_pKdwdrkNX1qi2Treqz2vOPf5jnsQYL-QdRI2rUBhE_AWA5R4daAfv-SnhtMMHeAijmEosvU5whmx1Vc",
+    image: "/images/portfolio_business.png",
     results: [
       "Lighthouse speeds performance benchmarks hit 98% avg scores",
       "Organic SEO traffic traffic multipliers up +200%",
