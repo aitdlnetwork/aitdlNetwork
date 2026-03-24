@@ -117,9 +117,18 @@ export default function Footer() {
       <div className="w-full max-w-[1200px] mx-auto border-t border-white/5 pt-6 flex flex-col md:flex-row items-center justify-between gap-4 text-[11px] font-body text-slate-500">
         <div className="text-center md:text-left leading-relaxed">
           Designed & Architected by <span className="text-slate-400 font-medium">JRM</span><br />
-          &copy; {currentYear} AITDL Network | Vikram Samvat 2083
+          &copy; {currentYear} AITDL Network
         </div>
+
+        {/* Center: Vikram Samvat Badge */}
+        <div className="flex items-center justify-center">
+          <span className="px-2.5 py-1 rounded-full bg-primary/5 border border-primary/20 text-primary/80 font-display font-semibold tracking-wide text-[9px] shadow-sm backdrop-blur-sm">
+            Vikram Samvat 2083
+          </span>
+        </div>
+
         <div className="flex items-center gap-4 text-slate-600">
+
           <Link href="/terms" className="hover:text-slate-400 transition-colors">Terms</Link>
           <Link href="/privacy" className="hover:text-slate-400 transition-colors">Privacy</Link>
           <span className="size-1 rounded-full bg-slate-700"></span>
