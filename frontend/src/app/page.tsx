@@ -15,20 +15,16 @@ Copyright © AITDL Network 2026 | Vikram Samvat 2083
 // AITDL Network © 2026 | Vikram Samvat 2083
 // Designed & Architected by JRM
 
-import type { Metadata } from 'next';
+"use client";
+
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { generateSEO } from '@/lib/seo/seo';
-
-export const metadata: Metadata = generateSEO({
-  title: 'AITDL Network – Smart Software for Education & Business Growth',
-  description: 'LMS, POS, Clinic Management, NGO Systems and AI solutions for Indian businesses and institutions. Get a free demo today.',
-  path: '/',
-  keywords: ['LMS India', 'school management software', 'POS billing India', 'AI learning platform', 'coaching software', 'coaching software UP', 'LMS software Gorakhpur'],
-});
+import { useI18n } from '@/lib/i18n/I18nContext';
 
 export default function Home() {
+  const { t } = useI18n();
+
   return (
     <div className="animate-fade-in relative">
       {/* Hero Section */}
@@ -37,10 +33,10 @@ export default function Home() {
           {/* Left Column: Content */}
           <div className="flex flex-col items-start text-left">
             <h1 className="font-display font-bold text-4xl md:text-5xl lg:text-[56px] leading-[1.1] tracking-[-0.02em] mb-6 max-w-xl text-gradient">
-              Smart Software for Education & Growth
+              {t('hero_title')}
             </h1>
             <p className="text-lg text-text-muted font-light mb-8 max-w-lg leading-relaxed">
-              We architect secure, intelligent LMS platforms, coaching systems, and automation tools to address complex scalability triggers statically.
+              {t('hero_subtitle')}
             </p>
             <div className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto animate-slide-up mb-10">
               <Link href="/demo" className="btn-primary w-full sm:w-auto flex items-center justify-center h-12 px-8 rounded-lg bg-primary text-background-dark font-display font-semibold text-[14px]">

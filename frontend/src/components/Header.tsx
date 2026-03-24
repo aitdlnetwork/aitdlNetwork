@@ -18,9 +18,18 @@ Copyright © AITDL Network 2026 | Vikram Samvat 2083
 "use client";
 import React, { useState } from 'react';
 import Link from 'next/link';
+import { useI18n, Language } from '@/lib/i18n/I18nContext';
 
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isLangOpen, setIsLangOpen] = useState(false);
+  const { language, setLanguage } = useI18n();
+
+  const langLabels: Record<Language, { label: string; flag: string }> = {
+    en: { label: "EN", flag: "🇬🇧" },
+    hi: { label: "हिन्दी", flag: "🇮🇳" },
+    sa: { label: "संस्कृतम्", flag: "🔱" }
+  };
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 glass-nav h-[72px] transition-all duration-300">
@@ -36,13 +45,33 @@ export default function Header() {
         </Link>
         
         {/* Desktop Links */}
-        <div className="hidden md:flex items-center gap-8">
-          <Link href="/services" className="text-sm font-medium text-text-muted hover:text-primary transition-colors">Services</Link>
-          <Link href="/portfolio" className="text-sm font-medium text-text-muted hover:text-primary transition-colors">Portfolio</Link>
-          <Link href="/about" className="text-sm font-medium text-text-muted hover:text-primary transition-colors">About</Link>
-          <Link href="/login" className="text-sm font-medium text-text-muted hover:text-primary transition-colors">Client Portal</Link>
-          <Link href="/contact" className="text-sm font-medium text-text-muted hover:text-primary transition-colors">Contact</Link>
-          <Link href="/demo" className="btn-primary flex items-center justify-center h-10 px-5 rounded-lg bg-primary text-background-dark font-display font-semibold text-[14px]">Get Free Demo</Link>
+        <div className="hidden md:flex items-center gap-6">
+          <Link href="/services" className="text-xs font-medium text-text-muted hover:text-primary transition-colors">Services</Link>
+          <Link href="/portfolio" className="text-xs font-medium text-text-muted hover:text-primary transition-colors">Portfolio</Link>
+          <Link href="/about" className="text-xs font-medium text-text-muted hover:text-primary transition-colors">About</Link>
+          <Link href="/login" className="text-xs font-medium text-text-muted hover:text-primary transition-colors">Portal</Link>
+          <Link href="/contact" className="text-xs font-medium text-text-muted hover:text-primary transition-colors">Contact</Link>
+
+          {/* Lang Switcher */}
+          <div className="relative">
+            <button onClick={() => setIsLangOpen(!isLangOpen)} className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-white text-xs font-display font-bold hover:bg-white/10 transition-all">
+              <span>{langLabels[language].flag}</span>
+              <span>{langLabels[language].label}</span>
+              <span className="material-symbols-outlined text-[14px]">arrow_drop_down</span>
+            </button>
+            {isLangOpen && (
+              <div className="absolute top-10 right-0 glass-nav border border-white/10 shadow-xl rounded-xl py-2 w-32 flex flex-col z-50 animate-fade-in">
+                {(Object.keys(langLabels) as Language[]).map((lang) => (
+                  <button key={lang} onClick={() => { setLanguage(lang); setIsLangOpen(false); }} className={`flex items-center gap-2 px-4 py-2 text-xs font-display text-left hover:bg-primary/10 transition-colors ${language === lang ? 'text-primary font-bold' : 'text-slate-300'}`}>
+                    <span>{langLabels[lang].flag}</span>
+                    <span>{langLabels[lang].label}</span>
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+
+          <Link href="/demo" className="btn-primary flex items-center justify-center h-9 px-4 rounded-lg bg-primary text-background-dark font-display font-semibold text-[13px]">Demo</Link>
         </div>
         
         {/* Mobile Menu Toggle */}
@@ -59,12 +88,17 @@ export default function Header() {
       {/* Mobile Menu Dropdown */}
       {isMobileMenuOpen && (
         <div className="md:hidden absolute top-[72px] left-0 right-0 glass-nav border-t border-white/5 py-4 px-6 flex flex-col gap-4 shadow-xl">
-          <Link href="/services" onClick={() => setIsMobileMenuOpen(false)} className="text-base font-medium text-text-primary py-2">Services</Link>
-          <Link href="/portfolio" onClick={() => setIsMobileMenuOpen(false)} className="text-base font-medium text-text-primary py-2">Portfolio</Link>
-          <Link href="/about" onClick={() => setIsMobileMenuOpen(false)} className="text-base font-medium text-text-primary py-2">About</Link>
-          <Link href="/login" onClick={() => setIsMobileMenuOpen(false)} className="text-base font-medium text-text-primary py-2">Client Portal</Link>
-          <Link href="/contact" onClick={() => setIsMobileMenuOpen(false)} className="text-base font-medium text-text-primary py-2">Contact</Link>
-          <Link href="/demo" onClick={() => setIsMobileMenuOpen(false)} className="btn-primary flex items-center justify-center h-12 w-full rounded-lg bg-primary text-background-dark font-display font-semibold text-[15px] mt-2">Get Free Demo</Link>
+          {/* Mobile Lang Switcher */}
+          <div className="flex items-center gap-2 border-t border-white/5 pt-4 mt-2">
+            {(Object.keys(langLabels) as Language[]).map((lang) => (
+              <button key={lang} onClick={() => { setLanguage(lang); setIsMobileMenuOpen(false); }} className={`flex-1 flex items-center justify-center gap-1.5 p-2 rounded-lg border ${language === lang ? 'border-primary/40 bg-primary/10 text-primary' : 'border-white/5 bg-white/5 text-slate-300'} text-xs font-display font-medium transition-all`}>
+                <span>{langLabels[lang].flag}</span>
+                <span>{langLabels[lang].label}</span>
+              </button>
+            ))}
+          </div>
+
+          <Link href="/demo" onClick={() => setIsMobileMenuOpen(false)} className="btn-primary flex items-center justify-center h-12 w-full rounded-lg bg-primary text-background-dark font-display font-semibold text-[15px]">Get Free Demo</Link>
         </div>
       )}
     </nav>
