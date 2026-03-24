@@ -71,6 +71,7 @@ export default function Footer() {
             <li><Link href="/blog" className="hover:text-primary transition-colors">Knowledge Base</Link></li>
             <li><Link href="/gorakhpur" className="hover:text-primary transition-colors">Gorakhpur Node</Link></li>
             <li><Link href="/tools/roi-calculator" className="hover:text-primary transition-colors">Fee Calculator</Link></li>
+            <li><Link href="/tools/attendance-calculator" className="hover:text-primary transition-colors">Attendance Tool</Link></li>
             <li><Link href="/portfolio" className="hover:text-primary transition-colors">Deployments</Link></li>
             <li><Link href="/contact" className="hover:text-primary transition-colors">Secure Contact</Link></li>
           </ul>
