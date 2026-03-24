@@ -222,6 +222,24 @@ export default function ServicePageClient({ slug }: { slug: string }) {
 
   return (
     <div className="flex-1 w-full max-w-[1200px] mx-auto px-6 py-12 flex flex-col justify-center z-10 relative animate-fade-in">
+      {/* FAQ Structured Data for Google SEO */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": faqs.map(faq => ({
+              "@type": "Question",
+              "name": faq.q,
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": faq.a
+              }
+            }))
+          })
+        }}
+      />
       {/* Back button */}
       <div className="mb-8">
         <Link href="/services" className="text-primary flex items-center gap-2 hover:underline text-sm font-display font-bold">
