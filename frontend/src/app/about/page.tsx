@@ -79,7 +79,7 @@ export default function About() {
             <h2 className="text-white font-display text-2xl md:text-3xl font-bold mt-2">JRM (Jawahar R Mallah)</h2>
           </div>
           <p className="text-muted text-sm md:text-base leading-relaxed max-w-2xl font-body">
-            With a focus on sovereign infrastructure and edge deployments, JRM leads the architectural guidelines detailing AITDL Network. He believes true scalability incorporates fully transparent local governance setups framing accurate zero-trust setups securely correctly overviewed.
+            A software technologist with 19+ years of deep engineering experience (2007–present), JRM has architected enterprise-grade systems across POS, ERP, Accounting, and Inventory pipelines. As the Founder of AITDL and AITDL Network, his parallel study of Educational Software mirrors what modern engineering yields: ancient algorithmic sutras are computationally optimal for tomorrow's AI scalability.
           </p>
         </div>
       </div>

@@ -27,7 +27,9 @@ const servicesData: Record<string, {
       "Auto-Grader & Quiz Pipelines",
       "Live Class Stream Integration",
       "Parent Dashboard Reporting",
-      "Performance AI Analytics"
+      "Performance AI Analytics",
+      "Multi-Branch Staff Management",
+      "Offline Student Notes Sync setups"
     ],
     benefits: [
       "Reduce teacher overhead by 40%",
@@ -45,7 +47,9 @@ const servicesData: Record<string, {
       "GST billing & Auto Invoicing",
       "Multi-Branch Inventory Sync",
       "Offline Mode Synchronization",
-      "Customer Loyalty Program hooks"
+      "Customer Loyalty Program hooks",
+      "Digital Wallet & UPI Integration",
+      "Dynamic Discount Trigger Rules"
     ],
     benefits: [
       "Checkout speeds boosted by 60%",
@@ -189,7 +193,9 @@ const servicesData: Record<string, {
       "Online Booking/Slating",
       "Equipment Rentals Tracker",
       "Safety Alert broadcast",
-      "Guide Batch Allocation"
+      "Guide Batch Allocation",
+      "Offline GPS Tracker Mapping",
+      "Emergency SOS Broadcast Grids"
     ],
     benefits: [
       "Streamline peak-season bookings",
