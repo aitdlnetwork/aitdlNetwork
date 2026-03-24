@@ -25,7 +25,7 @@ export const metadata: Metadata = generateSEO({
   title: 'AITDL Network – Smart Software for Education & Business Growth',
   description: 'LMS, POS, Clinic Management, NGO Systems and AI solutions for Indian businesses and institutions. Get a free demo today.',
   path: '/',
-  keywords: ['LMS India', 'school management software', 'POS billing India', 'AI learning platform', 'coaching software'],
+  keywords: ['LMS India', 'school management software', 'POS billing India', 'AI learning platform', 'coaching software', 'coaching software UP', 'LMS software Gorakhpur'],
 });
 
 export default function Home() {
