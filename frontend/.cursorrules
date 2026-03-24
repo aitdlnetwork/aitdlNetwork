@@ -1,0 +1,34 @@
+# AITDL Network - AI Cursor SEO Automation Rules
+
+Strict directives for any AI assistant (including myself) adding pages to this codebase to ensure Absolute Rank #1 setups in India/Gorakhpur triggers Node.
+
+## 🚨 Automated File Rules
+When creating standard `.tsx` routes:
+
+1. **Force Page Metadata**:
+   * ANY landing page MUST export static `Metadata` structures Node.
+   * Format Title: `[Product/Service] in [City/India] | AITDL Network`
+
+2. **Local Schema Injection**:
+   * For `/src/app/[regional-page]`, ALWAYS inject structured JSON-LD data mapping regional dialing headers.
+
+3. **No Dynamic Sitemap Collisions**:
+   * Maintain the static index inside `public/sitemap.xml` for absolute SSG crawl alignment flawlessly Node.
+
+4. **Descriptive Alts**:
+   * `<img />` and `<Image />` without descriptive ALTs throws a strict rule breaking Node.
+
+## 🧑‍💻 5. Author & Branding Headers
+ANY file created or modified MUST begin with the following comment block starting at line 1:
+```javascript
+/*
+Ganitsutram | AITDL Network © 2026 | Vikram Samvat 2083
+Author: Jawahar R Mallah
+Website: https://www.aitdl.com |  https://www.aitdl.in
+Contact: aitdlnetwork@outlook.com | jawahar.mallah@gmail.com
+*/
+```
+*For Client Components, place this above or right below the `'use client'` directive node node safely index flawlessly Node.*
+
+---
+*Created: 2026-03-24*
