@@ -1,0 +1,73 @@
+// AITDL Network © 2026 | Vikram Samvat 2083
+// Designed & Architected by JRM
+
+import React from 'react';
+
+export default function About() {
+  const values = [
+    {
+      title: "Deep Innovation",
+      description: "We don't just build software; we architect adaptive algorithms and deep learning pipelines that evolve as you scale.",
+      icon: "psychology"
+    },
+    {
+      title: "Sovereign Privacy",
+      description: "Absolute data governance. Encrypted backups, fully sandboxed enterprise nodes aligned with strictly locally compliance regulations.",
+      icon: "encrypted"
+    },
+    {
+      title: "High Availability",
+      description: "Always online. Scaling setups engineered to bypass single points of failure with redundant multi-region continuous delivery framework setups.",
+      icon: "cloud"
+    }
+  ];
+
+  return (
+    <div className="flex-1 w-full max-w-[1200px] mx-auto px-6 py-12 flex flex-col justify-center z-10 relative animate-fade-in">
+      {/* Short Intro Header */}
+      <div className="flex flex-col gap-6 max-w-2xl mb-16">
+        <h1 className="text-white font-display text-4xl md:text-5xl lg:text-6xl font-bold leading-tight tracking-tight">
+          AI-First. <br />
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-slate-100 to-muted">Core Infrastructure.</span>
+        </h1>
+        <p className="text-muted text-lg md:text-xl font-body leading-relaxed">
+          We architect and deploy secure, intelligent systems for scalability. Our mission is to transform complex enterprise challenges into elegant, automated continuous pipelines utilizing cutting-edge engineering guidelines properly.
+        </p>
+      </div>
+
+      {/* Core Values Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+        {values.map((val, idx) => (
+          <div key={idx} className="glass-card p-8 rounded-xl flex flex-col gap-4 border border-white/5 bg-background-dark/30 hover:border-primary/30 transition-all duration-300">
+            <div className="size-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
+              <span className="material-symbols-outlined text-2xl">{val.icon}</span>
+            </div>
+            <h3 className="font-display font-bold text-xl text-white">{val.title}</h3>
+            <p className="text-slate-400 text-sm md:text-base leading-relaxed">
+              {val.description}
+            </p>
+          </div>
+        ))}
+      </div>
+
+      {/* Founder / Architect Profile */}
+      <div className="glass-card p-8 md:p-12 rounded-2xl border-t-2 border-t-primary/20 bg-background-dark/50 flex flex-col md:flex-row items-center gap-8 mb-12 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent pointer-events-none"></div>
+        <div className="w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden bg-white/5 border border-white/10 flex items-center justify-center flex-shrink-0 text-primary">
+          <span className="material-symbols-outlined text-5xl">person</span>
+        </div>
+        <div className="flex flex-col gap-4">
+          <div>
+            <span className="px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-primary text-xs font-display font-bold tracking-wide">
+              Lead Architect
+            </span>
+            <h2 className="text-white font-display text-2xl md:text-3xl font-bold mt-2">JRM (Jawahar R Mallah)</h2>
+          </div>
+          <p className="text-muted text-sm md:text-base leading-relaxed max-w-2xl font-body">
+            With a focus on sovereign infrastructure and edge deployments, JRM leads the architectural guidelines detailing AITDL Network. He believes true scalability incorporates fully transparent local governance setups framing accurate zero-trust setups securely correctly overviewed.
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
