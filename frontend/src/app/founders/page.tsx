@@ -32,7 +32,7 @@ const foundersData: Record<string, {
       role: "Founder & Lead Architect",
       bio: "A software technologist with 19+ years of deep engineering experience (2007–present), Jawahar has architected enterprise-grade systems across POS, ERP, and Accounting. His parallel study of Educational Software mirrors ancient algorithmic sutras computationally optimal for tomorrow's continuous AI Node.",
       image: "/images/avatar_jrm.png",
-      tags: ["Software Architect", "Vedic Algorithms", "Distributed Systems"]
+      tags: ["Tech Entrepreneur", "Founder & Lead Architect", "Distributed Systems"]
     }
   ],
   hi: [
@@ -48,7 +48,7 @@ const foundersData: Record<string, {
       role: "संस्थापक और प्रमुख आर्किटेक्ट",
       bio: "19+ वर्षों के गहरे इंजीनियरिंग अनुभव वाले सॉफ्टवेयर प्रौद्योगिकीविद्, जवाहर ने उन्नत सिस्टम डिजाइन किए हैं। संस्थापक के रूप में, उनका अध्ययन प्राचीन एल्गोरिदम को भविष्य की एआई के लिए इष्टतम मानता है।",
       image: "/images/avatar_jrm.png",
-      tags: ["सॉफ्टवेयर आर्किटेक्ट", "वैदिक एल्गोरिदम", "प्रणाली"]
+      tags: ["टेक एंटरप्रेन्योर", "संस्थापक और प्रमुख आर्किटेक्ट", "प्रणाली"]
     }
   ],
   sa: [
@@ -64,7 +64,7 @@ const foundersData: Record<string, {
       role: "संस्थापक प्रमुख वास्तुकार च",
       bio: "19+ वर्षाणां अनुभवयुक्तः तन्त्रज्ञान विशेषज्ञः, जवाहर महोदयः उन्नत व्यवस्था प्रबन्धनम् कृतवान्।",
       image: "/images/avatar_jrm.png",
-      tags: ["तन्त्रज्ञा", "वैदिक एल्गोरिदम", "व्यवस्था"]
+      tags: ["टेक एंटरप्रेन्योर", "संस्थापक प्रमुखवास्तुकारः च", "व्यवस्था"]
     }
   ]
 };
