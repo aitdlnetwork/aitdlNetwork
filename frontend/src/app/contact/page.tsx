@@ -80,6 +80,19 @@ export default function Contact() {
               </div>
               <span className="material-symbols-outlined text-primary group-hover:translate-x-2 transition-transform relative z-10 text-3xl">arrow_forward</span>
             </a>
+
+            <a className="w-full rounded-xl p-6 flex items-center justify-between bg-emerald-500/10 border border-emerald-500/30 transition-all hover:bg-emerald-500/20 group relative overflow-hidden" href="tel:+919323023007">
+              <div className="flex items-center gap-4 relative z-10">
+                <div className="w-12 h-12 rounded-lg bg-emerald-500/20 flex items-center justify-center text-emerald-400 shadow-lg">
+                  <span className="material-symbols-outlined">call</span>
+                </div>
+                <div className="text-left">
+                  <p className="text-xs text-slate-400 uppercase tracking-widest mb-0.5 font-body">Direct Voice Line</p>
+                  <h2 className="text-white text-lg font-mono font-medium tracking-tight">+91 93230 23007</h2>
+                </div>
+              </div>
+              <span className="material-symbols-outlined text-emerald-400 group-hover:translate-x-2 transition-transform relative z-10 text-2xl">arrow_forward</span>
+            </a>
             
             <div className="glass-card rounded-xl p-6 flex items-center gap-4 transition-all hover:border-primary/50 group">
               <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary group-hover:scale-110 transition-transform">

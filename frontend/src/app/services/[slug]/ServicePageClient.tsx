@@ -208,6 +208,13 @@ const servicesData: Record<string, {
 
 export default function ServicePageClient({ slug }: { slug: string }) {
   const service = servicesData[slug];
+  const [openFaq, setOpenFaq] = React.useState<number | null>(null);
+
+  const faqs = [
+    { q: "Do you provide offline syncing fallback frames?", a: "Yes, our systems include local-first buffering triggers that synchronise to sovereign clouds automatically on restoration." },
+    { q: "Is operator training or setup assistance included?", a: "All setups include full administration setup training guidelines and comprehensive onboarding support setup hooks." },
+    { q: "Can we customize standard reporting templates?", a: "Yes, every dashboard is designed for absolute modular flexibility tailored for regional operational requirements." }
+  ];
 
   if (!service) {
     notFound();
@@ -279,6 +286,31 @@ export default function ServicePageClient({ slug }: { slug: string }) {
                 <span className="material-symbols-outlined text-sm">check_circle</span>
               </div>
               <p className="text-muted text-sm leading-relaxed">{benefit}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* FAQ Section */}
+      <div className="max-w-3xl mx-auto w-full mt-12 mb-8">
+        <h3 className="font-display font-bold text-2xl text-white mb-6 text-center">Frequently Asked Questions</h3>
+        <div className="flex flex-col gap-3">
+          {faqs.map((faq, idx) => (
+            <div key={idx} className="glass-card p-4 rounded-xl border border-white/5 bg-background-dark/20">
+              <button 
+                className="w-full flex items-center justify-between text-left text-white font-display font-semibold text-base group"
+                onClick={() => setOpenFaq(openFaq === idx ? null : idx)}
+              >
+                <span>{faq.q}</span>
+                <span className={`material-symbols-outlined transition-transform duration-300 ${openFaq === idx ? 'rotate-180 text-primary' : 'text-slate-500 group-hover:text-primary'}`}>
+                  expand_more
+                </span>
+              </button>
+              {openFaq === idx && (
+                <p className="mt-3 text-sm text-slate-400 font-body leading-relaxed animate-fade-in pr-8">
+                  {faq.a}
+                </p>
+              )}
             </div>
           ))}
         </div>
