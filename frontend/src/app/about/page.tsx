@@ -1,7 +1,5 @@
-// AITDL Network © 2026 | Vikram Samvat 2083
-// Designed & Architected by JRM
-
 import React from 'react';
+import Image from 'next/image';
 
 export default function About() {
   const values = [
@@ -24,15 +22,27 @@ export default function About() {
 
   return (
     <div className="flex-1 w-full max-w-[1200px] mx-auto px-6 py-12 flex flex-col justify-center z-10 relative animate-fade-in">
-      {/* Short Intro Header */}
-      <div className="flex flex-col gap-6 max-w-2xl mb-16">
-        <h1 className="text-white font-display text-4xl md:text-5xl lg:text-6xl font-bold leading-tight tracking-tight">
-          AI-First. <br />
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-slate-100 to-muted">Core Infrastructure.</span>
-        </h1>
-        <p className="text-muted text-lg md:text-xl font-body leading-relaxed">
-          We architect and deploy secure, intelligent systems for scalability. Our mission is to transform complex enterprise challenges into elegant, automated continuous pipelines utilizing cutting-edge engineering guidelines properly.
-        </p>
+      {/* Short Intro Header with Image */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-16">
+        <div className="flex flex-col gap-6 max-w-2xl">
+          <h1 className="text-white font-display text-4xl md:text-5xl lg:text-6xl font-bold leading-tight tracking-tight">
+            AI-First. <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-slate-100 to-muted">Core Infrastructure.</span>
+          </h1>
+          <p className="text-muted text-lg md:text-xl font-body leading-relaxed border-l-2 border-primary/20 pl-4">
+            We architect and deploy secure, intelligent systems for scalability. Our mission is to transform complex enterprise challenges into elegant, automated continuous pipelines utilizing cutting-edge engineering guidelines properly.
+          </p>
+        </div>
+        
+        <div className="relative w-full aspect-video rounded-2xl overflow-hidden glass-card border border-white/5 bg-background-dark/30 z-10 shadow-2xl">
+          <Image 
+            src="/images/about_nodes.png" 
+            alt="Sovereign AI Network Nodes Illustration" 
+            fill 
+            className="object-cover opacity-80"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-background-dark/60 via-transparent to-transparent"></div>
+        </div>
       </div>
 
       {/* Core Values Grid */}
@@ -53,10 +63,15 @@ export default function About() {
       {/* Founder / Architect Profile */}
       <div className="glass-card p-8 md:p-12 rounded-2xl border-t-2 border-t-primary/20 bg-background-dark/50 flex flex-col md:flex-row items-center gap-8 mb-12 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent pointer-events-none"></div>
-        <div className="w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden bg-white/5 border border-white/10 flex items-center justify-center flex-shrink-0 text-primary">
-          <span className="material-symbols-outlined text-5xl">person</span>
+        <div className="w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden bg-white/5 border border-white/10 flex items-center justify-center flex-shrink-0 relative">
+          <Image 
+            src="/images/avatar_jrm.png" 
+            alt="Lead Architect JRM" 
+            fill 
+            className="object-cover"
+          />
         </div>
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-4 z-10">
           <div>
             <span className="px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-primary text-xs font-display font-bold tracking-wide">
               Lead Architect

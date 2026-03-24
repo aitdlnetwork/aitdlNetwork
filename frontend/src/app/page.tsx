@@ -18,6 +18,7 @@ Copyright © AITDL Network 2026 | Vikram Samvat 2083
 import type { Metadata } from 'next';
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { generateSEO } from '@/lib/seo/seo';
 
 export const metadata: Metadata = generateSEO({
@@ -31,35 +32,49 @@ export default function Home() {
   return (
     <div className="animate-fade-in relative">
       {/* Hero Section */}
-      <section className="flex flex-col items-center justify-center min-h-[90vh] px-6">
-        <div className="max-w-[1200px] w-full mx-auto flex flex-col items-center text-center">
-          <h1 className="font-display font-bold text-4xl md:text-5xl lg:text-[64px] leading-[1.1] tracking-[-0.02em] mb-6 max-w-4xl text-gradient">
-            Smart Software for Education & Business Growth
-          </h1>
-          <p className="text-lg md:text-[20px] text-text-muted font-light mb-10 max-w-2xl leading-relaxed">
-            We build LMS platforms, coaching management systems, POS billing software, and automation tools to help you scale faster.
-          </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto animate-slide-up mb-16">
-            <Link href="/contact" className="btn-primary w-full sm:w-auto flex items-center justify-center h-12 px-8 rounded-lg bg-primary text-background-dark font-display font-semibold text-[15px] tracking-[0.01em]">
-                Get Free Demo
-            </Link>
-            <Link href="/services" className="btn-secondary w-full sm:w-auto flex items-center justify-center h-12 px-8 rounded-lg bg-transparent font-display font-semibold text-[15px] tracking-[0.01em]">
-                View Solutions
-            </Link>
+      <section className="flex items-center justify-center min-h-[90vh] px-6 py-12">
+        <div className="max-w-[1200px] w-full mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          {/* Left Column: Content */}
+          <div className="flex flex-col items-start text-left">
+            <h1 className="font-display font-bold text-4xl md:text-5xl lg:text-[56px] leading-[1.1] tracking-[-0.02em] mb-6 max-w-xl text-gradient">
+              Smart Software for Education & Growth
+            </h1>
+            <p className="text-lg text-text-muted font-light mb-8 max-w-lg leading-relaxed">
+              We architect secure, intelligent LMS platforms, coaching systems, and automation tools to address complex scalability triggers statically.
+            </p>
+            <div className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto animate-slide-up mb-10">
+              <Link href="/demo" className="btn-primary w-full sm:w-auto flex items-center justify-center h-12 px-8 rounded-lg bg-primary text-background-dark font-display font-semibold text-[14px]">
+                  Get Free Demo
+              </Link>
+              <Link href="/services" className="btn-secondary w-full sm:w-auto flex items-center justify-center h-12 px-8 rounded-lg bg-transparent font-display font-semibold text-[14px] border border-white/10 hover:border-white/20">
+                  View Solutions
+              </Link>
+            </div>
+            {/* Trust Badges */}
+            <div className="flex flex-col gap-4 animate-slide-up" style={{ animationDelay: '0.4s' }}>
+              <div className="flex items-center gap-2 text-text-muted">
+                <span className="material-symbols-outlined text-primary text-lg">verified</span>
+                <span className="text-sm font-medium">Sovereign infrastructure backups</span>
+              </div>
+              <div className="flex items-center gap-2 text-text-muted">
+                <span className="material-symbols-outlined text-primary text-lg">bolt</span>
+                <span className="text-sm font-medium">Fully sandboxed local nodes</span>
+              </div>
+            </div>
           </div>
-          {/* Trust Badges */}
-          <div className="flex flex-wrap justify-center gap-8 md:gap-12 animate-slide-up" style={{ animationDelay: '0.4s' }}>
-            <div className="flex items-center gap-2 text-text-muted">
-              <span className="material-symbols-outlined text-primary text-lg">verified</span>
-              <span className="text-sm font-medium">Built for Indian businesses</span>
-            </div>
-            <div className="flex items-center gap-2 text-text-muted">
-              <span className="material-symbols-outlined text-primary text-lg">bolt</span>
-              <span className="text-sm font-medium">Fast deployment</span>
-            </div>
-            <div className="flex items-center gap-2 text-text-muted">
-              <span className="material-symbols-outlined text-primary text-lg">trending_up</span>
-              <span className="text-sm font-medium">Affordable and scalable</span>
+
+          {/* Right Column: Visual Component */}
+          <div className="relative w-full aspect-video lg:aspect-square flex items-center justify-center animate-fade-in z-10">
+            <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent rounded-3xl filter blur-2xl opacity-50"></div>
+            <div className="glass-card p-4 rounded-3xl border border-white/5 bg-background-dark/30 shadow-2xl relative w-full h-full overflow-hidden">
+              <Image 
+                src="/images/hero_dashboard.png" 
+                alt="SaaS Analytics Dashboard Illustration" 
+                fill 
+                className="object-cover rounded-2xl opacity-90 group-hover:scale-105 transition-transform duration-500"
+                priority
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-background-dark/80 via-transparent to-transparent pointer-events-none"></div>
             </div>
           </div>
         </div>
