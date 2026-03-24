@@ -68,6 +68,7 @@ export async function generateStaticParams() {
   return Object.keys(slugMeta).map((slug) => ({ slug }));
 }
 
-export default function ServicePage() {
-  return <ServicePageClient />;
+export default async function ServicePage({ params }: PageProps) {
+  const { slug } = await params;
+  return <ServicePageClient slug={slug} />;
 }
