@@ -27,12 +27,17 @@ const projectData: Record<string, {
     results: [
       "No more lead leakages on support desk triggers",
       "Response times dropped from 24h setup to 1h average",
-      "Unified pipeline analytics transparency boost"
+      "Unified pipeline analytics transparency boost",
+      "SSO Securely federated backups synchronization loads",
+      "Enterprise latency drop to sub-10ms latency buffers"
     ],
     features: [
       "Live lead tracker overview charts boards",
       "Offline compatibility synchronization",
-      "Dynamic follow-up pipeline trigger loops"
+      "Dynamic follow-up pipeline trigger loops",
+      "Role-based node access controls setups",
+      "Daily automated audit reports dispatch triggers",
+      "Interactive analytics dashboard funnel streams"
     ]
   },
   "ai-chatbot": {
@@ -46,12 +51,17 @@ const projectData: Record<string, {
     results: [
       "Supports 85% tickets resolution without human loop intervention",
       "Decreased support desk overhead dispatch costs by 50%",
-      "Available 24/7 coverage sub-second query latency"
+      "Available 24/7 coverage sub-second query latency",
+      "Multi-language sovereign model fallback support setup",
+      "Zero-downtime scalability setups address allocations"
     ],
     features: [
       "RAG indexed company documentation vaults triggers",
       "Auto human-takeover ticket fallback loop dispatch",
-      "Continuous NLP tuning triggers feedback dataset framing"
+      "Continuous NLP tuning triggers feedback dataset framing",
+      "Continuous NLP tuning vectors synchronization setups",
+      "Voice-to-text streams address allocations sets",
+      "Fallback human routing automation dispatch triggers"
     ]
   },
   "business-website": {
@@ -65,12 +75,17 @@ const projectData: Record<string, {
     results: [
       "Lighthouse speeds performance benchmarks hit 98% avg scores",
       "Organic SEO traffic traffic multipliers up +200%",
-      "Faster viewport hydrate times scale globally"
+      "Faster viewport hydrate times scale globally",
+      "+200% Organic traffic trigger multipliers transparent",
+      "100% Core Web Vitals score frames optimization rates"
     ],
     features: [
       "Static pages generation fallback configurations setup",
       "Tailwind pure speed layout triggers hydration framework",
-      "Clean metadata tagging support index correctly"
+      "Clean metadata tagging support index correctly",
+      "A/B variant tests setup triggers dispatch pipelines",
+      "CDN edge optimization static routers allocation",
+      "Adaptive layout caching setups optimization setups"
     ]
   }
 };
