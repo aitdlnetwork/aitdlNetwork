@@ -102,9 +102,10 @@ export default function Home() {
             <div className="text-slate-400 text-[10px] font-display font-semibold tracking-wider uppercase">
               Trusted in
             </div>
-            <div className="flex items-center gap-1 text-slate-300 font-bold text-xs font-sans">
+            <div className="flex items-center gap-1 text-slate-300 font-bold text-xs font-sans flex-wrap justify-center md:justify-start">
               <span className="px-2 py-0.5 rounded bg-white/5 border border-white/10">Mumbai</span>
               <span className="px-2 py-0.5 rounded bg-white/5 border border-white/10">Pune</span>
+              <span className="px-2 py-0.5 rounded bg-white/5 border border-white/10">Gorakhpur</span>
               <span className="px-2 py-0.5 rounded bg-white/5 border border-white/10">Tier-2 Hubs</span>
             </div>
           </div>
