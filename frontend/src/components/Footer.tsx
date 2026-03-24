@@ -85,8 +85,8 @@ export default function Footer() {
           &copy; {currentYear} AITDL Network | Vikram Samvat 2083
         </div>
         <div className="flex items-center gap-4 text-slate-600">
-          <span className="hover:text-slate-400 transition-colors cursor-pointer">Terms</span>
-          <span className="hover:text-slate-400 transition-colors cursor-pointer">Privacy</span>
+          <Link href="/terms" className="hover:text-slate-400 transition-colors">Terms</Link>
+          <Link href="/privacy" className="hover:text-slate-400 transition-colors">Privacy</Link>
           <span className="size-1 rounded-full bg-slate-700"></span>
           <span>Sovereign Node v1.2</span>
         </div>
