@@ -161,6 +161,42 @@ const servicesData: Record<string, {
       "Clear pharmacy stock tracking"
     ],
     techStack: ["Angular", "Spring Boot", "PostgreSQL", "Kafka"]
+  },
+  "gym-fitness": {
+    title: "Gym & Fitness Management",
+    category: "Fitness",
+    description: "Automated direct debit setups, membership access logs, and visual workout calendars addressing community reporting fully overviewed statically.",
+    icon: "fitness_center",
+    features: [
+      "Membership Management",
+      "Automated Fee Triggers",
+      "Trainer Booking Calendar",
+      "Diet Plan Distribution"
+    ],
+    benefits: [
+      "Reduce payment defaults by 35%",
+      "Smooth member check-ins",
+      "Boost renewal metrics effectively"
+    ],
+    techStack: ["React", "Node.js", "MySQL", "Razorpay"]
+  },
+  "hiking-trekking": {
+    title: "Hiking & Trekking Management",
+    category: "Outdoor",
+    description: "Equipments booking tracking frames inventory lockers, safety alert dispatch setups itemized accurately overviewed safely setup indexed statically.",
+    icon: "terrain",
+    features: [
+      "Online Booking/Slating",
+      "Equipment Rentals Tracker",
+      "Safety Alert broadcast",
+      "Guide Batch Allocation"
+    ],
+    benefits: [
+      "Streamline peak-season bookings",
+      "Automated safety checklist logs",
+      "Efficient inventory rotation"
+    ],
+    techStack: ["Next.js", "Tailwind", "Supabase", "Twilio"]
   }
 };
 

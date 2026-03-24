@@ -39,6 +39,14 @@ const slugMeta: Record<string, { title: string; description: string }> = {
     title: "Clinic & Healthcare Management Software India | AITDL Network",
     description: "Digital OPD, pharmacy billing, WhatsApp lab reports, ABHA integration, and appointment booking for clinics and hospitals in India.",
   },
+  "gym-fitness": {
+    title: "Gym & Fitness Management Software | AITDL Network",
+    description: "Membership management, automated fee alerts, attendance tracking, and trainer scheduling software for gyms and fitness centers in India.",
+  },
+  "hiking-trekking": {
+    title: "Hiking, Trekking & Tour Booking Software | AITDL Network",
+    description: "Online booking management, equipment rental inventory, safety alerts, and guide allocation system for outdoor adventure operators in India.",
+  },
 };
 
 interface PageProps {
