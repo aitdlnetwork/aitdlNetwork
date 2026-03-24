@@ -17,6 +17,7 @@ const foundersData: Record<string, {
   role: string;
   bio: string;
   image: string;
+  altText: string;
   tags: string[];
 }[]> = {
   en: [
@@ -25,6 +26,7 @@ const foundersData: Record<string, {
       role: "Co-Founder & Director of Operations",
       bio: "Pushpa Devi guides AITDL’s strategic corporate vision. She oversees administrative absolute transparency, corporate logistics compliance, and absolute workspace efficiency enabling absolute engineering focus Node.",
       image: "/images/avatar_pushpadevi.png",
+      altText: "Pushpa Devi Co-Founder Director of Operations AITDL NETWORKS Mumbai Gorakhpur",
       tags: ["Corporate Strategy", "Operations", "Governance"]
     },
     {
@@ -32,6 +34,7 @@ const foundersData: Record<string, {
       role: "Founder & Lead Architect",
       bio: "A software technologist with 19+ years of deep engineering experience (2007–present), Jawahar has architected enterprise-grade systems across POS, ERP, and Accounting. His parallel study of Educational Software mirrors ancient algorithmic sutras computationally optimal for tomorrow's continuous AI Node.",
       image: "/images/avatar_jrm.png",
+      altText: "Jawahar R Mallah Founder & Lead Architect AITDL NETWORKS Tech Entrepreneur",
       tags: ["Tech Entrepreneur", "Founder & Lead Architect", "Distributed Systems"]
     }
   ],
@@ -41,6 +44,7 @@ const foundersData: Record<string, {
       role: "सह-संस्थापक और संचालन निदेशक",
       bio: "पुष्पा देवी एआई टीडीएल के रणनीतिक कॉर्पोरेट दृष्टिकोण का मार्गदर्शन करती हैं। वह प्रशासनिक पूर्ण पारदर्शिता, कॉर्पोरेट लॉजिस्टिक्स अनुपालन और कार्यक्षेत्र दक्षता की देखरेख करती हैं।",
       image: "/images/avatar_pushpadevi.png",
+      altText: "पुष्पा देवी सह-संस्थापक संचालन निदेशक एआई टीडीएल मुंबई गोरखपुर",
       tags: ["कॉर्पोरेट रणनीति", "संचालन", "शासन"]
     },
     {
@@ -48,6 +52,7 @@ const foundersData: Record<string, {
       role: "संस्थापक और प्रमुख आर्किटेक्ट",
       bio: "19+ वर्षों के गहरे इंजीनियरिंग अनुभव वाले सॉफ्टवेयर प्रौद्योगिकीविद्, जवाहर ने उन्नत सिस्टम डिजाइन किए हैं। संस्थापक के रूप में, उनका अध्ययन प्राचीन एल्गोरिदम को भविष्य की एआई के लिए इष्टतम मानता है।",
       image: "/images/avatar_jrm.png",
+      altText: "जवाहर आर मल्लाह संस्थापक लीड आर्किटेक्ट एआई टीडीएल",
       tags: ["टेक एंटरप्रेन्योर", "संस्थापक और प्रमुख आर्किटेक्ट", "प्रणाली"]
     }
   ],
@@ -57,6 +62,7 @@ const foundersData: Record<string, {
       role: "सह-संस्थापक प्रचालन निदेशक च",
       bio: "पुष्पा देवी महोदया व्यवस्थायाः विजन निर्देशयति। सा प्रशासनिक पारदर्शिता प्रबन्धनम् करोतु।",
       image: "/images/avatar_pushpadevi.png",
+      altText: "पुष्पा देवी सह-संस्थापक संचालन निदेशक",
       tags: ["प्रबन्धनम्", "संचालन", "शासन"]
     },
     {
@@ -64,10 +70,12 @@ const foundersData: Record<string, {
       role: "संस्थापक प्रमुख वास्तुकार च",
       bio: "19+ वर्षाणां अनुभवयुक्तः तन्त्रज्ञान विशेषज्ञः, जवाहर महोदयः उन्नत व्यवस्था प्रबन्धनम् कृतवान्।",
       image: "/images/avatar_jrm.png",
-      tags: ["टेक एंटरप्रेन्योर", "संस्थापक प्रमुखवास्तुकारः च", "व्यवस्था"]
+      altText: "जवाहर आर मल्लाह संस्थापक प्रमुख वास्तुकार",
+      tags: ["तन्त्रज्ञा", "वैदिक एल्गोरिदम", "व्यवस्था"]
     }
   ]
 };
+
 
 export default function Founders() {
   const { language } = useI18n();
@@ -82,34 +90,49 @@ export default function Founders() {
 
   const schemaData = {
     "@context": "https://schema.org",
-    "@graph": [
+    "@type": "Organization",
+    "name": "AITDL NETWORKS",
+    "url": "https://aitdl.in",
+    "logo": "https://aitdl.in/images/logo.png",
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "telephone": "+91-9324117007",
+      "contactType": "Operations",
+      "areaServed": ["IN", "Global"],
+      "availableLanguage": ["English", "Hindi"]
+    },
+    "founder": [
       {
         "@type": "Person",
         "name": "Pushpa Devi",
         "jobTitle": "Co-Founder & Director of Operations",
-        "image": "https://www.aitdl.com/images/avatar_pushpadevi.png",
-        "worksFor": {
-          "@type": "Organization",
-          "name": "AITDL Network",
-          "url": "https://www.aitdl.com"
-        },
+        "image": "https://aitdl.in/images/avatar_pushpadevi.png",
         "telephone": "+91-9324117007",
-        "url": "https://www.aitdl.com/founders"
+        "url": "https://aitdl.in/founders"
       },
       {
         "@type": "Person",
         "name": "Jawahar R Mallah",
         "jobTitle": "Founder & Lead Architect",
-        "image": "https://www.aitdl.com/images/avatar_jrm.png",
-        "worksFor": {
-          "@type": "Organization",
-          "name": "AITDL Network",
-          "url": "https://www.aitdl.com"
-        },
-        "url": "https://www.aitdl.com/founders"
+        "image": "https://aitdl.in/images/avatar_jrm.png",
+        "url": "https://aitdl.in/founders"
+      }
+    ],
+    "address": [
+      {
+        "@type": "PostalAddress",
+        "addressLocality": "Mumbai",
+        "addressCountry": "IN"
+      },
+      {
+        "@type": "PostalAddress",
+        "addressLocality": "Gorakhpur",
+        "addressRegion": "UP",
+        "addressCountry": "IN"
       }
     ]
   };
+
 
 
   return (
@@ -145,11 +168,12 @@ export default function Founders() {
             <div className="w-28 h-28 md:w-36 md:h-36 rounded-full overflow-hidden bg-white/5 border border-white/10 flex items-center justify-center flex-shrink-0 relative group-hover:scale-105 transition-transform duration-300">
               <Image 
                 src={founder.image} 
-                alt={founder.name} 
+                alt={founder.altText} 
                 fill 
                 className="object-cover"
               />
             </div>
+
 
             <div className="flex flex-col gap-3 z-10">
               <div>
