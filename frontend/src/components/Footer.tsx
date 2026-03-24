@@ -39,11 +39,7 @@ export default function Footer() {
           <p className="text-slate-400 text-xs leading-relaxed max-w-xs font-body">
             Architecting intelligent sovereign infrastructures and secure deep learning pipelines for enterprise scalability.
           </p>
-          <div className="flex items-center gap-4 mt-2 text-slate-500">
-            <a aria-label="X" className="hover:text-primary transition-colors flex items-center" href="#"><span className="material-symbols-outlined text-[18px]">close</span></a>
-            <a aria-label="LinkedIn" className="hover:text-primary transition-colors flex items-center" href="#"><span className="material-symbols-outlined text-[18px]">work</span></a>
-            <a aria-label="GitHub" className="hover:text-primary transition-colors flex items-center" href="#"><span className="material-symbols-outlined text-[18px]">code</span></a>
-          </div>
+          {/* Social Links placeholder removed for production readiness */}
         </div>
 
         {/* Column 2: Core Services */}
