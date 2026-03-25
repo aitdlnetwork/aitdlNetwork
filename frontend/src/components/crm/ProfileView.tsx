@@ -4,6 +4,8 @@ Author: Antigravity AI
 */
 
 import React, { useState } from 'react';
+import { useI18n } from '@/lib/i18n/I18nContext';
+import { translations } from '@/lib/i18n/translations';
 
 interface ProfileProps {
   user: {
@@ -15,6 +17,8 @@ interface ProfileProps {
 }
 
 export default function ProfileView({ user }: ProfileProps) {
+  const { language } = useI18n();
+  const t = translations[language];
   const [rotating, setRotating] = useState(false);
   const [rotated, setRotated] = useState(false);
 
@@ -35,22 +39,22 @@ export default function ProfileView({ user }: ProfileProps) {
           <h2 className="text-white font-display text-xl font-bold tracking-tight">{user.name}</h2>
           <p className="text-slate-400 text-sm font-body">{user.email}</p>
           <span className="inline-block mt-1 text-[10px] uppercase tracking-wider font-bold bg-primary/20 text-primary px-2.5 py-1 rounded-full border border-primary/30">
-            • {user.role} account
+            • {user.role} {t.ui_label_account}
           </span>
         </div>
       </div>
       
       <div className="flex flex-col gap-4">
-        <h3 className="text-slate-300 font-display text-xs font-bold uppercase tracking-widest">Sovereign Asset Node</h3>
+        <h3 className="text-slate-300 font-display text-xs font-bold uppercase tracking-widest">{t.profile_title}</h3>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
           <div className="border border-white/5 p-4 rounded-xl bg-white/5 flex flex-col gap-1 hover:bg-white/10 transition-all cursor-pointer">
-            <span className="text-slate-500 font-body text-xs">Authorized Clearance</span>
+            <span className="text-slate-500 font-body text-xs">{t.profile_role}</span>
             <span className="text-white font-medium font-display tracking-wide">{user.role.toUpperCase()}</span>
           </div>
           <div className="border border-white/5 p-4 rounded-xl bg-white/5 flex flex-col gap-1 hover:bg-white/10 transition-all cursor-pointer">
-            <span className="text-slate-500 font-body text-xs">Node CID Identifier</span>
-            <span className="text-white font-mono text-xs tracking-tight text-primary-light">AITDL-NODE-SEC-2083</span>
+            <span className="text-slate-500 font-body text-xs">{t.profile_since}</span>
+            <span className="text-white font-mono text-xs tracking-tight text-primary-light">V.S. 2083 {t.ui_label_active}</span>
           </div>
         </div>
 
@@ -63,7 +67,7 @@ export default function ProfileView({ user }: ProfileProps) {
               : 'border-primary/10 hover:border-primary/40 bg-primary/5 text-primary'
           }`}
         >
-          {rotating ? 'Generating New Cipher Seed...' : rotated ? 'Cipher Key Successfully Rotated' : 'Request Cipher Key Rotation'}
+          {rotating ? t.profile_rotate_seed_msg : rotated ? t.profile_rotate_success_msg : t.profile_rotate_request_btn}
         </button>
       </div>
     </div>

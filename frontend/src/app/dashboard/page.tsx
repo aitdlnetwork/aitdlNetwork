@@ -11,6 +11,8 @@ Modifications: Antigravity AI
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { useI18n } from '@/lib/i18n/I18nContext';
+import { translations } from '@/lib/i18n/translations';
 import ProfileView from '@/components/crm/ProfileView';
 import StudentView from '@/components/crm/StudentView';
 import AdminView from '@/components/crm/AdminView';
@@ -19,6 +21,8 @@ import { createClient } from '@/utils/supabase/client';
 export default function Dashboard() {
   const [liveUsers, setLiveUsers] = useState(142);
   const [apiRequests, setApiRequests] = useState(84291);
+  const { language } = useI18n();
+  const t = translations[language];
   const [activeTab, setActiveTab] = useState<'overview' | 'crm'>('overview');
   const router = useRouter();
   const [user, setUser] = useState<{ name: string; email: string; role: string; avatar_url?: string }>({
@@ -105,7 +109,7 @@ export default function Dashboard() {
       {/* Mini Sidebar Nav */}
       <div className="w-full lg:w-64 flex flex-col gap-2 glass-card p-4 rounded-xl border border-white/5 bg-background-dark/30 h-fit">
         <div className="p-2 mb-4">
-          <span className="text-primary font-display font-bold text-sm tracking-widest uppercase">Workspace Nodes</span>
+          <span className="text-primary font-display font-bold text-sm tracking-widest uppercase">{t.db_workspace_nodes}</span>
         </div>
         
         <button 
@@ -116,7 +120,7 @@ export default function Dashboard() {
               : 'text-slate-400 hover:bg-white/5'
           }`}
         >
-          <span className="material-symbols-outlined text-[20px]">dashboard</span> System Node
+          <span className="material-symbols-outlined text-[20px]">dashboard</span> {t.dashboard_node_overview}
         </button>
 
         <button 
@@ -127,28 +131,28 @@ export default function Dashboard() {
               : 'text-slate-400 hover:bg-white/5'
           }`}
         >
-          <span className="material-symbols-outlined text-[20px]">badge</span> Profile & CRM
+          <span className="material-symbols-outlined text-[20px]">badge</span> {t.dashboard_crm}
         </button>
 
         <div className="border-t border-white/5 my-2"></div>
 
         <button className="flex items-center gap-3 p-3 rounded-lg text-slate-500 hover:bg-white/5 text-xs font-medium transition-all text-left">
-          <span className="material-symbols-outlined text-[18px]">analytics</span> Node Analytics
+          <span className="material-symbols-outlined text-[18px]">analytics</span> {t.db_node_analytics}
         </button>
         <button className="flex items-center gap-3 p-3 rounded-lg text-slate-500 hover:bg-white/5 text-xs font-medium transition-all text-left">
-          <span className="material-symbols-outlined text-[18px]">settings</span> Nodes Settings
+          <span className="material-symbols-outlined text-[18px]">settings</span> {t.db_node_settings}
         </button>
 
         <div className="mt-8 pt-4 border-t border-white/5 flex flex-col gap-2">
            <div className="flex items-center gap-2 px-3 pb-2">
              <div className="size-2 rounded-full bg-[#00FF9D] animate-pulse"></div>
-             <span className="text-[10px] text-slate-500 font-mono uppercase tracking-tighter">Secure Session Active</span>
+             <span className="text-[10px] text-slate-500 font-mono uppercase tracking-tighter">{t.db_secure_session}</span>
            </div>
            <button 
             onClick={handleSignOut}
             className="flex items-center gap-3 p-3 rounded-lg text-red-400 hover:bg-red-400/5 text-xs font-medium transition-all text-left"
           >
-            <span className="material-symbols-outlined text-[18px]">logout</span> Decommission Session
+            <span className="material-symbols-outlined text-[18px]">logout</span> {t.db_decommission}
           </button>
         </div>
       </div>
@@ -160,12 +164,12 @@ export default function Dashboard() {
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
           <div>
             <h1 className="text-white font-display text-2xl md:text-3xl font-bold">
-              {activeTab === 'overview' ? 'Node Overview' : 'CRM Dashboard'}
+              {activeTab === 'overview' ? t.dashboard_node_overview : t.dashboard_crm}
             </h1>
             <p className="text-slate-400 text-xs md:text-sm font-body mt-1">
               {activeTab === 'overview' 
-                ? 'Sovereign infrastructure continuous delivery diagnostics.' 
-                : 'Sovereign client and node asset administration workspace.'}
+                ? t.db_overview_subtitle 
+                : t.db_crm_subtitle}
             </p>
           </div>
 
@@ -187,13 +191,13 @@ export default function Dashboard() {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               <div className="glass-card p-5 rounded-xl border border-white/5 flex flex-col gap-1 relative overflow-hidden group">
                 <div className="absolute inset-0 bg-gradient-to-br from-[#00FF9D]/5 to-transparent pointer-events-none"></div>
-                <span className="text-slate-400 text-xs font-body">Live Active Users</span>
+                <span className="text-slate-400 text-xs font-body">{t.db_live_users}</span>
                 <span className="text-white font-display text-3xl font-bold tracking-tight">
                   {liveUsers}
                 </span>
               </div>
               <div className="glass-card p-5 rounded-xl border border-white/5 flex flex-col gap-1">
-                <span className="text-slate-400 text-xs font-body">API Requests / Total</span>
+                <span className="text-slate-400 text-xs font-body">{t.db_api_requests}</span>
                 <span className="text-white font-display text-2xl md:text-3xl font-bold tracking-tight font-mono text-primary">
                   {apiRequests.toLocaleString()}
                 </span>
@@ -209,7 +213,7 @@ export default function Dashboard() {
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
               {/* Operations Card Logs */}
               <div className="lg:col-span-2 glass-card p-6 rounded-xl border border-white/5 bg-background-dark/20 flex flex-col gap-4">
-                <h3 className="text-white font-display font-bold text-lg">System Audit Stream</h3>
+                <h3 className="text-white font-display font-bold text-lg">{t.db_system_audit}</h3>
                 <div className="flex flex-col gap-3">
                   {logs.map((log, idx) => (
                     <div key={idx} className="p-3 rounded-lg bg-white/5 border border-white/5 flex flex-col md:flex-row justify-between md:items-center gap-2 animate-fade-in" style={{ animationDelay: `${idx * 150}ms` }}>
@@ -234,7 +238,7 @@ export default function Dashboard() {
 
               {/* Quick Metrics checklist */}
               <div className="glass-card p-6 rounded-xl border border-white/5 flex flex-col gap-4 bg-background-dark/30">
-                <h3 className="text-white font-display font-bold text-lg">Infrastructure Nodes</h3>
+                <h3 className="text-white font-display font-bold text-lg">{t.db_infra_nodes}</h3>
                 <div className="flex flex-col gap-4 mt-2">
                   {stats.map((stat, idx) => (
                     <div key={idx} className="flex items-center justify-between p-3 rounded-lg bg-white/5 hover:bg-white/10 transition-colors">

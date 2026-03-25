@@ -145,3 +145,28 @@ CREATE POLICY "Clients can view own invoices."
   ON public.invoices FOR SELECT USING (
     student_id IN (SELECT id FROM public.students WHERE profile_id = auth.uid())
   );
+
+-- 8. Create LEADS Table (For Partner Portal & Inquiries)
+CREATE TABLE IF NOT EXISTS public.leads (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  name TEXT NOT NULL,
+  email TEXT NOT NULL,
+  organization TEXT,
+  type TEXT, -- 'Technical', 'Referral', 'Enterprise'
+  comments TEXT,
+  status TEXT DEFAULT 'new', -- 'new', 'contacted', 'qualified', 'closed'
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT now()
+);
+
+ALTER TABLE public.leads ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "Anyone can insert leads."
+  ON public.leads FOR INSERT WITH CHECK (true);
+
+CREATE POLICY "Admins can view all leads."
+  ON public.leads FOR SELECT USING (
+    EXISTS (
+      SELECT 1 FROM public.profiles
+      WHERE profiles.id = auth.uid() AND profiles.role = 'admin'
+    )
+  );

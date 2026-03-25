@@ -5,8 +5,12 @@ Author: Antigravity AI
 
 import React, { useState, useEffect } from 'react';
 import { createClient } from '@/utils/supabase/client';
+import { useI18n } from '@/lib/i18n/I18nContext';
+import { translations } from '@/lib/i18n/translations';
 
 export default function StudentView({ user }: { user: any }) {
+  const { language } = useI18n();
+  const t = translations[language];
   const [invoices, setInvoices] = useState<any[]>([]);
   const [student, setStudent] = useState<any | null>(null);
   const [loading, setLoading] = useState(true);
@@ -123,27 +127,27 @@ export default function StudentView({ user }: { user: any }) {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <div className="glass-card p-5 rounded-xl border border-white/5 flex flex-col gap-1 relative overflow-hidden group hover:border-[#00FF9D]/20 transition-all duration-300">
           <div className="absolute inset-0 bg-gradient-to-br from-[#00FF9D]/5 to-transparent pointer-events-none"></div>
-          <span className="text-slate-400 text-xs font-body">Current Enlisted Course</span>
+          <span className="text-slate-400 text-xs font-body">{t.crm_enlisted_course}</span>
           <span className="text-white font-display text-lg font-bold tracking-tight mt-1">
             {student?.course_name || 'Vedic Maths Masterclass'}
           </span>
           <span className="text-[10px] items-center gap-1 text-[#00FF9D] font-mono flex mt-2">
-            <span className="size-1 rounded-full bg-[#00FF9D] animate-pulse"></span> Active Loop
+            <span className="size-1 rounded-full bg-[#00FF9D] animate-pulse"></span> {t.crm_status_active}
           </span>
         </div>
 
         <div className="glass-card p-5 rounded-xl border border-white/5 flex flex-col gap-1 hover:border-primary/20 transition-all duration-300">
-          <span className="text-slate-400 text-xs font-body">Batch Timings</span>
+          <span className="text-slate-400 text-xs font-body">{t.crm_batch_timings}</span>
           <span className="text-white font-display text-lg font-bold mt-1">
             {student?.batch_timings || '08:00 AM - 10:00 AM'}
           </span>
-          <span className="text-slate-500 text-[10px] font-body mt-2">IST Mon-Fri</span>
+          <span className="text-slate-500 text-[10px] font-body mt-2">{t.crm_days_mon_fri}</span>
         </div>
 
         <div className="glass-card p-5 rounded-xl border border-white/5 flex flex-col gap-1 hover:border-primary/20 transition-all duration-300">
-          <span className="text-slate-400 text-xs font-body">Admission Ledger Date</span>
+          <span className="text-slate-400 text-xs font-body">{t.crm_admission_ledger}</span>
           <span className="text-white font-display text-lg font-bold mt-1">
-            {student?.admission_date ? new Date(student.admission_date).toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' }) : '24 March 2026'}
+            {student?.admission_date ? new Date(student.admission_date).toLocaleDateString(language === 'hi' ? 'hi-IN' : language === 'sa' ? 'sa-IN' : 'en-IN', { day: 'numeric', month: 'long', year: 'numeric' }) : '24 March 2026'}
           </span>
           <span className="text-slate-500 text-[10px] font-body mt-2">Vikram Samvat 2083</span>
         </div>
@@ -152,12 +156,12 @@ export default function StudentView({ user }: { user: any }) {
       {/* Financial Grid */}
       <div className="glass-card p-6 rounded-xl border border-white/5 bg-background-dark/20 flex flex-col gap-4">
         <div className="flex justify-between items-center border-b border-white/5 pb-4">
-          <h3 className="text-white font-display font-bold text-lg">Financial Ledger Nodes</h3>
+          <h3 className="text-white font-display font-bold text-lg">{t.crm_financial_ledger}</h3>
           <button 
             onClick={syncLedger}
             className="text-xs text-primary font-medium hover:underline flex items-center gap-1"
           >
-            <span className="material-symbols-outlined text-[16px]">download</span> Sync Statements
+            <span className="material-symbols-outlined text-[16px]">download</span> {t.crm_sync_statements}
           </button>
         </div>
 
@@ -193,11 +197,11 @@ export default function StudentView({ user }: { user: any }) {
               <div className="flex items-center justify-between md:justify-end gap-6 w-full md:w-auto">
                 <span className="text-white font-mono text-sm font-bold">{inv.amount}</span>
                 <span className={`text-[10px] font-bold px-2.5 py-1 rounded-full border ${
-                  inv.status === 'Paid' 
+                  inv.status === 'Paid' || inv.status === 'paid'
                     ? 'bg-[#00FF9D]/10 text-[#00FF9D] border-[#00FF9D]/20' 
                     : 'bg-yellow-500/10 text-yellow-500 border-yellow-500/20'
                 }`}>
-                  {inv.status.toUpperCase()}
+                  {(inv.status === 'Paid' || inv.status === 'paid') ? t.crm_status_paid.toUpperCase() : t.crm_status_pending.toUpperCase()}
                 </span>
               </div>
             </div>

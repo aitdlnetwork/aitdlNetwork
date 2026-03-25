@@ -20,7 +20,7 @@ Copyright © AITDL Network 2026 | Vikram Samvat 2083
 */
 
 // AITDL Network © 2026 | Vikram Samvat 2083
-// Designed & Architected by JRM
+// Designed & Architected by Jawahar R Mallah
 
 "use client";
 
@@ -47,21 +47,21 @@ export default function Home() {
             </p>
             <div className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto animate-slide-up mb-10">
               <Link href="/demo" className="btn-primary w-full sm:w-auto flex items-center justify-center h-12 px-8 rounded-lg bg-primary text-background-dark font-display font-semibold text-[14px]">
-                  Get Free Demo
+                  {t('cta_free_demo')}
               </Link>
               <Link href="/login" className="btn-secondary w-full sm:w-auto flex items-center justify-center h-12 px-8 rounded-lg bg-white/5 text-primary border border-primary/20 hover:bg-white/10 font-display font-semibold text-[14px]">
-                  Client Portal
+                  {t('nav_client_portal')}
               </Link>
             </div>
             {/* Trust Badges */}
             <div className="flex flex-col gap-4 animate-slide-up" style={{ animationDelay: '0.4s' }}>
               <div className="flex items-center gap-2 text-text-muted">
                 <span className="material-symbols-outlined text-primary text-lg">verified</span>
-                <span className="text-sm font-medium">Sovereign infrastructure backups</span>
+                <span className="text-sm font-medium">{t('hero_trust_backups')}</span>
               </div>
               <div className="flex items-center gap-2 text-text-muted">
                 <span className="material-symbols-outlined text-primary text-lg">bolt</span>
-                <span className="text-sm font-medium">Fully sandboxed local nodes</span>
+                <span className="text-sm font-medium">{t('hero_trust_nodes')}</span>
               </div>
             </div>
           </div>

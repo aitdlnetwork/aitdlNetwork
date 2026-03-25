@@ -26,13 +26,14 @@ Copyright © AITDL Network 2026 | Vikram Samvat 2083
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { useI18n, Language } from '@/lib/i18n/I18nContext';
+import { translations } from '@/lib/i18n/translations';
 import { useAccessibility } from '@/lib/accessibility/AccessibilityContext';
 import { createClient } from '@/utils/supabase/client';
 
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isLangOpen, setIsLangOpen] = useState(false);
-  const { language, setLanguage } = useI18n();
+  const { language, setLanguage, t } = useI18n();
   const { fontSize, setFontSize } = useAccessibility();
   const [session, setSession] = useState<any>(null);
 
@@ -72,10 +73,10 @@ export default function Header() {
         
         {/* Desktop Links */}
         <div className="hidden md:flex items-center gap-6">
-          <Link href="/services" className="text-xs font-medium text-text-muted hover:text-primary transition-colors">Services</Link>
-          <Link href="/portfolio" className="text-xs font-medium text-text-muted hover:text-primary transition-colors">Portfolio</Link>
-          <Link href="/about" className="text-xs font-medium text-text-muted hover:text-primary transition-colors">About</Link>
-          <Link href="/contact" className="text-xs font-medium text-text-muted hover:text-primary transition-colors">Contact</Link>
+          <Link href="/services" className="text-xs font-medium text-text-muted hover:text-primary transition-colors">{t('nav_services')}</Link>
+          <Link href="/portfolio" className="text-xs font-medium text-text-muted hover:text-primary transition-colors">{t('nav_portfolio')}</Link>
+          <Link href="/about" className="text-xs font-medium text-text-muted hover:text-primary transition-colors">{t('nav_about')}</Link>
+          <Link href="/contact" className="text-xs font-medium text-text-muted hover:text-primary transition-colors">{t('nav_contact')}</Link>
 
           {/* Font Sizer */}
           <div className="flex items-center gap-1 bg-white/5 border border-white/10 rounded-lg p-0.5">
@@ -107,9 +108,9 @@ export default function Header() {
             <span className="material-symbols-outlined text-[16px]">
               {session ? 'dashboard' : 'login'}
             </span>
-            {session ? 'Dashboard' : 'Client Portal'}
+            {session ? t('nav_dashboard') : t('nav_client_portal')}
           </Link>
-          <Link href="/demo" className="btn-primary flex items-center justify-center h-9 px-4 rounded-lg bg-primary text-background-dark font-display font-semibold text-[13px]">Demo</Link>
+          <Link href="/demo" className="btn-primary flex items-center justify-center h-9 px-4 rounded-lg bg-primary text-background-dark font-display font-semibold text-[13px]">{t('nav_demo')}</Link>
         </div>
         
         {/* Mobile Menu Toggle */}
@@ -128,7 +129,7 @@ export default function Header() {
         <div className="md:hidden absolute top-[72px] left-0 right-0 glass-nav border-t border-white/5 py-4 px-6 flex flex-col gap-4 shadow-xl">
           {/* Mobile Accessibility Switcher */}
           <div className="flex items-center justify-between gap-4 border-t border-white/5 pt-4 mt-1">
-            <span className="text-xs text-slate-400 font-medium">Text Size</span>
+            <span className="text-xs text-slate-400 font-medium">{t('ui_text_size')}</span>
             <div className="flex items-center gap-1 bg-white/5 border border-white/10 rounded-lg p-0.5">
               <button onClick={() => { setFontSize('sm'); setIsMobileMenuOpen(false); }} className={`px-3 py-1 rounded-md text-[11px] font-bold transition-all ${fontSize === 'sm' ? 'bg-primary text-background-dark' : 'text-slate-400'}`}>A-</button>
               <button onClick={() => { setFontSize('md'); setIsMobileMenuOpen(false); }} className={`px-3 py-1 rounded-md text-[12px] font-bold transition-all ${fontSize === 'md' ? 'bg-primary text-background-dark' : 'text-slate-400'}`}>A</button>
@@ -148,9 +149,9 @@ export default function Header() {
 
           <Link href="/login" onClick={() => setIsMobileMenuOpen(false)} className="px-5 py-3 rounded-xl bg-white/5 border border-white/10 text-primary font-display font-bold text-sm hover:bg-white/10 transition-all uppercase tracking-widest flex items-center justify-center gap-2">
             <span className="material-symbols-outlined">{session ? 'dashboard' : 'login'}</span>
-            {session ? 'Dashboard' : 'Client Portal'}
+            {session ? t('nav_dashboard') : t('nav_client_portal')}
           </Link>
-          <Link href="/demo" onClick={() => setIsMobileMenuOpen(false)} className="btn-primary flex items-center justify-center h-12 w-full rounded-lg bg-primary text-background-dark font-display font-semibold text-[15px]">Get Free Demo</Link>
+          <Link href="/demo" onClick={() => setIsMobileMenuOpen(false)} className="btn-primary flex items-center justify-center h-12 w-full rounded-lg bg-primary text-background-dark font-display font-semibold text-[15px]">{t('cta_free_demo')}</Link>
         </div>
       )}
     </nav>

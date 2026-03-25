@@ -13,17 +13,12 @@ Contact: aitdlnetwork@outlook.com | jawahar.mallah@gmail.com
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useI18n } from '@/lib/i18n/I18nContext';
+import { translations } from '@/lib/i18n/translations';
 import { createClient } from '@/utils/supabase/client';
 
 export default function Login() {
   const { language } = useI18n();
-  const langKey = language === 'hi' || language === 'sa' ? language : 'en';
-
-  const t = (en: string, hi: string, sa: string) => {
-    if (langKey === 'hi') return hi;
-    if (langKey === 'sa') return sa;
-    return en;
-  };
+  const t = translations[language];
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -53,13 +48,13 @@ export default function Login() {
 
       if (error) {
         setNotification({ 
-          message: t("Authentication Failure: " + error.message, "प्रमाणीकरण विफल: " + error.message, "प्रवेशः असफलः: " + error.message), 
+          message: `${t.login_title} Error: ${error.message}`, 
           type: 'error' 
         });
         setIsLoading(false);
       } else {
         setNotification({ 
-          message: t("Access Authorized: Decrypting session...", "पहुंच अधिकृत: सत्र डिक्रिप्ट किया जा रहा है...", "प्रवेशः स्वीकृतः: सत्र रहस्योद्घाटनम्..."), 
+          message: t.login_msg_success, 
           type: 'success' 
         });
         setTimeout(() => {
@@ -67,7 +62,7 @@ export default function Login() {
         }, 800);
       }
     } catch (err) {
-      setNotification({ message: "System Exception: Connection Interrupted.", type: 'error' });
+      setNotification({ message: t.login_msg_error, type: 'error' });
       setIsLoading(false);
     }
   };
@@ -79,17 +74,17 @@ export default function Login() {
       <div className="glass-card w-full max-w-md p-8 rounded-2xl border border-white/5 bg-background-dark/40 flex flex-col gap-6 backdrop-blur-md relative">
         <div className="flex flex-col gap-2 text-center mb-2">
           <h1 className="text-white font-display text-2xl font-bold tracking-tight">
-            {t("Client Node Entrance", "क्लाइंट नोड प्रवेश", "ग्राहक प्रवेशः")}
+            {t.login_title}
           </h1>
           <p className="text-slate-400 text-sm font-body">
-            {t("Sign in with sovereign infrastructure keys", "संप्रभु बुनियादी ढांचा कुंजियों के साथ साइन इन करें", "स्वतंत्र तन्त्र कुंजिका प्रवेशः")}
+            {t.login_subtitle}
           </p>
         </div>
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-5">
           <div className="flex flex-col gap-1.5">
             <label className="text-slate-300 text-xs font-display font-medium px-1">
-              {t("Email Node Address", "ईमेल पता", "ईमेल पता")}
+              {t.login_email}
             </label>
             <input 
               type="email" required value={email} onChange={(e) => setEmail(e.target.value)}
@@ -101,10 +96,10 @@ export default function Login() {
           <div className="flex flex-col gap-1.5">
             <div className="flex justify-between px-1">
               <label className="text-slate-300 text-xs font-display font-medium">
-                {t("Access Cipher", "एक्सेस सिफर(पासवर्ड)", "प्रवेश गुप्तचक्रम्")}
+                {t.login_pass}
               </label>
               <button type="button" className="text-primary text-[11px] font-medium hover:underline">
-                {t("Forgot?", "भूल गए?", "स्मरण हानि?")}
+                {t.login_reset}
               </button>
             </div>
             <input 
@@ -121,16 +116,16 @@ export default function Login() {
             {isLoading ? (
               <span className="size-5 border-2 border-background-dark/30 border-t-background-dark rounded-full animate-spin"></span>
             ) : (
-              <>{t("Initialize Access", "एक्सेस प्रारंभ करें", "प्रवेश प्रारंभं करोतु")} <span className="material-symbols-outlined text-[18px]">lock_open</span></>
+              <>{t.login_btn} <span className="material-symbols-outlined text-[18px]">lock_open</span></>
             )}
           </button>
         </form>
 
         <div className="border-t border-white/5 pt-4 text-center">
-          <p className="text-slate-500 text-xs">
-            {t("Direct Mock Access:", "प्रत्यक्ष मॉक एक्सेस:", "प्रत्यक्ष प्रवेशः")}  
-            <button onClick={() => router.push('/dashboard')} className="text-primary font-medium hover:underline ml-1">
-              {t("Bypass Auth Pipeline", "बायपास ऑथ पाइपलाइन", "सुरक्षा बायपास कुरु")}
+          <p className="text-slate-500 text-xs text-[10px] uppercase tracking-widest opacity-50">
+            {t.login_direct_access}  
+            <button onClick={() => router.push('/dashboard')} className="text-primary font-bold hover:underline ml-1">
+              {t.login_bypass}
             </button>
           </p>
         </div>

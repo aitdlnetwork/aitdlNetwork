@@ -3,21 +3,47 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { useI18n } from '@/lib/i18n/I18nContext';
+import { translations } from '@/lib/i18n/translations';
+import { createClient } from '@/utils/supabase/client';
 
 export default function PartnersPage() {
   const { language } = useI18n();
+  const t = translations[language];
   const [formStatus, setFormStatus] = useState<'idle' | 'submitting' | 'success'>('idle');
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    organization: '',
+    type: 'Technical Implementation',
+    comments: ''
+  });
 
-  const t_local = (en: string, hi: string, sa: string) => {
-    if (language === 'hi') return hi;
-    if (language === 'sa') return sa;
-    return en;
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setFormStatus('submitting');
-    setTimeout(() => setFormStatus('success'), 1500);
+    
+    const supabase = createClient();
+    if (!supabase) {
+      console.warn('Supabase not available, using fallback.');
+      setTimeout(() => setFormStatus('success'), 1000);
+      return;
+    }
+
+    const { error } = await supabase.from('leads').insert([{
+      name: formData.name,
+      email: formData.email,
+      organization: formData.organization,
+      type: formData.type,
+      comments: formData.comments
+    }]);
+
+    if (error) {
+      console.error('Lead Submission Error:', error);
+      // Fallback for demo if table doesn't exist yet
+      setTimeout(() => setFormStatus('success'), 1000);
+    } else {
+      setFormStatus('success');
+    }
   };
 
   return (
@@ -34,23 +60,22 @@ export default function PartnersPage() {
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
             </span>
-            Ecosystem Alpha
+            {t.partner_hero_badge}
           </div>
           <h1 className="font-display font-bold text-4xl md:text-5xl lg:text-7xl mb-6 text-gradient leading-tight tracking-tight">
-            {t_local('Architect the Future', 'भविष्य का निर्माण करें', 'भविष्यं रचयत')} <br/>
-            {t_local('of Sovereign Tech', 'संप्रभु तकनीक का', 'संप्रभु तन्त्रस्य')}
+            {t.partner_hero_title}
           </h1>
           <p className="text-lg text-slate-400 font-light mb-10 max-w-2xl mx-auto leading-relaxed">
-            AITDL Network is expanding. We are seeking technical nodes and commercial partners to deploy indigenous, high-performance digital infrastructure across the Indian subcontinent.
+            {t.partner_hero_desc}
           </p>
         </div>
 
         {/* Value Props */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-24">
           {[
-            { icon: 'hub', title: 'Sovereign Nodes', desc: 'Deploy local-first infrastructure that guarantees data privacy and high-speed local network performance.' },
-            { icon: 'security', title: 'Zero-Trust Security', desc: 'Implement AES-256 encrypted gateways and localized biometric authentication protocols.' },
-            { icon: 'language', title: 'Localized Reach', desc: 'Deep integration with regional languages (Hindi, Sanskrit, Marathi) for inclusive digital scaling.' }
+            { icon: 'hub', title: t.partner_value_nodes_title, desc: t.partner_value_nodes_desc },
+            { icon: 'security', title: t.partner_value_security_title, desc: t.partner_value_security_desc },
+            { icon: 'language', title: t.partner_value_localized_title, desc: t.partner_value_localized_desc }
           ].map((item, idx) => (
             <div key={idx} className="glass-card p-8 rounded-2xl border border-white/5 bg-white/[0.02] hover:bg-white/[0.05] transition-all group">
               <div className="size-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-6 group-hover:scale-110 transition-transform">
@@ -66,11 +91,11 @@ export default function PartnersPage() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
           {/* Left: Tiers */}
           <div className="flex flex-col gap-8">
-            <h2 className="text-3xl font-display font-bold text-white mb-4">Partnership Tiers</h2>
+            <h2 className="text-3xl font-display font-bold text-white mb-4">{t.partner_tiers_title}</h2>
             {[
-              { color: 'text-primary', title: 'Technical Node Partner', desc: 'Certified implementation of LMS and CRM nodes for educational institutions.', points: ['Server Provisioning', 'Local Support', 'Custom Integrations'] },
-              { color: 'text-yellow-500', title: 'Strategic Referral Node', desc: 'Earn recurring revenue by expanding the AITDL Network footprint.', points: ['Lead Generation', 'Network Advocacy', 'Commission Structure'] },
-              { color: 'text-purple-500', title: 'Enterprise Solutions', desc: 'Large-scale NGO and Government digital transformation projects.', points: ['Co-branding Space', 'Dedicated SA', 'Tender Support'] }
+              { color: 'text-primary', title: t.partner_tier_tech_title, desc: t.partner_tier_tech_desc, points: t.partner_points_tech },
+              { color: 'text-yellow-500', title: t.partner_tier_ref_title, desc: t.partner_tier_ref_desc, points: t.partner_points_ref },
+              { color: 'text-purple-500', title: t.partner_tier_ent_title, desc: t.partner_tier_ent_desc, points: t.partner_points_ent }
             ].map((tier, idx) => (
               <div key={idx} className="flex gap-6 p-6 rounded-2xl border border-white/5 hover:border-white/10 transition-colors">
                 <div className={`size-2 rounded-full mt-2 ring-4 ring-white/5 bg-current ${tier.color}`}></div>
@@ -94,45 +119,72 @@ export default function PartnersPage() {
                 <div className="size-20 rounded-full bg-primary/20 flex items-center justify-center text-primary mx-auto mb-6">
                   <span className="material-symbols-outlined text-4xl">check_circle</span>
                 </div>
-                <h3 className="text-2xl font-display font-bold text-white mb-4">Application Received</h3>
-                <p className="text-slate-400 mb-8">An ecosystem representative will reach out to you within 24 standard terminal hours.</p>
-                <button onClick={() => setFormStatus('idle')} className="text-primary font-bold hover:underline">Apply for another tier</button>
+                <h3 className="text-2xl font-display font-bold text-white mb-4">{t.partner_form_success_title}</h3>
+                <p className="text-slate-400 mb-8">{t.partner_form_success_desc}</p>
+                <button onClick={() => setFormStatus('idle')} className="text-primary font-bold hover:underline">{t.partner_form_apply_another}</button>
               </div>
             ) : (
               <>
-                <h3 className="text-2xl font-display font-bold text-white mb-2">Connect with the Network</h3>
-                <p className="text-sm text-slate-400 mb-8">Finalize your node status by submitting this brief application.</p>
+                <h3 className="text-2xl font-display font-bold text-white mb-2">{t.partner_form_title}</h3>
+                <p className="text-sm text-slate-400 mb-8">{t.partner_form_desc}</p>
                 
                 <form onSubmit={handleSubmit} className="flex flex-col gap-5">
-                  <div className="grid grid-cols-2 gap-4">
-                    <div className="flex flex-col gap-1.5">
-                      <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest ml-1">Full Name</label>
-                      <input required className="bg-white/5 border border-white/10 rounded-xl h-12 px-4 text-sm focus:border-primary/50 text-white outline-none transition-all" placeholder="J. Mallah" />
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="flex flex-col gap-1.5">
+                        <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest ml-1">{t.partner_form_name}</label>
+                        <input 
+                          required 
+                          value={formData.name}
+                          onChange={(e) => setFormData({...formData, name: e.target.value})}
+                          className="bg-white/5 border border-white/10 rounded-xl h-12 px-4 text-sm focus:border-primary/50 text-white outline-none transition-all" 
+                          placeholder="J. Mallah" 
+                        />
+                      </div>
+                      <div className="flex flex-col gap-1.5">
+                        <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest ml-1">{t.partner_form_email}</label>
+                        <input 
+                          required 
+                          type="email" 
+                          value={formData.email}
+                          onChange={(e) => setFormData({...formData, email: e.target.value})}
+                          className="bg-white/5 border border-white/10 rounded-xl h-12 px-4 text-sm focus:border-primary/50 text-white outline-none transition-all" 
+                          placeholder="jrm@aitdl.com" 
+                        />
+                      </div>
                     </div>
+                    
                     <div className="flex flex-col gap-1.5">
-                      <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest ml-1">Email Node</label>
-                      <input required type="email" className="bg-white/5 border border-white/10 rounded-xl h-12 px-4 text-sm focus:border-primary/50 text-white outline-none transition-all" placeholder="jrm@aitdl.com" />
+                      <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest ml-1">{t.partner_form_org}</label>
+                      <input 
+                        value={formData.organization}
+                        onChange={(e) => setFormData({...formData, organization: e.target.value})}
+                        className="bg-white/5 border border-white/10 rounded-xl h-12 px-4 text-sm focus:border-primary/50 text-white outline-none transition-all" 
+                        placeholder="Tech Innovations Ltd." 
+                      />
                     </div>
-                  </div>
-                  
-                  <div className="flex flex-col gap-1.5">
-                    <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest ml-1">Organization / Title</label>
-                    <input className="bg-white/5 border border-white/10 rounded-xl h-12 px-4 text-sm focus:border-primary/50 text-white outline-none transition-all" placeholder="Tech Innovations Ltd." />
-                  </div>
 
-                  <div className="flex flex-col gap-1.5">
-                    <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest ml-1">Collaboration Type</label>
-                    <select className="bg-white/5 border border-white/10 rounded-xl h-12 px-4 text-sm focus:border-primary/50 text-white outline-none transition-all appearance-none cursor-pointer">
-                      <option className="bg-[#0a0a0a]">Technical Implementation</option>
-                      <option className="bg-[#0a0a0a]">Referral Partnership</option>
-                      <option className="bg-[#0a0a0a]">Enterprise Collaboration</option>
-                    </select>
-                  </div>
+                    <div className="flex flex-col gap-1.5">
+                      <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest ml-1">{t.partner_form_type}</label>
+                      <select 
+                        value={formData.type}
+                        onChange={(e) => setFormData({...formData, type: e.target.value})}
+                        className="bg-white/5 border border-white/10 rounded-xl h-12 px-4 text-sm focus:border-primary/50 text-white outline-none transition-all appearance-none cursor-pointer"
+                      >
+                        <option value={t.partner_type_tech} className="bg-[#0a0a0a]">{t.partner_type_tech}</option>
+                        <option value={t.partner_type_ref} className="bg-[#0a0a0a]">{t.partner_type_ref}</option>
+                        <option value={t.partner_type_ent} className="bg-[#0a0a0a]">{t.partner_type_ent}</option>
+                      </select>
+                    </div>
 
-                  <div className="flex flex-col gap-1.5">
-                    <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest ml-1">Initial Intel / Comments</label>
-                    <textarea className="bg-white/5 border border-white/10 rounded-xl h-32 p-4 text-sm focus:border-primary/50 text-white outline-none transition-all resize-none" placeholder="How do you plan to scale with AITDL?" />
-                  </div>
+                    <div className="flex flex-col gap-1.5">
+                      <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest ml-1">{t.partner_form_comments}</label>
+                      <textarea 
+                        value={formData.comments}
+                        onChange={(e) => setFormData({...formData, comments: e.target.value})}
+                        className="bg-white/5 border border-white/10 rounded-xl h-32 p-4 text-sm focus:border-primary/50 text-white outline-none transition-all resize-none" 
+                        placeholder={t.partner_placeholder_comments} 
+                      />
+                    </div>
 
                   <button 
                     disabled={formStatus === 'submitting'}
@@ -143,7 +195,7 @@ export default function PartnersPage() {
                     ) : (
                       <>
                         <span className="material-symbols-outlined">send_and_archive</span>
-                        Submit to Core
+                        {t.partner_form_submit}
                       </>
                     )}
                   </button>

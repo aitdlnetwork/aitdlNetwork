@@ -79,9 +79,9 @@ export default function Footer() {
             <li><Link href="/contact" className="hover:text-primary transition-colors">{t('footer_link_support')}</Link></li>
             <li>
               <Link href="/partners" className="group flex items-center gap-2 hover:text-primary transition-colors">
-                {t_local('Partner Portal', 'पार्टनर पोर्टल', 'सहयोगी द्वारम्')}
+                {t('footer_link_partners')}
                 <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-primary/10 border border-primary/20 text-primary font-bold uppercase tracking-tighter">
-                  Connect
+                  {t('footer_connect_btn')}
                 </span>
               </Link>
             </li>
@@ -93,7 +93,7 @@ export default function Footer() {
           <span className="text-white font-display font-semibold text-sm tracking-wide">{t('footer_col_corporate')}</span>
           <ul className="flex flex-col gap-2.5 text-xs text-slate-400 font-body">
             <li><Link href="/about" className="hover:text-primary transition-colors">{t('footer_link_mission')}</Link></li>
-            <li><Link href="/founders" className="hover:text-primary transition-colors">{t_local('Founders', 'हमारे संस्थापक', 'अस्माकं संस्थापकाः')}</Link></li>
+            <li><Link href="/founders" className="hover:text-primary transition-colors">{t('footer_link_founders')}</Link></li>
             <li><Link href="/blog" className="hover:text-primary transition-colors">{t('footer_link_knowledge')}</Link></li>
             <li><Link href="/gorakhpur" className="hover:text-primary transition-colors">{t('footer_link_gorakhpur')}</Link></li>
 
@@ -107,7 +107,7 @@ export default function Footer() {
       {/* Secure Payment Badges */}
       <div className="w-full max-w-[1200px] mx-auto mb-6 flex flex-col md:flex-row items-center justify-between gap-4 border-t border-white/5 pt-6">
         <div className="flex items-center gap-2 text-slate-500 font-display text-[10px] tracking-widest">
-          <span>SECURE TRANSACTIONS</span>
+          <span>{t('footer_secure_transactions')}</span>
           <div className="flex items-center gap-1.5 ml-2">
             <span className="px-2 py-0.5 rounded bg-primary/10 border border-primary/30 text-primary font-display font-extrabold text-[11px] shadow-sm">UPI</span>
             <span className="px-2 py-0.5 rounded bg-slate-800/80 border border-slate-700/50 text-slate-300 font-sans font-extrabold text-[11px]">RuPay</span>
@@ -117,14 +117,14 @@ export default function Footer() {
         </div>
         <div className="text-[10px] text-slate-500 font-body flex items-center gap-1">
           <span className="material-symbols-outlined text-xs text-primary">lock</span>
-          256-Bit Encrypted Secure Server Gateway
+          {t('footer_encrypted_server')}
         </div>
       </div>
 
       {/* Bottom Copyright Bar */}
       <div className="w-full max-w-[1200px] mx-auto border-t border-white/5 pt-6 flex flex-col md:flex-row items-center justify-between gap-4 text-[11px] font-body text-slate-500">
         <div className="text-center md:text-left leading-relaxed">
-          Designed & Architected by <span className="text-slate-400 font-medium">JRM</span><br />
+          {t('footer_designed_by')}<br />
           &copy; {currentYear} AITDL Network
         </div>
 
@@ -136,11 +136,10 @@ export default function Footer() {
         </div>
 
         <div className="flex items-center gap-4 text-slate-600">
-
-          <Link href="/terms" className="hover:text-slate-400 transition-colors">Terms</Link>
-          <Link href="/privacy" className="hover:text-slate-400 transition-colors">Privacy</Link>
+          <Link href="/terms" className="hover:text-slate-400 transition-colors">{t('footer_terms')}</Link>
+          <Link href="/privacy" className="hover:text-slate-400 transition-colors">{t('footer_privacy')}</Link>
           <span className="size-1 rounded-full bg-slate-700"></span>
-          <span>Sovereign Node v1.2</span>
+          <span>{t('footer_sovereign_version')}</span>
         </div>
       </div>
     </footer>
