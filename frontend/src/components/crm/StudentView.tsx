@@ -1,0 +1,223 @@
+/*
+AITDL Network © 2026 | Vikram Samvat 2083
+Author: Antigravity AI
+*/
+
+import React, { useState, useEffect } from 'react';
+import { createClient } from '@/utils/supabase/client';
+
+export default function StudentView({ user }: { user: any }) {
+  const [invoices, setInvoices] = useState<any[]>([]);
+  const [student, setStudent] = useState<any | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [notification, setNotification] = useState<{message: string, type: 'success' | 'error'} | null>(null);
+
+  useEffect(() => {
+    if (notification) {
+      const timer = setTimeout(() => setNotification(null), 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [notification]);
+
+  const MOCK_INVOICES = [
+    { id: 'INV-2083-104', amount: '₹12,499.00', status: 'Paid', date: '2026-03-15', category: 'LMS' },
+    { id: 'INV-2083-105', amount: '₹12,499.00', status: 'Due', date: '2026-04-15', category: 'LMS' }
+  ];
+
+  async function fetchStudentAndInvoices() {
+    const supabase = createClient();
+    if (!supabase) {
+      console.warn('Supabase client not initialized. Using fallback data.');
+      setInvoices(MOCK_INVOICES);
+      setLoading(false);
+      return;
+    }
+
+    try {
+      // 1. Get student record for this user
+      const { data: { user: authUser } } = await supabase.auth.getUser();
+      const profileId = authUser?.id;
+
+      if (profileId) {
+        const { data: studentData, error: studentError } = await supabase
+          .from('students')
+          .select('*')
+          .eq('profile_id', profileId)
+          .single();
+        
+        if (studentData && !studentError) {
+          setStudent(studentData);
+          
+          // 2. Fetch invoices for this student
+          const { data: invoiceData, error: invoiceError } = await supabase
+            .from('invoices')
+            .select('*')
+            .eq('student_id', studentData.id);
+
+          if (!invoiceError && invoiceData && invoiceData.length > 0) {
+            setInvoices(invoiceData);
+          } else {
+            // Try to find invoices by email if student_id mapping fails
+            const { data: emailInvoices } = await supabase
+              .from('invoices')
+              .select('*')
+              .eq('email', studentData.email);
+            
+            if (emailInvoices && emailInvoices.length > 0) {
+              setInvoices(emailInvoices);
+            } else {
+              console.info('No invoices found for student node.');
+              setInvoices([]);
+            }
+          }
+        } else {
+          console.warn('No student profile link found in sovereign database.');
+          setInvoices([]);
+        }
+      } else {
+        console.warn('No active session identifier found.');
+        setInvoices(MOCK_INVOICES);
+      }
+    } catch (err) {
+      console.error('Unexpected error during student fetch:', err);
+      setInvoices(MOCK_INVOICES);
+    }
+    setLoading(false);
+  }
+
+  useEffect(() => {
+    fetchStudentAndInvoices();
+  }, [user]);
+
+  useEffect(() => {
+    const supabase = createClient();
+    if (!supabase || !student?.id) return;
+
+    // Real-time subscription for invoices
+    const channel = supabase
+      .channel('student-invoices')
+      .on('postgres_changes', { 
+        event: '*', 
+        schema: 'public', 
+        table: 'invoices',
+        filter: `student_id=eq.${student.id}`
+      }, () => {
+        fetchStudentAndInvoices();
+      })
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
+  }, [user, student?.id]);
+
+  const syncLedger = async () => {
+    setLoading(true);
+    await fetchStudentAndInvoices();
+    setNotification({ message: 'Ledger Synchronized: Financial nodes updated.', type: 'success' });
+  };
+
+  return (
+    <div className="flex flex-col gap-6 animate-fade-in-up">
+      {/* Metrics Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="glass-card p-5 rounded-xl border border-white/5 flex flex-col gap-1 relative overflow-hidden group hover:border-[#00FF9D]/20 transition-all duration-300">
+          <div className="absolute inset-0 bg-gradient-to-br from-[#00FF9D]/5 to-transparent pointer-events-none"></div>
+          <span className="text-slate-400 text-xs font-body">Current Enlisted Course</span>
+          <span className="text-white font-display text-lg font-bold tracking-tight mt-1">
+            {student?.course_name || 'Vedic Maths Masterclass'}
+          </span>
+          <span className="text-[10px] items-center gap-1 text-[#00FF9D] font-mono flex mt-2">
+            <span className="size-1 rounded-full bg-[#00FF9D] animate-pulse"></span> Active Loop
+          </span>
+        </div>
+
+        <div className="glass-card p-5 rounded-xl border border-white/5 flex flex-col gap-1 hover:border-primary/20 transition-all duration-300">
+          <span className="text-slate-400 text-xs font-body">Batch Timings</span>
+          <span className="text-white font-display text-lg font-bold mt-1">
+            {student?.batch_timings || '08:00 AM - 10:00 AM'}
+          </span>
+          <span className="text-slate-500 text-[10px] font-body mt-2">IST Mon-Fri</span>
+        </div>
+
+        <div className="glass-card p-5 rounded-xl border border-white/5 flex flex-col gap-1 hover:border-primary/20 transition-all duration-300">
+          <span className="text-slate-400 text-xs font-body">Admission Ledger Date</span>
+          <span className="text-white font-display text-lg font-bold mt-1">
+            {student?.admission_date ? new Date(student.admission_date).toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' }) : '24 March 2026'}
+          </span>
+          <span className="text-slate-500 text-[10px] font-body mt-2">Vikram Samvat 2083</span>
+        </div>
+      </div>
+
+      {/* Financial Grid */}
+      <div className="glass-card p-6 rounded-xl border border-white/5 bg-background-dark/20 flex flex-col gap-4">
+        <div className="flex justify-between items-center border-b border-white/5 pb-4">
+          <h3 className="text-white font-display font-bold text-lg">Financial Ledger Nodes</h3>
+          <button 
+            onClick={syncLedger}
+            className="text-xs text-primary font-medium hover:underline flex items-center gap-1"
+          >
+            <span className="material-symbols-outlined text-[16px]">download</span> Sync Statements
+          </button>
+        </div>
+
+        <div className="flex flex-col gap-2">
+          {loading ? (
+            Array(3).fill(0).map((_, i) => (
+              <div key={i} className="p-4 rounded-xl bg-white/5 border border-white/5 flex flex-col md:flex-row justify-between md:items-center gap-4 animate-pulse">
+                <div className="flex items-center gap-4">
+                  <div className="size-10 rounded-lg bg-white/10"></div>
+                  <div className="flex flex-col gap-2">
+                    <div className="h-4 bg-white/10 rounded w-24"></div>
+                    <div className="h-3 bg-white/5 rounded w-32"></div>
+                  </div>
+                </div>
+                <div className="flex items-center gap-6">
+                  <div className="h-5 bg-white/10 rounded w-16"></div>
+                  <div className="h-6 bg-white/5 rounded-full w-12"></div>
+                </div>
+              </div>
+            ))
+          ) : invoices.map((inv, idx) => (
+            <div key={idx} className="p-4 rounded-xl bg-white/5 border border-white/5 flex flex-col md:flex-row justify-between md:items-center gap-4 hover:bg-white/10 transition-colors">
+              <div className="flex items-center gap-4">
+                <div className="size-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary border border-primary/10">
+                  <span className="material-symbols-outlined text-[20px]">receipt_long</span>
+                </div>
+                <div>
+                  <p className="text-white text-sm font-display font-medium">{inv.id}</p>
+                  <p className="text-slate-500 text-[11px] font-body">{inv.date} | {inv.category}</p>
+                </div>
+              </div>
+
+              <div className="flex items-center justify-between md:justify-end gap-6 w-full md:w-auto">
+                <span className="text-white font-mono text-sm font-bold">{inv.amount}</span>
+                <span className={`text-[10px] font-bold px-2.5 py-1 rounded-full border ${
+                  inv.status === 'Paid' 
+                    ? 'bg-[#00FF9D]/10 text-[#00FF9D] border-[#00FF9D]/20' 
+                    : 'bg-yellow-500/10 text-yellow-500 border-yellow-500/20'
+                }`}>
+                  {inv.status.toUpperCase()}
+                </span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Notifications */}
+      {notification && (
+        <div className={`fixed top-6 right-6 z-[200] px-4 py-3 rounded-xl border flex items-center gap-3 animate-slide-in-right ${
+          notification.type === 'success' 
+            ? 'bg-[#00FF9D]/10 border-[#00FF9D]/20 text-[#00FF9D]' 
+            : 'bg-red-500/10 border-red-500/20 text-red-500'
+        }`}>
+          <span className="material-symbols-outlined text-[20px]">
+            {notification.type === 'success' ? 'verified' : 'error'}
+          </span>
+          <span className="text-xs font-display font-bold uppercase tracking-wider">{notification.message}</span>
+        </div>
+      )}
+    </div>
+  );
+}

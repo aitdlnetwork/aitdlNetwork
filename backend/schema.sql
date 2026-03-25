@@ -20,14 +20,22 @@ CREATE TABLE IF NOT EXISTS public.profiles (
 -- Trigger to create a profile automatically when a user signs up
 CREATE OR REPLACE FUNCTION public.handle_new_user()
 RETURNS trigger AS $$
+DECLARE
+  new_name TEXT;
+  new_role user_role;
 BEGIN
+  new_name := COALESCE(new.raw_user_meta_data->>'name', split_part(new.email, '@', 1));
+  new_role := COALESCE((new.raw_user_meta_data->>'role')::user_role, 'client');
+
+  -- 1. Create Profile
   INSERT INTO public.profiles (id, email, name, role)
-  VALUES (
-    new.id, 
-    new.email, 
-    COALESCE(new.raw_user_meta_data->>'name', split_part(new.email, '@', 1)),
-    COALESCE((new.raw_user_meta_data->>'role')::user_role, 'client')
-  );
+  VALUES (new.id, new.email, new_name, new_role);
+
+  -- 2. Node Claiming: Link existing student record if email matches
+  UPDATE public.students
+  SET profile_id = new.id
+  WHERE email = new.email AND profile_id IS NULL;
+
   RETURN new;
 END;
 $$ LANGUAGE plpgsql SECURITY DEFINER;

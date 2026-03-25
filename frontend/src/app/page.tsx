@@ -49,8 +49,8 @@ export default function Home() {
               <Link href="/demo" className="btn-primary w-full sm:w-auto flex items-center justify-center h-12 px-8 rounded-lg bg-primary text-background-dark font-display font-semibold text-[14px]">
                   Get Free Demo
               </Link>
-              <Link href="/services" className="btn-secondary w-full sm:w-auto flex items-center justify-center h-12 px-8 rounded-lg bg-transparent font-display font-semibold text-[14px] border border-white/10 hover:border-white/20">
-                  View Solutions
+              <Link href="/login" className="btn-secondary w-full sm:w-auto flex items-center justify-center h-12 px-8 rounded-lg bg-white/5 text-primary border border-primary/20 hover:bg-white/10 font-display font-semibold text-[14px]">
+                  Client Portal
               </Link>
             </div>
             {/* Trust Badges */}

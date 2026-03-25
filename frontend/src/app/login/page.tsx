@@ -13,6 +13,7 @@ Contact: aitdlnetwork@outlook.com | jawahar.mallah@gmail.com
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useI18n } from '@/lib/i18n/I18nContext';
+import { createClient } from '@/utils/supabase/client';
 
 export default function Login() {
   const { language } = useI18n();
@@ -27,15 +28,48 @@ export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [notification, setNotification] = useState<{message: string, type: 'success' | 'error'} | null>(null);
   const router = useRouter();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
+    setNotification(null);
 
-    setTimeout(() => {
-      router.push('/dashboard');
-    }, 1200);
+    const supabase = createClient();
+    if (!supabase) {
+      // Fallback for demo
+      setTimeout(() => {
+        router.push('/dashboard');
+      }, 1200);
+      return;
+    }
+
+    try {
+      const { error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
+
+      if (error) {
+        setNotification({ 
+          message: t("Authentication Failure: " + error.message, "प्रमाणीकरण विफल: " + error.message, "प्रवेशः असफलः: " + error.message), 
+          type: 'error' 
+        });
+        setIsLoading(false);
+      } else {
+        setNotification({ 
+          message: t("Access Authorized: Decrypting session...", "पहुंच अधिकृत: सत्र डिक्रिप्ट किया जा रहा है...", "प्रवेशः स्वीकृतः: सत्र रहस्योद्घाटनम्..."), 
+          type: 'success' 
+        });
+        setTimeout(() => {
+          router.push('/dashboard');
+        }, 800);
+      }
+    } catch (err) {
+      setNotification({ message: "System Exception: Connection Interrupted.", type: 'error' });
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -100,6 +134,20 @@ export default function Login() {
             </button>
           </p>
         </div>
+
+        {/* Notifications */}
+        {notification && (
+          <div className={`fixed top-6 right-6 z-[200] px-4 py-3 rounded-xl border flex items-center gap-3 animate-slide-in-right ${
+            notification.type === 'success' 
+              ? 'bg-[#00FF9D]/10 border-[#00FF9D]/20 text-[#00FF9D]' 
+              : 'bg-red-500/10 border-red-500/20 text-red-500'
+          }`}>
+            <span className="material-symbols-outlined text-[20px]">
+              {notification.type === 'success' ? 'verified' : 'error'}
+            </span>
+            <span className="text-[10px] font-display font-bold uppercase tracking-widest">{notification.message}</span>
+          </div>
+        )}
       </div>
     </div>
   );
