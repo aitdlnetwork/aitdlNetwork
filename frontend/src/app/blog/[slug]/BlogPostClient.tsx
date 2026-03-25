@@ -19,6 +19,7 @@ interface PostContent {
   readTime: string;
   description: string;
   icon: string;
+  image: string;
   keywords: string[];
   content: { h2: string; p: string }[];
 }
@@ -38,11 +39,7 @@ export default function BlogPostClient({ postData }: { postData: Record<string, 
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  if (!postData) {
-    notFound();
-  }
-
-  const post = postData[language] || postData['en'];
+  const post = postData[language] || postData['en'] || Object.values(postData)[0];
 
   if (!post) {
     notFound();
@@ -95,6 +92,19 @@ export default function BlogPostClient({ postData }: { postData: Record<string, 
             <span className="material-symbols-outlined text-[18px] group-hover:-translate-x-1 transition-transform">arrow_back</span> 
             Back to Knowledge Centre
           </Link>
+        </div>
+
+        {/* Hero Image */}
+        <div className="mb-12 relative group animate-fade-in" style={{ animationDelay: '150ms' }}>
+          <div className="absolute -inset-1 bg-gradient-to-r from-primary/20 to-primary/0 rounded-[2rem] blur-xl opacity-50 group-hover:opacity-100 transition duration-1000"></div>
+          <div className="relative aspect-[16/9] w-full overflow-hidden rounded-[1.5rem] border border-white/10 bg-white/5">
+            <img 
+              src={post.image} 
+              alt={post.title}
+              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-background-dark/80 via-transparent to-transparent"></div>
+          </div>
         </div>
 
         {/* Header */}
