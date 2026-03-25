@@ -232,14 +232,15 @@ import BlogPostClient from './BlogPostClient';
 import { Metadata } from 'next';
 import { generateSEO } from '@/lib/seo/seo';
 
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  const post = blogPostsData[params.slug]?.en;
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const post = blogPostsData[slug]?.en;
   if (!post) return generateSEO({});
 
   return generateSEO({
     title: `${post.title} | AITDL Knowledge Centre`,
     description: post.description,
-    path: `/blog/${params.slug}`,
+    path: `/blog/${slug}`,
     keywords: post.keywords,
   });
 }
@@ -250,8 +251,9 @@ export function generateStaticParams() {
   }));
 }
 
-export default function BlogPost({ params }: { params: { slug: string } }) {
-  const postData = blogPostsData[params.slug];
+export default async function BlogPost({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const postData = blogPostsData[slug];
 
   if (!postData) {
     notFound();
