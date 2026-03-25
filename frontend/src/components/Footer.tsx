@@ -77,6 +77,14 @@ export default function Footer() {
             <li><Link href="/login" className="hover:text-primary transition-colors">{t('footer_link_login')}</Link></li>
             <li><Link href="/dashboard" className="hover:text-primary transition-colors">{t('footer_link_analytics')}</Link></li>
             <li><Link href="/contact" className="hover:text-primary transition-colors">{t('footer_link_support')}</Link></li>
+            <li>
+              <Link href="/partners" className="group flex items-center gap-2 hover:text-primary transition-colors">
+                {t_local('Partner Portal', 'पार्टनर पोर्टल', 'सहयोगी द्वारम्')}
+                <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-primary/10 border border-primary/20 text-primary font-bold uppercase tracking-tighter">
+                  Connect
+                </span>
+              </Link>
+            </li>
           </ul>
         </div>
 
