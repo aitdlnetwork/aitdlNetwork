@@ -4,22 +4,22 @@
 export const SEO_CONFIG = {
   siteName: "AITDL Network",
   siteUrl: "https://aitdl.in",
-  title: "AITDL Network – Smart Software for Education & Business Growth",
+  title: "Coaching Institute Software India | School ERP & POS — AITDL",
   description:
-    "AITDL Network builds custom LMS, POS, Clinic Management, NGO systems, and AI-powered solutions for Indian businesses and institutions.",
+    "AITDL provides institute management software, school ERP, and POS billing for coaching centres, schools, and retailers across Mumbai, Pune & Gorakhpur.",
   author: "Jawahar R Mallah",
   twitterHandle: "@aitdlnetwork",
   ogImage: "https://aitdl.in/og-image.png",
 
   keywords: [
-    "LMS software India",
-    "education management system",
-    "POS billing software",
-    "clinic management software India",
-    "NGO software",
-    "real estate ERP",
-    "AI learning platform",
-    "school management system",
-    "coaching institute software"
+    "coaching institute software India",
+    "school ERP India",
+    "institute management system",
+    "education software Gorakhpur",
+    "LMS for coaching institutes India",
+    "POS billing software Mumbai",
+    "clinic management software",
+    "NGO management software India",
+    "real estate ERP India"
   ]
 };

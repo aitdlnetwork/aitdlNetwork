@@ -26,7 +26,7 @@ const blogPostsData: Record<string, Record<string, {
 }>> = {
   "choosing-lms-coaching-up": {
     en: {
-      title: "Selecting the Right LMS for Institutions in Uttar Pradesh",
+      title: "Best LMS for Coaching Institutes in Uttar Pradesh: 2026 Guide",
       category: "EdTech",
       date: "March 24, 2026",
       readTime: "5 min read",
@@ -67,7 +67,7 @@ const blogPostsData: Record<string, Record<string, {
   },
   "gst-pos-retail-checklist": {
     en: {
-      title: "GST Invoicing Checklist in POS for Indian Retailers",
+      title: "GST Billing Software Checklist for Indian Retailers Using POS",
       category: "Retail",
       date: "March 23, 2026",
       readTime: "4 min read",
@@ -105,7 +105,7 @@ const blogPostsData: Record<string, Record<string, {
   },
   "sovereign-ai-enterprise-security": {
     en: {
-      title: "Why Sovereign AI Nodes Matter for Enterprise Security",
+      title: "What Is Local AI Software & Why Indian Businesses Need It in 2026",
       category: "AI & Security",
       date: "March 22, 2026",
       readTime: "6 min read",
@@ -140,10 +140,64 @@ const blogPostsData: Record<string, Record<string, {
         { h2: "आर्किटेक्चर सुरक्षा", p: "सर्वभौम नोड्स स्थानीय क्षेत्रे पूर्ण डेटा स्वामित्वं रक्षन्ति।" }
       ]
     }
+  },
+  "best-coaching-institute-software-gorakhpur": {
+    en: {
+      title: "Best Coaching Institute Software in Gorakhpur (2026): A Complete Guide",
+      category: "EdTech",
+      date: "March 25, 2026",
+      readTime: "8 min read",
+      description: "Discover how AITDL Network helps institutes near Golghar and Civil Lines automate fees, attendance and student records. Free demo available.",
+      icon: "location_on",
+      content: [
+        { h2: "Why Gorakhpur Institutes Need Automation", p: "From competitive exam preparation centres near Golghar to school tutoring hubs in Civil Lines, hundreds of institutes now manage thousands of students every year. Yet most of them still run on paper registers and manual fee collection triggers chaotic workflows." },
+        { h2: "Key Features for Local Success", p: "Reliable automation in UP requires absolute support for UPI-based fee collection, Hindi-language parent communication benchmarks, and offline-capable attendance nodes for network resiliency." },
+        { h2: "The AITDL Advantage in Gorakhpur", p: "AITDL Network operates a dedicated local node in Gorakhpur. This means local deployment benchmarks, on-site training triggers, and a platform genuinely built for UP's institutional needs safely." }
+      ]
+    },
+    hi: {
+      title: "गोरखपुर में सर्वश्रेष्ठ कोचिंग संस्थान सॉफ्टवेयर (2026): एक पूर्ण गाइड",
+      category: "एडटेक",
+      date: "25 मार्च, 2026",
+      readTime: "8 मिनट की रीडिंग",
+      description: "डिस्कवर करें कि कैसे एआई टीडीएल नेटवर्क गोलघर और सिविल लाइन्स के पास संस्थानों को फीस, उपस्थिति और छात्र रिकॉर्ड को स्वचालित करने में मदद करता है।",
+      icon: "location_on",
+      content: [
+        { h2: "गोरखपुर संस्थानों को स्वचालन की आवश्यकता क्यों है", p: "गोलघर के पास प्रतियोगी परीक्षा केंद्रों से लेकर सिविल लाइंस के ट्यूटरिंग हब तक, सैकड़ों संस्थान अब हर साल हजारों छात्रों का प्रबंधन करते हैं।" },
+        { h2: "स्थानीय सफलता के लिए मुख्य विशेषताएं", p: "यूपी में विश्वसनीय स्वचालन के लिए यूपीआई-आधारित शुल्क संग्रह और हिंदी भाषा के संचार के लिए पूर्ण समर्थन की आवश्यकता होती है।" },
+        { h2: "गोरखपुर में एआई टीडीएल का लाभ", p: "एआई टीडीएल नेटवर्क गोरखपुर में एक समर्पित स्थानीय नोड संचालित करता है। इसका मतलब है स्थानीय तैनाती और यूपी की संस्थागत जरूरतों के लिए बनाया गया मंच।" }
+      ]
+    },
+    sa: {
+      title: "गोरखपुर संस्थानानां कृते श्रेष्ठ तन्त्रम् (2026): पूर्ण गाइड",
+      category: "एडटेक",
+      date: "25 मार्च, 2026",
+      readTime: "8 मिनट पठनम्",
+      description: "गोरखपुर संस्थानानां कृते शुल्क उपस्थिति छात्र रिकॉर्ड स्वचालन गाइड।",
+      icon: "location_on",
+      content: [
+        { h2: "गोरखपुर संस्थानानां कृते स्वचालनस्य आवश्यकता", p: "गोलघर सिविल लाइन्स क्षेत्रे अनेकाः संस्थाः सन्ति याः छात्र प्रबन्धनं कुर्वन्ति।" },
+        { h2: "स्थानीय सफलतायाः मुख्य अङ्गानि", p: "यूपीआई आधारित शुल्क संकलनं भाषा प्रबन्धनं च अनिवार्यम्।" },
+        { h2: "गोरखपुरे अस्माकं विशेषता", p: "गोरखपुरे अस्माकं स्थानीय केन्द्रं अस्ति यत् संस्थानानां साहाय्यं करोति।" }
+      ]
+    }
   }
 };
 
 import BlogPostClient from './BlogPostClient';
+import { Metadata } from 'next';
+import { generateSEO } from '@/lib/seo/seo';
+
+export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+  const post = blogPostsData[params.slug]?.en;
+  if (!post) return generateSEO({});
+
+  return generateSEO({
+    title: `${post.title} | AITDL Blog`,
+    description: post.description,
+    path: `/blog/${params.slug}`,
+  });
+}
 
 export function generateStaticParams() {
   return Object.keys(blogPostsData).map((slug) => ({

@@ -141,7 +141,6 @@ const categoriesData: Record<string, { label: string; icon: string; services: an
   ]
 };
 
-/* ── Coming Soon entries (no dedicated page yet) ── */
 const comingSoonData: Record<string, { title: string; icon: string; eta: string }[]> = {
   en: [
     { title: "Transport & Fleet Management", icon: "local_shipping", eta: "Q3 2026" },
@@ -282,6 +281,38 @@ export default function Services() {
         </div>
       </div>
 
+      {/* SoftwareApplication Schema */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "SoftwareApplication",
+            "name": "AITDL LMS & Coaching Management Suite",
+            "applicationCategory": "EducationalApplication",
+            "operatingSystem": "Web, Android, iOS",
+            "offers": {
+              "@type": "Offer",
+              "price": "0",
+              "priceCurrency": "INR",
+              "description": "Free demo available. Contact for pricing."
+            },
+            "provider": {
+              "@type": "Organization",
+              "name": "AITDL Network",
+              "url": "https://aitdl.in"
+            },
+            "featureList": [
+              "Student Management System",
+              "Automated Fee Collection",
+              "Online Tests & Quizzes",
+              "AI-powered Learning Paths",
+              "GST-ready POS Billing",
+              "Attendance Tracking"
+            ]
+          })
+        }}
+      />
     </div>
   );
 }

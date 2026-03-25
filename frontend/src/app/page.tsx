@@ -160,22 +160,93 @@ export default function Home() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Organization",
-            "name": "AITDL Network",
-            "url": "https://aitdl.com",
-            "logo": "https://aitdl.com/logo.png",
-            "sameAs": [
-              "https://twitter.com/aitdlnetwork"
-            ],
-            "description": "AITDL Network builds custom LMS, POS, Clinic Management, NGO systems, and AI-powered solutions for Indian businesses and institutions.",
-            "contactPoint": {
-              "@type": "ContactPoint",
-              "email": "aitdlnetwork@outlook.com",
-              "contactType": "Customer Support"
+          __html: JSON.stringify([
+            {
+              "@context": "https://schema.org",
+              "@type": "LocalBusiness",
+              "name": "AITDL Network",
+              "image": "https://aitdl.in/og-image.png",
+              "@id": "https://aitdl.in",
+              "url": "https://aitdl.in",
+              "telephone": "+91-93230-23007",
+              "address": [
+                {
+                  "@type": "PostalAddress",
+                  "streetAddress": "Golghar",
+                  "addressLocality": "Gorakhpur",
+                  "addressRegion": "UP",
+                  "postalCode": "273001",
+                  "addressCountry": "IN"
+                },
+                {
+                  "@type": "PostalAddress",
+                  "streetAddress": "Andheri East",
+                  "addressLocality": "Mumbai",
+                  "addressRegion": "Maharashtra",
+                  "postalCode": "400069",
+                  "addressCountry": "IN"
+                }
+              ],
+              "geo": {
+                "@type": "GeoCoordinates",
+                "latitude": 26.7606,
+                "longitude": 83.3731
+              },
+              "areaServed": ["Gorakhpur", "Mumbai", "Pune", "India"],
+              "openingHoursSpecification": {
+                "@type": "OpeningHoursSpecification",
+                "dayOfWeek": [
+                  "Monday",
+                  "Tuesday",
+                  "Wednesday",
+                  "Thursday",
+                  "Friday",
+                  "Saturday"
+                ],
+                "opens": "09:00",
+                "closes": "18:00"
+              },
+              "sameAs": [
+                "https://www.linkedin.com/company/aitdlnetwork",
+                "https://twitter.com/aitdlnetwork"
+              ],
+              "founder": {
+                "@type": "Person",
+                "name": "Jawahar R Mallah",
+                "jobTitle": "Lead Architect & Founder"
+              }
+            },
+            {
+              "@context": "https://schema.org",
+              "@type": "FAQPage",
+              "mainEntity": [
+                {
+                  "@type": "Question",
+                  "name": "What is AITDL Network?",
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "AITDL Network is an AI-powered software company based in Gorakhpur and Mumbai, providing LMS, coaching management, school ERP, and retail POS solutions."
+                  }
+                },
+                {
+                  "@type": "Question",
+                  "name": "Does AITDL offer coaching management software in Gorakhpur?",
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes, AITDL provides student management, fee tracking, and online tests for coaching institutes in Gorakhpur with local support."
+                  }
+                },
+                {
+                  "@type": "Question",
+                  "name": "Is there a free demo available?",
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes, we offer free demos for all our software products at aitdl.in/demo."
+                  }
+                }
+              ]
             }
-          })
+          ])
         }}
       />
     </div>

@@ -15,16 +15,16 @@ import ServicePageClient from './ServicePageClient';
 /* ── Per-slug SEO metadata map ── */
 const slugMeta: Record<string, { title: string; description: string }> = {
   "edtech-ecosystems": {
-    title: "EdTech LMS & Education Management | AITDL Network",
-    description: "Comprehensive LMS, virtual classrooms, automated fee collection, and student management software for schools and coaching institutes in India.",
+    title: "LMS & Student Management Software for Coaching Institutes | AITDL",
+    description: "Manage students, fees, batches & attendance with AITDL's LMS. Built for coaching centres and schools in Gorakhpur, Mumbai & Pune. Free demo available.",
   },
   "pos-retail": {
-    title: "Next-Gen POS & Retail Billing Software | AITDL Network",
+    title: "GST Billing Software Checklist for Indian Retailers Using POS | AITDL",
     description: "Fast barcode billing, GST invoicing, live inventory sync, and customer loyalty management system for Indian retailers and restaurants.",
   },
   "academic-automation": {
-    title: "Academic Automation – Admissions & Exams | AITDL Network",
-    description: "Paperless digital admission forms, auto mark-sheets, library management, and timetable generator for schools and colleges.",
+    title: "School Automation Software — Digital Admissions & Mark-sheets | AITDL",
+    description: "Go paperless with AITDL's academic automation — digital admissions, automated mark-sheets, library & certificate management for schools across India.",
   },
   "enterprise-cloud": {
     title: "Enterprise Cloud Hosting & Infrastructure | AITDL Network",
@@ -39,8 +39,8 @@ const slugMeta: Record<string, { title: string; description: string }> = {
     description: "Online maintenance billing, donor CRM, digital voting, and member portals for RWAs, NGOs, and housing societies in India.",
   },
   "adaptive-ai": {
-    title: "Adaptive AI Self-Learning Platform for Students | AITDL Network",
-    description: "AI-powered personalised study plans, adaptive quiz engine, and weakness detection for students and self-learners in India.",
+    title: "AI-Powered Adaptive Learning Software for Students | AITDL",
+    description: "Personalised AI study plans, smart quizzes & weakness detection for students. AITDL's adaptive learning system helps coaching institutes improve results.",
   },
   "healthcare-clinic": {
     title: "Clinic & Healthcare Management Software India | AITDL Network",

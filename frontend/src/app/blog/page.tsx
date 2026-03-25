@@ -16,7 +16,7 @@ import Link from 'next/link';
 const blogPosts = [
   {
     slug: "choosing-lms-coaching-up",
-    title: "Selecting the Right LMS for Institutions in Uttar Pradesh",
+    title: "Best LMS for Coaching Institutes in Uttar Pradesh: 2026 Guide",
     category: "EdTech",
     date: "March 24, 2026",
     readTime: "5 min read",
@@ -24,8 +24,17 @@ const blogPosts = [
     icon: "school"
   },
   {
+    slug: "best-coaching-institute-software-gorakhpur",
+    title: "Best Coaching Institute Software in Gorakhpur (2026): A Complete Guide",
+    category: "EdTech",
+    date: "March 25, 2026",
+    readTime: "8 min read",
+    description: "Discover how AITDL Network helps institutes near Golghar and Civil Lines automate fees, attendance and student records. Free demo available.",
+    icon: "location_on"
+  },
+  {
     slug: "gst-pos-retail-checklist",
-    title: "GST Invoicing Checklist in POS for Indian Retailers",
+    title: "GST Billing Software Checklist for Indian Retailers Using POS",
     category: "Retail",
     date: "March 23, 2026",
     readTime: "4 min read",
@@ -34,7 +43,7 @@ const blogPosts = [
   },
   {
     slug: "sovereign-ai-enterprise-security",
-    title: "Why Sovereign AI Nodes Matter for Enterprise Security",
+    title: "What Is Local AI Software & Why Indian Businesses Need It in 2026",
     category: "AI & Security",
     date: "March 22, 2026",
     readTime: "6 min read",
@@ -42,6 +51,16 @@ const blogPosts = [
     icon: "psychology"
   }
 ];
+
+import { Metadata } from 'next';
+import { generateSEO } from '@/lib/seo/seo';
+
+export const metadata: Metadata = generateSEO({
+  title: "EdTech & Business Software Insights — AITDL Knowledge Centre",
+  description: "Expert guides on school ERP, coaching software, GST billing & AI in education. Practical tips for institutes and businesses across India.",
+  path: "/blog",
+  keywords: ["edtech software blog India", "coaching software guide", "school ERP tips", "GST billing India"]
+});
 
 export default function BlogConfig() {
   return (
