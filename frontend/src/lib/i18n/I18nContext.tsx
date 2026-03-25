@@ -15,7 +15,7 @@ export type Language = 'en' | 'hi' | 'sa';
 interface I18nContextProps {
   language: Language;
   setLanguage: (lang: Language) => void;
-  t: (key: keyof TranslationDict) => string;
+  t: <K extends keyof TranslationDict>(key: K) => TranslationDict[K];
 }
 
 const I18nContext = createContext<I18nContextProps | undefined>(undefined);
@@ -40,9 +40,11 @@ export function I18nProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
-  const t = (key: keyof TranslationDict): string => {
+  const t = <K extends keyof TranslationDict>(key: K): TranslationDict[K] => {
     const dict = translations[language] || translations['en'];
-    return dict[key] || translations['en'][key] || key;
+    // Use fallback to English if key missing in current language
+    const value = dict[key] !== undefined ? dict[key] : translations['en'][key];
+    return (value !== undefined ? value : key) as TranslationDict[K];
   };
 
   return (
