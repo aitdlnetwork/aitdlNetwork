@@ -188,9 +188,22 @@ Copyright © AITDL Network 2026 | Vikram Samvat 2083
     50% { transform: translateY(-20px); }
   }
 
-  @keyframes pulseGlow {
-    0%, 100% { box-shadow: 0 0 20px rgba(13, 227, 242, 0.1); }
-    50% { box-shadow: 0 0 40px rgba(13, 227, 242, 0.3); }
+  .animate-pulse-subtle {
+    animation: pulseSubtle 2s ease-in-out infinite;
+  }
+
+  .animate-portal-glow {
+    animation: portalGlow 3s ease-in-out infinite;
+  }
+
+  @keyframes pulseSubtle {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.8); }
+  }
+
+  @keyframes portalGlow {
+    0%, 100% { box-shadow: 0 0 10px rgba(13, 227, 242, 0.1), inset 0 0 5px rgba(13, 227, 242, 0.05); }
+    50% { box-shadow: 0 0 25px rgba(13, 227, 242, 0.3), inset 0 0 15px rgba(13, 227, 242, 0.1); }
   }
 
   .hide-scrollbar::-webkit-scrollbar { display: none; }

@@ -138,6 +138,11 @@ export default function DemoOnboarding() {
             <span className="material-symbols-outlined text-[18px]">{step === 3 ? 'rocket_launch' : 'east'}</span>
           </button>
         </div>
+
+        {/* Watermark */}
+        <div className="absolute bottom-6 right-8 text-white/10 font-display font-black text-[9px] tracking-[0.4em] uppercase pointer-events-none z-20 select-none">
+          AITDL NETWORK
+        </div>
       </div>
     </div>
   );

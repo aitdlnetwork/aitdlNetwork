@@ -26,6 +26,7 @@ Copyright © AITDL Network 2026 | Vikram Samvat 2083
 
 import React, { useState } from 'react';
 import { useI18n } from '@/lib/i18n/I18nContext';
+import NodeMap from '@/components/NodeMap';
 
 export default function Contact() {
   const { language } = useI18n();
@@ -61,7 +62,7 @@ export default function Contact() {
       <div className="absolute inset-0 bg-hero-glow pointer-events-none"></div>
 
       <div className="w-full max-w-[1200px] mx-auto px-6 relative z-10 animate-fade-in">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-start mb-32">
           {/* Left Side: Contact Nodes */}
           <div className="flex flex-col gap-12">
             <div className="space-y-6">
@@ -192,6 +193,32 @@ export default function Contact() {
               </form>
             )}
           </div>
+        </div>
+
+        {/* Global Infrastructure Section */}
+        <div className="mt-40 mb-20 animate-slide-up">
+           <div className="flex flex-col items-center justify-center text-center gap-6 mb-12">
+              <div className="inline-flex items-center gap-3 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary font-display font-black text-[10px] tracking-[0.3em] uppercase">
+                <span className="size-2 rounded-full bg-primary animate-pulse"></span>
+                NODE VISUALIZATION
+              </div>
+              <h2 className="text-5xl md:text-6xl font-display font-bold tracking-tight text-white">
+                {t("National", "राष्ट्रीय", "राष्ट्रीयिय")} <span className="text-gradient-primary">Infrastructure.</span>
+              </h2>
+              <p className="text-slate-400 text-lg font-body max-w-2xl">
+                {t(
+                  "Explore our sovereign data nodes spanning across strategic regional clusters. Each node operates with absolute independent security and centralized intelligence sync.",
+                  "रणनीतिक क्षेत्रीय समूहों में फैले हमारे संप्रभु डेटा नोड्स का अन्वेषण करें। प्रत्येक नोड पूर्ण स्वतंत्र सुरक्षा और केंद्रित इंटेलिजेंस सिंक के साथ काम करता है।",
+                  "अभिनव-तन्त्र-केन्द्राणि पश्यन्तु। प्रत्येकं केन्द्रं पूर्ण-सुरक्षया सह कार्यं करोति।"
+                )}
+              </p>
+           </div>
+           
+           <div className="relative">
+              <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-background-dark to-transparent z-20 pointer-events-none"></div>
+              <NodeMap />
+              <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-background-dark to-transparent z-20 pointer-events-none"></div>
+           </div>
         </div>
       </div>
     </div>

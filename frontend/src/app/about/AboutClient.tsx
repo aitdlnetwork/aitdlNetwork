@@ -110,6 +110,10 @@ export default function About() {
                 className="object-cover opacity-80 brightness-75 group-hover:brightness-100 group-hover:scale-110 transition-all duration-1000"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-background-dark via-transparent to-transparent opacity-60"></div>
+              {/* Watermark */}
+              <div className="absolute bottom-6 right-8 text-white/20 font-display font-black text-[10px] tracking-[0.4em] uppercase pointer-events-none z-20 select-none">
+                AITDL NETWORK
+              </div>
             </div>
           </div>
         </div>
@@ -142,6 +146,10 @@ export default function About() {
               className="object-cover brightness-75 group-hover:brightness-100 transition-all duration-1000"
             />
              <div className="absolute inset-0 bg-gradient-to-t from-primary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+             {/* Watermark */}
+             <div className="absolute bottom-6 right-8 text-white/20 font-display font-black text-[10px] tracking-[0.4em] uppercase pointer-events-none z-20 select-none">
+                AITDL NETWORK
+              </div>
           </div>
           
           <div className="flex flex-col gap-8 z-10 text-center md:text-left">

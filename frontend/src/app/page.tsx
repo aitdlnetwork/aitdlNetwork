@@ -109,6 +109,10 @@ export default function Home() {
                     className="object-cover rounded-[2.5rem] brightness-90 group-hover:brightness-100 transition-all duration-500"
                     priority
                   />
+                  {/* Watermark */}
+                  <div className="absolute bottom-6 right-8 text-white/20 font-display font-black text-[10px] tracking-[0.4em] uppercase pointer-events-none z-20 select-none">
+                    AITDL NETWORK
+                  </div>
                 </div>
               </div>
               

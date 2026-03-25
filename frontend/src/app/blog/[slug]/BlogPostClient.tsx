@@ -156,6 +156,10 @@ export default function BlogPostClient({ postData }: { postData: Record<string, 
               className="w-full h-full object-cover transition-transform duration-1000 group-hover/hero:scale-110"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-background-dark/90 via-background-dark/20 to-transparent"></div>
+            {/* Watermark */}
+            <div className="absolute bottom-6 right-8 text-white/20 font-display font-black text-[10px] tracking-[0.4em] uppercase pointer-events-none z-20 select-none">
+              AITDL NETWORK
+            </div>
           </div>
         </div>
 
