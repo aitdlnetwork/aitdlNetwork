@@ -47,6 +47,9 @@ export interface TranslationDict {
   footer_col_office: string;
   footer_col_corporate: string;
   footer_col_legal: string;
+  footer_col_nodes: string;
+  footer_addr_gorakhpur: string;
+  footer_addr_mumbai: string;
 
   // Footer Links - Services
   footer_link_aiml: string;
@@ -204,6 +207,7 @@ export interface TranslationDict {
   partner_placeholder_comments: string;
   hero_trust_backups: string;
   hero_trust_nodes: string;
+  hero_trust_security: string;
 }
 
 export const translations: Record<string, TranslationDict> = {
@@ -213,8 +217,8 @@ export const translations: Record<string, TranslationDict> = {
     nav_portfolio: "Portfolio",
     nav_contact: "Contact",
     hero_badge: "SOVEREIGN INFRASTRUCTURE & AI",
-    hero_title: "Secure Enterprise Intelligence at Scale",
-    hero_subtitle: "Architecting deep learning pipelines and sovereign ecosystems for scalable operational loads.",
+    hero_title: "Advanced Coaching & School ERP",
+    hero_subtitle: "The ultimate AI-powered operating system for coaching institutes, schools, and modern retail hubs.",
     cta_demo: "Access Systems",
     stat_students: "Students Managed",
     stat_systems: "Live Systems Deployed",
@@ -243,6 +247,9 @@ export const translations: Record<string, TranslationDict> = {
     footer_col_office: "Client Office",
     footer_col_corporate: "Corporate",
     footer_col_legal: "Legal",
+    footer_col_nodes: "Regional Nodes",
+    footer_addr_gorakhpur: "Golghar, Gorakhpur, UP - 273001",
+    footer_addr_mumbai: "Andheri East, Mumbai, MH - 400069",
     footer_link_aiml: "AI & ML Pipelines",
     footer_link_enterprise: "Enterprise Systems",
     footer_link_cloud: "Cloud Solutions",
@@ -381,7 +388,8 @@ export const translations: Record<string, TranslationDict> = {
     partner_points_ent: ["Co-branding Space", "Dedicated SA", "Tender Support"],
     partner_placeholder_comments: "How do you plan to scale with AITDL?",
     hero_trust_backups: "Sovereign infrastructure backups",
-    hero_trust_nodes: "Fully sandboxed local nodes"
+    hero_trust_nodes: "Fully sandboxed local nodes",
+    hero_trust_security: "Enterprise-grade SSL & Encryption"
   },
   hi: {
     nav_about: "हमारे बारे में",
@@ -389,8 +397,8 @@ export const translations: Record<string, TranslationDict> = {
     nav_portfolio: "पोर्टफोलियो",
     nav_contact: "संपर्क",
     hero_badge: "संप्रभु इन्फ्रास्ट्रक्चर और एआई",
-    hero_title: "सुरक्षित एंटरप्राइज इंटेलिजेंस",
-    hero_subtitle: "बड़े परिचालन भार के लिए सुरक्षित डीप लर्निंग पाइपलाइनों और संप्रभु पारिस्थितिक तंत्र का निर्माण।",
+    hero_title: "एडवांस्ड कोचिंग और स्कूल ईआरपी",
+    hero_subtitle: "कोचिंग संस्थानों, स्कूलों और आधुनिक खुदरा केंद्रों के लिए अंतिम एआई-संचालित ऑपरेटिंग सिस्टम।",
     cta_demo: "सिस्टम एक्सेस",
     stat_students: "छात्र व्यवस्थित",
     stat_systems: "लाइव सिस्टम तैनात",
@@ -419,6 +427,9 @@ export const translations: Record<string, TranslationDict> = {
     footer_col_office: "क्लाइंट ऑफिस",
     footer_col_corporate: "कॉर्पोरेट",
     footer_col_legal: "कानूनी",
+    footer_col_nodes: "क्षेत्रीय नोड्स",
+    footer_addr_gorakhpur: "गोलघर, गोरखपुर, यूपी - 273001",
+    footer_addr_mumbai: "अंधेरी ईस्ट, मुंबई, एमएच - 400069",
     footer_link_aiml: "एआई और एमएल पाइपलाइन्स",
     footer_link_enterprise: "एंटरप्राइज सिस्टम",
     footer_link_cloud: "क्लाउड सॉल्यूशंस",
@@ -557,7 +568,8 @@ export const translations: Record<string, TranslationDict> = {
     partner_points_ent: ["को-ब्रांडिंग स्पेस", "समर्पित एसए", "निविदा सहायता"],
     partner_placeholder_comments: "आप AITDL के साथ स्केलिंग की योजना कैसे बनाते हैं?",
     hero_trust_backups: "संप्रभु बुनियादी ढांचा बैकअप",
-    hero_trust_nodes: "पूरी तरह से सैंडबॉक्स्ड स्थानीय नोड्स"
+    hero_trust_nodes: "पूरी तरह से सैंडबॉक्स्ड स्थानीय नोड्स",
+    hero_trust_security: "एंटरप्राइज-ग्रेड एसएसएल और एन्क्रिप्शन"
   },
   sa: {
     nav_about: "विषये",
@@ -565,8 +577,8 @@ export const translations: Record<string, TranslationDict> = {
     nav_portfolio: "कार्यम्",
     nav_contact: "सम्पर्कः",
     hero_badge: "सर्वभौम तन्त्रज्ञानम् एआई",
-    hero_title: "सुरक्षित उद्योग प्रज्ञा तन्त्रम्",
-    hero_subtitle: "उच्च स्तरस्य कार्यभाराय गणन तन्त्राणां रचना।",
+    hero_title: "प्रगत शिक्षण विद्यालय व्यवस्थापनम्",
+    hero_subtitle: "शिक्षण संस्थानां कृते सर्वोत्तमम् एआई-संचालितं कार्यतन्त्रम्।",
     cta_demo: "तन्त्र प्रवेशः",
     stat_students: "छात्राः व्यवस्थिताः",
     stat_systems: "तन्त्राणि విన్यासः",
@@ -595,6 +607,9 @@ export const translations: Record<string, TranslationDict> = {
     footer_col_office: "ग्राहक कार्यालयम्",
     footer_col_corporate: "कॉर्पोरेट",
     footer_col_legal: "विधि",
+    footer_col_nodes: "क्षेत्रीय नोड्स",
+    footer_addr_gorakhpur: "गोलघर, गोरखपुर, यूपी - २७३००१",
+    footer_addr_mumbai: "अंधेरी पूर्व, मुम्बई, एमएच - ४०००६९",
     footer_link_aiml: "एआई एमएल पाइपलाइन्स्",
     footer_link_enterprise: "व्यवसाय व्यवस्था",
     footer_link_cloud: "मेघ समाधानम्",
@@ -733,6 +748,7 @@ export const translations: Record<string, TranslationDict> = {
     partner_points_ent: ["को-ब्रांडिंग स्थानम्", "समर्पित एसए", "निविदा सहयोगः"],
     partner_placeholder_comments: "भवान् AITDL इत्यनेन सह कथं स्केलिंग् योजनां करोति?",
     hero_trust_backups: "संप्रभु संरचना बैकअप",
-    hero_trust_nodes: "पूर्णतया सैंडबॉक्स्ड स्थानीय नोड्स"
+    hero_trust_nodes: "पूर्णतया सैंडबॉक्स्ड स्थानीय नोड्स",
+    hero_trust_security: "एंटरप्राइज-स्तर एसएसएल सुरक्षा"
   }
 };

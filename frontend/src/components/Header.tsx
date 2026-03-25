@@ -5,34 +5,17 @@ Website: https://www.aitdl.com |  https://www.aitdl.in
 Contact: aitdlnetwork@outlook.com | jawahar.mallah@gmail.com
 */
 
-/*
-AITDL Network
-Artificial Intelligence Technology & Deep Learning
-
-Designed & Architected by JRM
-
-Contact:
-aitdl.com
-aitdlnetwork@outlook.com
-jawahar.mallah@gmail.com
-
-Copyright © AITDL Network 2026 | Vikram Samvat 2083
-*/
-
-// AITDL Network © 2026 | Vikram Samvat 2083
-// Designed & Architected by JRM
-
 "use client";
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { useI18n, Language } from '@/lib/i18n/I18nContext';
-import { translations } from '@/lib/i18n/translations';
 import { useAccessibility } from '@/lib/accessibility/AccessibilityContext';
 import { createClient } from '@/utils/supabase/client';
 
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isLangOpen, setIsLangOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const { language, setLanguage, t } = useI18n();
   const { fontSize, setFontSize } = useAccessibility();
   const [session, setSession] = useState<any>(null);
@@ -42,6 +25,14 @@ export default function Header() {
     hi: { label: "हिन्दी", flag: "🇮🇳" },
     sa: { label: "संस्कृतम्", flag: "🔱" }
   };
+
+  React.useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   React.useEffect(() => {
     const supabase = createClient();
@@ -58,67 +49,81 @@ export default function Header() {
     return () => subscription.unsubscribe();
   }, []);
 
+  const navLinkClass = "text-[11px] font-bold tracking-widest uppercase text-text-muted hover:text-primary transition-all relative group py-2";
+  const navLinkUnderline = "absolute bottom-0 left-0 w-0 h-[1px] bg-primary transition-all duration-300 group-hover:w-full";
+
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 glass-nav h-[72px] transition-all duration-300">
+    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled ? 'glass-nav h-[64px] border-b border-white/10 bg-background-dark/40 shadow-2xl' : 'h-[80px] bg-transparent'}`}>
       <div className="max-w-[1200px] mx-auto px-6 h-full flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-3 group">
-          <div className="size-8 text-primary transition-transform group-hover:scale-105">
+          <div className="size-8 text-primary transition-all duration-500 group-hover:scale-110 group-hover:rotate-[10deg] drop-shadow-[0_0_8px_rgba(13,227,242,0.4)]">
             <svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
               <path d="M24 45.8096C19.6865 45.8096 15.4698 44.5305 11.8832 42.134C8.29667 39.7376 5.50128 36.3314 3.85056 32.3462C2.19985 28.361 1.76794 23.9758 2.60947 19.7452C3.451 15.5145 5.52816 11.6284 8.57829 8.5783C11.6284 5.52817 15.5145 3.45101 19.7452 2.60948C23.9758 1.76795 28.361 2.19986 32.3462 3.85057C36.3314 5.50129 39.7376 8.29668 42.134 11.8833C44.5305 15.4698 45.8096 19.6865 45.8096 24L24 24L24 45.8096Z" fill="currentColor"></path>
             </svg>
           </div>
-          <span className="font-display font-bold text-xl tracking-tight text-text-primary">AITDL Network</span>
+          <span className="font-display font-black text-xl tracking-tight text-white uppercase group-hover:text-primary transition-colors duration-300">AITDL</span>
         </Link>
         
         {/* Desktop Links */}
-        <div className="hidden md:flex items-center gap-6">
-          <Link href="/services" className="text-xs font-medium text-text-muted hover:text-primary transition-colors">{t('nav_services')}</Link>
-          <Link href="/portfolio" className="text-xs font-medium text-text-muted hover:text-primary transition-colors">{t('nav_portfolio')}</Link>
-          <Link href="/about" className="text-xs font-medium text-text-muted hover:text-primary transition-colors">{t('nav_about')}</Link>
-          <Link href="/contact" className="text-xs font-medium text-text-muted hover:text-primary transition-colors">{t('nav_contact')}</Link>
-
-          {/* Font Sizer */}
-          <div className="flex items-center gap-1 bg-white/5 border border-white/10 rounded-lg p-0.5">
-            <button onClick={() => setFontSize('sm')} className={`px-2 py-1 rounded-md text-[10px] font-bold transition-all ${fontSize === 'sm' ? 'bg-primary text-background-dark' : 'text-slate-400 hover:text-white hover:bg-white/5'}`}>A-</button>
-            <button onClick={() => setFontSize('md')} className={`px-2 py-1 rounded-md text-[11px] font-bold transition-all ${fontSize === 'md' ? 'bg-primary text-background-dark' : 'text-slate-400 hover:text-white hover:bg-white/5'}`}>A</button>
-            <button onClick={() => setFontSize('lg')} className={`px-2 py-1 rounded-md text-[12px] font-bold transition-all ${fontSize === 'lg' ? 'bg-primary text-background-dark' : 'text-slate-400 hover:text-white hover:bg-white/5'}`}>A+</button>
-          </div>
-
-          {/* Lang Switcher */}
-          <div className="relative">
-            <button onClick={() => setIsLangOpen(!isLangOpen)} className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-white text-xs font-display font-bold hover:bg-white/10 transition-all">
-              <span>{langLabels[language].flag}</span>
-              <span>{langLabels[language].label}</span>
-              <span className="material-symbols-outlined text-[14px]">arrow_drop_down</span>
-            </button>
-            {isLangOpen && (
-              <div className="absolute top-10 right-0 glass-nav border border-white/10 shadow-xl rounded-xl py-2 w-32 flex flex-col z-50 animate-fade-in">
-                {(Object.keys(langLabels) as Language[]).map((lang) => (
-                  <button key={lang} onClick={() => { setLanguage(lang); setIsLangOpen(false); }} className={`flex items-center gap-2 px-4 py-2 text-xs font-display text-left hover:bg-primary/10 transition-colors ${language === lang ? 'text-primary font-bold' : 'text-slate-300'}`}>
-                    <span>{langLabels[lang].flag}</span>
-                    <span>{langLabels[lang].label}</span>
-                  </button>
-                ))}
-              </div>
-            )}
-          </div>
-
-          <Link href="/login" className="px-5 py-2 rounded-lg bg-white/5 border border-white/10 text-primary font-display font-bold text-[11px] hover:bg-white/10 hover:border-primary/30 transition-all uppercase tracking-widest flex items-center gap-2">
-            <span className="material-symbols-outlined text-[16px]">
-              {session ? 'dashboard' : 'login'}
-            </span>
-            {session ? t('nav_dashboard') : t('nav_client_portal')}
+        <div className="hidden md:flex items-center gap-8">
+          <Link href="/services" className={navLinkClass}>
+            {t('nav_services')}
+            <span className={navLinkUnderline}></span>
           </Link>
-          <Link href="/demo" className="btn-primary flex items-center justify-center h-9 px-4 rounded-lg bg-primary text-background-dark font-display font-semibold text-[13px]">{t('nav_demo')}</Link>
+          <Link href="/portfolio" className={navLinkClass}>
+            {t('nav_portfolio')}
+            <span className={navLinkUnderline}></span>
+          </Link>
+          <Link href="/about" className={navLinkClass}>
+            {t('nav_about')}
+            <span className={navLinkUnderline}></span>
+          </Link>
+          <Link href="/blog" className={navLinkClass}>
+            {t('footer_link_knowledge')}
+            <span className={navLinkUnderline}></span>
+          </Link>
+          <Link href="/contact" className={navLinkClass}>
+            {t('nav_contact')}
+            <span className={navLinkUnderline}></span>
+          </Link>
+
+          <div className="h-4 w-px bg-white/10 mx-2"></div>
+
+          {/* Accessibility & Lang */}
+          <div className="flex items-center gap-4">
+            <div className="relative">
+              <button onClick={() => setIsLangOpen(!isLangOpen)} className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-white text-[10px] font-display font-bold hover:bg-white/10 hover:border-primary/40 transition-all uppercase tracking-widest">
+                <span>{langLabels[language].flag}</span>
+                <span>{langLabels[language].label}</span>
+              </button>
+              {isLangOpen && (
+                <div className="absolute top-10 right-0 glass-nav border border-white/10 shadow-2xl rounded-xl py-2 w-32 flex flex-col z-50 animate-fade-in overflow-hidden">
+                  {(Object.keys(langLabels) as Language[]).map((lang) => (
+                    <button key={lang} onClick={() => { setLanguage(lang); setIsLangOpen(false); }} className={`flex items-center gap-3 px-4 py-2 text-[10px] font-display font-bold uppercase tracking-wider text-left hover:bg-primary/10 transition-colors ${language === lang ? 'text-primary' : 'text-slate-400'}`}>
+                      <span>{langLabels[lang].flag}</span>
+                      <span>{langLabels[lang].label}</span>
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            <Link href="/login" className="px-5 py-2 rounded-lg bg-primary/10 border border-primary/20 text-primary font-display font-black text-[10px] hover:bg-primary hover:text-background-dark transition-all uppercase tracking-widest flex items-center gap-2 shadow-[0_0_15px_rgba(13,227,242,0.1)]">
+              <span className="material-symbols-outlined text-[14px]">
+                {session ? 'dashboard' : 'login'}
+              </span>
+              {session ? t('nav_dashboard') : 'Portal'}
+            </Link>
+          </div>
         </div>
-        
+
         {/* Mobile Menu Toggle */}
         <button 
-          className="md:hidden text-text-muted hover:text-primary"
+          className="md:hidden text-text-muted hover:text-primary transition-colors"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
         >
-          <span className="material-symbols-outlined">
+          <span className="material-symbols-outlined text-3xl">
             {isMobileMenuOpen ? 'close' : 'menu'}
           </span>
         </button>
@@ -126,32 +131,31 @@ export default function Header() {
       
       {/* Mobile Menu Dropdown */}
       {isMobileMenuOpen && (
-        <div className="md:hidden absolute top-[72px] left-0 right-0 glass-nav border-t border-white/5 py-4 px-6 flex flex-col gap-4 shadow-xl">
-          {/* Mobile Accessibility Switcher */}
-          <div className="flex items-center justify-between gap-4 border-t border-white/5 pt-4 mt-1">
-            <span className="text-xs text-slate-400 font-medium">{t('ui_text_size')}</span>
-            <div className="flex items-center gap-1 bg-white/5 border border-white/10 rounded-lg p-0.5">
-              <button onClick={() => { setFontSize('sm'); setIsMobileMenuOpen(false); }} className={`px-3 py-1 rounded-md text-[11px] font-bold transition-all ${fontSize === 'sm' ? 'bg-primary text-background-dark' : 'text-slate-400'}`}>A-</button>
-              <button onClick={() => { setFontSize('md'); setIsMobileMenuOpen(false); }} className={`px-3 py-1 rounded-md text-[12px] font-bold transition-all ${fontSize === 'md' ? 'bg-primary text-background-dark' : 'text-slate-400'}`}>A</button>
-              <button onClick={() => { setFontSize('lg'); setIsMobileMenuOpen(false); }} className={`px-3 py-1 rounded-md text-[14px] font-bold transition-all ${fontSize === 'lg' ? 'bg-primary text-background-dark' : 'text-slate-400'}`}>A+</button>
-            </div>
+        <div className="md:hidden absolute top-full left-0 right-0 glass-nav border-t border-white/5 py-8 px-6 flex flex-col gap-6 shadow-2xl animate-slide-up">
+          <div className="flex flex-col gap-4">
+            <Link href="/services" onClick={() => setIsMobileMenuOpen(false)} className="text-xl font-display font-bold text-white">{t('nav_services')}</Link>
+            <Link href="/portfolio" onClick={() => setIsMobileMenuOpen(false)} className="text-xl font-display font-bold text-white">{t('nav_portfolio')}</Link>
+            <Link href="/about" onClick={() => setIsMobileMenuOpen(false)} className="text-xl font-display font-bold text-white">{t('nav_about')}</Link>
+            <Link href="/blog" onClick={() => setIsMobileMenuOpen(false)} className="text-xl font-display font-bold text-white">{t('footer_link_knowledge')}</Link>
+            <Link href="/contact" onClick={() => setIsMobileMenuOpen(false)} className="text-xl font-display font-bold text-white">{t('nav_contact')}</Link>
           </div>
 
-          {/* Mobile Lang Switcher */}
-          <div className="flex items-center gap-2 border-t border-white/5 pt-4 mt-2">
+          <div className="h-px w-full bg-white/5"></div>
+
+          {/* Mobile Lang Selection */}
+          <div className="flex flex-wrap gap-2">
             {(Object.keys(langLabels) as Language[]).map((lang) => (
-              <button key={lang} onClick={() => { setLanguage(lang); setIsMobileMenuOpen(false); }} className={`flex-1 flex items-center justify-center gap-1.5 p-2 rounded-lg border ${language === lang ? 'border-primary/40 bg-primary/10 text-primary' : 'border-white/5 bg-white/5 text-slate-300'} text-xs font-display font-medium transition-all`}>
+              <button key={lang} onClick={() => { setLanguage(lang); setIsMobileMenuOpen(false); }} className={`flex items-center gap-2 px-4 py-2 rounded-lg border text-xs font-display font-bold ${language === lang ? 'border-primary/40 bg-primary/10 text-primary' : 'border-white/5 bg-white/5 text-slate-400'}`}>
                 <span>{langLabels[lang].flag}</span>
                 <span>{langLabels[lang].label}</span>
               </button>
             ))}
           </div>
 
-          <Link href="/login" onClick={() => setIsMobileMenuOpen(false)} className="px-5 py-3 rounded-xl bg-white/5 border border-white/10 text-primary font-display font-bold text-sm hover:bg-white/10 transition-all uppercase tracking-widest flex items-center justify-center gap-2">
-            <span className="material-symbols-outlined">{session ? 'dashboard' : 'login'}</span>
-            {session ? t('nav_dashboard') : t('nav_client_portal')}
+          <Link href="/login" onClick={() => setIsMobileMenuOpen(false)} className="btn-primary flex items-center justify-center h-14 w-full rounded-xl bg-primary text-background-dark font-display font-bold text-sm tracking-widest uppercase">
+            <span className="material-symbols-outlined mr-2">{session ? 'dashboard' : 'login'}</span>
+            {session ? t('nav_dashboard') : 'Client Portal'}
           </Link>
-          <Link href="/demo" onClick={() => setIsMobileMenuOpen(false)} className="btn-primary flex items-center justify-center h-12 w-full rounded-lg bg-primary text-background-dark font-display font-semibold text-[15px]">{t('cta_free_demo')}</Link>
         </div>
       )}
     </nav>

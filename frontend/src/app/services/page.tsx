@@ -178,106 +178,129 @@ export default function Services() {
   };
 
   return (
-    <div className="flex-1 w-full max-w-[1200px] mx-auto px-6 py-16 md:py-24 z-10 relative animate-fade-in">
+    <div className="min-h-screen pt-32 pb-24 bg-mesh relative overflow-hidden">
+      <div className="absolute inset-0 bg-hero-glow pointer-events-none"></div>
 
-      {/* Ambient glows */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none -z-10 hidden md:block">
-        <div className="absolute top-[10%] left-[20%] w-[500px] h-[500px] bg-primary/10 rounded-full blur-[100px] mix-blend-screen opacity-60" />
-        <div className="absolute bottom-[20%] right-[10%] w-[400px] h-[400px] bg-[#00FF9D]/5 rounded-full blur-[100px] mix-blend-screen opacity-50" />
-      </div>
-
-      {/* ── Header ── */}
-      <div className="mb-12 text-center md:text-left">
-        <h1 className="font-display font-bold text-4xl md:text-5xl lg:text-6xl text-white mb-4 tracking-tight">
-          {t("Specialized Solutions", "विशेषज्ञ समाधान", "विशेषज्ञ समाधानम्")}
-        </h1>
-        <p className="text-muted text-lg md:text-xl max-w-2xl font-body leading-relaxed">
-          {t(
-            "Industry-specific software built for Indian businesses — education, healthcare, retail, and beyond.",
-            "भारतीय व्यवसायों के लिए निर्मित उत्पाद - शिक्षा, स्वास्थ्य देखभाल और खुदरा।",
-            "भारतीय व्यवसायार्थं निर्मितं तन्त्रम् - शिक्षणम्, चिकित्सालयम् विक्रय व्यवस्था च।"
-          )}
-        </p>
-      </div>
-
-      {/* ── Category Tabs ── */}
-      <div className="flex flex-wrap gap-2 mb-10">
-        {categories.map((cat, i) => (
-          <button
-            key={i}
-            onClick={() => setActiveTab(i)}
-            className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-display font-bold transition-all duration-200 ${
-              activeTab === i
-                ? 'bg-primary text-background-dark shadow-glow'
-                : 'bg-white/5 text-muted hover:bg-white/10 border border-white/10'
-            }`}
-          >
-            <span className="material-symbols-outlined text-[18px]">{cat.icon}</span>
-            {cat.label}
-          </button>
-        ))}
-      </div>
-
-      {/* ── Active Category Cards ── */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-20 min-h-[260px]">
-        {current.services.map((svc: any, i: number) => (
-          <div
-            key={i}
-            className="glass-card rounded-xl p-8 flex flex-col relative overflow-hidden group transition-all duration-300 hover:border-primary/50 hover:-translate-y-1"
-          >
-            {svc.badge && (
-              <span className={`absolute top-4 right-4 text-[10px] font-display font-bold px-2 py-0.5 rounded-full border ${
-                svc.badge === 'New' || svc.badge === 'नया' || svc.badge === 'नूतनम्' ? 'border-green-500/40 text-green-400 bg-green-500/10' :
-                svc.badge === 'AI Powered' || svc.badge === 'एआई ऑपरेटेड' ? 'border-purple-400/40 text-purple-300 bg-purple-500/10' :
-                'border-primary/40 text-primary bg-primary/10'
-              }`}>{svc.badge}</span>
+      <div className="w-full max-w-[1200px] mx-auto px-6 relative z-10 animate-fade-in">
+        {/* ── Header ── */}
+        <div className="mb-20 text-center md:text-left max-w-5xl">
+          <div className="inline-flex items-center gap-3 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary font-display font-black text-[10px] tracking-[0.2em] uppercase mb-8">
+            <span className="size-2 rounded-full bg-primary animate-pulse"></span>
+            SOVEREIGN ECOSYSTEM
+          </div>
+          <h1 className="font-display font-bold text-6xl md:text-8xl text-white mb-8 tracking-tight leading-[1.05]">
+            <span className="text-gradient inline-block">{t("Specialized", "विशेषज्ञ", "विशेषज्ञ")}</span> <br />
+            <span className="text-gradient-primary inline-block font-black tracking-tighter">{t("Sovereign Node Solutions", "संप्रभु समाधान", "संप्रभु समाधानम्")}</span>
+          </h1>
+          <p className="text-slate-400 text-xl font-body leading-relaxed border-l-2 border-primary/20 pl-8 max-w-2xl">
+            {t(
+              "Enterprise-grade software nodes architected for the Indian digital frontier — from educational institutes to retail powerhouses.",
+              "भारतीय व्यवसायों के लिए निर्मित उत्पाद - शिक्षा, स्वास्थ्य देखभाल और खुदरा।",
+              "भारतीय व्यवसायार्थं निर्मितं तन्त्रम् - शिक्षणम्, चिकित्सालयम् विक्रय व्यवस्था च।"
             )}
-            <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
-            <div className="w-12 h-12 rounded-lg bg-white/5 border border-white/5 flex items-center justify-center text-primary mb-6 group-hover:scale-110 transition-transform duration-300">
-              <span className="material-symbols-outlined text-[28px]">{svc.icon}</span>
-            </div>
-            <h3 className="font-display font-bold text-xl md:text-2xl text-white mb-3 tracking-tight">{svc.title}</h3>
-            <p className="text-muted text-sm md:text-base leading-relaxed mb-6 font-body flex-grow">{svc.desc}</p>
-            <Link
-              href={svc.link}
-              className="inline-flex items-center font-display font-bold text-sm text-primary hover:text-primary/80 transition-all duration-300 group-hover:translate-x-1 mt-auto"
-            >
-              {t("Explore Product", "उत्पाद देखें", "उत्पाद पश्यन्तु")}
-              <span className="material-symbols-outlined ml-2 text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>
-            </Link>
-          </div>
-        ))}
-      </div>
-
-      {/* ── Coming Soon Roadmap ── */}
-      <div className="border-t border-white/10 pt-14">
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
-          <div>
-            <h2 className="text-white font-display font-bold text-2xl md:text-3xl">
-              {t("Coming Soon", "जल्द आ रहा है", "शीघ्रमागच्छति")}
-            </h2>
-            <p className="text-muted text-sm mt-1 font-body">
-              {t(
-                "Our product roadmap — built for India's next growth verticals.",
-                "हमारा उत्पाद रोडमैप — भारत के विकास कार्यक्षेत्रों के लिए निर्मित।",
-                "अस्माकं नग्न चित्रम् — भारतस्य नूतन विकासाय।"
-              )}
-            </p>
-          </div>
-          <Link href="/contact" className="text-primary text-sm font-display font-bold hover:underline flex items-center gap-1">
-            {t("Request early access", "जल्दी पहुंच का अनुरोध करें", "शीघ्र प्रवेशार्थं अनुरोधः")} <span className="material-symbols-outlined text-sm">arrow_forward</span>
-          </Link>
+          </p>
         </div>
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-          {comingSoon.map((item: any, i: number) => (
-            <div key={i} className="glass-card rounded-xl p-5 flex flex-col gap-3 opacity-70 hover:opacity-100 transition-opacity border border-dashed border-white/10 hover:border-primary/30">
-              <div className="w-9 h-9 rounded-lg bg-white/5 flex items-center justify-center text-muted">
-                <span className="material-symbols-outlined text-[20px]">{item.icon}</span>
+
+        {/* ── Category Tabs ── */}
+        <div className="flex flex-wrap gap-4 mb-16">
+          {categories.map((cat, i) => (
+            <button
+              key={i}
+              onClick={() => setActiveTab(i)}
+              className={`flex items-center gap-4 px-8 py-4 rounded-2xl text-[10px] font-display font-black tracking-[0.2em] uppercase transition-all duration-700 border ${
+                activeTab === i
+                  ? 'bg-primary text-background-dark border-primary shadow-[0_20px_40px_rgba(13,227,242,0.25)] scale-105'
+                  : 'bg-white/5 text-slate-500 hover:bg-white/10 border-white/10 hover:border-primary/40 hover:text-white'
+              }`}
+            >
+              <span className="material-symbols-outlined text-[24px]">{cat.icon}</span>
+              {cat.label}
+            </button>
+          ))}
+        </div>
+
+        {/* ── Active Category Cards ── */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mb-32 min-h-[400px]">
+          {current.services.map((svc: any, i: number) => (
+            <div
+              key={i}
+              className="glass-premium rounded-[3rem] p-12 flex flex-col relative overflow-hidden group transition-all duration-700 hover:translate-y-[-16px] animate-slide-up border border-white/5 hover:border-primary/40 hover:shadow-[0_40px_80px_rgba(0,0,0,0.4)]"
+              style={{ animationDelay: `${i * 0.1}s` }}
+            >
+              {svc.badge && (
+                <div className="absolute top-8 right-8 z-20">
+                  <span className={`text-[9px] font-display font-black tracking-[0.2em] uppercase px-4 py-1.5 rounded-full border ${
+                    svc.badge === 'New' || svc.badge === 'नया' || svc.badge === 'नूतनम्' ? 'border-green-500/40 text-green-400 bg-green-500/10' :
+                    svc.badge === 'AI Powered' || svc.badge === 'एआई ऑपरेटेड' || svc.badge === 'एआई तन्त्रम्' ? 'border-purple-400/40 text-purple-300 bg-purple-500/10 shadow-[0_0_20px_rgba(168,85,247,0.2)]' :
+                    'border-primary/40 text-primary bg-primary/10 shadow-[0_0_20px_rgba(13,227,242,0.2)]'
+                  }`}>{svc.badge}</span>
+                </div>
+              )}
+              
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-1000 pointer-events-none" />
+              
+              <div className="w-20 h-20 rounded-[2rem] bg-white/5 border border-white/10 flex items-center justify-center text-primary mb-10 group-hover:scale-110 group-hover:bg-primary group-hover:text-background-dark transition-all duration-700 shadow-2xl relative">
+                <div className="absolute inset-0 bg-primary/30 blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
+                <span className="material-symbols-outlined text-5xl relative z-10">{svc.icon}</span>
               </div>
-              <p className="text-white text-sm font-display font-semibold leading-snug">{item.title}</p>
-              <span className="text-xs text-muted font-mono">{item.eta}</span>
+              
+              <h3 className="font-display font-bold text-4xl text-white mb-6 tracking-tight group-hover:text-primary transition-colors leading-[1.1]">{svc.title}</h3>
+              <p className="text-slate-400 text-lg md:text-xl leading-relaxed mb-12 font-body flex-grow group-hover:text-slate-200 transition-colors">{svc.desc}</p>
+              
+              <Link
+                href={svc.link}
+                className="inline-flex items-center gap-4 font-display font-black text-xs tracking-[0.2em] uppercase text-primary hover:text-white transition-all duration-500 group/link bg-primary/5 hover:bg-primary/20 w-fit px-8 py-4 rounded-2xl border border-primary/10"
+              >
+                <span>{t("Initialize Node", "उत्पाद देखें", "उत्पाद पश्यन्तु")}</span>
+                <div className="size-8 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center group-hover/link:bg-primary group-hover/link:text-background-dark transition-all duration-500">
+                  <span className="material-symbols-outlined text-sm font-bold">east</span>
+                </div>
+              </Link>
             </div>
           ))}
+        </div>
+
+        {/* ── Coming Soon Roadmap ── */}
+        <div className="glass-card rounded-[3rem] p-12 md:p-20 border border-white/5 bg-background-dark/30 relative overflow-hidden group">
+          <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent pointer-events-none"></div>
+          
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-10 mb-16 relative z-10">
+            <div>
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-slate-400 font-display font-bold text-[10px] tracking-wider uppercase mb-4">
+                {t("Future Roadmap", "भविष्य का रोडमैप", "भविष्यस्य रेखाचित्रम्")}
+              </div>
+              <h2 className="text-white font-display font-bold text-4xl md:text-5xl tracking-tight">
+                {t("Coming Soon", "जल्द आ रहा है", "शीघ्रमागच्छति")}
+              </h2>
+              <p className="text-slate-400 text-lg mt-4 font-body max-w-xl">
+                {t(
+                  "Our product roadmap — built for India's next growth verticals.",
+                  "हमारा उत्पाद रोडमैप — भारत के विकास कार्यक्षेत्रों के लिए निर्मित।",
+                  "अस्माकं नग्न चित्रम् — भारतस्य नूतन विकासाय।"
+                )}
+              </p>
+            </div>
+            <Link href="/contact" className="px-8 py-4 rounded-xl bg-primary/10 border border-primary/20 text-primary font-display font-bold text-sm tracking-widest uppercase hover:bg-primary hover:text-background-dark transition-all shadow-glow">
+              {t("Request early access", "जल्दी पहुंच का अनुरोध करें", "शीघ्र प्रवेशार्थं अनुरोधः")}
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 relative z-10">
+            {comingSoon.map((item: any, i: number) => (
+              <div key={i} className="glass-premium rounded-2xl p-8 flex flex-col gap-6 opacity-80 hover:opacity-100 transition-all duration-500 border border-white/5 hover:border-primary/40 group/item">
+                <div className="size-12 rounded-xl bg-white/5 flex items-center justify-center text-slate-400 group-hover/item:text-primary transition-colors">
+                  <span className="material-symbols-outlined text-3xl">{item.icon}</span>
+                </div>
+                <div>
+                  <p className="text-white text-lg font-display font-bold leading-tight group-hover/item:text-primary transition-colors">{item.title}</p>
+                  <div className="flex items-center gap-2 mt-3">
+                    <span className="size-1.5 rounded-full bg-primary animate-pulse"></span>
+                    <span className="text-[10px] text-slate-500 font-mono tracking-widest uppercase">{item.eta}</span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 

@@ -70,25 +70,36 @@ export default function PrivacyPolicy() {
   const sections = sectionsData[language as keyof typeof sectionsData] || sectionsData.en;
 
   return (
-    <div className="flex-1 w-full max-w-[800px] mx-auto px-6 py-12 flex flex-col justify-center z-10 relative animate-fade-in mb-12">
-      <div className="flex flex-col gap-4 mb-10">
-        <h1 className="text-white font-display text-3xl md:text-4xl font-bold tracking-tight">
-          {t("Privacy Policy", "गोपनीयता नीति", "गोपनीयता नीतिः")}
-        </h1>
-        <p className="text-slate-400 text-sm font-body">
-          {t("Last updated: March 2026 | Vikram Samvat 2083", "अंतिम अपडेट: मार्च 2026 | विक्रम संवत 2083", "अंतिम परिवर्तनम्: मार्च २०२६ | विक्रम संवत् २०८३")}
-        </p>
-      </div>
+    <div className="min-h-screen pt-40 pb-24 bg-mesh relative overflow-hidden">
+      <div className="absolute inset-0 bg-hero-glow pointer-events-none"></div>
+      
+      {/* Background Grid */}
+      <div className="absolute inset-0 -z-10 bg-[radial-gradient(#ffffff03_1px,transparent_1px)] [background-size:32px_32px] opacity-40"></div>
 
-      <div className="flex flex-col gap-8">
-        {sections.map((sec, idx) => (
-          <div key={idx} className="glass-card p-6 md:p-8 rounded-xl border border-white/5 bg-background-dark/30 flex flex-col gap-3">
-            <h2 className="text-white font-display font-semibold text-lg md:text-xl">{sec.title}</h2>
-            <p className="text-slate-300 text-sm md:text-base leading-relaxed font-body">
-              {sec.content}
-            </p>
+      <div className="flex-1 w-full max-w-[900px] mx-auto px-6 flex flex-col z-10 relative animate-fade-in mb-12">
+        <div className="flex flex-col gap-6 mb-16">
+          <div className="inline-flex items-center gap-3 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary font-display font-black text-[10px] tracking-[0.2em] uppercase w-fit">
+            <span className="size-2 rounded-full bg-primary animate-pulse"></span>
+            DATA SOVEREIGNTY
           </div>
-        ))}
+          <h1 className="text-white font-display text-5xl md:text-7xl font-bold tracking-tight leading-none">
+            {t("Privacy Policy", "गोपनीयता नीति", "गोपनीयता नीतिः")}
+          </h1>
+          <p className="text-primary/60 text-sm font-display font-black uppercase tracking-[0.2em]">
+            {t("Last updated: March 2026 | Vikram Samvat 2083", "अंतिम अपडेट: मार्च 2026 | विक्रम संवत 2083", "अंतिम परिवर्तनम्: मार्च २०२६ | विक्रम संवत् २०८३")}
+          </p>
+        </div>
+
+        <div className="flex flex-col gap-10">
+          {sections.map((sec, idx) => (
+            <div key={idx} className="glass-premium p-10 md:p-12 rounded-[2.5rem] border border-white/5 bg-background-dark/30 flex flex-col gap-6 hover:border-primary/30 transition-all duration-500 group">
+              <h2 className="text-white font-display font-bold text-2xl md:text-3xl group-hover:text-primary transition-colors tracking-tight">{sec.title}</h2>
+              <p className="text-slate-400 text-lg md:text-xl leading-relaxed font-body group-hover:text-slate-300 transition-colors">
+                {sec.content}
+              </p>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

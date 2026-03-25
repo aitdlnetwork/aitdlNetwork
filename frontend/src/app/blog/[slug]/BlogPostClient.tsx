@@ -45,6 +45,12 @@ export default function BlogPostClient({ postData }: { postData: Record<string, 
     notFound();
   }
 
+  const t = (en: string, hi: string, sa: string) => {
+    if (language === 'hi') return hi;
+    if (language === 'sa') return sa;
+    return en;
+  };
+
   // Cinematic Structured Data for SEO
   const jsonLd = {
     "@context": "https://schema.org",
@@ -85,88 +91,110 @@ export default function BlogPostClient({ postData }: { postData: Record<string, 
         />
       </div>
 
-      <div className="flex-1 w-full max-w-[800px] mx-auto px-6 py-12 flex flex-col justify-center z-10 relative">
-        {/* Back to Blog */}
-        <div className="mb-8 animate-fade-in" style={{ animationDelay: '100ms' }}>
-          <Link href="/blog" className="text-slate-400 flex items-center gap-2 hover:text-primary transition-colors text-sm font-display font-medium group">
-            <span className="material-symbols-outlined text-[18px] group-hover:-translate-x-1 transition-transform">arrow_back</span> 
-            Back to Knowledge Centre
+    <div className="min-h-screen pt-32 pb-24 bg-mesh relative overflow-hidden">
+      <div className="absolute inset-0 bg-hero-glow pointer-events-none"></div>
+
+      {/* JSON-LD Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      {/* Cinematic Reading Progress Bar */}
+      <div className="fixed top-0 left-0 w-full h-1 z-[100] bg-white/5">
+        <div 
+          className="h-full bg-primary transition-all duration-150 ease-out shadow-[0_0_15px_rgba(13,227,242,0.8)]"
+          style={{ width: `${scrollProgress}%` }}
+        />
+      </div>
+
+      <div className="w-full max-w-[900px] mx-auto px-6 relative z-10">
+        {/* Navigation Context */}
+        <div className="mb-12 animate-fade-in">
+          <Link href="/blog" className="inline-flex items-center gap-3 text-slate-500 font-display font-black text-[10px] tracking-[0.2em] uppercase hover:text-primary transition-all group">
+            <div className="size-8 rounded-full border border-white/10 flex items-center justify-center group-hover:border-primary/40 group-hover:bg-primary/10 transition-all">
+              <span className="material-symbols-outlined text-sm group-hover:-translate-x-1 transition-transform">west</span>
+            </div>
+            {t("Back to Knowledge Base", "ज्ञान केंद्र पर वापस", "ज्ञान-केन्द्रं प्रति गच्छतु")}
           </Link>
         </div>
 
-        {/* Hero Image */}
-        <div className="mb-12 relative group animate-fade-in" style={{ animationDelay: '150ms' }}>
-          <div className="absolute -inset-1 bg-gradient-to-r from-primary/20 to-primary/0 rounded-[2rem] blur-xl opacity-50 group-hover:opacity-100 transition duration-1000"></div>
-          <div className="relative aspect-[16/9] w-full overflow-hidden rounded-[1.5rem] border border-white/10 bg-white/5">
-            <img 
-              src={post.image} 
-              alt={post.title}
-              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-background-dark/80 via-transparent to-transparent"></div>
-          </div>
-        </div>
-
-        {/* Header */}
-        <div className="flex flex-col gap-4 mb-16 border-b border-white/5 pb-12 animate-fade-in" style={{ animationDelay: '200ms' }}>
-          <div className="flex items-center gap-3">
-            <span className="px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-primary text-[10px] font-display font-bold tracking-widest uppercase">
+        {/* Cinematic Header Section */}
+        <div className="mb-16 animate-fade-in group">
+          <div className="flex flex-wrap items-center gap-4 mb-8">
+            <span className="px-4 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-[10px] font-display font-black tracking-widest uppercase">
               {post.category}
             </span>
-            <span className="text-slate-500 text-[11px] font-body flex items-center gap-1">
-              <span className="material-symbols-outlined text-[14px]">schedule</span>
+            <div className="size-1 rounded-full bg-slate-700"></div>
+            <span className="text-slate-500 text-[10px] font-display font-black tracking-widest uppercase flex items-center gap-2">
+              <span className="material-symbols-outlined text-sm">schedule</span>
               {post.readTime}
             </span>
           </div>
-          <h1 className="text-white font-display text-4xl md:text-5xl lg:text-6xl font-bold font-heading mt-4 leading-tight tracking-tight">
-            {post.title}
+
+          <h1 className="text-white font-display text-5xl md:text-7xl font-bold tracking-tight leading-[1.1] mb-10">
+            <span className="text-gradient inline-block">{post.title}</span>
           </h1>
-          <div className="flex items-center gap-4 mt-6">
-            <div className="size-10 rounded-full bg-primary/20 flex items-center justify-center text-primary font-display font-bold border border-primary/30">
+
+          <div className="flex items-center gap-6 p-6 rounded-[2rem] bg-white/5 border border-white/10 w-fit backdrop-blur-sm">
+            <div className="size-14 rounded-2xl bg-gradient-to-tr from-primary to-primary/40 flex items-center justify-center text-background-dark font-display font-black text-xl shadow-lg shadow-primary/20 rotate-3">
               J
             </div>
             <div className="flex flex-col">
-              <span className="text-white text-sm font-display font-bold">Jawahar R Mallah</span>
-              <span className="text-slate-500 text-xs font-body">{post.date}</span>
+              <span className="text-white text-lg font-display font-bold">Jawahar R Mallah</span>
+              <span className="text-slate-500 text-xs font-display font-bold uppercase tracking-widest">{post.date}</span>
             </div>
           </div>
         </div>
 
-        {/* Content Sections */}
-        <div className="flex flex-col gap-12 mb-20">
+        {/* Cinematic Hero */}
+        <div className="mb-20 relative group/hero animate-fade-in">
+          <div className="absolute -inset-4 bg-primary/10 rounded-[3rem] blur-3xl opacity-0 group-hover/hero:opacity-50 transition-all duration-1000 animate-pulse-slow"></div>
+          <div className="relative aspect-[16/8] w-full overflow-hidden rounded-[2.5rem] border border-white/10 bg-background-dark/50 shadow-2xl">
+            <img 
+              src={post.image} 
+              alt={post.title}
+              className="w-full h-full object-cover transition-transform duration-1000 group-hover/hero:scale-110"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-background-dark/90 via-background-dark/20 to-transparent"></div>
+          </div>
+        </div>
+
+        {/* Deep Content Body */}
+        <div className="flex flex-col gap-16 mb-24 max-w-[800px] mx-auto">
           {post.content.map((section, idx) => (
             <div 
               key={idx} 
-              className="flex flex-col gap-4 animate-fade-in-up group"
-              style={{ animationDelay: `${300 + (idx * 100)}ms` }}
+              className="flex flex-col gap-6 animate-slide-up group/section"
+              style={{ animationDelay: `${0.1 * idx}s` }}
             >
-              <h2 className="text-white font-display font-bold text-2xl md:text-3xl mt-4 group-hover:text-primary transition-colors duration-300">
-                {section.h2}
-              </h2>
-              <div className="h-1 w-12 bg-primary/20 group-hover:w-20 group-hover:bg-primary/50 transition-all duration-500 rounded-full"></div>
-              <p className="text-slate-300 text-lg font-body leading-relaxed md:leading-loose">
+              <div className="flex items-start gap-6">
+                <div className="w-1.5 h-12 bg-primary/20 rounded-full group-hover/section:bg-primary transition-all duration-700"></div>
+                <h2 className="text-white font-display font-bold text-3xl md:text-4xl leading-tight group-hover/section:translate-x-2 transition-transform duration-500 text-gradient-primary">
+                  {section.h2}
+                </h2>
+              </div>
+              <p className="text-slate-300 text-xl font-body leading-relaxed md:leading-[1.8] pl-8 border-l border-white/5">
                 {section.p}
               </p>
             </div>
           ))}
         </div>
 
-        {/* Cinematic Author/Footer Card */}
-        <div className="glass-card p-10 rounded-3xl border border-white/5 bg-gradient-to-br from-background-dark/40 to-primary/5 flex flex-col md:flex-row items-center justify-between gap-8 animate-fade-in" style={{ animationDelay: '800ms' }}>
-          <div className="flex items-center gap-6">
-            <div className="size-20 rounded-2xl bg-gradient-to-tr from-primary to-primary/50 flex items-center justify-center text-background-dark text-3xl font-display font-black shadow-xl rotate-3">
-              A
+        {/* Global Node Call-to-Action */}
+        <div className="glass-premium p-12 md:p-16 rounded-[3rem] border border-white/10 bg-background-dark/50 relative overflow-hidden group animate-fade-in">
+          <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent pointer-events-none"></div>
+          <div className="flex flex-col md:flex-row items-center justify-between gap-12 relative z-10">
+            <div className="space-y-4 text-center md:text-left">
+              <h3 className="text-white font-display font-bold text-3xl md:text-4xl">{t("Ready to Scale?", "स्केल करने के लिए तैयार हैं?", "व्याप्तये उद्यताः किम्?") }</h3>
+              <p className="text-slate-400 text-lg font-body max-w-md">Connect with us to deploy these sovereign architectures at your institution.</p>
             </div>
-            <div>
-              <h4 className="text-white font-display font-bold text-xl mb-1">Architected by AITDL</h4>
-              <p className="text-slate-400 text-sm font-body max-w-md">Engineering secure, sovereign software architectures for the next generation of Indian enterprise.</p>
-            </div>
+            <Link href="/contact" className="w-full md:w-auto px-12 py-6 rounded-2xl bg-primary text-background-dark font-display font-black text-sm tracking-[0.2em] uppercase hover:translate-y-[-4px] active:scale-95 transition-all shadow-[0_0_40px_rgba(13,227,242,0.3)] text-center">
+              Partner Now
+            </Link>
           </div>
-          <Link href="/contact" className="w-full md:w-auto px-8 py-4 rounded-xl bg-primary text-background-dark text-sm font-display font-black hover:scale-105 active:scale-95 transition-all shadow-[0_0_20px_rgba(var(--primary-rgb),0.3)]">
-            Partner With Us
-          </Link>
         </div>
       </div>
+    </div>
     </>
   );
 }

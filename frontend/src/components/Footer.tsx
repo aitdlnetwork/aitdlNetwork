@@ -40,8 +40,8 @@ export default function Footer() {
 
   return (
 
-    <footer className="w-full border-t border-white/5 mt-auto pt-16 pb-8 px-6 glass-nav border-b-0 border-l-0 border-r-0 rounded-none shadow-none bg-opacity-30 relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-t from-background-dark/80 to-transparent pointer-events-none"></div>
+    <footer className="w-full border-t border-white/5 mt-auto pt-24 pb-12 px-6 bg-mesh relative overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background-dark/50 to-background-dark pointer-events-none"></div>
 
       <div className="w-full max-w-[1200px] mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 relative z-10 mb-12">
         {/* Brand/About Column */}
@@ -86,9 +86,7 @@ export default function Footer() {
               </Link>
             </li>
           </ul>
-        </div>
-
-        {/* Column 4: Corporate */}
+        </div>        {/* Column 4: Corporate */}
         <div className="flex flex-col gap-4">
           <span className="text-white font-display font-semibold text-sm tracking-wide">{t('footer_col_corporate')}</span>
           <ul className="flex flex-col gap-2.5 text-xs text-slate-400 font-body">
@@ -96,28 +94,52 @@ export default function Footer() {
             <li><Link href="/founders" className="hover:text-primary transition-colors">{t('footer_link_founders')}</Link></li>
             <li><Link href="/blog" className="hover:text-primary transition-colors">{t('footer_link_knowledge')}</Link></li>
             <li><Link href="/gorakhpur" className="hover:text-primary transition-colors">{t('footer_link_gorakhpur')}</Link></li>
-
-            <li><Link href="/tools/roi-calculator" className="hover:text-primary transition-colors">{t('footer_link_fee')}</Link></li>
-            <li><Link href="/tools/attendance-calculator" className="hover:text-primary transition-colors">{t('footer_link_attendance')}</Link></li>
-            <li><Link href="/portfolio" className="hover:text-primary transition-colors">{t('footer_link_portfolio')}</Link></li>
           </ul>
+        </div>
+
+        {/* Column 5: Regional Nodes (Physical Addresses for GBP) */}
+        <div className="flex flex-col gap-4">
+          <span className="text-white font-display font-semibold text-sm tracking-wide">{t('footer_col_nodes')}</span>
+          <div className="flex flex-col gap-4 text-[10px] text-slate-400 font-body">
+            <div className="flex gap-2">
+              <span className="material-symbols-outlined text-sm text-primary">location_on</span>
+              <div>
+                <span className="text-white font-semibold">Gorakhpur</span><br />
+                {t('footer_addr_gorakhpur')}
+              </div>
+            </div>
+            <div className="flex gap-2">
+              <span className="material-symbols-outlined text-sm text-primary">location_on</span>
+              <div>
+                <span className="text-white font-semibold">Mumbai</span><br />
+                {t('footer_addr_mumbai')}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
-      {/* Secure Payment Badges */}
+      {/* Enterprise Security & Trust Section */}
       <div className="w-full max-w-[1200px] mx-auto mb-6 flex flex-col md:flex-row items-center justify-between gap-4 border-t border-white/5 pt-6">
-        <div className="flex items-center gap-2 text-slate-500 font-display text-[10px] tracking-widest">
-          <span>{t('footer_secure_transactions')}</span>
-          <div className="flex items-center gap-1.5 ml-2">
-            <span className="px-2 py-0.5 rounded bg-primary/10 border border-primary/30 text-primary font-display font-extrabold text-[11px] shadow-sm">UPI</span>
-            <span className="px-2 py-0.5 rounded bg-slate-800/80 border border-slate-700/50 text-slate-300 font-sans font-extrabold text-[11px]">RuPay</span>
-            <span className="px-2 py-0.5 rounded bg-slate-800/80 border border-slate-700/50 text-slate-300 font-sans font-extrabold text-[11px]">VISA</span>
-            <span className="px-2 py-0.5 rounded bg-slate-800/80 border border-slate-700/50 text-slate-300 font-sans font-extrabold text-[11px]">MASTER</span>
+        <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3 text-slate-500 font-display text-[9px] tracking-[0.2em] uppercase">
+            <span className="opacity-60">{t('footer_secure_transactions')}</span>
+            <div className="flex items-center gap-2 ml-2">
+              <span className="px-2.5 py-1 rounded bg-primary/10 border border-primary/30 text-primary font-black text-[9px] shadow-[0_0_15px_rgba(var(--primary-rgb),0.1)]">UPI</span>
+              <span className="px-2.5 py-1 rounded bg-white/5 border border-white/10 text-slate-300 font-bold text-[9px]">PCI-DSS</span>
+            </div>
           </div>
         </div>
-        <div className="text-[10px] text-slate-500 font-body flex items-center gap-1">
-          <span className="material-symbols-outlined text-xs text-primary">lock</span>
-          {t('footer_encrypted_server')}
+        
+        <div className="flex flex-wrap items-center justify-center gap-4 text-[10px] text-slate-400 font-display">
+          <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/5 border border-white/10">
+            <span className="material-symbols-outlined text-sm text-primary">verified_user</span>
+            <span className="tracking-tight">{t('footer_encrypted_server')}</span>
+          </div>
+          <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/5 border border-white/10">
+            <span className="material-symbols-outlined text-sm text-primary">security</span>
+            <span className="tracking-tight uppercase">AES-256 Bit Security</span>
+          </div>
         </div>
       </div>
 

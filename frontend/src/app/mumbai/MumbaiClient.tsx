@@ -41,46 +41,74 @@ export default function MumbaiClient() {
   };
 
   return (
-    <div className="flex-1 w-full max-w-[1200px] mx-auto px-6 py-12 flex flex-col justify-center z-10 relative animate-fade-in">
-      <div className="absolute inset-0 overflow-hidden pointer-events-none -z-10 hidden md:block">
-        <div className="absolute top-[10%] left-[20%] w-[500px] h-[500px] bg-primary/10 rounded-full blur-[100px] mix-blend-screen opacity-60" />
-        <div className="absolute bottom-[20%] right-[10%] w-[400px] h-[400px] bg-[#00FF9D]/5 rounded-full blur-[100px] mix-blend-screen opacity-50" />
-      </div>
+    <div className="min-h-screen pt-32 pb-24 bg-mesh relative overflow-hidden">
+      <div className="absolute inset-0 bg-hero-glow pointer-events-none"></div>
 
-      <div className="text-center mb-16 flex flex-col items-center">
-        <span className="px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-primary text-xs font-display font-bold tracking-wider mb-3">
-          {t("LOCAL NODE: MUMBAI (MH)", "स्थानीय नोड: मुंबई (महाराष्ट्र)", "स्थानीय नोड: मुंबई (महाराष्ट्र)")}
-        </span>
-        <h1 className="text-white font-display text-4xl md:text-5xl font-bold font-heading mb-4 leading-tight max-w-2xl text-gradient">
-          {t("Smart Software Solutions for Mumbai", "मुंबई के लिए स्मार्ट सॉफ्टवेयर उत्पाद", "मुंबई नगरार्थं स्मार्ट उत्पादम्")}
-        </h1>
-        <p className="text-muted text-lg font-body max-w-xl leading-relaxed">
-          {t(
-            "Sovereign LMS, POS Billing, and coaching management setups designed targeting institutional efficiency in Andheri, Thane, and suburbs.",
-            "अंधेरी, ठाणे और उपनगरों में संस्थागत दक्षता के लिए डिज़ाइन किया गया संप्रभु एलएमएस, पीओएस बिलिंग और कोचिंग प्रबंधन।",
-            "अंधेरी ठाणे संस्था दक्षता व्यवस्थापनार्थं स्वायत्त व्यवस्था।"
-          )}
-        </p>
-        <div className="flex items-center gap-4 mt-8 flex-wrap justify-center">
-          <Link href="/contact" className="btn-primary flex items-center justify-center h-12 px-8 rounded-lg bg-primary text-background-dark font-display font-semibold text-[14px]">
-            {t("Get Local Demo", "लोकल डेमो प्राप्त करें", "लोकल प्रदर्शनम्")}
-          </Link>
-          <a href="tel:+919323023007" className="btn-secondary flex items-center gap-2 h-12 px-6 rounded-lg bg-white/5 font-display font-semibold text-[14px] border border-white/10 hover:border-primary/30 transition-all">
-            <span className="material-symbols-outlined text-primary">call</span> +91 93230 23007
-          </a>
-        </div>
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-        {localServices.map((svc, idx) => (
-          <div key={idx} className="glass-card p-6 rounded-xl flex flex-col gap-4 border border-white/5 bg-background-dark/30 hover:border-primary/30 transition-all duration-300">
-            <div className="size-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
-              <span className="material-symbols-outlined text-2xl">{svc.icon}</span>
-            </div>
-            <h3 className="font-display font-bold text-xl text-white">{svc.title}</h3>
-            <p className="text-slate-400 text-sm md:text-base font-body leading-relaxed">{svc.desc}</p>
+      <div className="w-full max-w-[1200px] mx-auto px-6 relative z-10 animate-fade-in">
+        {/* Local Node Header */}
+        <div className="flex flex-col items-center text-center mb-20">
+          <div className="inline-flex items-center gap-3 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary font-display font-black text-[10px] tracking-[0.2em] uppercase mb-8 shadow-[0_0_20px_rgba(13,227,242,0.1)] animate-pulse-slow">
+            <span className="size-2 rounded-full bg-primary animate-ping"></span>
+            {t("LOCAL NODE: MUMBAI (MH)", "स्थानीय नोड: मुंबई (महाराष्ट्र)", "स्थानीय नोड: मुंबई (महाराष्ट्र)")}
           </div>
-        ))}
+          
+          <h1 className="font-display font-bold text-5xl md:text-7xl text-white mb-8 tracking-tight leading-[1.1] max-w-4xl">
+            <span className="text-gradient inline-block">{t("Smart Software", "स्मार्ट सॉफ्टवेयर", "स्मार्ट तन्त्रम्")}</span> <br />
+            <span className="text-gradient-primary inline-block">{t("for Mumbai", "मुंबई के लिए", "मुंबई नगरार्थं")}</span>
+          </h1>
+          
+          <p className="text-slate-400 text-lg md:text-xl font-body max-w-2xl leading-relaxed border-t border-white/5 pt-8">
+            {t(
+              "Sovereign LMS, POS Billing, and coaching management setups designed targeting institutional efficiency in Andheri, Thane, and suburbs.",
+              "अंधेरी, ठाणे और उपनगरों में संस्थागत दक्षता के लिए डिज़ाइन किया गया संप्रभु एलएमएस, पीओएस बिलिंग और कोचिंग प्रबंधन।",
+              "अंधेरी ठाणे संस्था दक्षता व्यवस्थापनार्थं स्वायत्त व्यवस्था।"
+            )}
+          </p>
+          
+          <div className="flex flex-wrap items-center justify-center gap-6 mt-12">
+            <Link href="/contact" className="px-10 py-5 rounded-2xl bg-primary text-background-dark font-display font-black text-sm tracking-widest uppercase hover:translate-y-[-4px] active:scale-95 transition-all shadow-[0_0_40px_rgba(13,227,242,0.3)]">
+              {t("Get Local Demo", "लोकल डेमो प्राप्त करें", "लोकल प्रदर्शनम्")}
+            </Link>
+            <a href="tel:+919323023007" className="px-8 py-5 rounded-2xl bg-white/5 border border-white/10 text-white font-display font-bold text-sm tracking-widest uppercase hover:bg-white/10 transition-all flex items-center gap-3 group">
+              <span className="material-symbols-outlined text-primary group-hover:rotate-12 transition-transform">call</span>
+              +91 93230 23007
+            </a>
+          </div>
+        </div>
+
+        {/* Localized Service Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-24">
+          {localServices.map((svc, idx) => (
+            <div 
+              key={idx} 
+              className="glass-premium p-10 rounded-3xl flex flex-col gap-6 border border-white/5 bg-background-dark/30 hover:border-primary/40 transition-all duration-700 group animate-slide-up"
+              style={{ animationDelay: `${idx * 0.1}s` }}
+            >
+              <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-background-dark transition-all duration-500 shadow-xl">
+                <span className="material-symbols-outlined text-3xl">{svc.icon}</span>
+              </div>
+              <h3 className="font-display font-bold text-2xl text-white group-hover:text-primary transition-colors">{svc.title}</h3>
+              <p className="text-slate-400 text-base leading-relaxed font-body group-hover:text-slate-300 transition-colors">
+                {svc.desc}
+              </p>
+            </div>
+          ))}
+        </div>
+
+        {/* GBP Connection / Physical Node Map Placeholder Feel */}
+        <div className="glass-card rounded-[2.5rem] p-12 border border-white/5 bg-background-dark/30 relative overflow-hidden group mb-12">
+          <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent pointer-events-none"></div>
+          <div className="flex flex-col md:flex-row items-center justify-between gap-10 relative z-10">
+            <div className="flex flex-col gap-2">
+              <h3 className="text-white font-display font-bold text-3xl">Maharashtra Regional Node</h3>
+              <p className="text-slate-400 font-body">Connect with our Mumbai presence for enterprise ERP scaling across Maharashtra.</p>
+            </div>
+            <div className="flex flex-col gap-1 items-end text-right">
+              <span className="text-primary font-display font-black text-xs tracking-widest uppercase mb-2">Physical Location</span>
+              <p className="text-white font-body text-sm max-w-xs">{t("D-Hub, Mira Bhayandar Rd, Thane, Maharashtra - 401107", "डी-हब, मीरा भयंदर रोड, ठाणे, महाराष्ट्र - 401107", "डी-हब, मीरा भयंदर रोड, ठाणे, महाराष्ट्र - 401107")}</p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

@@ -86,49 +86,74 @@ export default function Portfolio() {
   };
 
   return (
-    <div className="flex-1 w-full max-w-[1200px] mx-auto px-6 py-12 flex flex-col justify-center z-10 relative animate-fade-in">
-      <div className="flex flex-col lg:flex-row justify-between gap-10 lg:gap-20 mb-12">
-        {/* About Section */}
-        <div className="flex flex-col gap-6 max-w-2xl">
-          <h1 className="text-white font-display text-4xl md:text-5xl lg:text-6xl font-bold leading-tight tracking-tight">
-            {t("AI-First.", "एआई-प्रथम.", "एआई-प्रथम.")} <br/>
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-slate-100 to-muted">{t("Future-Ready.", "भविष्य के लिए तैयार.", "भविष्यस्य सज्जः.")}</span>
-          </h1>
-          <p className="text-muted text-lg md:text-xl font-body leading-relaxed max-w-xl">
-            {t(
-              "We architect and deploy scalable, intelligent systems. Our mission is to transform complex enterprise challenges into elegant, automated solutions leveraging cutting-edge deep learning.",
-              "हम स्केलेबल, बुद्धिमान सिस्टम डिजाइन और तैनात करते हैं। हमारा मिशन जटिल उद्यम चुनौतियों को सुरुचिपूर्ण, स्वचालित समाधानों में बदलना है।",
-              "वयं स्केलेबल, बुद्धिमान प्रबन्धयामः। अस्माकं लक्ष्यं समाधानम्।"
-            )}
-          </p>
-          <div className="flex items-center gap-4 mt-4">
-            <div className="h-[1px] w-12 bg-primary/50"></div>
-            <span className="text-primary font-display text-sm tracking-widest uppercase">{t("Select Deployments", "चयनित तैनाती", "चयनित प्रेषणम्")}</span>
+    <div className="min-h-screen pt-32 pb-24 bg-mesh relative overflow-hidden">
+      <div className="absolute inset-0 bg-hero-glow pointer-events-none"></div>
+
+      <div className="w-full max-w-[1200px] mx-auto px-6 relative z-10 animate-fade-in">
+        <div className="flex flex-col lg:flex-row justify-between gap-12 lg:gap-20 mb-20 items-end">
+          {/* Header Section */}
+          <div className="flex flex-col gap-8 max-w-3xl">
+            <div className="inline-flex items-center gap-3 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary font-display font-black text-[10px] tracking-[0.2em] uppercase w-fit">
+              <span className="size-2 rounded-full bg-primary animate-pulse"></span>
+              PROJECT DEPLOYMENTS
+            </div>
+            <h1 className="text-white font-display text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight leading-[1.1]">
+              <span className="text-gradient inline-block">{t("AI-First.", "एआई-प्रथम.", "एआई-प्रथम.")}</span> <br/>
+              <span className="text-gradient-primary inline-block font-black tracking-tighter">{t("Future-Ready.", "भविष्य सज्ज.", "भविष्यस्य सज्जः.")}</span>
+            </h1>
+            <p className="text-slate-400 text-xl font-body leading-relaxed max-w-xl border-l-2 border-primary/20 pl-8">
+              {t(
+                "We architect and deploy scalable, intelligent systems. Our mission is to transform complex enterprise challenges into elegant, automated solutions leveraging cutting-edge deep learning.",
+                "हम स्केलेबल, बुद्धिमान सिस्टम डिजाइन और तैनात करते हैं। हमारा मिशन जटिल उद्यम चुनौतियों को सुरुचिपूर्ण, स्वचालित समाधानों में बदलना है।",
+                "वयं स्केलेबल, बुद्धिमान प्रबन्धयामः। अस्माकं लक्ष्यं समाधानम्।"
+              )}
+            </p>
           </div>
         </div>
-      </div>
 
-      {/* Portfolio Carousel Container */}
-      <div className="relative w-full pb-10">
-        <div className="absolute right-0 top-0 bottom-10 w-24 bg-gradient-to-l from-background-dark to-transparent z-20 pointer-events-none hidden md:block"></div>
-        
-        <div className="flex overflow-x-auto hide-scrollbar snap-x snap-mandatory gap-6 md:gap-8 pb-8 py-4">
+        {/* Portfolio Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 mb-20">
           {projects.map((project, index) => (
             <Link 
               key={index} 
               href={`/portfolio/${project.slug}`}
-              className="group snap-start flex-none w-[320px] md:w-[400px] flex flex-col gap-5 glass-card rounded-xl p-4 md:p-5 transition-all duration-300 hover:border-primary/50 cursor-pointer relative overflow-hidden"
+              className="glass-premium rounded-[3rem] border border-white/5 bg-background-dark/30 flex flex-col group hover:border-primary/40 transition-all duration-700 animate-slide-up overflow-hidden"
+              style={{ animationDelay: `${index * 0.15}s` }}
             >
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
-              <div className="w-full aspect-video rounded-lg overflow-hidden bg-[#111827] relative border border-white/5">
-                <div className="absolute inset-0 bg-cover bg-center transition-transform duration-700 ease-out group-hover:scale-105" style={{backgroundImage: `url('${project.image}')`}}></div>
-                <div className="absolute inset-0 bg-gradient-to-t from-background-dark/80 via-transparent to-transparent opacity-60"></div>
+              <div className="relative aspect-[16/10] overflow-hidden">
+                <img 
+                  src={project.image} 
+                  alt={project.title}
+                  className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-background-dark via-background-dark/20 to-transparent opacity-80 group-hover:opacity-40 transition-opacity duration-700"></div>
+                
+                <div className="absolute top-8 left-8 right-8 flex items-center justify-between z-20">
+                  <span className="px-3 py-1 rounded-full bg-background-dark/80 backdrop-blur-md border border-white/10 text-primary text-[10px] font-display font-black tracking-widest uppercase">
+                    {project.category}
+                  </span>
+                  <div className="size-10 rounded-xl bg-primary/20 backdrop-blur-md flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-background-dark transition-all duration-500">
+                    <span className="material-symbols-outlined text-2xl">arrow_outward</span>
+                  </div>
+                </div>
               </div>
-              <div className="flex flex-col gap-2 z-10">
-                <h3 className="text-white font-display text-xl font-bold leading-tight group-hover:text-primary transition-colors">{project.title}</h3>
-                <div className="flex items-center justify-between mt-2">
-                  <span className="px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-primary text-xs font-display font-bold tracking-wide">{project.category}</span>
-                  <span className="material-symbols-outlined text-muted group-hover:text-primary transition-colors text-xl">arrow_outward</span>
+
+              <div className="p-10 flex flex-col justify-between flex-1">
+                <div className="space-y-4">
+                  <div className="inline-flex items-center gap-2 text-slate-500 font-display font-black text-[9px] tracking-[0.2em] uppercase">
+                    <span className="size-1.5 rounded-full bg-primary/40"></span>
+                    CORPORATE DEPLOYMENT
+                  </div>
+                  <h3 className="text-white font-display text-3xl font-bold leading-tight group-hover:text-primary transition-colors duration-500">
+                    {project.title}
+                  </h3>
+                </div>
+
+                <div className="mt-8 pt-6 border-t border-white/5 flex items-center justify-between">
+                  <span className="text-slate-500 font-display font-bold text-[10px] tracking-widest uppercase group-hover:text-white transition-colors">
+                    Explore Node
+                  </span>
+                  <div className="h-0.5 w-12 bg-white/5 group-hover:w-20 group-hover:bg-primary transition-all duration-500 rounded-full"></div>
                 </div>
               </div>
             </Link>

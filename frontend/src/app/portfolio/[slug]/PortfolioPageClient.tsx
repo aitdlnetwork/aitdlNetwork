@@ -146,89 +146,117 @@ export default function PortfolioPageClient({ slug }: { slug: string }) {
   }
 
   return (
-    <div className="flex-1 w-full max-w-[1200px] mx-auto px-6 py-12 flex flex-col justify-center z-10 relative animate-fade-in">
-      <div className="mb-8">
-        <Link href="/portfolio" className="text-primary flex items-center gap-2 hover:underline text-sm font-display font-bold">
-          <span className="material-symbols-outlined text-[18px]">arrow_back</span> {t("Back to Portfolio", "पोर्टफोलियो पर वापस", "पोर्टफोलियो प्रति गमनम्")}
-        </Link>
-      </div>
+    <div className="min-h-screen pt-32 pb-24 bg-mesh relative overflow-hidden">
+      <div className="absolute inset-0 bg-hero-glow pointer-events-none"></div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start mb-16">
-        <div className="glass-card rounded-2xl overflow-hidden aspect-video border border-white/5 relative group">
-          <div className="absolute inset-0 bg-cover bg-center transition-transform duration-700 ease-out group-hover:scale-105" style={{backgroundImage: `url('${project.image}')`}}></div>
-          <div className="absolute inset-0 bg-gradient-to-t from-background-dark/80 via-transparent to-transparent opacity-60"></div>
+      <div className="w-full max-w-[1200px] mx-auto px-6 relative z-10 animate-fade-in">
+        {/* Navigation Breadcrumb */}
+        <div className="mb-12">
+          <Link href="/portfolio" className="inline-flex items-center gap-3 text-slate-500 font-display font-black text-[10px] tracking-[0.2em] uppercase hover:text-primary transition-all group">
+            <div className="size-8 rounded-full border border-white/10 flex items-center justify-center group-hover:border-primary/40 group-hover:bg-primary/10 transition-all">
+              <span className="material-symbols-outlined text-sm group-hover:-translate-x-1 transition-transform">west</span>
+            </div>
+            {t("Back to Portfolio Fleet", "पोर्टफोलियो पर वापस", "पोर्टफोलियो प्रति गमनम्")}
+          </Link>
         </div>
 
-        <div className="flex flex-col gap-6">
-          <div>
-            <span className="px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-primary text-xs font-display font-bold tracking-wide">
-              {project.category}
-            </span>
-            <h1 className="text-white font-display text-3xl md:text-4xl lg:text-5xl font-bold mt-2 leading-tight">
-              {project.title}
-            </h1>
-          </div>
-          <p className="text-muted text-lg font-body leading-relaxed">
-            {project.description}
-          </p>
-
-          <div className="flex flex-wrap gap-2 mt-2">
-            {project.tags.map((tag, index) => (
-              <span key={index} className="px-2 py-1 rounded bg-white/5 border border-white/5 text-slate-400 text-xs font-mono">
-                {tag}
+        {/* Project Header & Visual */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-20">
+          <div className="space-y-8">
+            <div className="flex items-center gap-4">
+              <span className="px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-[10px] font-display font-black tracking-widest uppercase">
+                {project.category}
               </span>
-            ))}
+              <div className="size-1 rounded-full bg-slate-700"></div>
+              <span className="text-slate-500 text-[10px] font-display font-black tracking-widest uppercase">DEPLOYED NODE • 2026</span>
+            </div>
+            
+            <h1 className="text-white font-display text-5xl md:text-7xl font-bold tracking-tight leading-[1.1]">
+              <span className="text-gradient inline-block">{project.title}</span>
+            </h1>
+            
+            <p className="text-slate-400 text-xl font-body leading-relaxed max-w-xl border-l-2 border-primary/20 pl-8">
+              {project.description}
+            </p>
+
+            <div className="flex flex-wrap gap-3">
+              {project.tags.map((tag, index) => (
+                <span key={index} className="px-3 py-1 rounded-lg bg-white/5 border border-white/10 text-slate-500 text-[10px] font-display font-black tracking-wider uppercase">
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          <div className="relative group/hero">
+            <div className="absolute -inset-4 bg-primary/10 rounded-[3rem] blur-3xl opacity-0 group-hover/hero:opacity-50 transition-all duration-1000 animate-pulse-slow"></div>
+            <div className="relative aspect-[16/10] w-full overflow-hidden rounded-[2.5rem] border border-white/10 bg-background-dark/50 shadow-2xl">
+              <img 
+                src={project.image} 
+                alt={project.title}
+                className="w-full h-full object-cover transition-transform duration-1000 group-hover/hero:scale-110"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-background-dark/90 via-background-dark/20 to-transparent"></div>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-        <div className="glass-card p-8 rounded-xl flex flex-col gap-4 border-t-2 border-t-red-500/20">
-          <div className="size-10 rounded-lg bg-red-500/10 flex items-center justify-center text-red-400">
-            <span className="material-symbols-outlined">warning</span>
+        {/* Challenge & Solution Nodes */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mb-20">
+          <div className="glass-premium p-10 rounded-[2.5rem] border border-white/5 bg-background-dark/30 flex flex-col gap-6 group hover:border-red-500/30 transition-all duration-500 animate-slide-up">
+            <div className="size-14 rounded-2xl bg-red-500/10 flex items-center justify-center text-red-500 border border-red-500/20 group-hover:bg-red-500 group-hover:text-background-dark transition-all duration-500">
+              <span className="material-symbols-outlined text-3xl">error_outline</span>
+            </div>
+            <h3 className="font-display font-bold text-2xl text-white tracking-tight">{t("The Growth Blocker", "चुनौती", "समस्या")}</h3>
+            <p className="text-slate-400 text-lg font-body leading-relaxed">{project.challenge}</p>
           </div>
-          <h3 className="font-display font-bold text-xl text-white">{t("The Challenge", "चुनौती", "समस्या")}</h3>
-          <p className="text-muted text-sm md:text-base leading-relaxed">{project.challenge}</p>
+
+          <div className="glass-premium p-10 rounded-[2.5rem] border border-white/5 bg-background-dark/30 flex flex-col gap-6 group hover:border-[#00FF9D]/30 transition-all duration-500 animate-slide-up" style={{ animationDelay: '0.1s' }}>
+            <div className="size-14 rounded-2xl bg-[#00FF9D]/10 flex items-center justify-center text-[#00FF9D] border border-[#00FF9D]/20 group-hover:bg-[#00FF9D] group-hover:text-background-dark transition-all duration-500">
+              <span className="material-symbols-outlined text-3xl">terminal</span>
+            </div>
+            <h3 className="font-display font-bold text-2xl text-white tracking-tight">{t("Sovereign Solution", "समाधान", "समाधानम्")}</h3>
+            <p className="text-slate-400 text-lg font-body leading-relaxed">{project.solution}</p>
+          </div>
         </div>
 
-        <div className="glass-card p-8 rounded-xl flex flex-col gap-4 border-t-2 border-t-[#00FF9D]/20">
-          <div className="size-10 rounded-lg bg-[#00FF9D]/10 flex items-center justify-center text-[#00FF9D]">
-            <span className="material-symbols-outlined">check_circle</span>
-          </div>
-          <h3 className="font-display font-bold text-xl text-white">{t("The Solution", "समाधान", "समाधानम्")}</h3>
-          <p className="text-muted text-sm md:text-base leading-relaxed">{project.solution}</p>
-        </div>
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div className="glass-card p-8 rounded-xl flex flex-col gap-5 border border-white/5">
-          <h3 className="font-display font-bold text-xl text-white">{t("Deliverables & Tech Components", "डेलिवरेबल्स और टेक अवयव", "कार्य प्रबन्धनम् विशेषता च")}</h3>
-          <ul className="flex flex-col gap-3">
-            {project.features.map((feat, idx) => (
-              <li key={idx} className="flex items-center gap-3 text-muted text-sm md:text-base">
-                <span className="material-symbols-outlined text-primary text-[20px]">verified</span>
-                {feat}
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <div className="glass-card p-8 rounded-xl border border-white/5 bg-background-dark/30">
-          <div className="mb-4">
-            <span className="px-3 py-1 rounded-md bg-[#00FF9D]/10 border border-[#00FF9D]/20 text-[#00FF9D] text-xs font-display font-bold tracking-wide">
-              {t("Key KPIs & Value Metrics", "की केपीआई और मूल्य मेट्रिक्स", "मुख्य मेट्रिक्स")}
-            </span>
-          </div>
-          <ul className="flex flex-col gap-4">
-            {project.results.map((res, idx) => (
-              <div key={idx} className="p-4 rounded-lg bg-white/5 border border-white/5 flex items-start gap-4">
-                <div className="size-8 rounded-md bg-[#00FF9D]/10 flex items-center justify-center text-[#00FF9D] flex-shrink-0">
-                  <span className="material-symbols-outlined text-sm">trending_up</span>
+        {/* Detailed Intelligence Blocks */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 mb-24">
+          <div className="lg:col-span-2 glass-premium p-12 rounded-[3rem] border border-white/10 bg-background-dark/50 animate-fade-in">
+            <h3 className="font-display font-bold text-3xl text-white mb-10 tracking-tight flex items-center gap-4">
+              <span className="size-3 rounded-full bg-primary animate-pulse"></span>
+              {t("Technical Architecture", "टेक अवयव", "विशेषता च")}
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {project.features.map((feat, idx) => (
+                <div key={idx} className="flex items-start gap-4 p-5 rounded-2xl bg-white/5 border border-white/5 group hover:border-primary/20 transition-all">
+                  <div className="size-8 rounded-lg bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-background-dark transition-all">
+                    <span className="material-symbols-outlined text-lg">memory</span>
+                  </div>
+                  <p className="text-slate-300 text-sm font-body leading-relaxed">{feat}</p>
                 </div>
-                <p className="text-muted text-sm leading-relaxed">{res}</p>
-              </div>
-            ))}
-          </ul>
+              ))}
+            </div>
+          </div>
+
+          <div className="glass-premium p-12 rounded-[3rem] border border-white/10 bg-background-dark/50 flex flex-col gap-8 animate-fade-in" style={{ animationDelay: '0.2s' }}>
+            <div className="inline-flex items-center gap-3 px-4 py-1.5 rounded-full bg-[#00FF9D]/10 border border-[#00FF9D]/20 text-[#00FF9D] font-display font-black text-[10px] tracking-[0.2em] uppercase w-fit">
+              IMPACT METRICS
+            </div>
+            <div className="flex flex-col gap-6">
+              {project.results.map((res, idx) => (
+                <div key={idx} className="space-y-3 p-6 rounded-2xl bg-white/5 border border-white/5 group hover:border-[#00FF9D]/30 transition-all">
+                  <div className="flex items-center gap-3">
+                    <div className="size-6 rounded-full bg-[#00FF9D]/10 flex items-center justify-center text-[#00FF9D]">
+                      <span className="material-symbols-outlined text-xs">analytics</span>
+                    </div>
+                    <span className="text-[10px] font-display font-black text-slate-500 tracking-widest uppercase">MEASURED OUTCOME</span>
+                  </div>
+                  <p className="text-white text-lg font-display font-bold leading-tight">{res}</p>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </div>

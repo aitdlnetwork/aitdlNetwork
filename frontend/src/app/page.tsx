@@ -35,50 +35,105 @@ export default function Home() {
   return (
     <div className="animate-fade-in relative">
       {/* Hero Section */}
-      <section className="flex items-center justify-center min-h-[90vh] px-6 py-12">
-        <div className="max-w-[1200px] w-full mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      <section className="relative pt-32 pb-24 px-6 overflow-hidden min-h-[90vh] flex items-center bg-mesh">
+        <div className="absolute inset-0 bg-hero-glow pointer-events-none"></div>
+        
+        <div className="w-full max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center relative z-10">
           {/* Left Column: Content */}
-          <div className="flex flex-col items-start text-left">
-            <h1 className="font-display font-bold text-4xl md:text-5xl lg:text-[56px] leading-[1.1] tracking-[-0.02em] mb-6 max-w-xl text-gradient">
-              {t('hero_title')}
+          <div className="flex flex-col items-start px-4">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary font-display font-bold text-[10px] tracking-wider mb-6 animate-fade-in">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+              </span>
+              {t('hero_badge')}
+            </div>
+
+            <h1 className="font-display font-bold text-5xl lg:text-7xl leading-[1.1] tracking-[-0.03em] mb-8 animate-slide-up">
+              <span className="text-gradient inline-block">{t('hero_title').split(' & ')[0]}</span><br />
+              <span className="text-gradient-primary inline-block">& {t('hero_title').split(' & ')[1]}</span>
             </h1>
-            <p className="text-lg text-text-muted font-light mb-8 max-w-lg leading-relaxed">
+
+            <p className="text-lg lg:text-xl text-text-muted font-light mb-10 max-w-xl leading-relaxed animate-slide-up" style={{ animationDelay: '0.2s' }}>
               {t('hero_subtitle')}
             </p>
-            <div className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto animate-slide-up mb-10">
-              <Link href="/demo" className="btn-primary w-full sm:w-auto flex items-center justify-center h-12 px-8 rounded-lg bg-primary text-background-dark font-display font-semibold text-[14px]">
+
+            <div className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto animate-slide-up mb-12" style={{ animationDelay: '0.3s' }}>
+              <Link href="/demo" className="btn-primary w-full sm:w-auto flex items-center justify-center h-14 px-10 rounded-xl bg-primary text-background-dark font-display font-bold text-sm tracking-wide">
                   {t('cta_free_demo')}
               </Link>
-              <Link href="/login" className="btn-secondary w-full sm:w-auto flex items-center justify-center h-12 px-8 rounded-lg bg-white/5 text-primary border border-primary/20 hover:bg-white/10 font-display font-semibold text-[14px]">
+              <Link href="/login" className="btn-secondary w-full sm:w-auto flex items-center justify-center h-14 px-10 rounded-xl font-display font-bold text-sm tracking-wide">
                   {t('nav_client_portal')}
               </Link>
             </div>
+
             {/* Trust Badges */}
-            <div className="flex flex-col gap-4 animate-slide-up" style={{ animationDelay: '0.4s' }}>
-              <div className="flex items-center gap-2 text-text-muted">
-                <span className="material-symbols-outlined text-primary text-lg">verified</span>
-                <span className="text-sm font-medium">{t('hero_trust_backups')}</span>
+            <div className="flex flex-col gap-5 animate-slide-up" style={{ animationDelay: '0.4s' }}>
+              <div className="flex flex-wrap items-center gap-8">
+                <div className="flex items-center gap-2 text-text-muted">
+                  <span className="material-symbols-outlined text-primary text-lg">verified</span>
+                  <span className="text-xs font-semibold tracking-wide uppercase">{t('hero_trust_backups')}</span>
+                </div>
+                <div className="flex items-center gap-2 text-text-muted">
+                  <span className="material-symbols-outlined text-primary text-lg">bolt</span>
+                  <span className="text-xs font-semibold tracking-wide uppercase">{t('hero_trust_nodes')}</span>
+                </div>
               </div>
               <div className="flex items-center gap-2 text-text-muted">
-                <span className="material-symbols-outlined text-primary text-lg">bolt</span>
-                <span className="text-sm font-medium">{t('hero_trust_nodes')}</span>
+                <span className="material-symbols-outlined text-primary text-lg">shield</span>
+                <span className="text-xs font-semibold tracking-wide uppercase">{t('hero_trust_security')}</span>
               </div>
             </div>
           </div>
 
-          {/* Right Column: Visual Component */}
-          <div className="relative w-full aspect-video lg:aspect-square flex items-center justify-center animate-fade-in z-10">
-            <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent rounded-3xl filter blur-2xl opacity-50"></div>
-            <div className="glass-card p-4 rounded-3xl border border-white/5 bg-background-dark/30 shadow-2xl relative w-full h-full overflow-hidden">
-              <Image 
-                src="/images/hero_dashboard.png" 
-                alt="SaaS Analytics Dashboard Illustration" 
-                fill 
-                className="object-cover rounded-2xl opacity-90 group-hover:scale-105 transition-transform duration-500"
-                priority
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-background-dark/80 via-transparent to-transparent pointer-events-none"></div>
+          {/* Right Column: Visual Component - Sovereign Dashboard */}
+          <div className="relative group perspective-1000 px-4">
+            {/* Floating Service Nodes */}
+            <div className="absolute -top-12 -left-12 size-20 glass-premium rounded-3xl flex items-center justify-center animate-float z-20 shadow-2xl" style={{ animationDelay: '1s' }}>
+              <span className="material-symbols-outlined text-primary text-2xl">school</span>
             </div>
+            <div className="absolute top-1/2 -right-12 size-24 glass-premium rounded-full flex items-center justify-center animate-float z-20 shadow-2xl" style={{ animationDelay: '2.5s' }}>
+              <span className="material-symbols-outlined text-primary text-4xl">smart_toy</span>
+            </div>
+            <div className="absolute -bottom-16 left-1/4 size-16 glass-premium rounded-2xl flex items-center justify-center animate-float z-0 shadow-2xl" style={{ animationDelay: '4s' }}>
+              <span className="material-symbols-outlined text-primary text-2xl">account_balance_wallet</span>
+            </div>
+
+            <div className="relative z-10 animate-float animate-pulse-glow" style={{ animationDuration: '8s' }}>
+              <div className="rounded-[3rem] overflow-hidden glass-premium p-3 rotate-y-[-8deg] rotate-x-[4deg] transition-all duration-700 group-hover:rotate-0 group-hover:scale-[1.02] border border-white/10">
+                <div className="relative aspect-[4/3] w-full">
+                  <Image 
+                    src="/images/hero_dashboard.png" 
+                    alt="AITDL Sovereign Dashboard"
+                    fill
+                    className="object-cover rounded-[2.5rem] brightness-90 group-hover:brightness-100 transition-all duration-500"
+                    priority
+                  />
+                </div>
+              </div>
+              
+              {/* Overlay Content Card */}
+              <div className="absolute bottom-10 left-10 right-10 p-6 glass-premium rounded-3xl animate-slide-up border border-white/10" style={{ animationDelay: '0.8s' }}>
+                <div className="flex items-center justify-between mb-4">
+                  <div className="flex flex-col gap-1">
+                    <span className="text-[10px] text-primary font-display font-bold tracking-widest uppercase">Autonomous Core</span>
+                    <span className="text-xs text-white font-medium">Nodes Synchronized</span>
+                  </div>
+                  <div className="flex gap-1.5">
+                    <div className="size-1.5 rounded-full bg-primary animate-pulse"></div>
+                    <div className="size-1.5 rounded-full bg-primary/40"></div>
+                    <div className="size-1.5 rounded-full bg-primary/40"></div>
+                  </div>
+                </div>
+                <div className="h-1.5 w-full bg-white/5 rounded-full overflow-hidden">
+                  <div className="h-full bg-gradient-to-r from-primary/40 to-primary w-3/4 animate-[shimmer_2s_infinite]"></div>
+                </div>
+              </div>
+            </div>
+
+            {/* Multi-layered Deep Glow */}
+            <div className="absolute inset-0 bg-primary/20 blur-[130px] -z-10 rounded-full"></div>
+            <div className="absolute inset-[-40px] bg-primary/5 blur-[80px] -z-10 rounded-full animate-pulse-slow"></div>
           </div>
         </div>
       </section>
