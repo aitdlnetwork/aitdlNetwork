@@ -53,9 +53,8 @@ export default function NodeMap() {
         src="/images/india-map.png" 
         alt="Regional Node Map" 
         fill 
-        className="object-cover opacity-60 grayscale group-hover:grayscale-0 group-hover:opacity-80 transition-all duration-1000"
+        className="object-contain opacity-60 grayscale group-hover:grayscale-0 group-hover:opacity-80 transition-all duration-1000"
       />
-      <div className="absolute inset-0 bg-gradient-to-t from-background-dark/80 via-transparent to-transparent"></div>
 
       {/* Nodes Overlay */}
       <div className="absolute inset-0 z-10">
