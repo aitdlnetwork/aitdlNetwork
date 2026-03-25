@@ -19,12 +19,25 @@ interface PostContent {
   readTime: string;
   description: string;
   icon: string;
+  keywords: string[];
   content: { h2: string; p: string }[];
 }
 
 export default function BlogPostClient({ postData }: { postData: Record<string, PostContent> }) {
   const { language } = useI18n();
+  const [scrollProgress, setScrollProgress] = React.useState(0);
   
+  React.useEffect(() => {
+    const handleScroll = () => {
+      const totalScroll = document.documentElement.scrollHeight - window.innerHeight;
+      const currentScroll = window.scrollY;
+      setScrollProgress((currentScroll / totalScroll) * 100);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   if (!postData) {
     notFound();
   }
@@ -35,61 +48,115 @@ export default function BlogPostClient({ postData }: { postData: Record<string, 
     notFound();
   }
 
+  // Cinematic Structured Data for SEO
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": post.title,
+    "description": post.description,
+    "author": {
+      "@type": "Person",
+      "name": "Jawahar R Mallah",
+      "url": "https://aitdl.com"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "AITDL Network",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://aitdl.in/logo.png"
+      }
+    },
+    "datePublished": post.date,
+    "inLanguage": language,
+    "keywords": post.keywords.join(", "),
+    "articleSection": post.category
+  };
+
   return (
-    <div className="flex-1 w-full max-w-[800px] mx-auto px-6 py-12 flex flex-col justify-center z-10 relative animate-fade-in">
-      {/* Back to Blog */}
-      <div className="mb-8">
-        <Link href="/blog" className="text-primary flex items-center gap-2 hover:underline text-sm font-display font-bold">
-          <span className="material-symbols-outlined text-[18px]">arrow_back</span> Back to Blog
-        </Link>
+    <>
+      {/* JSON-LD Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      {/* Cinematic Reading Progress Bar */}
+      <div className="fixed top-0 left-0 w-full h-1 z-50 bg-white/5">
+        <div 
+          className="h-full bg-primary transition-all duration-150 ease-out shadow-[0_0_10px_rgba(var(--primary-rgb),0.5)]"
+          style={{ width: `${scrollProgress}%` }}
+        />
       </div>
 
-      {/* Header */}
-      <div className="flex flex-col gap-4 mb-10 border-b border-white/5 pb-8">
-        <div className="flex items-center gap-3">
-          <span className="px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-primary text-xs font-display font-bold">
-            {post.category}
-          </span>
-          <span className="text-slate-500 text-xs font-body flex items-center gap-1">
-            <span className="material-symbols-outlined text-[14px]">schedule</span>
-            {post.readTime}
-          </span>
+      <div className="flex-1 w-full max-w-[800px] mx-auto px-6 py-12 flex flex-col justify-center z-10 relative">
+        {/* Back to Blog */}
+        <div className="mb-8 animate-fade-in" style={{ animationDelay: '100ms' }}>
+          <Link href="/blog" className="text-slate-400 flex items-center gap-2 hover:text-primary transition-colors text-sm font-display font-medium group">
+            <span className="material-symbols-outlined text-[18px] group-hover:-translate-x-1 transition-transform">arrow_back</span> 
+            Back to Knowledge Centre
+          </Link>
         </div>
-        <h1 className="text-white font-display text-3xl md:text-4xl lg:text-5xl font-bold font-heading mt-2 leading-tight">
-          {post.title}
-        </h1>
-        <p className="text-slate-400 text-sm font-body mt-2">Published on {post.date}</p>
-      </div>
 
-      {/* Content Sections */}
-      <div className="flex flex-col gap-8 mb-16">
-        {post.content.map((section, idx) => (
-          <div key={idx} className="flex flex-col gap-3">
-            <h2 className="text-white font-display font-semibold text-xl md:text-2xl mt-4">
-              {section.h2}
-            </h2>
-            <p className="text-slate-300 text-base font-body leading-relaxed">
-              {section.p}
-            </p>
+        {/* Header */}
+        <div className="flex flex-col gap-4 mb-16 border-b border-white/5 pb-12 animate-fade-in" style={{ animationDelay: '200ms' }}>
+          <div className="flex items-center gap-3">
+            <span className="px-3 py-1 rounded-md bg-primary/10 border border-primary/20 text-primary text-[10px] font-display font-bold tracking-widest uppercase">
+              {post.category}
+            </span>
+            <span className="text-slate-500 text-[11px] font-body flex items-center gap-1">
+              <span className="material-symbols-outlined text-[14px]">schedule</span>
+              {post.readTime}
+            </span>
           </div>
-        ))}
-      </div>
-
-      {/* Author/Footer */}
-      <div className="glass-card p-6 rounded-2xl border border-white/5 bg-background-dark/20 flex items-center justify-between gap-4">
-        <div className="flex items-center gap-4">
-          <div className="size-12 rounded-full bg-primary/10 flex items-center justify-center text-primary text-xl font-display font-bold shadow-sm">
-            J
-          </div>
-          <div>
-            <h4 className="text-white font-display font-bold text-sm">Architected by JRM</h4>
-            <p className="text-slate-500 text-xs font-body">Deep Learning & Enterprise Scalability</p>
+          <h1 className="text-white font-display text-4xl md:text-5xl lg:text-6xl font-bold font-heading mt-4 leading-tight tracking-tight">
+            {post.title}
+          </h1>
+          <div className="flex items-center gap-4 mt-6">
+            <div className="size-10 rounded-full bg-primary/20 flex items-center justify-center text-primary font-display font-bold border border-primary/30">
+              J
+            </div>
+            <div className="flex flex-col">
+              <span className="text-white text-sm font-display font-bold">Jawahar R Mallah</span>
+              <span className="text-slate-500 text-xs font-body">{post.date}</span>
+            </div>
           </div>
         </div>
-        <Link href="/contact" className="px-4 py-2 rounded-lg bg-primary/10 border border-primary/20 text-primary text-xs font-display font-bold hover:bg-primary hover:text-background-dark transition-all">
-          Discuss Solutions
-        </Link>
+
+        {/* Content Sections */}
+        <div className="flex flex-col gap-12 mb-20">
+          {post.content.map((section, idx) => (
+            <div 
+              key={idx} 
+              className="flex flex-col gap-4 animate-fade-in-up group"
+              style={{ animationDelay: `${300 + (idx * 100)}ms` }}
+            >
+              <h2 className="text-white font-display font-bold text-2xl md:text-3xl mt-4 group-hover:text-primary transition-colors duration-300">
+                {section.h2}
+              </h2>
+              <div className="h-1 w-12 bg-primary/20 group-hover:w-20 group-hover:bg-primary/50 transition-all duration-500 rounded-full"></div>
+              <p className="text-slate-300 text-lg font-body leading-relaxed md:leading-loose">
+                {section.p}
+              </p>
+            </div>
+          ))}
+        </div>
+
+        {/* Cinematic Author/Footer Card */}
+        <div className="glass-card p-10 rounded-3xl border border-white/5 bg-gradient-to-br from-background-dark/40 to-primary/5 flex flex-col md:flex-row items-center justify-between gap-8 animate-fade-in" style={{ animationDelay: '800ms' }}>
+          <div className="flex items-center gap-6">
+            <div className="size-20 rounded-2xl bg-gradient-to-tr from-primary to-primary/50 flex items-center justify-center text-background-dark text-3xl font-display font-black shadow-xl rotate-3">
+              A
+            </div>
+            <div>
+              <h4 className="text-white font-display font-bold text-xl mb-1">Architected by AITDL</h4>
+              <p className="text-slate-400 text-sm font-body max-w-md">Engineering secure, sovereign software architectures for the next generation of Indian enterprise.</p>
+            </div>
+          </div>
+          <Link href="/contact" className="w-full md:w-auto px-8 py-4 rounded-xl bg-primary text-background-dark text-sm font-display font-black hover:scale-105 active:scale-95 transition-all shadow-[0_0_20px_rgba(var(--primary-rgb),0.3)]">
+            Partner With Us
+          </Link>
+        </div>
       </div>
-    </div>
+    </>
   );
 }

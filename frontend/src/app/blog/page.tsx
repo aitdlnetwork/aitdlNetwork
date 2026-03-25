@@ -19,8 +19,8 @@ const blogPosts = [
     title: "Best LMS for Coaching Institutes in Uttar Pradesh: 2026 Guide",
     category: "EdTech",
     date: "March 24, 2026",
-    readTime: "5 min read",
-    description: "An absolute guide for coaching guides and institutions in Gorakhpur and Lucknow looking to digitize fee collection and student tracking safely.",
+    readTime: "7 min read",
+    description: "A comprehensive strategic blueprint for educational leadership in Gorakhpur and Lucknow to navigate the digital frontier securely and efficiently.",
     icon: "school"
   },
   {
@@ -28,8 +28,8 @@ const blogPosts = [
     title: "Best Coaching Institute Software in Gorakhpur (2026): A Complete Guide",
     category: "EdTech",
     date: "March 25, 2026",
-    readTime: "8 min read",
-    description: "Discover how AITDL Network helps institutes near Golghar and Civil Lines automate fees, attendance and student records. Free demo available.",
+    readTime: "9 min read",
+    description: "Discover how AITDL Network empowers institutes near Golghar and Civil Lines to automate fees, attendance and student records with sovereign local nodes.",
     icon: "location_on"
   },
   {
@@ -37,8 +37,8 @@ const blogPosts = [
     title: "GST Billing Software Checklist for Indian Retailers Using POS",
     category: "Retail",
     date: "March 23, 2026",
-    readTime: "4 min read",
-    description: "How to configure absolute barcode billing nodes compliant with Indian GST laws maintaining inventory sync safeguards statically.",
+    readTime: "6 min read",
+    description: "How to architecture absolute barcode billing nodes compliant with Indian GST laws maintaining inventory sync safeguards statically and securely.",
     icon: "shopping_cart"
   },
   {
@@ -46,8 +46,8 @@ const blogPosts = [
     title: "What Is Local AI Software & Why Indian Businesses Need It in 2026",
     category: "AI & Security",
     date: "March 22, 2026",
-    readTime: "6 min read",
-    description: "Understanding data sandboxing and sovereign deep learning pipelines for secure enterprise knowledge architecture structures safely.",
+    readTime: "8 min read",
+    description: "An deep-dive exploration of data sandboxing and sovereign deep learning pipelines for secure enterprise knowledge architecture in the Indian context.",
     icon: "psychology"
   }
 ];
