@@ -126,12 +126,18 @@ export default function Footer() {
 
         {/* Center: Brand Identity */}
         <div className="flex flex-col items-center gap-2">
-           <div className="flex items-center gap-2">
+          <div className="flex items-center gap-3">
             <span className="px-2.5 py-1 rounded-full bg-primary/5 border border-primary/20 text-primary/80 font-display font-semibold tracking-wide text-[9px] shadow-sm backdrop-blur-sm">
               Vikram Samvat 2083
             </span>
+            <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 hover:border-primary/30 transition-all cursor-default group">
+              <span className="size-1.5 rounded-full bg-primary animate-pulse-subtle shadow-[0_0_8px_rgba(13,227,242,0.6)]"></span>
+              <span className="text-[9px] font-display font-black tracking-[0.2em] text-slate-500 uppercase">
+                gorakhpur-sys-01: <span className="text-primary opacity-80 group-hover:opacity-100 transition-opacity">active</span>
+              </span>
+            </div>
           </div>
-          <p className="text-[9px] text-slate-600 uppercase tracking-[0.3em] font-display">System Status: Active</p>
+          <p className="text-[9px] text-slate-600 uppercase tracking-[0.3em] font-display">Sovereign Node Status</p>
         </div>
 
         <div className="flex items-center gap-6">

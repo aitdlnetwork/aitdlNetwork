@@ -75,20 +75,8 @@ export default function Header() {
             </div>
             <span className="font-display font-black text-xl tracking-tight text-white uppercase group-hover:text-primary transition-colors duration-300">AITDL</span>
           </Link>
-
-          {/* Infrastructure Badge */}
-          <div 
-            role="status" 
-            aria-live="polite"
-            className="hidden lg:flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 hover:border-primary/30 transition-all cursor-default group"
-          >
-            <span className="size-1.5 rounded-full bg-primary animate-pulse-subtle shadow-[0_0_8px_rgba(13,227,242,0.6)]"></span>
-            <span className="text-[9px] font-display font-black tracking-[0.2em] text-slate-400 uppercase">
-              gorakhpur-sys-01: <span className="text-primary opacity-80 group-hover:opacity-100 transition-opacity">active</span>
-            </span>
-          </div>
         </div>
-        
+
         {/* Desktop Links */}
         <div className="hidden md:flex items-center gap-8">
           <Link href="/services" className={`${navLinkClass} ${pathname === '/services' ? 'text-primary' : ''}`}>
@@ -102,10 +90,6 @@ export default function Header() {
           <Link href="/about" className={`${navLinkClass} ${pathname === '/about' ? 'text-primary' : ''}`}>
             {t('nav_about')}
             <span className={`${navLinkUnderline} ${pathname === '/about' ? 'w-full' : ''}`}></span>
-          </Link>
-          <Link href="/blog" className={`${navLinkClass} ${pathname === '/blog' ? 'text-primary' : ''}`}>
-            {t('footer_link_knowledge')}
-            <span className={`${navLinkUnderline} ${pathname === '/blog' ? 'w-full' : ''}`}></span>
           </Link>
           <Link href="/contact" className={`${navLinkClass} ${pathname === '/contact' ? 'text-primary' : ''}`}>
             {t('nav_contact')}
@@ -185,7 +169,6 @@ export default function Header() {
             <Link href="/services" onClick={() => setIsMobileMenuOpen(false)} className="text-xl font-display font-bold text-white">{t('nav_services')}</Link>
             <Link href="/portfolio" onClick={() => setIsMobileMenuOpen(false)} className="text-xl font-display font-bold text-white">{t('nav_portfolio')}</Link>
             <Link href="/about" onClick={() => setIsMobileMenuOpen(false)} className="text-xl font-display font-bold text-white">{t('nav_about')}</Link>
-            <Link href="/blog" onClick={() => setIsMobileMenuOpen(false)} className="text-xl font-display font-bold text-white">{t('footer_link_knowledge')}</Link>
             <Link href="/contact" onClick={() => setIsMobileMenuOpen(false)} className="text-xl font-display font-bold text-white">{t('nav_contact')}</Link>
           </div>
 
