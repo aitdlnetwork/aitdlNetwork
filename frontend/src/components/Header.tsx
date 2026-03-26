@@ -120,6 +120,30 @@ export default function Header() {
 
           {/* Accessibility & Lang */}
           <div className="flex items-center gap-4">
+            <div className="flex items-center bg-white/5 border border-white/10 rounded-lg overflow-hidden font-display text-[9px] font-black tracking-widest uppercase">
+              <button 
+                onClick={() => setFontSize('sm')}
+                className={`px-2 py-1.5 transition-colors border-r border-white/10 ${fontSize === 'sm' ? 'bg-primary text-background-dark' : 'text-slate-400 hover:text-primary'}`}
+                aria-label="Small font"
+              >
+                A-
+              </button>
+              <button 
+                onClick={() => setFontSize('md')}
+                className={`px-2 py-1.5 transition-colors border-r border-white/10 ${fontSize === 'md' ? 'bg-primary text-background-dark' : 'text-slate-400 hover:text-primary'}`}
+                aria-label="Medium font"
+              >
+                A
+              </button>
+              <button 
+                onClick={() => setFontSize('lg')}
+                className={`px-2 py-1.5 transition-colors ${fontSize === 'lg' ? 'bg-primary text-background-dark' : 'text-slate-400 hover:text-primary'}`}
+                aria-label="Large font"
+              >
+                A+
+              </button>
+            </div>
+
             <div className="relative">
               <button 
                 onClick={() => setIsLangOpen(!isLangOpen)} 
@@ -174,6 +198,36 @@ export default function Header() {
           </div>
 
           <div className="h-px w-full bg-white/5"></div>
+
+          <div className="h-px w-full bg-white/5"></div>
+
+          {/* Mobile Accessibility Selection */}
+          <div className="flex items-center justify-between gap-4 p-4 rounded-xl bg-white/5 border border-white/10">
+            <span className="text-[10px] font-display font-black tracking-widest text-slate-500 uppercase">Text Scale</span>
+            <div className="flex items-center bg-background-dark/50 rounded-lg overflow-hidden border border-white/10 font-display text-[10px] font-black tracking-widest uppercase">
+              <button 
+                onClick={() => setFontSize('sm')}
+                className={`px-4 py-2 transition-colors border-r border-white/10 ${fontSize === 'sm' ? 'bg-primary text-background-dark' : 'text-slate-400'}`}
+                aria-label="Small font"
+              >
+                A-
+              </button>
+              <button 
+                onClick={() => setFontSize('md')}
+                className={`px-4 py-2 transition-colors border-r border-white/10 ${fontSize === 'md' ? 'bg-primary text-background-dark' : 'text-slate-400'}`}
+                aria-label="Medium font"
+              >
+                A
+              </button>
+              <button 
+                onClick={() => setFontSize('lg')}
+                className={`px-4 py-2 transition-colors ${fontSize === 'lg' ? 'bg-primary text-background-dark' : 'text-slate-400'}`}
+                aria-label="Large font"
+              >
+                A+
+              </button>
+            </div>
+          </div>
 
           {/* Mobile Lang Selection */}
           <div className="flex flex-wrap gap-2">
