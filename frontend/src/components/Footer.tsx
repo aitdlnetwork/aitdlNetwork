@@ -134,9 +134,24 @@ export default function Footer() {
           <p className="text-[9px] text-slate-600 uppercase tracking-[0.3em] font-display">System Status: Active</p>
         </div>
 
-        <div className="flex items-center gap-4 text-slate-600">
-          <span className="size-1 rounded-full bg-slate-700"></span>
-          <span>v1.6.0 Stable</span>
+        <div className="flex items-center gap-6">
+          <Link 
+            href="https://x.com/aitdlnetwork" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="flex items-center gap-2 group transition-all"
+          >
+            <div className="size-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center group-hover:border-primary/50 group-hover:bg-primary/10 transition-all">
+              <svg className="size-4 text-slate-400 group-hover:text-primary transition-colors" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+              </svg>
+            </div>
+            <span className="text-[10px] font-display font-black tracking-widest text-slate-500 group-hover:text-primary transition-colors uppercase">@aitdlnetwork</span>
+          </Link>
+          <div className="flex items-center gap-4 text-slate-600">
+            <span className="size-1 rounded-full bg-slate-700"></span>
+            <span>v1.6.0 Stable</span>
+          </div>
         </div>
       </div>
     </footer>

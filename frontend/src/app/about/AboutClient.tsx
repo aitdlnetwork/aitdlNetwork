@@ -9,6 +9,7 @@ Contact: aitdlnetwork@outlook.com | jawahar.mallah@gmail.com
 
 import React from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useI18n } from '@/lib/i18n/I18nContext';
 import { usePathname } from 'next/navigation';
 import SEOHead from '@/components/SEOHead';
@@ -164,7 +165,21 @@ export default function About() {
                 </span>
               </div>
               <h2 className="text-white font-display text-5xl md:text-7xl font-black tracking-tight leading-none">{t("JRM", "जेआरएम", "जेआरएम")}</h2>
-              <p className="text-primary/60 font-display font-black text-xs tracking-[0.4em] uppercase">(Jawahar R Mallah)</p>
+              <div className="flex items-center gap-4">
+                <p className="text-primary/60 font-display font-black text-xs tracking-[0.4em] uppercase">(Jawahar R Mallah)</p>
+                <div className="size-1 rounded-full bg-slate-800"></div>
+                <Link 
+                  href="https://x.com/aitdlnetwork" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 hover:border-primary/50 hover:bg-primary/5 transition-all group"
+                >
+                  <svg className="size-3 text-slate-500 group-hover:text-primary transition-colors" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                  </svg>
+                  <span className="text-[9px] font-display font-black tracking-[0.2em] text-slate-500 group-hover:text-primary transition-colors uppercase">@aitdlnetwork</span>
+                </Link>
+              </div>
             </div>
             <p className="text-slate-400 text-xl md:text-2xl leading-relaxed max-w-4xl font-body font-light italic border-l-4 border-primary/20 pl-8">
               {t(
