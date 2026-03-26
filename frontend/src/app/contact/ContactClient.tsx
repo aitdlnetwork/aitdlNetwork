@@ -26,10 +26,13 @@ Copyright © AITDL Network 2026 | Vikram Samvat 2083
 
 import React, { useState } from 'react';
 import { useI18n } from '@/lib/i18n/I18nContext';
+import { usePathname } from 'next/navigation';
 import NodeMap from '@/components/NodeMap';
+import SEOHead from '@/components/SEOHead';
 
 export default function Contact() {
   const { language } = useI18n();
+  const pathname = usePathname();
   const [formData, setFormData] = useState({ name: '', email: '', project: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -59,6 +62,7 @@ export default function Contact() {
 
   return (
     <div className="min-h-screen pt-32 pb-24 bg-mesh relative overflow-hidden">
+      <SEOHead path={pathname} />
       <div className="absolute inset-0 bg-hero-glow pointer-events-none"></div>
 
       <div className="w-full max-w-[1200px] mx-auto px-6 relative z-10 animate-fade-in">

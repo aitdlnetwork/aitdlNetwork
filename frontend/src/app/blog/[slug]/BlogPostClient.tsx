@@ -51,26 +51,29 @@ export default function BlogPostClient({ postData }: { postData: Record<string, 
     return en;
   };
 
-  // Cinematic Structured Data for SEO
+  // Cinematic Structured Data for SEO (Article Schema)
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "BlogPosting",
+    "@type": "Article",
     "headline": post.title,
     "description": post.description,
+    "image": `https://aitdl.in${post.image}`,
+    "datePublished": post.date,
+    "dateModified": post.date, // Standardizing to post.date for now
     "author": {
       "@type": "Person",
       "name": "Jawahar R Mallah",
-      "url": "https://aitdl.com"
+      "url": "https://aitdl.in/founders"
     },
     "publisher": {
       "@type": "Organization",
       "name": "AITDL Network",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://aitdl.in/logo.png"
+        "url": "https://aitdl.in/images/logo.png"
       }
     },
-    "datePublished": post.date,
+    "url": `https://aitdl.in/blog/${Object.keys(postData).find(key => postData[key].title === post.title) || ""}`,
     "inLanguage": language,
     "keywords": post.keywords.join(", "),
     "articleSection": post.category
@@ -83,22 +86,7 @@ export default function BlogPostClient({ postData }: { postData: Record<string, 
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      {/* Cinematic Reading Progress Bar */}
-      <div className="fixed top-0 left-0 w-full h-1 z-50 bg-white/5">
-        <div 
-          className="h-full bg-primary transition-all duration-150 ease-out shadow-[0_0_10px_rgba(var(--primary-rgb),0.5)]"
-          style={{ width: `${scrollProgress}%` }}
-        />
-      </div>
-
-    <div className="min-h-screen pt-32 pb-24 bg-mesh relative overflow-hidden">
-      <div className="absolute inset-0 bg-hero-glow pointer-events-none"></div>
-
-      {/* JSON-LD Structured Data */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      
       {/* Cinematic Reading Progress Bar */}
       <div className="fixed top-0 left-0 w-full h-1 z-[100] bg-white/5">
         <div 
@@ -106,6 +94,9 @@ export default function BlogPostClient({ postData }: { postData: Record<string, 
           style={{ width: `${scrollProgress}%` }}
         />
       </div>
+
+    <div className="min-h-screen pt-32 pb-24 bg-mesh relative overflow-hidden">
+      <div className="absolute inset-0 bg-hero-glow pointer-events-none"></div>
 
       <div className="w-full max-w-[900px] mx-auto px-6 relative z-10">
         {/* Navigation Context */}

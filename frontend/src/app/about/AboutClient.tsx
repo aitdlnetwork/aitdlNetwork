@@ -10,6 +10,8 @@ Contact: aitdlnetwork@outlook.com | jawahar.mallah@gmail.com
 import React from 'react';
 import Image from 'next/image';
 import { useI18n } from '@/lib/i18n/I18nContext';
+import { usePathname } from 'next/navigation';
+import SEOHead from '@/components/SEOHead';
 
 const valuesData: Record<string, { title: string; description: string; icon: string }[]> = {
   en: [
@@ -67,6 +69,7 @@ const valuesData: Record<string, { title: string; description: string; icon: str
 
 export default function About() {
   const { language } = useI18n();
+  const pathname = usePathname();
   const langKey = language === 'hi' || language === 'sa' ? language : 'en';
   const values = valuesData[langKey];
 
@@ -78,6 +81,7 @@ export default function About() {
 
   return (
     <div className="min-h-screen pt-40 pb-32 bg-mesh relative overflow-hidden">
+      <SEOHead path={pathname} />
       <div className="absolute inset-0 bg-hero-glow pointer-events-none"></div>
       
       <div className="w-full max-w-[1200px] mx-auto px-6 relative z-10 animate-fade-in">

@@ -36,7 +36,7 @@ export const metadata: Metadata = generateSEO({});
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
-  themeColor: '#00F0FF',
+  themeColor: '#0f172a',
 };
 
 
@@ -59,8 +59,139 @@ export default function RootLayout({
           `}
         </Script>
         
+        {/* SEO Preconnect */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        
+        {/* JSON-LD Structured Data */}
+        <Script id="ld-organization" type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            "name": "AITDL Network",
+            "url": "https://aitdl.in",
+            "logo": "https://aitdl.in/images/logo.png",
+            "description": "Enterprise software for schools, coaching institutes, retail & NGOs across India. AI-powered EdTech and sovereign infrastructure solutions.",
+            "foundingDate": "2007",
+            "founder": {
+              "@type": "Person",
+              "name": "Jawahar R Mallah",
+              "jobTitle": "Lead Architect & Founder",
+              "url": "https://aitdl.in/founders"
+            },
+            "contactPoint": {
+              "@type": "ContactPoint",
+              "contactType": "customer support",
+              "url": "https://aitdl.in/contact",
+              "availableLanguage": ["English", "Hindi"]
+            },
+            "address": [
+              {
+                "@type": "PostalAddress",
+                "streetAddress": "Andheri East",
+                "addressLocality": "Mumbai",
+                "addressRegion": "MH",
+                "postalCode": "400069",
+                "addressCountry": "IN"
+              },
+              {
+                "@type": "PostalAddress",
+                "streetAddress": "Golghar",
+                "addressLocality": "Gorakhpur",
+                "addressRegion": "UP",
+                "postalCode": "273001",
+                "addressCountry": "IN"
+              }
+            ],
+            "sameAs": [
+              "https://github.com/aitdlnetwork",
+              "https://aitdl.in"
+            ]
+          })}
+        </Script>
+
+        <Script id="ld-local-business" type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "LocalBusiness",
+            "name": "AITDL Network – Gorakhpur Node",
+            "image": "https://aitdl.in/images/og-cover.png",
+            "url": "https://aitdl.in/gorakhpur",
+            "telephone": "+91-XXXXXXXXXX",
+            "address": {
+              "@type": "PostalAddress",
+              "streetAddress": "Golghar",
+              "addressLocality": "Gorakhpur",
+              "addressRegion": "Uttar Pradesh",
+              "postalCode": "273001",
+              "addressCountry": "IN"
+            },
+            "geo": {
+              "@type": "GeoCoordinates",
+              "latitude": 26.7606,
+              "longitude": 83.3732
+            },
+            "openingHoursSpecification": {
+              "@type": "OpeningHoursSpecification",
+              "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
+              "opens": "09:00",
+              "closes": "18:00"
+            },
+            "priceRange": "₹₹",
+            "@id": "https://aitdl.in/gorakhpur"
+          })}
+        </Script>
+
+        <Script id="ld-software" type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "SoftwareApplication",
+            "name": "AITDL EdTech Ecosystem",
+            "applicationCategory": "EducationApplication",
+            "operatingSystem": "Web",
+            "url": "https://aitdl.in/services/edtech-ecosystems",
+            "description": "LMS, virtual classrooms, fee automation and student management for schools and coaching centres in India.",
+            "offers": {
+              "@type": "Offer",
+              "price": "0",
+              "priceCurrency": "INR",
+              "description": "Free demo available"
+            },
+            "provider": {
+              "@type": "Organization",
+              "name": "AITDL Network",
+              "url": "https://aitdl.in"
+            }
+          })}
+        </Script>
+
+        <Script id="ld-website" type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "name": "AITDL Network",
+            "url": "https://aitdl.in",
+            "potentialAction": {
+              "@type": "SearchAction",
+              "target": {
+                "@type": "EntryPoint",
+                "urlTemplate": "https://aitdl.in/search?q={search_term_string}"
+              },
+              "query-input": "required name=search_term_string"
+            }
+          })}
+        </Script>
+
+        <Script id="ld-breadcrumb" type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://aitdl.in/" }
+            ]
+          })}
+        </Script>
+
         <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&family=Space+Grotesk:wght@600;700;900&display=swap" rel="stylesheet" />
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" />
       </head>
