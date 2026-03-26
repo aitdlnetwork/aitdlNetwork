@@ -91,16 +91,16 @@ export default function Dashboard() {
   }, []);
 
   const stats = [
-    { name: 'Live Endpoint Nodes', value: '42 / 45', status: 'Optimal', icon: 'hub' },
+    { name: 'Active Sessions', value: '42 / 45', status: 'Optimal', icon: 'hub' },
     { name: 'System Uptime', value: '99.99%', status: 'Secured', icon: 'verified_user' },
     { name: 'Encrypted Backups', value: 'Auto-Vault', status: 'Synced', icon: 'backup' }
   ];
 
   const logs = [
-    { time: '10:42:15', category: 'LMS', message: 'Stream node #3 dynamically allocated to standard scaling loop.', status: 'success' },
-    { time: '10:40:02', category: 'ABHA', message: 'Patient records secure decryption sync dispatch completed.', status: 'success' },
-    { time: '10:35:12', category: 'POS', message: 'Offline sync buffer flushed to multi-tenant region database.', status: 'info' },
-    { time: '10:31:00', category: 'Cloud', message: 'DDoS filter rules re-indexed for sub-millisecond edge edge delivery.', status: 'success' }
+    { time: '10:42:15', category: 'LMS', message: 'LMS Server #3 scaling operation completed.', status: 'success' },
+    { time: '10:40:02', category: 'CRM', message: 'Student records synchronized with central database.', status: 'success' },
+    { time: '10:35:12', category: 'POS', message: 'Offline transaction buffer successfully uploaded.', status: 'info' },
+    { time: '10:31:00', category: 'Security', message: 'Traffic filtering rules updated for Gorakhpur gateway.', status: 'success' }
   ];
 
   return (
@@ -118,13 +118,13 @@ export default function Dashboard() {
         <div className="flex flex-col lg:flex-row gap-10">
         
         {/* Sovereign Sidebar Nav */}
-        <div className="w-full lg:w-80 flex flex-col glass-premium p-6 rounded-[2.5rem] border border-white/5 bg-background-dark/30 h-[calc(100vh-12rem)] sticky top-24">
+        <div className="w-full lg:w-80 flex flex-col glass-premium p-6 rounded-[2.5rem] border border-white/5 bg-background-dark/30 h-auto lg:h-[calc(100vh-12rem)] lg:sticky top-24">
           <div className="p-4 mb-6 border-b border-white/5">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary font-display font-black text-[10px] tracking-widest uppercase mb-4">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary font-display font-semibold text-[11px] tracking-widest uppercase mb-4">
               <span className="size-2 rounded-full bg-primary animate-pulse"></span>
-              Workspace Node
+              Dashboard
             </div>
-            <h2 className="text-white font-display font-bold text-xl tracking-tight">{t.db_workspace_nodes}</h2>
+            <h2 className="text-white font-display font-semibold text-base tracking-tight">{t.db_workspace_nodes}</h2>
           </div>
           
           <div className="flex flex-col gap-3">
@@ -158,20 +158,18 @@ export default function Dashboard() {
           <div className="my-6 h-px bg-white/5"></div>
 
           <div className="flex flex-col gap-1 px-2">
-            <button className="flex items-center gap-4 p-3 rounded-xl text-slate-600 cursor-not-allowed text-xs font-display font-bold uppercase tracking-widest text-left group relative">
+            <button className="flex items-center gap-4 p-3 rounded-xl text-slate-600 cursor-not-allowed text-[11px] font-semibold uppercase tracking-widest text-left group relative">
               <span className="material-symbols-outlined text-[18px]">insights</span> 
               {t.db_node_analytics}
               <span className="ml-auto material-symbols-outlined text-[14px] opacity-40">lock</span>
-              {/* Tooltip */}
               <div className="absolute left-full ml-4 px-3 py-1 bg-background-dark/90 border border-white/10 rounded-lg text-[10px] whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-50">
                 Coming Soon
               </div>
             </button>
-            <button className="flex items-center gap-4 p-3 rounded-xl text-slate-600 cursor-not-allowed text-xs font-display font-bold uppercase tracking-widest text-left group relative">
+            <button className="flex items-center gap-4 p-3 rounded-xl text-slate-600 cursor-not-allowed text-[11px] font-semibold uppercase tracking-widest text-left group relative">
               <span className="material-symbols-outlined text-[18px]">settings_suggest</span> 
               {t.db_node_settings}
               <span className="ml-auto material-symbols-outlined text-[14px] opacity-40">lock</span>
-              {/* Tooltip */}
               <div className="absolute left-full ml-4 px-3 py-1 bg-background-dark/90 border border-white/10 rounded-lg text-[10px] whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-50">
                 Upgrade to access
               </div>
@@ -183,7 +181,7 @@ export default function Dashboard() {
             <div className="flex flex-col gap-3 px-2">
               <div className="flex items-center gap-3">
                 <div className="size-1.5 rounded-full bg-[#00FF9D] animate-pulse"></div>
-                <span className="text-[9px] text-slate-600 font-display font-black uppercase tracking-[0.2em]">Session Active</span>
+                <span className="text-[11px] text-slate-600 font-semibold uppercase tracking-widest">Active Session</span>
               </div>
               <button 
                 onClick={handleSignOut}
@@ -203,10 +201,10 @@ export default function Dashboard() {
           <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 bg-white/5 p-8 rounded-[2.5rem] border border-white/10 backdrop-blur-md">
             <div className="space-y-2">
               <h1 className="text-white font-display text-4xl md:text-5xl font-bold tracking-tight">
-                {activeTab === 'overview' ? t.dashboard_node_overview : t.dashboard_crm}
+                {activeTab === 'overview' ? 'Account Overview' : 'Management Portal'}
               </h1>
-              <p className="text-slate-400 text-sm font-body max-w-lg">
-                {activeTab === 'overview' ? t.db_overview_subtitle : t.db_crm_subtitle}
+              <p className="text-slate-400 text-sm leading-relaxed max-w-lg">
+                Welcome back. Monitor your institutional performance and manage records from this central hub.
               </p>
             </div>
 
@@ -214,7 +212,7 @@ export default function Dashboard() {
                <div className="flex flex-col items-end">
                  <span className="text-primary font-display font-black text-[10px] tracking-widest uppercase">{user.role} Authentication</span>
                  <span className="text-slate-500 text-[10px] font-mono tracking-tighter truncate max-w-[150px]" title={user.email.toUpperCase()}>
-                   NODE://{user.email.toUpperCase()}
+                   {user.email.toUpperCase()}
                  </span>
                </div>
                <div className="size-14 rounded-2xl bg-gradient-to-tr from-primary to-primary/40 flex items-center justify-center text-background-dark font-display font-extrabold text-2xl shadow-lg shadow-primary/20 rotate-3">
@@ -229,7 +227,7 @@ export default function Dashboard() {
               {/* Cinematic KPI Grid */}
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 <div className="glass-premium p-8 rounded-[2rem] border border-white/5 flex flex-col gap-4 group hover:border-[#00FF9D]/30 transition-all">
-                  <span className="text-slate-500 text-[10px] font-display font-black tracking-widest uppercase">{t.db_live_users}</span>
+                  <span className="text-slate-500 text-[11px] font-semibold tracking-widest uppercase">{t.db_live_users}</span>
                   <div className="flex items-end gap-3">
                     <span className="text-white font-display text-5xl font-bold tracking-tighter tabular-nums group-hover:text-[#00FF9D] transition-colors">{liveUsers}</span>
                     <span className="text-[#00FF9D] text-xs font-display font-bold mb-2 flex items-center gap-1">
@@ -239,7 +237,7 @@ export default function Dashboard() {
                 </div>
                 
                 <div className="glass-premium p-8 rounded-[2rem] border border-white/5 flex flex-col gap-4 group hover:border-primary/30 transition-all">
-                  <span className="text-slate-500 text-[10px] font-display font-black tracking-widest uppercase">{t.db_api_requests}</span>
+                  <span className="text-slate-500 text-[11px] font-semibold tracking-widest uppercase">{t.db_api_requests}</span>
                   <span className="text-primary font-display text-4xl font-bold tracking-tighter tabular-nums text-gradient-primary">
                     {apiRequests.toLocaleString()}
                   </span>
@@ -247,7 +245,7 @@ export default function Dashboard() {
 
                 {stats.slice(0, 2).map((stat, idx) => (
                   <div key={idx} className="glass-premium p-8 rounded-[2rem] border border-white/5 flex flex-col gap-4 group hover:border-white/20 transition-all">
-                    <span className="text-slate-500 text-[10px] font-display font-black tracking-widest uppercase">{stat.name}</span>
+                    <span className="text-slate-500 text-[11px] font-semibold tracking-widest uppercase">{stat.name}</span>
                     <span className="text-white font-display text-4xl font-bold tracking-tighter tabular-nums">{stat.value}</span>
                   </div>
                 ))}
@@ -257,10 +255,10 @@ export default function Dashboard() {
                 {/* Real-time System Audit Stream */}
                 <div className="xl:col-span-2 glass-premium p-10 rounded-[3rem] border border-white/10 bg-background-dark/20 space-y-8 min-h-[500px]">
                   <div className="flex items-center justify-between">
-                    <h3 className="text-white font-display text-2xl font-bold tracking-tight">{t.db_system_audit}</h3>
-                    <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-[#00FF9D]/10 text-[#00FF9D] text-[10px] font-display font-black tracking-widest uppercase">
+                    <h3 className="text-white font-display text-xl font-bold tracking-tight">System Logs</h3>
+                    <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-[#00FF9D]/10 text-[#00FF9D] text-[11px] font-semibold tracking-widest uppercase">
                       <span className="size-1.5 rounded-full bg-[#00FF9D] animate-ping"></span>
-                      Live Stream
+                      Real-time
                     </div>
                   </div>
                   
@@ -271,10 +269,10 @@ export default function Dashboard() {
                           {log.time}
                         </span>
                         <div className="flex-1 space-y-1">
-                          <p className="text-primary text-[10px] font-display font-black tracking-[0.2em] uppercase">{log.category}</p>
+                          <p className="text-primary text-[11px] font-semibold tracking-widest uppercase">{log.category}</p>
                           <p className="text-slate-300 text-sm font-body leading-relaxed">{log.message}</p>
                         </div>
-                        <div className="hidden md:flex items-center gap-2 text-[#00FF9D] text-[10px] font-mono uppercase bg-[#00FF9D]/5 px-3 py-1 rounded-full">
+                        <div className="hidden md:flex items-center gap-2 text-[#00FF9D] text-[11px] font-semibold uppercase tracking-widest bg-[#00FF9D]/5 px-3 py-1 rounded-full">
                           <span className="size-1.5 rounded-full bg-[#00FF9D]"></span>
                           Verified
                         </div>
@@ -285,7 +283,7 @@ export default function Dashboard() {
 
                 {/* Infrastructure Nodes Overview */}
                 <div className="glass-premium p-10 rounded-[3rem] border border-white/10 bg-background-dark/30 space-y-10">
-                  <h3 className="text-white font-display text-2xl font-bold tracking-tight">{t.db_infra_nodes}</h3>
+                  <h3 className="text-white font-display text-2xl font-bold tracking-tight">System Infrastructure</h3>
                   <div className="space-y-6">
                     {stats.map((stat, idx) => (
                       <div key={idx} className="p-6 rounded-[2rem] bg-white/5 border border-white/5 group hover:border-primary/30 transition-all flex flex-col gap-6">
@@ -296,7 +294,7 @@ export default function Dashboard() {
                           <span className="text-[#00FF9D] text-[10px] font-display font-black uppercase tracking-widest">{stat.status}</span>
                         </div>
                         <div className="space-y-1">
-                          <p className="text-slate-500 text-[10px] font-display font-black tracking-widest uppercase">{stat.name}</p>
+                          <p className="text-slate-500 text-[11px] font-semibold tracking-widest uppercase">{stat.name}</p>
                           <p className="text-white text-2xl font-display font-bold">{stat.value}</p>
                         </div>
                       </div>

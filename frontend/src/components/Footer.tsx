@@ -41,27 +41,21 @@ export default function Footer() {
   return (
 
     <footer className="w-full border-t border-white/5 mt-auto pt-24 pb-12 px-6 bg-mesh relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background-dark/50 to-background-dark pointer-events-none"></div>
-
-      <div className="w-full max-w-[1200px] mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 relative z-10 mb-12">
-        {/* Brand/About Column */}
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background-dark/50 to-background-dark pointer-events-none"></div>      <div className="w-full max-w-[1200px] mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-12 relative z-10 mb-12">
+        {/* Column 1: Company */}
         <div className="flex flex-col gap-4">
-          <div className="font-display font-bold text-white tracking-wider flex items-center gap-2">
-            <div className="size-5 text-primary">
-              <svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-                <path d="M24 45.8096C19.6865 45.8096 15.4698 44.5305 11.8832 42.134C8.29667 39.7376 5.50128 36.3314 3.85056 32.3462C2.19985 28.361 1.76794 23.9758 2.60947 19.7452C3.451 15.5145 5.52816 11.6284 8.57829 8.5783C11.6284 5.52817 15.5145 3.45101 19.7452 2.60948C23.9758 1.76795 28.361 2.19986 32.3462 3.85057C36.3314 5.50129 39.7376 8.29668 42.134 11.8833C44.5305 15.4698 45.8096 19.6865 45.8096 24L24 24L24 45.8096Z" fill="currentColor"></path>
-              </svg>
-            </div>
-            <span className="text-sm">AITDL NETWORK</span>
-          </div>
-          <p className="text-slate-400 text-xs leading-relaxed max-w-xs font-body">
-            {t('footer_tagline')}
-          </p>
+          <span className="text-white font-display font-semibold text-sm tracking-wide">Company</span>
+          <ul className="flex flex-col gap-2.5 text-xs text-slate-400 font-body">
+            <li><Link href="/about" className="hover:text-primary transition-colors">{t('nav_about')}</Link></li>
+            <li><Link href="/founders" className="hover:text-primary transition-colors">{t('footer_link_founders')}</Link></li>
+            <li><Link href="/blog" className="hover:text-primary transition-colors">{t('footer_link_knowledge')}</Link></li>
+            <li><Link href="/gorakhpur" className="hover:text-primary transition-colors">{t('footer_link_gorakhpur')}</Link></li>
+          </ul>
         </div>
 
-        {/* Column 2: Core Services */}
+        {/* Column 2: Services */}
         <div className="flex flex-col gap-4">
-          <span className="text-white font-display font-semibold text-sm tracking-wide">{t('footer_col_services')}</span>
+          <span className="text-white font-display font-semibold text-sm tracking-wide">Services</span>
           <ul className="flex flex-col gap-2.5 text-xs text-slate-400 font-body">
             <li><Link href="/services/edtech-ecosystems" className="hover:text-primary transition-colors">{t('footer_link_aiml')}</Link></li>
             <li><Link href="/services/academic-automation" className="hover:text-primary transition-colors">{t('footer_link_enterprise')}</Link></li>
@@ -70,52 +64,33 @@ export default function Footer() {
           </ul>
         </div>
 
-        {/* Column 3: Client Office */}
+        {/* Column 3: Portal */}
         <div className="flex flex-col gap-4">
-          <span className="text-white font-display font-semibold text-sm tracking-wide">{t('footer_col_office')}</span>
+          <span className="text-white font-display font-semibold text-sm tracking-wide">Portal</span>
           <ul className="flex flex-col gap-2.5 text-xs text-slate-400 font-body">
             <li><Link href="/login" className="hover:text-primary transition-colors">{t('footer_link_login')}</Link></li>
             <li><Link href="/dashboard" className="hover:text-primary transition-colors">{t('footer_link_analytics')}</Link></li>
             <li><Link href="/contact" className="hover:text-primary transition-colors">{t('footer_link_support')}</Link></li>
-            <li>
-              <Link href="/partners" className="group flex items-center gap-2 hover:text-primary transition-colors">
-                {t('footer_link_partners')}
-                <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-primary/10 border border-primary/20 text-primary font-bold uppercase tracking-tighter">
-                  {t('footer_connect_btn')}
-                </span>
-              </Link>
-            </li>
-          </ul>
-        </div>        {/* Column 4: Corporate */}
-        <div className="flex flex-col gap-4">
-          <span className="text-white font-display font-semibold text-sm tracking-wide">{t('footer_col_corporate')}</span>
-          <ul className="flex flex-col gap-2.5 text-xs text-slate-400 font-body">
-            <li><Link href="/about" className="hover:text-primary transition-colors">{t('footer_link_mission')}</Link></li>
-            <li><Link href="/founders" className="hover:text-primary transition-colors">{t('footer_link_founders')}</Link></li>
-            <li><Link href="/blog" className="hover:text-primary transition-colors">{t('footer_link_knowledge')}</Link></li>
-            <li><Link href="/gorakhpur" className="hover:text-primary transition-colors">{t('footer_link_gorakhpur')}</Link></li>
+            <li><Link href="/partners" className="hover:text-primary transition-colors">{t('footer_link_partners')}</Link></li>
           </ul>
         </div>
 
-        {/* Column 5: Regional Nodes (Physical Addresses for GBP) */}
+        {/* Column 4: Legal */}
         <div className="flex flex-col gap-4">
-          <span className="text-white font-display font-semibold text-sm tracking-wide">{t('footer_col_nodes')}</span>
-          <div className="flex flex-col gap-4 text-[10px] text-slate-400 font-body">
-            <div className="flex gap-2">
-              <span className="material-symbols-outlined text-sm text-primary">location_on</span>
-              <div>
-                <span className="text-white font-semibold">Gorakhpur</span><br />
-                {t('footer_addr_gorakhpur')}
-              </div>
-            </div>
-            <div className="flex gap-2">
-              <span className="material-symbols-outlined text-sm text-primary">location_on</span>
-              <div>
-                <span className="text-white font-semibold">Mumbai</span><br />
-                {t('footer_addr_mumbai')}
-              </div>
-            </div>
-          </div>
+          <span className="text-white font-display font-semibold text-sm tracking-wide">Legal</span>
+          <ul className="flex flex-col gap-2.5 text-xs text-slate-400 font-body">
+            <li><Link href="/terms" className="hover:text-primary transition-colors">{t('footer_terms')}</Link></li>
+            <li><Link href="/privacy" className="hover:text-primary transition-colors">{t('footer_privacy')}</Link></li>
+            <li className="mt-4">
+              <button 
+                onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                className="flex items-center gap-2 text-primary hover:text-white transition-colors group"
+              >
+                <span className="text-[10px] font-display font-bold uppercase tracking-widest text-primary group-hover:text-white transition-colors">Back to top</span>
+                <span className="material-symbols-outlined text-sm">north</span>
+              </button>
+            </li>
+          </ul>
         </div>
       </div>
 
@@ -143,25 +118,25 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* Bottom Copyright Bar */}
       <div className="w-full max-w-[1200px] mx-auto border-t border-white/5 pt-6 flex flex-col md:flex-row items-center justify-between gap-4 text-[11px] font-body text-slate-500">
         <div className="text-center md:text-left leading-relaxed">
-          {t('footer_designed_by')}<br />
+          Artificial Intelligence Technology & Deep Learning<br />
           &copy; {currentYear} AITDL Network
         </div>
 
-        {/* Center: Vikram Samvat Badge */}
-        <div className="flex items-center justify-center">
-          <span className="px-2.5 py-1 rounded-full bg-primary/5 border border-primary/20 text-primary/80 font-display font-semibold tracking-wide text-[9px] shadow-sm backdrop-blur-sm">
-            Vikram Samvat 2083
-          </span>
+        {/* Center: Brand Identity */}
+        <div className="flex flex-col items-center gap-2">
+           <div className="flex items-center gap-2">
+            <span className="px-2.5 py-1 rounded-full bg-primary/5 border border-primary/20 text-primary/80 font-display font-semibold tracking-wide text-[9px] shadow-sm backdrop-blur-sm">
+              Vikram Samvat 2083
+            </span>
+          </div>
+          <p className="text-[9px] text-slate-600 uppercase tracking-[0.3em] font-display">System Status: Active</p>
         </div>
 
         <div className="flex items-center gap-4 text-slate-600">
-          <Link href="/terms" className="hover:text-slate-400 transition-colors">{t('footer_terms')}</Link>
-          <Link href="/privacy" className="hover:text-slate-400 transition-colors">{t('footer_privacy')}</Link>
           <span className="size-1 rounded-full bg-slate-700"></span>
-          <span>{t('footer_sovereign_version')}</span>
+          <span>v1.6.0 Stable</span>
         </div>
       </div>
     </footer>

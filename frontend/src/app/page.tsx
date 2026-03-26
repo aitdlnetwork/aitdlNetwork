@@ -49,12 +49,12 @@ export default function Home() {
               {t('hero_badge')}
             </div>
 
-            <h1 className="font-display font-bold text-5xl lg:text-7xl leading-[1.1] tracking-[-0.03em] mb-8 animate-slide-up">
+            <h1 className="font-display font-bold text-4xl lg:text-6xl leading-[1.1] tracking-tight mb-8 animate-slide-up">
               <span className="text-gradient inline-block">{t('hero_title').split(' & ')[0]}</span><br />
               <span className="text-gradient-primary inline-block">& {t('hero_title').split(' & ')[1]}</span>
             </h1>
 
-            <p className="text-lg lg:text-xl text-text-muted font-light mb-10 max-w-xl leading-relaxed animate-slide-up" style={{ animationDelay: '0.2s' }}>
+            <p className="text-sm lg:text-base text-text-muted font-normal mb-10 max-w-xl leading-relaxed animate-slide-up" style={{ animationDelay: '0.2s' }}>
               {t('hero_subtitle')}
             </p>
 
@@ -72,16 +72,16 @@ export default function Home() {
               <div className="flex flex-wrap items-center gap-8">
                 <div className="flex items-center gap-2 text-text-muted">
                   <span className="material-symbols-outlined text-primary text-lg">verified</span>
-                  <span className="text-xs font-semibold tracking-wide uppercase">{t('hero_trust_backups')}</span>
+                  <span className="text-[11px] font-semibold tracking-widest uppercase text-slate-500">{t('hero_trust_backups')}</span>
                 </div>
                 <div className="flex items-center gap-2 text-text-muted">
                   <span className="material-symbols-outlined text-primary text-lg">bolt</span>
-                  <span className="text-xs font-semibold tracking-wide uppercase">{t('hero_trust_nodes')}</span>
+                  <span className="text-[11px] font-semibold tracking-widest uppercase text-slate-500">{t('hero_trust_nodes')}</span>
                 </div>
               </div>
               <div className="flex items-center gap-2 text-text-muted">
                 <span className="material-symbols-outlined text-primary text-lg">shield</span>
-                <span className="text-xs font-semibold tracking-wide uppercase">{t('hero_trust_security')}</span>
+                <span className="text-[11px] font-semibold tracking-widest uppercase text-slate-500">{t('hero_trust_security')}</span>
               </div>
             </div>
           </div>
@@ -104,7 +104,7 @@ export default function Home() {
                 <div className="relative aspect-[4/3] w-full">
                   <Image 
                     src="/images/hero_dashboard.png" 
-                    alt="AITDL Sovereign Dashboard"
+                    alt="AITDL Business Dashboard"
                     fill
                     className="object-cover rounded-[2.5rem] brightness-90 group-hover:brightness-100 transition-all duration-500"
                     priority
@@ -120,8 +120,8 @@ export default function Home() {
               <div className="absolute bottom-10 left-10 right-10 p-6 glass-premium rounded-3xl animate-slide-up border border-white/10" style={{ animationDelay: '0.8s' }}>
                 <div className="flex items-center justify-between mb-4">
                   <div className="flex flex-col gap-1">
-                    <span className="text-[10px] text-primary font-display font-bold tracking-widest uppercase">Autonomous Core</span>
-                    <span className="text-xs text-white font-medium">Nodes Synchronized</span>
+                    <span className="text-[10px] text-primary font-display font-bold tracking-widest uppercase">Enterprise Core</span>
+                    <span className="text-xs text-white font-medium">Systems Synchronized</span>
                   </div>
                   <div className="flex gap-1.5">
                     <div className="size-1.5 rounded-full bg-primary animate-pulse"></div>
@@ -147,7 +147,7 @@ export default function Home() {
         <div className="max-w-[1200px] mx-auto flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
           <div className="flex flex-col gap-1">
             <span className="text-primary font-display font-black text-2xl tracking-tight">10,000+</span>
-            <span className="text-slate-500 text-[10px] font-body tracking-wider uppercase">{t('stat_students')}</span>
+            <span className="text-slate-500 text-[11px] font-semibold tracking-widest uppercase">{t('stat_students')}</span>
           </div>
           <div className="h-8 w-px bg-white/5 hidden md:block"></div>
           <div className="flex flex-col gap-1">
@@ -196,7 +196,7 @@ export default function Home() {
                 <div className="size-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
                   <span className="material-symbols-outlined text-3xl">{item.icon}</span>
                 </div>
-                <h3 className="font-display font-bold text-xl">{item.title}</h3>
+                <h3 className="font-display font-semibold text-base">{item.title}</h3>
                 <p className="text-text-muted leading-relaxed text-sm">{item.desc}</p>
               </div>
             ))}

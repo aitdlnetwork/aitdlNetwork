@@ -19,12 +19,12 @@ export default function AdminView({ user }: { user: any }) {
   const [activeSubTab, setActiveSubTab] = useState<'nodes' | 'leads'>('nodes');
   const [editingStudent, setEditingStudent] = useState<any | null>(null);
   const [reviewingStudent, setReviewingStudent] = useState<any | null>(null);
-  const [isAddingNode, setIsAddingNode] = useState(false);
+  const [isAddingStudent, setIsAddingStudent] = useState(false);
   const [newNodeForm, setNewNodeForm] = useState({ name: '', email: '', course_name: 'Vedic Maths Masterclass', status: 'active' });
   const [notification, setNotification] = useState<{message: string, type: 'success' | 'error'} | null>(null);
   const [dashboardMetrics, setDashboardMetrics] = useState({
     totalRevenue: '₹0.00',
-    activeNodes: 0,
+    activeStudents: 0,
     overdueInvoices: 0
   });
 
@@ -43,7 +43,7 @@ export default function AdminView({ user }: { user: any }) {
 
   const MOCK_STUDENTS = [
     { id: '1', name: 'Pushpa Devi', email: 'pushpa@aitdl.com', course_name: 'Vedic Maths Masterclass', status: 'active' },
-    { id: '2', name: 'Jawahar R Mallah', email: 'jawahar@aitdl.com', course_name: 'Infrastructure Node Ops', status: 'active' },
+    { id: '2', name: 'Jawahar R Mallah', email: 'jawahar@aitdl.com', course_name: 'System Administration', status: 'active' },
     { id: '3', name: 'Rahul Sharma', email: 'rahul@example.com', course_name: 'Vedic Maths Masterclass', status: 'inactive' }
   ];
 
@@ -76,12 +76,12 @@ export default function AdminView({ user }: { user: any }) {
           
           setDashboardMetrics({
             totalRevenue: `₹${revenue.toLocaleString('en-IN')}`,
-            activeNodes: activeCount,
+            activeStudents: activeCount,
             overdueInvoices: overdue
           });
         }
       } catch (e) {
-        setDashboardMetrics(prev => ({ ...prev, activeNodes: activeCount }));
+        setDashboardMetrics(prev => ({ ...prev, activeStudents: activeCount }));
       }
     } else {
       setStudents(MOCK_STUDENTS);
@@ -162,13 +162,13 @@ export default function AdminView({ user }: { user: any }) {
     const { error } = await supabase.from('students').insert([newNodeForm]);
     if (!error) {
       setNotification({ message: t.crm_admin_msg_provisioned, type: 'success' });
-      setIsAddingNode(false);
+      setIsAddingStudent(false);
       fetchStudents();
     }
   };
 
   const deleteNode = async (id: string) => {
-    if (!confirm('Decommission this node?')) return;
+    if (!confirm('Delete this account?')) return;
     const supabase = createClient();
     if (!supabase) return;
     const { error } = await supabase.from('students').delete().eq('id', id);
@@ -180,8 +180,8 @@ export default function AdminView({ user }: { user: any }) {
 
   const metrics = [
     { name: t.crm_admin_revenue, value: dashboardMetrics.totalRevenue || '₹0.00', icon: 'payments', trend: '+12% month' },
-    { name: t.crm_admin_students, value: dashboardMetrics.activeNodes.toString(), icon: 'group', trend: 'Optimal allocation' },
-    { name: t.crm_admin_uptime, value: dashboardMetrics.overdueInvoices.toString(), icon: 'warning_amber', trend: 'Requires attention' }
+    { name: t.crm_admin_students, value: dashboardMetrics.activeStudents.toString(), icon: 'group', trend: 'Optimal allocation' },
+    { name: 'Pending Actions', value: dashboardMetrics.overdueInvoices.toString(), icon: 'warning_amber', trend: 'Requires attention' }
   ];
 
   const revenueData = [
@@ -204,8 +204,8 @@ export default function AdminView({ user }: { user: any }) {
               <span className="material-symbols-outlined text-primary text-2xl">{metric.icon}</span>
               <span className="text-primary text-[10px] font-display font-bold px-2 py-0.5 rounded bg-primary/10 tracking-widest">{metric.trend}</span>
             </div>
-            <p className="text-slate-500 font-display font-medium text-[13px] mt-2 uppercase tracking-widest">{metric.name}</p>
-            <h3 className="text-white text-[20px] font-display font-bold tracking-tight">{metric.value}</h3>
+            <p className="text-slate-500 font-semibold text-[11px] mt-2 uppercase tracking-widest">{metric.name}</p>
+            <h3 className="text-white text-2xl font-bold tracking-tight">{metric.value}</h3>
           </div>
         ))}
       </div>
@@ -235,18 +235,33 @@ export default function AdminView({ user }: { user: any }) {
         <div className="glass-card p-6 rounded-xl border border-white/5 bg-background-dark/20 flex flex-col gap-4">
           <div className="flex flex-col md:flex-row justify-between md:items-center border-b border-white/5 pb-4 gap-4">
             <h3 className="text-slate-500 font-display font-bold text-[13px] uppercase tracking-widest">{t.crm_admin_title}</h3>
-            <div className="flex items-center gap-2">
-              <input 
-                type="text" placeholder={t.crm_admin_filter_placeholder}
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="bg-white/5 border border-white/10 rounded-lg px-3 py-1.5 text-xs text-white placeholder-slate-600 focus:outline-none focus:border-primary/50 outline-none"
-              />
+            <div className="flex items-center gap-2 group/search">
+              <div className="relative">
+                <input 
+                  type="text" 
+                  placeholder={t.crm_admin_filter_placeholder}
+                  aria-label="Filter students"
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="bg-white/5 border border-white/10 rounded-lg px-3 py-1.5 pr-8 text-xs text-white placeholder-slate-600 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/30 transition-all outline-none"
+                />
+                {searchTerm && (
+                  <button 
+                    onClick={() => setSearchTerm('')}
+                    aria-label="Clear filter"
+                    className="absolute right-2 top-1/2 -translate-y-1/2 text-slate-500 hover:text-white transition-colors"
+                  >
+                    <span className="material-symbols-outlined text-[14px]">close</span>
+                  </button>
+                )}
+              </div>
               <button 
-                onClick={() => setIsAddingNode(true)}
-                className="bg-primary hover:bg-primary-light text-background-dark font-display font-medium text-xs px-3 py-1.5 rounded-lg transition-all"
+                onClick={() => setIsAddingStudent(true)}
+                aria-label="Add new student"
+                className="bg-primary hover:bg-primary-light text-background-dark font-display font-semibold text-xs px-3 py-1.5 rounded-lg transition-all hover:scale-105 active:scale-95 flex items-center gap-1 shadow-lg shadow-primary/10"
               >
-                + Node
+                <span className="material-symbols-outlined text-[16px]">add</span>
+                Student
               </button>
             </div>
           </div>
@@ -254,11 +269,11 @@ export default function AdminView({ user }: { user: any }) {
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs text-slate-300">
               <thead>
-                <tr className="border-b border-white/5 text-slate-500 font-display">
-                  <th className="pb-3 pt-1 font-bold uppercase tracking-widest text-[13px]">{t.crm_admin_table_id}</th>
-                  <th className="pb-3 pt-1 font-bold uppercase tracking-widest text-[13px]">{t.crm_admin_table_clearance}</th>
-                  <th className="pb-3 pt-1 font-bold uppercase tracking-widest text-[13px]">{t.crm_admin_table_status}</th>
-                  <th className="pb-3 pt-1 font-bold uppercase tracking-widest text-[13px] text-right">{t.crm_admin_table_action}</th>
+                <tr className="border-b border-white/5 text-slate-500 font-semibold">
+                  <th className="pb-3 pt-1 uppercase tracking-widest text-[11px]">{t.crm_admin_table_id}</th>
+                  <th className="pb-3 pt-1 uppercase tracking-widest text-[11px]">{t.crm_admin_table_clearance}</th>
+                  <th className="pb-3 pt-1 uppercase tracking-widest text-[11px]">{t.crm_admin_table_status}</th>
+                  <th className="pb-3 pt-1 uppercase tracking-widest text-[11px] text-right">{t.crm_admin_table_action}</th>
                 </tr>
               </thead>
               <tbody>
@@ -330,12 +345,12 @@ export default function AdminView({ user }: { user: any }) {
       )}
 
       {/* Modals & Notifications */}
-      {isAddingNode && (
+      {isAddingStudent && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-background-dark/80 backdrop-blur-sm">
           <div className="glass-card w-full max-w-md p-6 rounded-2xl border border-white/10 bg-background-dark flex flex-col gap-6">
             <div className="flex justify-between items-center border-b border-white/5 pb-4">
               <h3 className="text-slate-500 font-display font-bold text-[13px] uppercase tracking-widest">{t.crm_admin_modal_provision}</h3>
-              <button onClick={() => setIsAddingNode(false)} className="text-slate-400 hover:text-white"><span className="material-symbols-outlined">close</span></button>
+              <button onClick={() => setIsAddingStudent(false)} className="text-slate-400 hover:text-white"><span className="material-symbols-outlined">close</span></button>
             </div>
             <form onSubmit={addNode} className="flex flex-col gap-4">
               <input 
@@ -349,7 +364,7 @@ export default function AdminView({ user }: { user: any }) {
                 className="bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-primary/50"
               />
               <div className="flex gap-3 pt-2">
-                <button type="button" onClick={() => setIsAddingNode(false)} className="flex-1 px-4 py-3 rounded-xl border border-white/10 text-slate-300 text-sm font-bold uppercase tracking-widest">{t.cta_cancel}</button>
+                <button type="button" onClick={() => setIsAddingStudent(false)} className="flex-1 px-4 py-3 rounded-xl border border-white/10 text-slate-300 text-sm font-bold uppercase tracking-widest">{t.cta_cancel}</button>
                 <button type="submit" className="flex-1 px-4 py-3 rounded-xl bg-primary text-background-dark font-display font-bold text-sm uppercase tracking-widest shadow-[0_0_20px_rgba(0,255,157,0.3)]">{t.crm_admin_modal_deploy}</button>
               </div>
             </form>

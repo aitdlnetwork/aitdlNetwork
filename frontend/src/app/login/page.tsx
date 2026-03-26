@@ -82,18 +82,18 @@ export default function Login() {
         {/* Left: Cinematic Teaser */}
         <div className="hidden lg:flex flex-col gap-10 group">
           <div className="flex flex-col gap-6">
-            <div className="inline-flex items-center gap-3 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary font-display font-black text-[10px] tracking-[0.3em] uppercase w-fit">
+            <div className="inline-flex items-center gap-3 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary font-display font-semibold text-[11px] tracking-widest uppercase w-fit">
               <span className="size-2 rounded-full bg-primary animate-pulse"></span>
-              {t.login_msg_success ? 'LIVE DATA NODE' : 'NETWORK PREVIEW'}
+              {t.login_msg_success ? 'SYSTEM PORTAL' : 'NETWORK PREVIEW'}
             </div>
-            <h2 className="text-white font-display font-bold text-5xl md:text-6xl leading-tight tracking-tighter">
+            <h2 className="text-white font-display font-extrabold text-4xl md:text-5xl leading-tight tracking-tight">
               <span className="text-gradient inline-block">{t.login_title === 'Login' ? 'Access' : 'प्रवेश'}</span> <br />
-              <span className="text-gradient-primary inline-block font-black">{t.login_title === 'Login' ? 'Sovereign Intelligence.' : 'संप्रभु बुद्धिमत्ता।'}</span>
+              <span className="text-gradient-primary inline-block font-black">{t.login_title === 'Login' ? 'Institutional Intelligence.' : 'संस्थान बुद्धिमत्ता।'}</span>
             </h2>
-            <p className="text-slate-400 text-xl font-body leading-relaxed max-w-md border-l-2 border-primary/20 pl-8">
+            <p className="text-slate-400 text-lg font-normal leading-relaxed max-w-md border-l-2 border-primary/20 pl-8">
               {language === 'hi' 
-                ? 'आपका संस्थागत डेटा, आपके नियंत्रण में। 2026 की अत्याधुनिक एआई तकनीक के साथ अपने संस्थान को संचालित करें।' 
-                : 'Your institutional data, unified. Orchestrate your educational ecosystem with absolute 2026-grade AI automation and security.'}
+                ? 'आपका संस्थान, आपका डेटा, आपका नियंत्रण। 2026 की अत्याधुनिक एआई तकनीक के साथ अपने भविष्य को संचालित करें।' 
+                : 'Your institutional data, unified. Orchestrate your educational ecosystem with absolute 2026-grade automation and security.'}
             </p>
           </div>
 
@@ -102,7 +102,7 @@ export default function Login() {
             <div className="relative aspect-[16/10] glass-premium p-3 rounded-[3rem] border border-white/20 shadow-2xl overflow-hidden scale-100 group-hover:scale-105 transition-all duration-1000 rotate-[-1deg] group-hover:rotate-0">
               <Image 
                 src="/images/dashboard-teaser.png" 
-                alt="Sovereign Dashboard Preview" 
+                alt="Business Dashboard Preview" 
                 fill 
                 className="object-cover opacity-90 brightness-75 group-hover:brightness-100 transition-all duration-1000"
               />
@@ -112,11 +112,11 @@ export default function Login() {
               <div className="absolute bottom-10 left-10 flex flex-col gap-3">
                 <div className="px-3 py-1.5 rounded-lg bg-background-dark/80 backdrop-blur-md border border-white/10 flex items-center gap-2">
                   <span className="size-1.5 rounded-full bg-[#00FF9D] animate-pulse"></span>
-                  <span className="text-[9px] font-display font-black text-white tracking-[0.2em] uppercase">Student Data Encrypted</span>
+                  <span className="text-[11px] font-semibold text-white tracking-widest uppercase">Secure Encryption</span>
                 </div>
                 <div className="px-3 py-1.5 rounded-lg bg-background-dark/80 backdrop-blur-md border border-white/10 flex items-center gap-2">
                    <span className="size-1.5 rounded-full bg-primary animate-pulse-subtle"></span>
-                  <span className="text-[9px] font-display font-black text-white tracking-[0.2em] uppercase">Real-time Node Sync: Active</span>
+                  <span className="text-[11px] font-semibold text-white tracking-widest uppercase">System Sync: Active</span>
                 </div>
               </div>
 
@@ -133,9 +133,9 @@ export default function Login() {
           <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent pointer-events-none group-hover:opacity-100 transition-opacity duration-1000"></div>
 
           <div className="flex flex-col gap-4 text-center lg:text-left relative z-10">
-            <div className="inline-flex items-center gap-3 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary font-display font-black text-[10px] tracking-[0.2em] uppercase mb-2 lg:mx-0 mx-auto">
+            <div className="inline-flex items-center gap-3 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary font-display font-semibold text-[11px] tracking-widest uppercase mb-2 lg:mx-0 mx-auto">
               <span className="size-2 rounded-full bg-primary animate-pulse"></span>
-              SOVEREIGN ACCESS
+              INSTITUTIONAL ACCESS
             </div>
             <h1 className="text-white font-display text-4xl font-bold tracking-tight">
               {t.login_title}
@@ -150,9 +150,9 @@ export default function Login() {
               <input 
                 type="email" required value={email} onChange={(e) => setEmail(e.target.value)}
                 placeholder=" "
-                className="peer w-full bg-transparent border-0 border-b-2 border-slate-800 px-0 py-6 text-white text-xl font-body focus:ring-0 focus:border-primary transition-all placeholder-transparent"
+                className="peer w-full bg-transparent border-0 border-b-2 border-slate-800 px-0 py-6 text-white text-lg font-normal focus:ring-0 focus:border-primary transition-all placeholder-transparent"
               />
-              <label className="absolute left-0 top-6 text-slate-500 font-display font-black text-[10px] transition-all peer-placeholder-shown:text-lg peer-placeholder-shown:font-bold peer-placeholder-shown:top-6 peer-placeholder-shown:text-slate-500 peer-focus:-top-6 peer-focus:text-primary uppercase tracking-[0.2em] cursor-text">
+              <label className="absolute left-0 top-6 text-slate-500 font-semibold text-[11px] transition-all peer-placeholder-shown:text-base peer-placeholder-shown:font-normal peer-placeholder-shown:top-6 peer-placeholder-shown:text-slate-500 peer-focus:-top-6 peer-focus:text-primary uppercase tracking-widest cursor-text">
                 {t.login_email}
               </label>
             </div>
@@ -166,9 +166,9 @@ export default function Login() {
               <input 
                 type="password" required value={password} onChange={(e) => setPassword(e.target.value)}
                 placeholder=" "
-                className="peer w-full bg-transparent border-0 border-b-2 border-slate-800 px-0 py-6 text-white text-xl font-body focus:ring-0 focus:border-primary transition-all placeholder-transparent"
+                className="peer w-full bg-transparent border-0 border-b-2 border-slate-800 px-0 py-6 text-white text-lg font-normal focus:ring-0 focus:border-primary transition-all placeholder-transparent"
               />
-              <label className="absolute left-0 top-6 text-slate-500 font-display font-black text-[10px] transition-all peer-placeholder-shown:text-lg peer-placeholder-shown:font-bold peer-placeholder-shown:top-6 peer-placeholder-shown:text-slate-500 peer-focus:-top-6 peer-focus:text-primary uppercase tracking-[0.2em] cursor-text">
+              <label className="absolute left-0 top-6 text-slate-500 font-semibold text-[11px] transition-all peer-placeholder-shown:text-base peer-placeholder-shown:font-normal peer-placeholder-shown:top-6 peer-placeholder-shown:text-slate-500 peer-focus:-top-6 peer-focus:text-primary uppercase tracking-widest cursor-text">
                 {t.login_pass}
               </label>
             </div>

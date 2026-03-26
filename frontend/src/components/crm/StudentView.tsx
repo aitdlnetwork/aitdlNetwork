@@ -70,12 +70,12 @@ export default function StudentView({ user }: { user: any }) {
             if (emailInvoices && emailInvoices.length > 0) {
               setInvoices(emailInvoices);
             } else {
-              console.info('No invoices found for student node.');
+              console.info('No invoices found for student record.');
               setInvoices([]);
             }
           }
         } else {
-          console.warn('No student profile link found in sovereign database.');
+          console.warn('No student profile link found in database.');
           setInvoices([]);
         }
       } else {
@@ -118,7 +118,7 @@ export default function StudentView({ user }: { user: any }) {
   const syncLedger = async () => {
     setLoading(true);
     await fetchStudentAndInvoices();
-    setNotification({ message: 'Ledger Synchronized: Financial nodes updated.', type: 'success' });
+    setNotification({ message: 'Ledger Synchronized: Financial records updated.', type: 'success' });
   };
 
   return (
@@ -127,8 +127,8 @@ export default function StudentView({ user }: { user: any }) {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <div className="glass-card p-5 rounded-xl border border-white/5 flex flex-col gap-1 relative overflow-hidden group hover:border-[#00FF9D]/20 transition-all duration-300">
           <div className="absolute inset-0 bg-gradient-to-br from-[#00FF9D]/5 to-transparent pointer-events-none"></div>
-          <span className="text-slate-500 text-[13px] font-body">{t.crm_enlisted_course}</span>
-          <span className="text-white font-display text-[14px] font-normal tracking-tight mt-1">
+          <span className="text-slate-500 text-[11px] font-semibold uppercase tracking-widest leading-none">{t.crm_enlisted_course}</span>
+          <span className="text-white font-medium text-sm tracking-tight mt-1">
             {student?.course_name || 'Vedic Maths Masterclass'}
           </span>
           <span className="text-[10px] items-center gap-1 text-[#00FF9D] font-mono flex mt-2">
@@ -137,16 +137,16 @@ export default function StudentView({ user }: { user: any }) {
         </div>
 
         <div className="glass-card p-5 rounded-xl border border-white/5 flex flex-col gap-1 hover:border-primary/20 transition-all duration-300">
-          <span className="text-slate-500 text-[13px] font-body">{t.crm_batch_timings}</span>
-          <span className="text-white font-display text-[14px] font-normal mt-1">
+          <span className="text-slate-500 text-[11px] font-semibold uppercase tracking-widest leading-none">{t.crm_batch_timings}</span>
+          <span className="text-white font-medium text-sm mt-1">
             {student?.batch_timings || '08:00 AM - 10:00 AM'}
           </span>
           <span className="text-slate-500 text-[10px] font-body mt-2">{t.crm_days_mon_fri}</span>
         </div>
 
         <div className="glass-card p-5 rounded-xl border border-white/5 flex flex-col gap-1 hover:border-primary/20 transition-all duration-300">
-          <span className="text-slate-500 text-[13px] font-body">{t.crm_admission_ledger}</span>
-          <span className="text-white font-display text-[14px] font-normal mt-1">
+          <span className="text-slate-500 text-[11px] font-semibold uppercase tracking-widest leading-none">{t.crm_admission_ledger}</span>
+          <span className="text-white font-medium text-sm mt-1">
             {student?.admission_date ? new Date(student.admission_date).toLocaleDateString(language === 'hi' ? 'hi-IN' : language === 'sa' ? 'sa-IN' : 'en-IN', { day: 'numeric', month: 'long', year: 'numeric' }) : '24 March 2026'}
           </span>
           <span className="text-slate-500 text-[10px] font-body mt-2">Vikram Samvat 2083</span>
@@ -156,7 +156,7 @@ export default function StudentView({ user }: { user: any }) {
       {/* Financial Grid */}
       <div className="glass-card p-6 rounded-xl border border-white/5 bg-background-dark/20 flex flex-col gap-6">
         <div className="flex justify-between items-center border-b border-white/5 pb-4">
-          <h3 className="text-slate-500 font-display font-bold text-[13px] uppercase tracking-widest">{t.crm_financial_ledger}</h3>
+          <h3 className="text-slate-500 font-semibold text-[11px] uppercase tracking-widest">{t.crm_financial_ledger}</h3>
           <button 
             onClick={syncLedger}
             className="text-xs text-primary font-medium hover:underline flex items-center gap-1"

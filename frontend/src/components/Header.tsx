@@ -11,6 +11,7 @@ import Link from 'next/link';
 import { useI18n, Language } from '@/lib/i18n/I18nContext';
 import { useAccessibility } from '@/lib/accessibility/AccessibilityContext';
 import { createClient } from '@/utils/supabase/client';
+import { usePathname } from 'next/navigation';
 
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -20,6 +21,7 @@ export default function Header() {
   const { language, setLanguage, t } = useI18n();
   const { fontSize, setFontSize } = useAccessibility();
   const [session, setSession] = useState<any>(null);
+  const pathname = usePathname();
 
   const langLabels: Record<Language, { label: string; flag: string }> = {
     en: { label: "EN", flag: "🇬🇧" },
@@ -55,7 +57,9 @@ export default function Header() {
   const navLinkUnderline = "absolute bottom-0 left-0 w-0 h-[1px] bg-primary transition-all duration-300 group-hover:w-full";
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+    <nav 
+      aria-label="Main navigation"
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
       isScrolled 
         ? `h-[64px] border-b border-white/10 shadow-2xl ${isScrolledMore ? 'bg-background-dark/80 backdrop-blur-[32px]' : 'bg-background-dark/40 backdrop-blur-[20px]'}` 
         : 'h-[80px] bg-transparent'
@@ -73,38 +77,42 @@ export default function Header() {
           </Link>
 
           {/* Infrastructure Badge */}
-          <div className="hidden lg:flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 hover:border-primary/30 transition-all cursor-default group">
+          <div 
+            role="status" 
+            aria-live="polite"
+            className="hidden lg:flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 hover:border-primary/30 transition-all cursor-default group"
+          >
             <span className="size-1.5 rounded-full bg-primary animate-pulse-subtle shadow-[0_0_8px_rgba(13,227,242,0.6)]"></span>
             <span className="text-[9px] font-display font-black tracking-[0.2em] text-slate-500 uppercase">
-              gorakhpur-node-01: <span className="text-primary opacity-80 group-hover:opacity-100 transition-opacity">active</span>
+              gorakhpur-sys-01: <span className="text-primary opacity-80 group-hover:opacity-100 transition-opacity">active</span>
             </span>
           </div>
         </div>
         
         {/* Desktop Links */}
         <div className="hidden md:flex items-center gap-8">
-          <Link href="/services" className={navLinkClass}>
+          <Link href="/services" className={`${navLinkClass} ${pathname === '/services' ? 'text-primary' : ''}`}>
             {t('nav_services')}
-            <span className={navLinkUnderline}></span>
+            <span className={`${navLinkUnderline} ${pathname === '/services' ? 'w-full' : ''}`}></span>
           </Link>
-          <Link href="/portfolio" className={navLinkClass}>
+          <Link href="/portfolio" className={`${navLinkClass} ${pathname === '/portfolio' ? 'text-primary' : ''}`}>
             {t('nav_portfolio')}
-            <span className={navLinkUnderline}></span>
+            <span className={`${navLinkUnderline} ${pathname === '/portfolio' ? 'w-full' : ''}`}></span>
           </Link>
-          <Link href="/about" className={navLinkClass}>
+          <Link href="/about" className={`${navLinkClass} ${pathname === '/about' ? 'text-primary' : ''}`}>
             {t('nav_about')}
-            <span className={navLinkUnderline}></span>
+            <span className={`${navLinkUnderline} ${pathname === '/about' ? 'w-full' : ''}`}></span>
           </Link>
-          <Link href="/blog" className={navLinkClass}>
+          <Link href="/blog" className={`${navLinkClass} ${pathname === '/blog' ? 'text-primary' : ''}`}>
             {t('footer_link_knowledge')}
-            <span className={navLinkUnderline}></span>
+            <span className={`${navLinkUnderline} ${pathname === '/blog' ? 'w-full' : ''}`}></span>
           </Link>
-          <Link href="/contact" className={navLinkClass}>
+          <Link href="/contact" className={`${navLinkClass} ${pathname === '/contact' ? 'text-primary' : ''}`}>
             {t('nav_contact')}
-            <span className={navLinkUnderline}></span>
+            <span className={`${navLinkUnderline} ${pathname === '/contact' ? 'w-full' : ''}`}></span>
           </Link>
           
-          <Link href="/search" className="text-text-muted hover:text-primary transition-colors flex items-center justify-center">
+          <Link href="/search" aria-label="Search" className="text-text-muted hover:text-primary transition-colors flex items-center justify-center">
             <span className="material-symbols-outlined text-[20px]">search</span>
           </Link>
 
@@ -113,7 +121,11 @@ export default function Header() {
           {/* Accessibility & Lang */}
           <div className="flex items-center gap-4">
             <div className="relative">
-              <button onClick={() => setIsLangOpen(!isLangOpen)} className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-white text-[10px] font-display font-bold hover:bg-white/10 hover:border-primary/40 transition-all uppercase tracking-widest">
+              <button 
+                onClick={() => setIsLangOpen(!isLangOpen)} 
+                aria-label="Language selection"
+                className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-white text-[10px] font-display font-bold hover:bg-white/10 hover:border-primary/40 transition-all uppercase tracking-widest"
+              >
                 <span>{langLabels[language].flag}</span>
                 <span>{langLabels[language].label}</span>
               </button>
@@ -140,6 +152,7 @@ export default function Header() {
 
         {/* Mobile Menu Toggle */}
         <button 
+          aria-label="Toggle mobile menu"
           className="md:hidden text-text-muted hover:text-primary transition-colors"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
         >
