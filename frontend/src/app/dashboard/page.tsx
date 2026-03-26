@@ -104,13 +104,21 @@ export default function Dashboard() {
   ];
 
   return (
-    <div className="min-h-screen pt-32 pb-24 bg-mesh relative overflow-hidden">
+    <div className="min-h-screen pt-24 pb-24 bg-mesh relative overflow-hidden">
       <div className="absolute inset-0 bg-hero-glow pointer-events-none"></div>
 
-      <div className="w-full max-w-[1400px] mx-auto px-6 relative z-10 animate-fade-in flex flex-col lg:flex-row gap-10">
+      <div className="w-full max-w-[1400px] mx-auto px-6 relative z-10 animate-fade-in">
+        {/* Breadcrumbs */}
+        <div className="flex items-center gap-2 mb-8 text-[11px] font-display font-bold uppercase tracking-[0.2em] text-slate-500">
+           <Link href="/" className="hover:text-primary transition-colors">AITDL</Link>
+           <span className="material-symbols-outlined text-[10px]">chevron_right</span>
+           <span className="text-primary">{activeTab === 'overview' ? 'Overview' : 'CRM Dashboard'}</span>
+        </div>
+
+        <div className="flex flex-col lg:flex-row gap-10">
         
         {/* Sovereign Sidebar Nav */}
-        <div className="w-full lg:w-80 flex flex-col gap-2 glass-premium p-6 rounded-[2.5rem] border border-white/5 bg-background-dark/30 h-fit sticky top-32">
+        <div className="w-full lg:w-80 flex flex-col glass-premium p-6 rounded-[2.5rem] border border-white/5 bg-background-dark/30 h-[calc(100vh-12rem)] sticky top-24">
           <div className="p-4 mb-6 border-b border-white/5">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary font-display font-black text-[10px] tracking-widest uppercase mb-4">
               <span className="size-2 rounded-full bg-primary animate-pulse"></span>
@@ -150,28 +158,41 @@ export default function Dashboard() {
           <div className="my-6 h-px bg-white/5"></div>
 
           <div className="flex flex-col gap-1 px-2">
-            <button className="flex items-center gap-4 p-3 rounded-xl text-slate-500 hover:text-primary transition-all text-xs font-display font-bold uppercase tracking-widest text-left group">
-              <span className="material-symbols-outlined text-[18px] group-hover:rotate-12 transition-transform">insights</span> 
+            <button className="flex items-center gap-4 p-3 rounded-xl text-slate-600 cursor-not-allowed text-xs font-display font-bold uppercase tracking-widest text-left group relative">
+              <span className="material-symbols-outlined text-[18px]">insights</span> 
               {t.db_node_analytics}
+              <span className="ml-auto material-symbols-outlined text-[14px] opacity-40">lock</span>
+              {/* Tooltip */}
+              <div className="absolute left-full ml-4 px-3 py-1 bg-background-dark/90 border border-white/10 rounded-lg text-[10px] whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-50">
+                Coming Soon
+              </div>
             </button>
-            <button className="flex items-center gap-4 p-3 rounded-xl text-slate-500 hover:text-primary transition-all text-xs font-display font-bold uppercase tracking-widest text-left group">
-              <span className="material-symbols-outlined text-[18px] group-hover:rotate-90 transition-transform">settings_suggest</span> 
+            <button className="flex items-center gap-4 p-3 rounded-xl text-slate-600 cursor-not-allowed text-xs font-display font-bold uppercase tracking-widest text-left group relative">
+              <span className="material-symbols-outlined text-[18px]">settings_suggest</span> 
               {t.db_node_settings}
+              <span className="ml-auto material-symbols-outlined text-[14px] opacity-40">lock</span>
+              {/* Tooltip */}
+              <div className="absolute left-full ml-4 px-3 py-1 bg-background-dark/90 border border-white/10 rounded-lg text-[10px] whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-50">
+                Upgrade to access
+              </div>
             </button>
           </div>
 
-          <div className="mt-12 p-6 rounded-3xl bg-white/5 border border-white/10 flex flex-col gap-4">
-            <div className="flex items-center gap-3">
-              <div className="size-2 rounded-full bg-[#00FF9D] animate-pulse"></div>
-              <span className="text-[10px] text-slate-500 font-display font-black uppercase tracking-widest">Secured Uplink</span>
+          <div className="mt-auto flex flex-col gap-4">
+            <div className="h-px bg-white/5 mx-2"></div>
+            <div className="flex flex-col gap-3 px-2">
+              <div className="flex items-center gap-3">
+                <div className="size-1.5 rounded-full bg-[#00FF9D] animate-pulse"></div>
+                <span className="text-[9px] text-slate-600 font-display font-black uppercase tracking-[0.2em]">Session Active</span>
+              </div>
+              <button 
+                onClick={handleSignOut}
+                className="flex items-center justify-between group text-slate-500 hover:text-white transition-colors py-2"
+              >
+                <span className="text-[11px] font-display font-black uppercase tracking-[0.2em]">{t.db_decommission}</span>
+                <span className="material-symbols-outlined text-[18px] group-hover:translate-x-1 transition-transform">logout</span>
+              </button>
             </div>
-            <button 
-              onClick={handleSignOut}
-              className="flex items-center justify-between group text-red-400 hover:text-red-300 transition-colors"
-            >
-              <span className="text-xs font-display font-black uppercase tracking-widest">{t.db_decommission}</span>
-              <span className="material-symbols-outlined text-[20px] group-hover:translate-x-1 transition-transform">power_settings_new</span>
-            </button>
           </div>
         </div>
 
@@ -189,10 +210,12 @@ export default function Dashboard() {
               </p>
             </div>
 
-            <div className="flex items-center gap-6 p-4 rounded-2xl bg-background-dark/50 border border-white/5">
+            <div className="flex items-center gap-6 p-4 px-6 rounded-2xl bg-background-dark/50 border border-white/5">
                <div className="flex flex-col items-end">
                  <span className="text-primary font-display font-black text-[10px] tracking-widest uppercase">{user.role} Authentication</span>
-                 <span className="text-slate-500 text-[10px] font-mono tracking-tighter">NODE://{user.email.toUpperCase()}</span>
+                 <span className="text-slate-500 text-[10px] font-mono tracking-tighter truncate max-w-[150px]" title={user.email.toUpperCase()}>
+                   NODE://{user.email.toUpperCase()}
+                 </span>
                </div>
                <div className="size-14 rounded-2xl bg-gradient-to-tr from-primary to-primary/40 flex items-center justify-center text-background-dark font-display font-extrabold text-2xl shadow-lg shadow-primary/20 rotate-3">
                  {user.name.charAt(0)}
@@ -291,6 +314,7 @@ export default function Dashboard() {
         </div>
       </div>
     </div>
-  );
+  </div>
+);
 }
 

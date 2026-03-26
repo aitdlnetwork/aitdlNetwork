@@ -127,8 +127,8 @@ export default function StudentView({ user }: { user: any }) {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <div className="glass-card p-5 rounded-xl border border-white/5 flex flex-col gap-1 relative overflow-hidden group hover:border-[#00FF9D]/20 transition-all duration-300">
           <div className="absolute inset-0 bg-gradient-to-br from-[#00FF9D]/5 to-transparent pointer-events-none"></div>
-          <span className="text-slate-400 text-xs font-body">{t.crm_enlisted_course}</span>
-          <span className="text-white font-display text-lg font-bold tracking-tight mt-1">
+          <span className="text-slate-500 text-[13px] font-body">{t.crm_enlisted_course}</span>
+          <span className="text-white font-display text-[14px] font-normal tracking-tight mt-1">
             {student?.course_name || 'Vedic Maths Masterclass'}
           </span>
           <span className="text-[10px] items-center gap-1 text-[#00FF9D] font-mono flex mt-2">
@@ -137,16 +137,16 @@ export default function StudentView({ user }: { user: any }) {
         </div>
 
         <div className="glass-card p-5 rounded-xl border border-white/5 flex flex-col gap-1 hover:border-primary/20 transition-all duration-300">
-          <span className="text-slate-400 text-xs font-body">{t.crm_batch_timings}</span>
-          <span className="text-white font-display text-lg font-bold mt-1">
+          <span className="text-slate-500 text-[13px] font-body">{t.crm_batch_timings}</span>
+          <span className="text-white font-display text-[14px] font-normal mt-1">
             {student?.batch_timings || '08:00 AM - 10:00 AM'}
           </span>
           <span className="text-slate-500 text-[10px] font-body mt-2">{t.crm_days_mon_fri}</span>
         </div>
 
         <div className="glass-card p-5 rounded-xl border border-white/5 flex flex-col gap-1 hover:border-primary/20 transition-all duration-300">
-          <span className="text-slate-400 text-xs font-body">{t.crm_admission_ledger}</span>
-          <span className="text-white font-display text-lg font-bold mt-1">
+          <span className="text-slate-500 text-[13px] font-body">{t.crm_admission_ledger}</span>
+          <span className="text-white font-display text-[14px] font-normal mt-1">
             {student?.admission_date ? new Date(student.admission_date).toLocaleDateString(language === 'hi' ? 'hi-IN' : language === 'sa' ? 'sa-IN' : 'en-IN', { day: 'numeric', month: 'long', year: 'numeric' }) : '24 March 2026'}
           </span>
           <span className="text-slate-500 text-[10px] font-body mt-2">Vikram Samvat 2083</span>
@@ -154,9 +154,9 @@ export default function StudentView({ user }: { user: any }) {
       </div>
 
       {/* Financial Grid */}
-      <div className="glass-card p-6 rounded-xl border border-white/5 bg-background-dark/20 flex flex-col gap-4">
+      <div className="glass-card p-6 rounded-xl border border-white/5 bg-background-dark/20 flex flex-col gap-6">
         <div className="flex justify-between items-center border-b border-white/5 pb-4">
-          <h3 className="text-white font-display font-bold text-lg">{t.crm_financial_ledger}</h3>
+          <h3 className="text-slate-500 font-display font-bold text-[13px] uppercase tracking-widest">{t.crm_financial_ledger}</h3>
           <button 
             onClick={syncLedger}
             className="text-xs text-primary font-medium hover:underline flex items-center gap-1"
@@ -183,23 +183,29 @@ export default function StudentView({ user }: { user: any }) {
               </div>
             ))
           ) : invoices.map((inv, idx) => (
-            <div key={idx} className="p-4 rounded-xl bg-white/5 border border-white/5 flex flex-col md:flex-row justify-between md:items-center gap-4 hover:bg-white/10 transition-colors">
+            <div key={idx} className={`p-4 rounded-xl bg-white/5 border border-white/5 border-l-4 flex flex-col md:flex-row justify-between md:items-center gap-4 hover:bg-white/10 transition-colors ${
+              (inv.status === 'Paid' || inv.status === 'paid') ? 'border-l-primary/50' : 'border-l-amber-500/50'
+            }`}>
               <div className="flex items-center gap-4">
                 <div className="size-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary border border-primary/10">
                   <span className="material-symbols-outlined text-[20px]">receipt_long</span>
                 </div>
                 <div>
-                  <p className="text-white text-sm font-display font-medium">{inv.id}</p>
-                  <p className="text-slate-500 text-[11px] font-body">{inv.date} | {inv.category}</p>
+                  <p className="text-white text-sm font-display font-medium tracking-tight">{inv.id}</p>
+                  <div className="flex items-center gap-2 mt-0.5">
+                    <span className="text-slate-500 text-[11px] font-body">{inv.date}</span>
+                    <span className="size-1 rounded-full bg-white/10"></span>
+                    <span className="text-slate-500 text-[11px] font-body uppercase tracking-wider">{inv.category}</span>
+                  </div>
                 </div>
               </div>
 
               <div className="flex items-center justify-between md:justify-end gap-6 w-full md:w-auto">
                 <span className="text-white font-mono text-sm font-bold">{inv.amount}</span>
-                <span className={`text-[10px] font-bold px-2.5 py-1 rounded-full border ${
+                <span className={`text-[10px] font-bold px-2.5 py-1 rounded-full border shadow-sm ${
                   inv.status === 'Paid' || inv.status === 'paid'
-                    ? 'bg-[#00FF9D]/10 text-[#00FF9D] border-[#00FF9D]/20' 
-                    : 'bg-yellow-500/10 text-yellow-500 border-yellow-500/20'
+                    ? 'bg-primary/10 text-primary border-primary/20' 
+                    : 'bg-amber-500/10 text-amber-500 border-amber-500/20'
                 }`}>
                   {(inv.status === 'Paid' || inv.status === 'paid') ? t.crm_status_paid.toUpperCase() : t.crm_status_pending.toUpperCase()}
                 </span>

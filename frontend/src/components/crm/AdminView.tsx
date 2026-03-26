@@ -204,8 +204,8 @@ export default function AdminView({ user }: { user: any }) {
               <span className="material-symbols-outlined text-primary text-2xl">{metric.icon}</span>
               <span className="text-primary text-[10px] font-display font-bold px-2 py-0.5 rounded bg-primary/10 tracking-widest">{metric.trend}</span>
             </div>
-            <p className="text-slate-500 font-display font-medium text-xs mt-2 uppercase tracking-widest">{metric.name}</p>
-            <h3 className="text-white text-2xl font-display font-bold tracking-tight">{metric.value}</h3>
+            <p className="text-slate-500 font-display font-medium text-[13px] mt-2 uppercase tracking-widest">{metric.name}</p>
+            <h3 className="text-white text-[20px] font-display font-bold tracking-tight">{metric.value}</h3>
           </div>
         ))}
       </div>
@@ -234,7 +234,7 @@ export default function AdminView({ user }: { user: any }) {
       {activeSubTab === 'nodes' ? (
         <div className="glass-card p-6 rounded-xl border border-white/5 bg-background-dark/20 flex flex-col gap-4">
           <div className="flex flex-col md:flex-row justify-between md:items-center border-b border-white/5 pb-4 gap-4">
-            <h3 className="text-white font-display font-bold text-lg">{t.crm_admin_title}</h3>
+            <h3 className="text-slate-500 font-display font-bold text-[13px] uppercase tracking-widest">{t.crm_admin_title}</h3>
             <div className="flex items-center gap-2">
               <input 
                 type="text" placeholder={t.crm_admin_filter_placeholder}
@@ -255,10 +255,10 @@ export default function AdminView({ user }: { user: any }) {
             <table className="w-full text-left text-xs text-slate-300">
               <thead>
                 <tr className="border-b border-white/5 text-slate-500 font-display">
-                  <th className="pb-3 pt-1 font-medium uppercase tracking-widest text-[10px]">{t.crm_admin_table_id}</th>
-                  <th className="pb-3 pt-1 font-medium uppercase tracking-widest text-[10px]">{t.crm_admin_table_clearance}</th>
-                  <th className="pb-3 pt-1 font-medium uppercase tracking-widest text-[10px]">{t.crm_admin_table_status}</th>
-                  <th className="pb-3 pt-1 font-medium uppercase tracking-widest text-[10px] text-right">{t.crm_admin_table_action}</th>
+                  <th className="pb-3 pt-1 font-bold uppercase tracking-widest text-[13px]">{t.crm_admin_table_id}</th>
+                  <th className="pb-3 pt-1 font-bold uppercase tracking-widest text-[13px]">{t.crm_admin_table_clearance}</th>
+                  <th className="pb-3 pt-1 font-bold uppercase tracking-widest text-[13px]">{t.crm_admin_table_status}</th>
+                  <th className="pb-3 pt-1 font-bold uppercase tracking-widest text-[13px] text-right">{t.crm_admin_table_action}</th>
                 </tr>
               </thead>
               <tbody>
@@ -299,10 +299,10 @@ export default function AdminView({ user }: { user: any }) {
             <table className="w-full text-left text-xs text-slate-300">
               <thead>
                 <tr className="border-b border-white/5 text-slate-500 font-display">
-                  <th className="pb-3 pt-1 font-medium uppercase tracking-widest text-[10px]">{t.crm_admin_leads_org}</th>
-                  <th className="pb-3 pt-1 font-medium uppercase tracking-widest text-[10px]">{t.crm_admin_leads_contact}</th>
-                  <th className="pb-3 pt-1 font-medium uppercase tracking-widest text-[10px]">{t.crm_admin_leads_tier}</th>
-                  <th className="pb-3 pt-1 font-medium uppercase tracking-widest text-[10px] text-right">{t.crm_admin_table_action}</th>
+                  <th className="pb-3 pt-1 font-bold uppercase tracking-widest text-[13px]">{t.crm_admin_leads_org}</th>
+                  <th className="pb-3 pt-1 font-bold uppercase tracking-widest text-[13px]">{t.crm_admin_leads_contact}</th>
+                  <th className="pb-3 pt-1 font-bold uppercase tracking-widest text-[13px]">{t.crm_admin_leads_tier}</th>
+                  <th className="pb-3 pt-1 font-bold uppercase tracking-widest text-[13px] text-right">{t.crm_admin_table_action}</th>
                 </tr>
               </thead>
               <tbody>
@@ -334,7 +334,7 @@ export default function AdminView({ user }: { user: any }) {
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-background-dark/80 backdrop-blur-sm">
           <div className="glass-card w-full max-w-md p-6 rounded-2xl border border-white/10 bg-background-dark flex flex-col gap-6">
             <div className="flex justify-between items-center border-b border-white/5 pb-4">
-              <h3 className="text-white font-display font-bold text-xl">{t.crm_admin_modal_provision}</h3>
+              <h3 className="text-slate-500 font-display font-bold text-[13px] uppercase tracking-widest">{t.crm_admin_modal_provision}</h3>
               <button onClick={() => setIsAddingNode(false)} className="text-slate-400 hover:text-white"><span className="material-symbols-outlined">close</span></button>
             </div>
             <form onSubmit={addNode} className="flex flex-col gap-4">

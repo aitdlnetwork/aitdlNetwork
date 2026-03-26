@@ -45,16 +45,16 @@ export default function ProfileView({ user }: ProfileProps) {
       </div>
       
       <div className="flex flex-col gap-4">
-        <h3 className="text-slate-300 font-display text-xs font-bold uppercase tracking-widest">{t.profile_title}</h3>
+        <h3 className="text-slate-500 font-display text-[13px] font-bold uppercase tracking-widest">{t.profile_title}</h3>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
           <div className="border border-white/5 p-4 rounded-xl bg-white/5 flex flex-col gap-1 hover:bg-white/10 transition-all cursor-pointer">
-            <span className="text-slate-500 font-body text-xs">{t.profile_role}</span>
-            <span className="text-white font-medium font-display tracking-wide">{user.role.toUpperCase()}</span>
+            <span className="text-slate-500 font-body text-[13px]">{t.profile_role}</span>
+            <span className="text-white font-normal font-display text-[14px] tracking-wide">{user.role.toUpperCase()}</span>
           </div>
           <div className="border border-white/5 p-4 rounded-xl bg-white/5 flex flex-col gap-1 hover:bg-white/10 transition-all cursor-pointer">
-            <span className="text-slate-500 font-body text-xs">{t.profile_since}</span>
-            <span className="text-white font-mono text-xs tracking-tight text-primary-light">V.S. 2083 {t.ui_label_active}</span>
+            <span className="text-slate-500 font-body text-[13px]">{t.profile_since}</span>
+            <span className="text-white font-normal font-mono text-[14px] tracking-tight text-primary-light">V.S. 2083 {t.ui_label_active}</span>
           </div>
         </div>
 
