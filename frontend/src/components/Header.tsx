@@ -83,7 +83,7 @@ export default function Header() {
             className="hidden lg:flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 hover:border-primary/30 transition-all cursor-default group"
           >
             <span className="size-1.5 rounded-full bg-primary animate-pulse-subtle shadow-[0_0_8px_rgba(13,227,242,0.6)]"></span>
-            <span className="text-[9px] font-display font-black tracking-[0.2em] text-slate-500 uppercase">
+            <span className="text-[9px] font-display font-black tracking-[0.2em] text-slate-400 uppercase">
               gorakhpur-sys-01: <span className="text-primary opacity-80 group-hover:opacity-100 transition-opacity">active</span>
             </span>
           </div>

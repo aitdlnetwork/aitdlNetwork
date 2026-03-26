@@ -112,6 +112,7 @@ export default function Home() {
                     fill
                     className="object-cover rounded-[2.5rem] brightness-90 group-hover:brightness-100 transition-all duration-500"
                     priority
+                    {...({ fetchPriority: "high" } as any)}
                   />
                   {/* Watermark */}
                   <div className="absolute bottom-6 right-8 text-white/20 font-display font-black text-[10px] tracking-[0.4em] uppercase pointer-events-none z-20 select-none">
@@ -151,21 +152,21 @@ export default function Home() {
         <div className="max-w-[1200px] mx-auto flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
           <div className="flex flex-col gap-1">
             <span className="text-primary font-display font-black text-2xl tracking-tight">10,000+</span>
-            <span className="text-slate-500 text-[11px] font-semibold tracking-widest uppercase">{t('stat_students')}</span>
+            <span className="text-slate-400 text-[11px] font-semibold tracking-widest uppercase">{t('stat_students')}</span>
           </div>
           <div className="h-8 w-px bg-white/5 hidden md:block"></div>
           <div className="flex flex-col gap-1">
             <span className="text-primary font-display font-black text-2xl tracking-tight">50+</span>
-            <span className="text-slate-500 text-[10px] font-body tracking-wider uppercase">{t('stat_systems')}</span>
+            <span className="text-slate-400 text-[10px] font-body tracking-wider uppercase">{t('stat_systems')}</span>
           </div>
           <div className="h-8 w-px bg-white/5 hidden md:block"></div>
           <div className="flex flex-col gap-1">
             <span className="text-primary font-display font-black text-2xl tracking-tight">99.9%</span>
-            <span className="text-slate-500 text-[10px] font-body tracking-wider uppercase">{t('stat_uptime')}</span>
+            <span className="text-slate-400 text-[10px] font-body tracking-wider uppercase">{t('stat_uptime')}</span>
           </div>
           <div className="h-8 w-px bg-white/5 hidden md:block"></div>
           <div className="flex flex-col md:flex-row items-center gap-3">
-            <div className="text-slate-400 text-[10px] font-display font-semibold tracking-wider uppercase">
+            <div className="text-slate-300 text-[10px] font-display font-semibold tracking-wider uppercase">
               {t('stat_trusted_in')}
             </div>
             <div className="flex items-center gap-1 text-slate-300 font-bold text-xs font-sans flex-wrap justify-center md:justify-start">
