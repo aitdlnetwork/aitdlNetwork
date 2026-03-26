@@ -144,25 +144,17 @@ export default function Header() {
               </button>
             </div>
 
-            <div className="relative">
-              <button 
-                onClick={() => setIsLangOpen(!isLangOpen)} 
-                aria-label="Language selection"
-                className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-white text-[10px] font-display font-bold hover:bg-white/10 hover:border-primary/40 transition-all uppercase tracking-widest"
-              >
-                <span>{langLabels[language].flag}</span>
-                <span>{langLabels[language].label}</span>
-              </button>
-              {isLangOpen && (
-                <div className="absolute top-10 right-0 glass-nav border border-white/10 shadow-2xl rounded-xl py-2 w-32 flex flex-col z-50 animate-fade-in overflow-hidden">
-                  {(Object.keys(langLabels) as Language[]).map((lang) => (
-                    <button key={lang} onClick={() => { setLanguage(lang); setIsLangOpen(false); }} className={`flex items-center gap-3 px-4 py-2 text-[10px] font-display font-bold uppercase tracking-wider text-left hover:bg-primary/10 transition-colors ${language === lang ? 'text-primary' : 'text-slate-400'}`}>
-                      <span>{langLabels[lang].flag}</span>
-                      <span>{langLabels[lang].label}</span>
-                    </button>
-                  ))}
-                </div>
-              )}
+            <div className="flex items-center bg-white/5 border border-white/10 rounded-lg overflow-hidden font-display text-[9px] font-black tracking-widest uppercase">
+              {(Object.keys(langLabels) as Language[]).map((lang, idx) => (
+                <button 
+                  key={lang} 
+                  onClick={() => setLanguage(lang)} 
+                  className={`px-3 py-1.5 transition-colors ${idx < Object.keys(langLabels).length - 1 ? 'border-r border-white/10' : ''} ${language === lang ? 'bg-primary text-background-dark' : 'text-slate-400 hover:text-primary'}`}
+                  aria-label={`Switch to ${langLabels[lang].label}`}
+                >
+                  {langLabels[lang].label === 'संस्कृतम्' ? 'SA' : lang.toUpperCase()}
+                </button>
+              ))}
             </div>
 
             <Link href="/login" className="px-5 py-2 rounded-lg bg-primary/10 border border-primary/20 text-primary font-display font-black text-[10px] hover:bg-primary hover:text-background-dark transition-all uppercase tracking-widest flex items-center gap-2 shadow-[0_0_15px_rgba(13,227,242,0.1)] animate-portal-glow">
@@ -230,13 +222,19 @@ export default function Header() {
           </div>
 
           {/* Mobile Lang Selection */}
-          <div className="flex flex-wrap gap-2">
-            {(Object.keys(langLabels) as Language[]).map((lang) => (
-              <button key={lang} onClick={() => { setLanguage(lang); setIsMobileMenuOpen(false); }} className={`flex items-center gap-2 px-4 py-2 rounded-lg border text-xs font-display font-bold ${language === lang ? 'border-primary/40 bg-primary/10 text-primary' : 'border-white/5 bg-white/5 text-slate-400'}`}>
-                <span>{langLabels[lang].flag}</span>
-                <span>{langLabels[lang].label}</span>
-              </button>
-            ))}
+          <div className="flex items-center justify-between gap-4 p-4 rounded-xl bg-white/5 border border-white/10">
+            <span className="text-[10px] font-display font-black tracking-widest text-slate-500 uppercase">System Language</span>
+            <div className="flex items-center bg-background-dark/50 rounded-lg overflow-hidden border border-white/10 font-display text-[10px] font-black tracking-widest uppercase">
+              {(Object.keys(langLabels) as Language[]).map((lang, idx) => (
+                <button 
+                  key={lang} 
+                  onClick={() => { setLanguage(lang); setIsMobileMenuOpen(false); }} 
+                  className={`px-4 py-2 transition-colors ${idx < Object.keys(langLabels).length - 1 ? 'border-r border-white/10' : ''} ${language === lang ? 'bg-primary text-background-dark' : 'text-slate-400'}`}
+                >
+                  {langLabels[lang].label === 'संस्कृतम्' ? 'SA' : lang.toUpperCase()}
+                </button>
+              ))}
+            </div>
           </div>
 
           <Link href="/login" onClick={() => setIsMobileMenuOpen(false)} className="btn-primary flex items-center justify-center h-14 w-full rounded-xl bg-primary text-background-dark font-display font-bold text-sm tracking-widest uppercase">
