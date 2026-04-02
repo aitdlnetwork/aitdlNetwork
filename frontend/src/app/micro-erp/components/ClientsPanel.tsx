@@ -97,25 +97,25 @@ export default function ClientsPanel() {
           <h2 className="text-2xl font-display font-bold text-white mb-2">Entities & CRM</h2>
           <p className="text-slate-400 text-sm">Manage your customers and suppliers to auto-fill documents.</p>
         </div>
-        <button onClick={() => openForm()} className="bg-primary text-background-dark font-bold px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-primary/90">
+        <button onClick={() => openForm()} className="bg-primary text-background-dark font-bold px-4 py-2 rounded-sm flex items-center gap-2 hover:bg-primary/90">
           <Plus size={16} /> New {entityType === 'clients' ? 'Client' : 'Vendor'}
         </button>
       </div>
       
-      <div className="flex bg-white/5 border border-white/10 rounded-lg p-1 w-fit">
+      <div className="flex bg-white/5 border border-white/10 rounded-sm p-1 w-fit">
         <button 
           onClick={() => setEntityType('clients')} 
-          className={`px-6 py-2 rounded-md text-sm tracking-widest uppercase font-bold transition ${entityType === 'clients' ? 'bg-primary text-background-dark' : 'text-slate-400 hover:text-white'}`}>
+          className={`px-6 py-2 rounded-sm text-sm tracking-widest uppercase font-bold transition ${entityType === 'clients' ? 'bg-primary text-background-dark' : 'text-slate-400 hover:text-white'}`}>
           Clients (Sales)
         </button>
         <button 
           onClick={() => setEntityType('vendors')} 
-          className={`px-6 py-2 rounded-md text-sm tracking-widest uppercase font-bold transition ${entityType === 'vendors' ? 'bg-primary text-background-dark' : 'text-slate-400 hover:text-white'}`}>
+          className={`px-6 py-2 rounded-sm text-sm tracking-widest uppercase font-bold transition ${entityType === 'vendors' ? 'bg-primary text-background-dark' : 'text-slate-400 hover:text-white'}`}>
           Vendors (Purchases)
         </button>
       </div>
 
-      <div className="bg-white/5 border border-white/10 rounded-2xl overflow-hidden">
+      <div className="bg-white/5 border border-white/10 rounded-sm overflow-hidden">
         <div className="p-4 border-b border-white/10 flex items-center bg-white/5 gap-3">
           <Search size={18} className="text-slate-400" />
           <input 
@@ -153,8 +153,8 @@ export default function ClientsPanel() {
                   </td>
                   <td className="px-6 py-4 font-mono text-xs">{c.gst || '—'}</td>
                   <td className="px-6 py-4 flex items-center justify-end gap-2">
-                    <button onClick={() => openForm(c)} className="p-2 text-slate-400 hover:text-white bg-white/5 hover:bg-white/10 rounded-lg"><Pencil size={14}/></button>
-                    <button onClick={() => handleDelete(c.id)} className="p-2 text-red-400 hover:text-red-300 bg-white/5 hover:bg-red-400/10 rounded-lg"><Trash2 size={14}/></button>
+                    <button onClick={() => openForm(c)} className="p-2 text-slate-400 hover:text-white bg-white/5 hover:bg-white/10 rounded-sm"><Pencil size={14}/></button>
+                    <button onClick={() => handleDelete(c.id)} className="p-2 text-red-400 hover:text-red-300 bg-white/5 hover:bg-red-400/10 rounded-sm"><Trash2 size={14}/></button>
                   </td>
                 </tr>
               ))}
@@ -165,7 +165,7 @@ export default function ClientsPanel() {
 
       {isModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
-          <div className="bg-[#12122a] border border-white/10 w-full max-w-md rounded-2xl overflow-hidden shadow-2xl">
+          <div className="bg-[#12122a] border border-white/10 w-full max-w-md rounded-sm overflow-hidden shadow-2xl">
             <div className="p-6 border-b border-white/10 flex justify-between items-center">
               <h3 className="text-lg font-display font-bold text-white uppercase tracking-wider">{editingId ? `Edit ${entityType}` : `Add ${entityType}`}</h3>
               <button onClick={() => setIsModalOpen(false)} className="text-slate-400 hover:text-white">×</button>
@@ -173,29 +173,29 @@ export default function ClientsPanel() {
             <form onSubmit={handleSave} className="p-6 space-y-4">
               <div>
                 <label className="block text-xs uppercase text-slate-400 mb-1">Company / Name</label>
-                <input required value={form.name} onChange={e=>setForm({...form, name: e.target.value})} className="w-full bg-background-dark/50 border border-white/10 rounded-lg px-4 py-2 text-white" />
+                <input required value={form.name} onChange={e=>setForm({...form, name: e.target.value})} className="w-full bg-background-dark/50 border border-white/10 rounded-sm px-4 py-2 text-white outline-none focus:border-primary" />
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="block text-xs uppercase text-slate-400 mb-1">Email</label>
-                  <input type="email" value={form.email} onChange={e=>setForm({...form, email: e.target.value})} className="w-full bg-background-dark/50 border border-white/10 rounded-lg px-4 py-2 text-white" />
+                  <input type="email" value={form.email} onChange={e=>setForm({...form, email: e.target.value})} className="w-full bg-background-dark/50 border border-white/10 rounded-sm px-4 py-2 text-white outline-none focus:border-primary" />
                 </div>
                 <div>
                   <label className="block text-xs uppercase text-slate-400 mb-1">Phone</label>
-                  <input value={form.phone} onChange={e=>setForm({...form, phone: e.target.value})} className="w-full bg-background-dark/50 border border-white/10 rounded-lg px-4 py-2 text-white" />
+                  <input value={form.phone} onChange={e=>setForm({...form, phone: e.target.value})} className="w-full bg-background-dark/50 border border-white/10 rounded-sm px-4 py-2 text-white outline-none focus:border-primary" />
                 </div>
               </div>
               <div>
                 <label className="block text-xs uppercase text-slate-400 mb-1">{entityType === 'clients' ? 'Billing Address' : 'Supplier Address'}</label>
-                <textarea rows={2} value={form.addr} onChange={e=>setForm({...form, addr: e.target.value})} className="w-full bg-background-dark/50 border border-white/10 rounded-lg px-4 py-2 text-white outline-none focus:border-primary" />
+                <textarea rows={2} value={form.addr} onChange={e=>setForm({...form, addr: e.target.value})} className="w-full bg-background-dark/50 border border-white/10 rounded-sm px-4 py-2 text-white outline-none focus:border-primary" />
               </div>
               <div>
                 <label className="block text-xs uppercase text-slate-400 mb-1">GSTIN / Tax ID</label>
-                <input value={form.gst} onChange={e=>setForm({...form, gst: e.target.value})} className="w-full font-mono bg-background-dark/50 border border-white/10 rounded-lg px-4 py-2 text-white" />
+                <input value={form.gst} onChange={e=>setForm({...form, gst: e.target.value})} className="w-full font-mono bg-background-dark/50 border border-white/10 rounded-sm px-4 py-2 text-white outline-none focus:border-primary" />
               </div>
               <div className="pt-4 flex gap-3">
-                <button type="button" onClick={() => setIsModalOpen(false)} className="flex-1 bg-white/5 text-white py-2 rounded-lg hover:bg-white/10 transition">Cancel</button>
-                <button type="submit" className="flex-1 bg-primary text-background-dark font-bold py-2 rounded-lg hover:bg-primary/90 transition">Save</button>
+                <button type="button" onClick={() => setIsModalOpen(false)} className="flex-1 bg-white/5 text-white py-2 rounded-sm hover:bg-white/10 transition uppercase tracking-widest text-xs font-bold">Cancel</button>
+                <button type="submit" className="flex-1 bg-primary text-background-dark py-2 rounded-sm hover:bg-primary/90 transition uppercase tracking-widest text-xs font-bold">Save</button>
               </div>
             </form>
           </div>

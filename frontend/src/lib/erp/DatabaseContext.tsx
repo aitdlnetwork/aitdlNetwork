@@ -14,6 +14,9 @@ interface DatabaseContextType {
   error: string | null;
   bootStatus: string;
   persistDB: () => void;
+  lastUpdated: string;
+  exportDatabase: () => void;
+  importDatabase: (file: File) => Promise<void>;
 }
 
 const DatabaseContext = createContext<DatabaseContextType | undefined>(undefined);
@@ -101,14 +104,82 @@ export const ERPDatabaseProvider: React.FC<{ children: React.ReactNode }> = ({ c
         }
 
         setBootStatus('Standardizing Schema...');
-        // Inline basic schema check
+        // Sovereign Schema v1.5 - Unified for Portability
         database.run(`CREATE TABLE IF NOT EXISTS business_profile (key TEXT PRIMARY KEY, value TEXT)`);
-        database.run(`CREATE TABLE IF NOT EXISTS clients (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, addr TEXT, email TEXT, phone TEXT, gst TEXT, contact TEXT, created_at TEXT DEFAULT (datetime('now')))`);
-        database.run(`CREATE TABLE IF NOT EXISTS vendors (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, addr TEXT, email TEXT, phone TEXT, gst TEXT, contact TEXT, created_at TEXT DEFAULT (datetime('now')))`);
-        database.run(`CREATE TABLE IF NOT EXISTS inventory (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, category TEXT, sku TEXT, current_stock REAL DEFAULT 0, unit TEXT, min_stock REAL DEFAULT 0, last_updated TEXT DEFAULT (datetime('now')))`);
-        database.run(`CREATE TABLE IF NOT EXISTS sales (id INTEGER PRIMARY KEY AUTOINCREMENT, client_id INTEGER, doc_date TEXT, total_amount REAL, tax_amount REAL, discount REAL, status TEXT, created_at TEXT DEFAULT (datetime('now')))`);
-        database.run(`CREATE TABLE IF NOT EXISTS purchases (id INTEGER PRIMARY KEY AUTOINCREMENT, vendor_id INTEGER, doc_date TEXT, total_amount REAL, tax_amount REAL, status TEXT, created_at TEXT DEFAULT (datetime('now')))`);
-        database.run(`CREATE TABLE IF NOT EXISTS ledger (id INTEGER PRIMARY KEY AUTOINCREMENT, entity_type TEXT, entity_id INTEGER, item_name TEXT, qty REAL, rate REAL, amount REAL, type TEXT, doc_type TEXT, doc_id INTEGER, created_at TEXT DEFAULT (datetime('now')))`);
+        
+        // Ensure last_updated_at exists
+        database.run(`INSERT OR IGNORE INTO business_profile (key, value) VALUES ('last_updated_at', datetime('now'))`);
+
+        database.run(`CREATE TABLE IF NOT EXISTS clients (
+          id INTEGER PRIMARY KEY AUTOINCREMENT, 
+          name TEXT, addr TEXT, email TEXT, phone TEXT, gst TEXT, contact TEXT, 
+          created_at TEXT DEFAULT (datetime('now'))
+        )`);
+
+        database.run(`CREATE TABLE IF NOT EXISTS vendors (
+          id INTEGER PRIMARY KEY AUTOINCREMENT, 
+          name TEXT, addr TEXT, email TEXT, phone TEXT, gst TEXT, contact TEXT, 
+          created_at TEXT DEFAULT (datetime('now'))
+        )`);
+
+        database.run(`CREATE TABLE IF NOT EXISTS products (
+          id INTEGER PRIMARY KEY AUTOINCREMENT, 
+          name TEXT, description TEXT, category TEXT, sku TEXT, 
+          purchase_rate REAL DEFAULT 0, default_rate REAL DEFAULT 0, 
+          default_qty REAL DEFAULT 1, unit TEXT, min_stock REAL DEFAULT 0, 
+          created_at TEXT DEFAULT (datetime('now')),
+          updated_at TEXT DEFAULT (datetime('now'))
+        )`);
+
+        database.run(`CREATE TABLE IF NOT EXISTS bills (
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          bill_number TEXT UNIQUE, doc_type TEXT, status TEXT,
+          from_name TEXT, from_tagline TEXT, from_addr TEXT,
+          to_name TEXT, to_addr TEXT, client_id INTEGER,
+          issue_date TEXT, due_date TEXT,
+          discount REAL DEFAULT 0, tax REAL DEFAULT 0, currency TEXT DEFAULT '₹',
+          subtotal REAL DEFAULT 0, total REAL DEFAULT 0,
+          bank_name TEXT, bank_bank TEXT, bank_acc TEXT, bank_ifsc TEXT, bank_type TEXT, bank_branch TEXT, show_bank INTEGER DEFAULT 1,
+          upi_id TEXT, upi_name TEXT, show_upi INTEGER DEFAULT 1,
+          notes TEXT, footer_msg TEXT, sign_label TEXT,
+          show_sign INTEGER DEFAULT 1, show_for_company INTEGER DEFAULT 1, show_aitdl INTEGER DEFAULT 1,
+          items_json TEXT,
+          created_at TEXT DEFAULT (datetime('now')),
+          updated_at TEXT DEFAULT (datetime('now'))
+        )`);
+
+        database.run(`CREATE TABLE IF NOT EXISTS purchases (
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          bill_number TEXT UNIQUE, doc_type TEXT, status TEXT,
+          to_name TEXT, to_addr TEXT, vendor_id INTEGER,
+          issue_date TEXT, due_date TEXT,
+          discount REAL DEFAULT 0, tax REAL DEFAULT 0, currency TEXT DEFAULT '₹',
+          subtotal REAL DEFAULT 0, total REAL DEFAULT 0,
+          notes TEXT, items_json TEXT,
+          created_at TEXT DEFAULT (datetime('now')),
+          updated_at TEXT DEFAULT (datetime('now'))
+        )`);
+
+        database.run(`CREATE TABLE IF NOT EXISTS inventory_ledger (
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          product_id INTEGER,
+          type TEXT, -- IN, OUT
+          reference_doc TEXT, -- Invoice or PO number
+          qty REAL,
+          created_at TEXT DEFAULT (datetime('now'))
+        )`);
+
+        database.run(`CREATE TABLE IF NOT EXISTS financial_ledger (
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          entity_id INTEGER, -- Client or Vendor ID
+          entity_type TEXT, -- CLIENT, VENDOR
+          type TEXT, -- PAYMENT, RECEIPT, CREDIT_NOTE, DEBIT_NOTE
+          amount REAL,
+          currency TEXT DEFAULT '₹',
+          reference_doc TEXT, -- Bill/Invoice Number
+          notes TEXT,
+          created_at TEXT DEFAULT (datetime('now'))
+        )`);
 
         // DIAGNOSTICS: Verify engine is healthy
         try {
@@ -120,7 +191,7 @@ export const ERPDatabaseProvider: React.FC<{ children: React.ReactNode }> = ({ c
 
         if (active) {
           setDb(database);
-          setBootStatus('Engine is Online');
+          setBootStatus('Workspace is Online');
           setIsReady(true);
         }
       } catch (e: any) {
@@ -134,14 +205,28 @@ export const ERPDatabaseProvider: React.FC<{ children: React.ReactNode }> = ({ c
     return () => { active = false; };
   }, []);
 
+  const [lastUpdated, setLastUpdated] = useState<string>('');
+
   // Persistence logic - Simple and Direct
   useEffect(() => {
     if (!db || !isReady) return;
     
+    // Initial fetch of last updated
+    try {
+      const res = db.exec("SELECT value FROM business_profile WHERE key='last_updated_at'");
+      if (res[0]) setLastUpdated(res[0].values[0][0] as string);
+    } catch(e) { console.error(e); }
+
     const persist = () => {
       if (!db || !isReady) return;
       try {
         console.log('ERPEngine: Persistence triggered');
+        
+        // Refresh meta timestamp
+        const now = new Date().toISOString();
+        db.run("UPDATE business_profile SET value=? WHERE key='last_updated_at'", [now]);
+        setLastUpdated(now);
+
         const data = db.export();
         let binary = '';
         const bytes = new Uint8Array(data);
@@ -155,7 +240,7 @@ export const ERPDatabaseProvider: React.FC<{ children: React.ReactNode }> = ({ c
       }
     };
 
-    const interval = setInterval(persist, 20000); // 20s auto-save (better for large DBs)
+    const interval = setInterval(persist, 30000); // 30s auto-save
     window.addEventListener('beforeunload', persist);
     return () => {
       clearInterval(interval);
@@ -167,6 +252,10 @@ export const ERPDatabaseProvider: React.FC<{ children: React.ReactNode }> = ({ c
   const persistDB = () => {
     if (!db || !isReady) return;
     try {
+      const now = new Date().toISOString();
+      db.run("UPDATE business_profile SET value=? WHERE key='last_updated_at'", [now]);
+      setLastUpdated(now);
+
       const data = db.export();
       let binary = '';
       const bytes = new Uint8Array(data);
@@ -180,8 +269,60 @@ export const ERPDatabaseProvider: React.FC<{ children: React.ReactNode }> = ({ c
     }
   };
 
+  // Export the raw SQLite binary for portability
+  const exportDatabase = () => {
+    if (!db || !isReady) return;
+    try {
+      const data = db.export();
+      const now = new Date();
+      const datePart = now.toISOString().split('T')[0];
+      const timePart = now.getHours().toString().padStart(2, '0') + 
+                      now.getMinutes().toString().padStart(2, '0') + 
+                      now.getSeconds().toString().padStart(2, '0');
+      const vsYear = now.getFullYear() + 57; // Vikram Samvat approximation
+
+      const filename = `aitdl_in_${datePart}_${timePart}_VS${vsYear}.sqlite`;
+
+      // Use Blob with a cast to any to resolve TS conflicts with Uint8Array vs SharedArrayBuffer
+      const blob = new Blob([data as any], { type: 'application/x-sqlite3' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      a.click();
+      URL.revokeObjectURL(url);
+      console.log(`ERPEngine: Database exported as ${filename}`);
+    } catch(e) {
+      console.error('ERPEngine: Export failed:', e);
+    }
+  };
+
+  // Import/Restore a .sqlite backup
+  const importDatabase = async (file: File) => {
+    try {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const result = e.target?.result;
+        if (result instanceof ArrayBuffer) {
+          const bytes = new Uint8Array(result);
+          let binary = '';
+          for (let i = 0; i < bytes.byteLength; i++) {
+            binary += String.fromCharCode(bytes[i]);
+          }
+          const base64 = btoa(binary);
+          localStorage.setItem('billforge_erp_db', base64);
+          window.location.reload(); // Reload to boot with new data
+        }
+      };
+      reader.readAsArrayBuffer(file);
+    } catch(e) {
+      console.error('ERPEngine: Import failed:', e);
+      throw e;
+    }
+  };
+
   return (
-    <DatabaseContext.Provider value={{ db, isReady, error, bootStatus, persistDB }}>
+    <DatabaseContext.Provider value={{ db, isReady, error, bootStatus, persistDB, lastUpdated, exportDatabase, importDatabase }}>
       {children}
     </DatabaseContext.Provider>
   );

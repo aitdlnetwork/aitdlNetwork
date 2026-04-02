@@ -123,12 +123,12 @@ export default function ProductsPanel() {
           <h2 className="text-2xl font-display font-bold text-white mb-2">Inventory Master</h2>
           <p className="text-slate-400 text-sm">Manage your products, services, pricing, and SKUs.</p>
         </div>
-        <button onClick={() => openForm()} className="bg-primary text-background-dark font-bold px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-primary/90">
+        <button onClick={() => openForm()} className="bg-primary text-background-dark font-bold px-4 py-2 rounded-sm flex items-center gap-2 hover:bg-primary/90">
           <Plus size={16} /> New Item
         </button>
       </div>
 
-      <div className="bg-white/5 border border-white/10 rounded-2xl overflow-hidden">
+      <div className="bg-white/5 border border-white/10 rounded-sm overflow-hidden">
         <div className="p-4 border-b border-white/10 flex items-center bg-white/5 gap-3">
           <Search size={18} className="text-slate-400" />
           <input 
@@ -161,7 +161,7 @@ export default function ProductsPanel() {
                   <td className="px-6 py-4">
                     <div className="font-bold text-white">{p.name}</div>
                     <div className="text-xs text-slate-500 flex gap-2 items-center">
-                      {p.sku && <span className="font-mono text-[10px] bg-white/10 px-1 py-0.5 rounded text-slate-300 border border-white/10">{p.sku}</span>}
+                      {p.sku && <span className="font-mono text-[10px] bg-white/10 px-1 py-0.5 rounded-sm text-slate-300 border border-white/10">{p.sku}</span>}
                       <span className="truncate max-w-[200px]">{p.description}</span>
                     </div>
                   </td>
@@ -172,7 +172,7 @@ export default function ProductsPanel() {
                     <span className="text-xs text-slate-500 ml-1">{p.unit}</span>
                   </td>
                   <td className="px-6 py-4">
-                    <span className="text-[10px] uppercase tracking-wider bg-primary/10 text-primary px-2 py-1 rounded-full border border-primary/20">
+                    <span className="text-[10px] uppercase tracking-wider bg-primary/10 text-primary px-2 py-1 rounded-sm border border-primary/20">
                       {p.category}
                     </span>
                   </td>
@@ -183,8 +183,8 @@ export default function ProductsPanel() {
                     ₹{p.default_rate.toLocaleString('en-IN', {minimumFractionDigits: 2})} <span className="text-xs text-slate-500">/{p.unit}</span>
                   </td>
                   <td className="px-6 py-4 flex items-center justify-end gap-2">
-                    <button onClick={() => openForm(p)} className="p-2 text-slate-400 hover:text-white bg-white/5 hover:bg-white/10 rounded-lg"><Pencil size={14}/></button>
-                    <button onClick={() => handleDelete(p.id)} className="p-2 text-red-400 hover:text-red-300 bg-white/5 hover:bg-red-400/10 rounded-lg"><Trash2 size={14}/></button>
+                    <button onClick={() => openForm(p)} className="p-2 text-slate-400 hover:text-white bg-white/5 hover:bg-white/10 rounded-sm"><Pencil size={14}/></button>
+                    <button onClick={() => handleDelete(p.id)} className="p-2 text-red-400 hover:text-red-300 bg-white/5 hover:bg-red-400/10 rounded-sm"><Trash2 size={14}/></button>
                   </td>
                 </tr>
               ))}
@@ -195,7 +195,7 @@ export default function ProductsPanel() {
 
       {isModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
-          <div className="bg-[#12122a] border border-white/10 w-full max-w-lg rounded-2xl overflow-hidden shadow-2xl">
+          <div className="bg-[#12122a] border border-white/10 w-full max-w-lg rounded-sm overflow-hidden shadow-2xl">
             <div className="p-6 border-b border-white/10 flex justify-between items-center">
               <h3 className="text-lg font-display font-bold text-white uppercase tracking-wider">{editingId ? 'Edit Item' : 'New Item / Service'}</h3>
               <button onClick={() => setIsModalOpen(false)} className="text-slate-400 hover:text-white">×</button>
@@ -204,44 +204,44 @@ export default function ProductsPanel() {
               <div className="grid grid-cols-3 gap-4">
                 <div className="col-span-2">
                   <label className="block text-xs uppercase text-slate-400 mb-1">Item Name <span className="text-red-400">*</span></label>
-                  <input required value={form.name} onChange={e=>setForm({...form, name: e.target.value})} className="w-full bg-background-dark/50 border border-white/10 rounded-lg px-4 py-2 text-white outline-none focus:border-primary" />
+                  <input required value={form.name} onChange={e=>setForm({...form, name: e.target.value})} className="w-full bg-background-dark/50 border border-white/10 rounded-sm px-4 py-2 text-white outline-none focus:border-primary" />
                 </div>
                 <div>
                   <label className="block text-xs uppercase text-slate-400 mb-1">SKU Code</label>
-                  <input value={form.sku} onChange={e=>setForm({...form, sku: e.target.value})} className="w-full bg-background-dark/50 border border-white/10 rounded-lg px-4 py-2 text-white font-mono uppercase outline-none focus:border-primary" />
+                  <input value={form.sku} onChange={e=>setForm({...form, sku: e.target.value})} className="w-full bg-background-dark/50 border border-white/10 rounded-sm px-4 py-2 text-white font-mono uppercase outline-none focus:border-primary" />
                 </div>
               </div>
               
               <div>
                 <label className="block text-xs uppercase text-slate-400 mb-1">Description (Optional)</label>
-                <textarea rows={2} value={form.description} onChange={e=>setForm({...form, description: e.target.value})} className="w-full bg-background-dark/50 border border-white/10 rounded-lg px-4 py-2 text-white outline-none focus:border-primary" />
+                <textarea rows={2} value={form.description} onChange={e=>setForm({...form, description: e.target.value})} className="w-full bg-background-dark/50 border border-white/10 rounded-sm px-4 py-2 text-white outline-none focus:border-primary" />
               </div>
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="block text-xs uppercase text-slate-400 mb-1">Category</label>
-                  <input value={form.category} onChange={e=>setForm({...form, category: e.target.value})} placeholder="e.g. Services, Hardware" className="w-full bg-background-dark/50 border border-white/10 rounded-lg px-4 py-2 text-white outline-none focus:border-primary" />
+                  <input value={form.category} onChange={e=>setForm({...form, category: e.target.value})} placeholder="e.g. Services, Hardware" className="w-full bg-background-dark/50 border border-white/10 rounded-sm px-4 py-2 text-white outline-none focus:border-primary" />
                 </div>
                 <div>
                   <label className="block text-xs uppercase text-slate-400 mb-1">Unit of Measure</label>
-                  <input value={form.unit} onChange={e=>setForm({...form, unit: e.target.value})} placeholder="pcs, kg, hour..." className="w-full bg-background-dark/50 border border-white/10 rounded-lg px-4 py-2 text-white outline-none focus:border-primary" />
+                  <input value={form.unit} onChange={e=>setForm({...form, unit: e.target.value})} placeholder="pcs, kg, hour..." className="w-full bg-background-dark/50 border border-white/10 rounded-sm px-4 py-2 text-white outline-none focus:border-primary" />
                 </div>
               </div>
 
               <div className="grid grid-cols-2 gap-4 pt-2 border-t border-white/5">
                 <div>
                   <label className="block text-xs uppercase text-slate-400 mb-1">Purchase Cost (₹)</label>
-                  <input type="number" step="0.01" min="0" value={form.purchase_rate} onChange={e=>setForm({...form, purchase_rate: e.target.value})} className="w-full font-mono bg-background-dark/50 border border-white/10 rounded-lg px-4 py-2 text-white outline-none focus:border-primary" />
+                  <input type="number" step="0.01" min="0" value={form.purchase_rate} onChange={e=>setForm({...form, purchase_rate: e.target.value})} className="w-full font-mono bg-background-dark/50 border border-white/10 rounded-sm px-4 py-2 text-white outline-none focus:border-primary" />
                 </div>
                 <div>
                   <label className="block text-xs uppercase text-primary mb-1">Selling Price (₹)</label>
-                  <input type="number" step="0.01" min="0" value={form.default_rate} onChange={e=>setForm({...form, default_rate: e.target.value})} className="w-full font-mono bg-background-dark/50 border border-primary/30 rounded-lg px-4 py-2 text-white outline-none focus:border-primary" />
+                  <input type="number" step="0.01" min="0" value={form.default_rate} onChange={e=>setForm({...form, default_rate: e.target.value})} className="w-full font-mono bg-background-dark/50 border border-primary/30 rounded-sm px-4 py-2 text-white outline-none focus:border-primary" />
                 </div>
               </div>
 
               <div className="pt-4 flex gap-3">
-                <button type="button" onClick={() => setIsModalOpen(false)} className="flex-1 bg-white/5 text-white py-3 rounded-lg hover:bg-white/10 transition uppercase tracking-widest text-xs font-bold">Cancel</button>
-                <button type="submit" className="flex-1 bg-primary text-background-dark py-3 rounded-lg hover:bg-primary/90 transition uppercase tracking-widest text-xs font-bold">Save Item</button>
+                <button type="button" onClick={() => setIsModalOpen(false)} className="flex-1 bg-white/5 text-white py-3 rounded-sm hover:bg-white/10 transition uppercase tracking-widest text-xs font-bold">Cancel</button>
+                <button type="submit" className="flex-1 bg-primary text-background-dark py-3 rounded-sm hover:bg-primary/90 transition uppercase tracking-widest text-xs font-bold">Save Item</button>
               </div>
             </form>
           </div>

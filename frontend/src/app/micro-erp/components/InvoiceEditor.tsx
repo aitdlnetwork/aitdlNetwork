@@ -222,7 +222,7 @@ export default function InvoiceEditor({ billId, onClose }: { billId: number | nu
     <div className="flex flex-col h-full bg-[#0b0c16] print:bg-white print:text-black">
       {/* Toast notification */}
       {toast && (
-        <div className="fixed top-6 right-6 z-[200] flex items-center gap-2 bg-green-500/10 border border-green-500/30 text-green-400 px-4 py-3 rounded-xl backdrop-blur-md shadow-lg animate-fadeIn">
+        <div className="fixed top-6 right-6 z-[200] flex items-center gap-2 bg-green-500/10 border border-green-500/30 text-green-400 px-4 py-3 rounded-sm backdrop-blur-md shadow-lg animate-fadeIn">
           <CheckCircle size={16} /> {toast}
         </div>
       )}
@@ -232,10 +232,10 @@ export default function InvoiceEditor({ billId, onClose }: { billId: number | nu
           <ChevronLeft size={20} /> Back to List
         </button>
         <div className="flex items-center gap-4">
-          <button onClick={handleSave} className="flex items-center gap-2 bg-primary/10 text-primary border border-primary/20 hover:bg-primary/20 px-4 py-2 rounded-lg font-bold text-sm tracking-wider uppercase transition">
+          <button onClick={handleSave} className="flex items-center gap-2 bg-primary/10 text-primary border border-primary/20 hover:bg-primary/20 px-4 py-2 rounded-sm font-bold text-sm tracking-wider uppercase transition">
             <Save size={16} /> Save Document
           </button>
-          <button onClick={printDocument} className="flex items-center gap-2 bg-white text-black hover:bg-slate-200 px-4 py-2 rounded-lg font-bold text-sm tracking-wider uppercase transition">
+          <button onClick={printDocument} className="flex items-center gap-2 bg-white text-black hover:bg-slate-200 px-4 py-2 rounded-sm font-bold text-sm tracking-wider uppercase transition">
             <Printer size={16} /> Print / PDF
           </button>
         </div>
@@ -245,7 +245,7 @@ export default function InvoiceEditor({ billId, onClose }: { billId: number | nu
         {/* Left Sidebar Form Options */}
         <div className="w-[400px] border-r border-white/5 bg-[#12122a]/50 p-6 overflow-y-auto print:hidden space-y-6 form-sidebar">
           {errorMsg && (
-            <div className="bg-red-500/10 border border-red-500/50 text-red-500 p-4 rounded-xl flex items-center gap-3">
+            <div className="bg-red-500/10 border border-red-500/50 text-red-500 p-4 rounded-sm flex items-center gap-3">
                <AlertCircle size={20} />
                <span className="text-sm font-bold">{errorMsg}</span>
             </div>
@@ -255,7 +255,7 @@ export default function InvoiceEditor({ billId, onClose }: { billId: number | nu
             <div className="grid grid-cols-2 gap-2">
                <div>
                  <label className="text-xs text-slate-400 uppercase">Doc Type</label>
-                 <select value={form.docType} onChange={e=>setForm({...form, docType: e.target.value})} className="w-full bg-black/30 border border-white/10 rounded px-3 py-1.5 text-sm text-white outline-none focus:border-primary">
+                 <select value={form.docType} onChange={e=>setForm({...form, docType: e.target.value})} className="w-full bg-black/30 border border-white/10 rounded-sm px-3 py-1.5 text-sm text-white outline-none focus:border-primary">
                    <option>INVOICE</option>
                    <option>TAX INVOICE</option>
                    <option>PROFORMA</option>
@@ -265,7 +265,7 @@ export default function InvoiceEditor({ billId, onClose }: { billId: number | nu
                </div>
                <div>
                  <label className="text-xs text-slate-400 uppercase">Status</label>
-                 <select value={form.billStatus} onChange={e=>setForm({...form, billStatus: e.target.value})} className="w-full bg-black/30 border border-white/10 rounded px-3 py-1.5 text-sm text-white outline-none focus:border-primary">
+                 <select value={form.billStatus} onChange={e=>setForm({...form, billStatus: e.target.value})} className="w-full bg-black/30 border border-white/10 rounded-sm px-3 py-1.5 text-sm text-white outline-none focus:border-primary">
                    <option value="draft">Draft</option>
                    <option value="sent">Sent</option>
                    <option value="paid">Paid</option>
@@ -276,7 +276,7 @@ export default function InvoiceEditor({ billId, onClose }: { billId: number | nu
             </div>
             <div>
               <label className="text-xs text-slate-400 uppercase">Doc Number</label>
-              <input value={form.billNum} onChange={e=>setForm({...form, billNum: e.target.value})} className="w-full font-mono bg-black/30 border border-white/10 rounded px-3 py-1.5 text-sm text-white outline-none focus:border-primary"/>
+              <input value={form.billNum} onChange={e=>setForm({...form, billNum: e.target.value})} className="w-full font-mono bg-black/30 border border-white/10 rounded-sm px-3 py-1.5 text-sm text-white outline-none focus:border-primary"/>
             </div>
           </div>
 
@@ -284,18 +284,18 @@ export default function InvoiceEditor({ billId, onClose }: { billId: number | nu
             <h3 className="text-primary font-bold uppercase tracking-widest text-xs border-b border-white/5 pb-2">Bill To</h3>
             <div>
               <label className="text-xs text-slate-400 uppercase">Select Client</label>
-              <select value={form.clientId} onChange={handleClientChange} className="w-full bg-black/30 border border-white/10 rounded px-3 py-1.5 text-sm text-white outline-none focus:border-primary mb-2">
+              <select value={form.clientId} onChange={handleClientChange} className="w-full bg-black/30 border border-white/10 rounded-sm px-3 py-1.5 text-sm text-white outline-none focus:border-primary mb-2">
                 <option value="">-- Custom (No Client) --</option>
                 {clients.map((c: any) => <option key={c[0]} value={c[0]}>{c[1]}</option>)}
               </select>
             </div>
             <div>
               <label className="text-xs text-slate-400 uppercase">Billing Name</label>
-              <input value={form.toName} onChange={e=>setForm({...form, toName: e.target.value})} className="w-full bg-black/30 border border-white/10 rounded px-3 py-1.5 text-sm text-white outline-none focus:border-primary"/>
+              <input value={form.toName} onChange={e=>setForm({...form, toName: e.target.value})} className="w-full bg-black/30 border border-white/10 rounded-sm px-3 py-1.5 text-sm text-white outline-none focus:border-primary"/>
             </div>
             <div>
               <label className="text-xs text-slate-400 uppercase">Billing Address</label>
-              <textarea rows={3} value={form.toAddr} onChange={e=>setForm({...form, toAddr: e.target.value})} className="w-full bg-black/30 border border-white/10 rounded px-3 py-1.5 text-sm text-white outline-none focus:border-primary"/>
+              <textarea rows={3} value={form.toAddr} onChange={e=>setForm({...form, toAddr: e.target.value})} className="w-full bg-black/30 border border-white/10 rounded-sm px-3 py-1.5 text-sm text-white outline-none focus:border-primary"/>
             </div>
           </div>
           
@@ -304,25 +304,25 @@ export default function InvoiceEditor({ billId, onClose }: { billId: number | nu
             <div className="grid grid-cols-2 gap-2">
               <div>
                 <label className="text-xs text-slate-400 uppercase">Issue Date</label>
-                <input type="date" value={form.issueDate} onChange={e=>setForm({...form, issueDate: e.target.value})} className="w-full bg-black/30 border border-white/10 rounded px-3 py-1.5 text-sm text-white outline-none focus:border-primary" />
+                <input type="date" value={form.issueDate} onChange={e=>setForm({...form, issueDate: e.target.value})} className="w-full bg-black/30 border border-white/10 rounded-sm px-3 py-1.5 text-sm text-white outline-none focus:border-primary" />
               </div>
               <div>
                 <label className="text-xs text-slate-400 uppercase">Due Date</label>
-                <input type="date" value={form.dueDate} onChange={e=>setForm({...form, dueDate: e.target.value})} className="w-full bg-black/30 border border-white/10 rounded px-3 py-1.5 text-sm text-white outline-none focus:border-primary" />
+                <input type="date" value={form.dueDate} onChange={e=>setForm({...form, dueDate: e.target.value})} className="w-full bg-black/30 border border-white/10 rounded-sm px-3 py-1.5 text-sm text-white outline-none focus:border-primary" />
               </div>
             </div>
             <div className="grid grid-cols-3 gap-2">
               <div>
                 <label className="text-xs text-slate-400 uppercase">Currency</label>
-                <input value={form.currency} onChange={e=>setForm({...form, currency: e.target.value})} className="w-full font-mono bg-black/30 border border-white/10 rounded px-3 py-1.5 text-sm text-white outline-none text-center" />
+                <input value={form.currency} onChange={e=>setForm({...form, currency: e.target.value})} className="w-full font-mono bg-black/30 border border-white/10 rounded-sm px-3 py-1.5 text-sm text-white outline-none text-center" />
               </div>
               <div>
                 <label className="text-xs text-slate-400 uppercase">Tax (%)</label>
-                <input type="number" step="0.1" value={form.tax} onChange={e=>setForm({...form, tax: parseFloat(e.target.value)||0})} className="w-full font-mono bg-black/30 border border-white/10 rounded px-3 py-1.5 text-sm text-white outline-none text-center" />
+                <input type="number" step="0.1" value={form.tax} onChange={e=>setForm({...form, tax: parseFloat(e.target.value)||0})} className="w-full font-mono bg-black/30 border border-white/10 rounded-sm px-3 py-1.5 text-sm text-white outline-none text-center" />
               </div>
               <div>
                 <label className="text-xs text-slate-400 uppercase">Disc (%)</label>
-                <input type="number" step="0.1" value={form.discount} onChange={e=>setForm({...form, discount: parseFloat(e.target.value)||0})} className="w-full font-mono bg-black/30 border border-white/10 rounded px-3 py-1.5 text-sm text-white outline-none text-center" />
+                <input type="number" step="0.1" value={form.discount} onChange={e=>setForm({...form, discount: parseFloat(e.target.value)||0})} className="w-full font-mono bg-black/30 border border-white/10 rounded-sm px-3 py-1.5 text-sm text-white outline-none text-center" />
               </div>
             </div>
           </div>
@@ -333,7 +333,7 @@ export default function InvoiceEditor({ billId, onClose }: { billId: number | nu
         <div className="flex-1 flex flex-col items-center bg-[#05050A] overflow-y-auto p-8 pt-12 print:p-0 print:bg-white preview-pane">
            
            {/* Line Items Editor widget (Floating above preview logic-wise, but inline here) */}
-           <div className="w-[794px] mb-8 bg-[#1a1a2e] border border-white/10 p-6 rounded-2xl shadow-2xl print:hidden">
+           <div className="w-[794px] mb-8 bg-[#1a1a2e] border border-white/10 p-6 rounded-sm shadow-2xl print:hidden">
               <div className="flex justify-between items-center mb-4">
                 <h3 className="text-primary font-bold uppercase tracking-widest text-xs">Line Items Editor</h3>
                 <div className="flex items-center gap-2">
@@ -343,7 +343,7 @@ export default function InvoiceEditor({ billId, onClose }: { billId: number | nu
                      const p = products.find(prod => prod[0].toString() === id);
                      if(p) setItems([...items, { id: p[0], name: p[1], desc: p[2]||'', qty: p[4]||1, rate: p[3]||0 }]);
                      e.target.value = ''; // reset
-                   }} className="bg-black/50 border border-white/10 rounded px-3 py-1 text-xs text-white outline-none">
+                   }} className="bg-black/50 border border-white/10 rounded-sm px-3 py-1 text-xs text-white outline-none">
                      <option value="">+ From Catalogue</option>
                      {products.map((p: any) => {
                        const isService = p[7]?.toLowerCase() === 'service' || p[7]?.toLowerCase() === 'digital';
@@ -354,26 +354,26 @@ export default function InvoiceEditor({ billId, onClose }: { billId: number | nu
                        );
                      })}
                    </select>
-                   <button onClick={() => setItems([...items, {id: null, name:'', desc: '', qty: 1, rate: 0}])} className="bg-primary/20 text-primary px-3 py-1 rounded text-xs uppercase tracking-widest font-bold border border-primary/20 hover:bg-primary/30">+ Blank Row</button>
+                   <button onClick={() => setItems([...items, {id: null, name:'', desc: '', qty: 1, rate: 0}])} className="bg-primary/20 text-primary px-3 py-1 rounded-sm text-xs uppercase tracking-widest font-bold border border-primary/20 hover:bg-primary/30">+ Blank Row</button>
                 </div>
               </div>
               <div className="space-y-3">
                  {items.map((it, i) => (
-                   <div key={i} className="flex items-start gap-2 bg-black/20 p-2 rounded-lg border border-white/5">
+                   <div key={i} className="flex items-start gap-2 bg-black/20 p-2 rounded-sm border border-white/5">
                       <div className="flex-1 space-y-2">
                          <input value={it.name} onChange={e => { const updated = items.map((x, j) => j === i ? { ...x, name: e.target.value } : x); setItems(updated); }} placeholder="Item Name" className="w-full bg-transparent border-none text-white text-sm outline-none font-bold" />
                          <input value={it.desc} onChange={e => { const updated = items.map((x, j) => j === i ? { ...x, desc: e.target.value } : x); setItems(updated); }} placeholder="Description (Optional)" className="w-full bg-transparent border-none text-slate-400 text-xs outline-none" />
                       </div>
                       <div className="w-20">
-                         <input type="number" step="0.01" value={it.qty} onChange={e => { const updated = items.map((x, j) => j === i ? { ...x, qty: parseFloat(e.target.value)||0 } : x); setItems(updated); }} className="w-full bg-black/50 border border-white/10 text-center text-white py-1 rounded text-sm outline-none" />
+                         <input type="number" step="0.01" value={it.qty} onChange={e => { const updated = items.map((x, j) => j === i ? { ...x, qty: parseFloat(e.target.value)||0 } : x); setItems(updated); }} className="w-full bg-black/50 border border-white/10 text-center text-white py-1 rounded-sm text-sm outline-none" />
                       </div>
                       <div className="w-28">
-                         <input type="number" step="0.01" value={it.rate} onChange={e => { const updated = items.map((x, j) => j === i ? { ...x, rate: parseFloat(e.target.value)||0 } : x); setItems(updated); }} className="w-full bg-black/50 border border-white/10 text-right pr-2 text-white py-1 rounded text-sm outline-none" />
+                         <input type="number" step="0.01" value={it.rate} onChange={e => { const updated = items.map((x, j) => j === i ? { ...x, rate: parseFloat(e.target.value)||0 } : x); setItems(updated); }} className="w-full bg-black/50 border border-white/10 text-right pr-2 text-white py-1 rounded-sm text-sm outline-none" />
                       </div>
                       <div className="w-32 text-right pt-1.5 font-mono text-primary font-bold">
                          {form.currency} {(it.qty*it.rate).toLocaleString('en-IN', {minimumFractionDigits: 2})}
                       </div>
-                      <button onClick={() => { const u=[...items]; u.splice(i,1); setItems(u); }} className="text-red-400 p-1 hover:bg-red-400/10 rounded mt-0.5"><Trash2 size={16}/></button>
+                      <button onClick={() => { const u=[...items]; u.splice(i,1); setItems(u); }} className="text-red-400 p-1 hover:bg-red-400/10 rounded-sm mt-0.5"><Trash2 size={16}/></button>
                    </div>
                  ))}
               </div>
@@ -451,7 +451,7 @@ export default function InvoiceEditor({ billId, onClose }: { billId: number | nu
 
               {/* TOTALS */}
               <div className="flex justify-end mb-12">
-                 <div className="w-72 bg-slate-50 p-6 rounded-xl border border-slate-100">
+                 <div className="w-72 bg-slate-50 p-6 rounded-sm border border-slate-100">
                     <div className="flex justify-between text-sm mb-3 text-slate-600">
                        <span>Subtotal</span>
                        <span className="font-mono font-bold text-slate-800">{form.currency}{subtotal.toLocaleString('en-IN', {minimumFractionDigits: 2})}</span>
@@ -485,7 +485,7 @@ export default function InvoiceEditor({ billId, onClose }: { billId: number | nu
                       </div>
                     )}
                     {form.showBank && (
-                      <div className="bg-slate-50 p-4 border border-slate-100 rounded-lg text-xs space-y-1">
+                      <div className="bg-slate-50 p-4 border border-slate-100 rounded-sm text-xs space-y-1">
                          <div className="font-bold text-[10px] uppercase tracking-widest text-slate-400 mb-2">Bank Transfer Details</div>
                          <div className="flex"><span className="w-24 text-slate-500">Beneficiary</span><span className="font-bold text-slate-800">{form.bankName}</span></div>
                          <div className="flex"><span className="w-24 text-slate-500">Bank</span><span className="font-bold text-slate-800">{form.bankBankName}</span></div>
