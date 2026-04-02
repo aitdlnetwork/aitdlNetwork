@@ -91,7 +91,7 @@ function ERPRouter() {
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-xs font-display tracking-widest uppercase transition-all ${
+              className={`w-full flex items-center gap-3 px-4 py-3 rounded-sm text-xs font-display tracking-widest uppercase transition-all ${
                 activeTab === tab.id 
                   ? 'bg-primary/10 text-primary border border-primary/20 shadow-[0_0_15px_rgba(13,227,242,0.1)]' 
                   : 'text-slate-400 hover:text-white hover:bg-white/5 border border-transparent'
@@ -104,7 +104,7 @@ function ERPRouter() {
         </nav>
         
         <div className="p-4 border-t border-white/5 pb-8">
-           <button onClick={() => window.location.href = '/'} className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-[10px] font-display tracking-widest uppercase text-slate-500 hover:text-white hover:bg-white/5 transition-all border border-transparent">
+           <button onClick={() => window.location.href = '/'} className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-sm text-[10px] font-display tracking-widest uppercase text-slate-500 hover:text-white hover:bg-white/5 transition-all border border-transparent">
               <span className="material-symbols-outlined text-[14px]">arrow_back</span>
               Exit to AITDL Home
            </button>

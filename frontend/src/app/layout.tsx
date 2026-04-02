@@ -62,6 +62,9 @@ export default function RootLayout({
         {/* ERPEngine: WASM Glue Layer — Pre-loaded for Sovereign Engine Speed */}
         <Script src="/sql-wasm.js" strategy="beforeInteractive" />
         
+        {/* PWA: Application Manifest — Triggers 'Install App' prompt on all browsers */}
+        <link rel="manifest" href="/manifest.webmanifest" />
+        
         {/* SEO Preconnect */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
@@ -229,8 +232,9 @@ export default function RootLayout({
           {/* Runtime Watermarks & Fingerprinting scripts */}
           <script dangerouslySetInnerHTML={{
             __html: `
-              // 2. RUNTIME WATERMARK (ANTI-COPY PSYCHOLOGY)
-              (function () {
+
+              if (active) {
+                // 2. RUNTIME WATERMARK (ANTI-COPY PSYCHOLOGY)
                 const watermark = document.createElement('div');
                 watermark.innerText = "AITDL Network";
                 watermark.style.position = "fixed";

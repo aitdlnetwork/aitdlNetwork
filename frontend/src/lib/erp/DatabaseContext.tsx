@@ -110,6 +110,14 @@ export const ERPDatabaseProvider: React.FC<{ children: React.ReactNode }> = ({ c
         database.run(`CREATE TABLE IF NOT EXISTS purchases (id INTEGER PRIMARY KEY AUTOINCREMENT, vendor_id INTEGER, doc_date TEXT, total_amount REAL, tax_amount REAL, status TEXT, created_at TEXT DEFAULT (datetime('now')))`);
         database.run(`CREATE TABLE IF NOT EXISTS ledger (id INTEGER PRIMARY KEY AUTOINCREMENT, entity_type TEXT, entity_id INTEGER, item_name TEXT, qty REAL, rate REAL, amount REAL, type TEXT, doc_type TEXT, doc_id INTEGER, created_at TEXT DEFAULT (datetime('now')))`);
 
+        // DIAGNOSTICS: Verify engine is healthy
+        try {
+          const res = database.exec("SELECT name FROM sqlite_master WHERE type='table'");
+          console.table(res[0]?.values?.map(v => ({ TableName: v[0] })) || []);
+        } catch(e) { 
+          console.warn("ERPEngine: Schema verification log failed", e); 
+        }
+
         if (active) {
           setDb(database);
           setBootStatus('Engine is Online');
