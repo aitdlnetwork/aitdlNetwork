@@ -1,9 +1,9 @@
-# AITDL Micro-ERP 
+# AITDL SmritiERP 
 
 A sovereign, offline-first Enterprise Resource Planning engine built directly into the browser. 
 
 ## Architectural Overview
-Unlike traditional web-based ERP systems (which rely on a Node.js/Python backend and an external Postgres/MySQL database), the **AITDL Micro-ERP runs entirely client-side.**
+Unlike traditional web-based ERP systems (which rely on a Node.js/Python backend and an external Postgres/MySQL database), the **AITDL SmritiERP runs entirely client-side.**
 
 It leverages **sql.js (SQLite WebAssembly)** to compile a C-based SQL database engine directly into the browser. 
 - **Zero Latency:** Queries execute instantly since there is no network round-trip.

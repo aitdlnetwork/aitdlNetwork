@@ -9,7 +9,7 @@ Contact: aitdlnetwork@outlook.com | jawahar.mallah@gmail.com
 
 import dynamic from 'next/dynamic';
 
-const MicroErpApp = dynamic(() => import('./MicroErpShell'), { 
+const SmritiErpApp = dynamic(() => import('./SmritiErpShell'), { 
   ssr: false,
   loading: () => (
     <div className="min-h-screen bg-[#0b0c16] flex flex-col items-center justify-center text-slate-400 font-display uppercase tracking-widest">
@@ -19,6 +19,6 @@ const MicroErpApp = dynamic(() => import('./MicroErpShell'), {
   )
 });
 
-export default function MicroErpClient() {
-  return <MicroErpApp />;
+export default function SmritiErpClient() {
+  return <SmritiErpApp />;
 }

@@ -1,6 +1,6 @@
-# AITDL Micro-ERP: Database Expansion & Migration Guide
+# AITDL SmritiERP: Database Expansion & Migration Guide
 
-The AITDL Micro-ERP uses a **Sovereign WASM Engine** (sql.js). The database is generated entirely in the client's browser, and its binary data is persisted as a Base64-encoded string in the browser's `localStorage` (`billforge_erp_db`). 
+The AITDL SmritiERP uses a **Sovereign WASM Engine** (sql.js). The database is generated entirely in the client's browser, and its binary data is persisted as a Base64-encoded string in the browser's `localStorage` (`billforge_erp_db`). 
 
 Because user data never touches a central cloud server, **you cannot run traditional database migrations via a backend script.** 
 

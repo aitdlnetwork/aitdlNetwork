@@ -24,7 +24,7 @@ function ManualPanel() {
       title: 'Getting Started',
       icon: '🚀',
       items: [
-        { q: 'What is AITDL Micro-ERP?', a: 'A sovereign, offline-first ERP engine that runs entirely inside your browser using a WebAssembly SQLite engine. No server. No cloud. Your data never leaves your device.' },
+        { q: 'What is AITDL SmritiERP?', a: 'A sovereign, offline-first ERP engine that runs entirely inside your browser using a WebAssembly SQLite engine. No server. No cloud. Your data never leaves your device.' },
         { q: 'How is data stored?', a: 'All data is persisted in your browser\'s LocalStorage as a compressed SQLite binary. Use the Export function in Business Profile to create portable backups (.sqlite).' },
         { q: 'How do I back up my data?', a: 'Navigate to Business Profile → click "Export Database". This downloads a dated .sqlite file you can keep offline or import back later.' },
       ]
@@ -85,7 +85,7 @@ function ManualPanel() {
       {/* Header */}
       <div className="border-l-4 border-primary pl-6 py-2">
         <h2 className="text-2xl font-display font-black text-white uppercase tracking-tighter">User Manual</h2>
-        <p className="text-slate-500 text-xs font-display tracking-widest uppercase">AITDL Micro-ERP Engine — Quick Reference Guide</p>
+        <p className="text-slate-500 text-xs font-display tracking-widest uppercase">SMRITIERP Core — Quick Reference Guide</p>
       </div>
 
       {/* Architect card */}
@@ -179,7 +179,7 @@ function DashboardStats() {
     <div className="p-8 space-y-8 animate-fadeIn">
        <div className="border-l-4 border-primary pl-6 py-2">
           <h2 className="text-2xl font-display font-black text-white uppercase tracking-tighter">Sovereign Workspace Overview</h2>
-          <p className="text-slate-500 text-xs font-display tracking-widest uppercase">AITDL Micro-ERP Engine v1.5 // Private Ledger Online</p>
+          <p className="text-slate-500 text-xs font-display tracking-widest uppercase">AITDL SMRITIERP v1.5 // Sovereign Memory Core</p>
        </div>
 
        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -289,9 +289,8 @@ function ERPRouter() {
 
   return (
     <div className={`flex h-screen bg-background-dark text-slate-300 font-body overflow-hidden ${focusMode ? 'fixed inset-0 z-[9999]' : ''}`}>
-      {/* Sidebar - Hidden in Focus Mode OR when collapsed */}
-      {!focusMode && (
-        <div className={`bg-[#12122a] border-r border-white/5 flex flex-col pt-6 transition-all duration-300 ease-in-out ${sidebarOpen ? 'w-64' : 'w-0 overflow-hidden opacity-0 invisible'}`}>
+      {/* Sidebar - Always visible, even in Focus Mode (unless explicitly collapsed) */}
+      <div className={`bg-[#12122a] border-r border-white/5 flex flex-col pt-6 transition-all duration-300 ease-in-out ${sidebarOpen ? 'w-64' : 'w-0 overflow-hidden opacity-0 invisible'}`}>
           <div className="px-6 mb-8 flex items-center gap-3 group px-4">
             <div className="size-8 text-primary group-hover:scale-110 group-hover:rotate-[10deg] transition-all">
               <svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
@@ -299,7 +298,7 @@ function ERPRouter() {
               </svg>
             </div>
             <div className="whitespace-nowrap">
-              <div className="font-display font-black text-sm tracking-widest text-white uppercase group-hover:text-primary transition-colors">Micro-ERP</div>
+              <div className="font-display font-black text-sm tracking-widest text-white uppercase group-hover:text-primary transition-colors">SMRITI<span className="text-primary opacity-80 group-hover:opacity-100 transition-opacity">ERP</span></div>
               <div className="text-[9px] font-display uppercase tracking-[0.2em] text-slate-500">Private Workspace</div>
             </div>
           </div>
@@ -334,25 +333,22 @@ function ERPRouter() {
             </button>
           </div>
         </div>
-      )}
 
       {/* Main Content Area */}
       <div className="flex-1 flex flex-col bg-[#0b0c16] relative overflow-hidden bg-mesh">
         <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-transparent pointer-events-none opacity-50"></div>
         
-        {/* Header - Hidden in Focus Mode unless specifically needed */}
-        {!focusMode && (
-          <div className="h-16 border-b border-white/5 flex items-center px-8 flex-shrink-0 z-10 bg-background-dark/50 backdrop-blur-md gap-4">
-            <button 
-              onClick={() => setSidebarOpen(!sidebarOpen)}
-              className="p-2 rounded-sm bg-white/5 border border-white/10 text-slate-400 hover:text-white hover:bg-white/10 transition-all group"
-              title={sidebarOpen ? "Hide Sidebar" : "Show Sidebar"}
-            >
-              <ChevronLeft size={18} className={`transition-transform duration-300 ${sidebarOpen ? '' : 'rotate-180'}`} />
-            </button>
-            <h1 className="font-display font-bold text-lg text-white uppercase tracking-wider">{tabs.find(t => t.id === activeTab)?.label}</h1>
-          </div>
-        )}
+        {/* Header - Always visible to provide the Sidebar Toggle and active panel title */}
+        <div className="h-16 border-b border-white/5 flex items-center px-8 flex-shrink-0 z-10 bg-background-dark/50 backdrop-blur-md gap-4">
+          <button 
+            onClick={() => setSidebarOpen(!sidebarOpen)}
+            className="p-2 rounded-sm bg-white/5 border border-white/10 text-slate-400 hover:text-white hover:bg-white/10 transition-all group"
+            title={sidebarOpen ? "Hide Sidebar" : "Show Sidebar"}
+          >
+            <ChevronLeft size={18} className={`transition-transform duration-300 ${sidebarOpen ? '' : 'rotate-180'}`} />
+          </button>
+          <h1 className="font-display font-bold text-lg text-white uppercase tracking-wider">{tabs.find(t => t.id === activeTab)?.label}</h1>
+        </div>
 
         {/* Focus Mode Overlay Indicator (Subtle) */}
         {focusMode && (
@@ -376,7 +372,7 @@ function ERPRouter() {
   );
 }
 
-export default function MicroErpShell() {
+export default function SmritiErpShell() {
   return (
     <ERPDatabaseProvider>
       <ERPRouter />

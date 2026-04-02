@@ -127,7 +127,7 @@ export default function BusinessProfile() {
               <div className="space-y-3 md:col-span-2">
               <div className="bg-white/5 border border-white/10 p-6 rounded-sm italic">
                 <p className="text-slate-400 text-xs leading-relaxed">
-                  The AITDL Micro-ERP operates on a &quot;Zero-Knowledge&quot; model. We do not sync, track, or possess your database. Use the tools below to manage your data portability. Your business is your own—not our cloud.&quot;
+                  The AITDL SmritiERP operates on a &quot;Zero-Knowledge&quot; model. We do not sync, track, or possess your database. Use the tools below to manage your data portability. Your business is your own—not our cloud.&quot;
                 </p>
               </div>
                  <div className="flex items-center gap-6">

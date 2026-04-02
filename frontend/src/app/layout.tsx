@@ -222,7 +222,7 @@ export default function RootLayout({
               </div>
               
               <Header />
-              <main className="flex-1 w-full z-10 relative">
+              <main className="flex-1 w-full relative">
                 {children}
               </main>
               <Footer />
