@@ -10,7 +10,7 @@ Contact: aitdlnetwork@outlook.com | jawahar.mallah@gmail.com
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { translations, TranslationDict } from './translations';
 
-export type Language = 'en' | 'hi' | 'sa';
+export type Language = 'en' | 'hi' | 'sa' | 'mr' | 'gu' | 'pa' | 'ta' | 'te';
 
 interface I18nContextProps {
   language: Language;
@@ -27,7 +27,7 @@ export function I18nProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const saved = localStorage.getItem('aitdl_lang') as Language;
-      if (saved && ['en', 'hi', 'sa'].includes(saved)) {
+      if (saved && ['en', 'hi', 'sa', 'mr', 'gu', 'pa', 'ta', 'te'].includes(saved)) {
         setTimeout(() => setLanguageState(saved), 0);
       }
     }

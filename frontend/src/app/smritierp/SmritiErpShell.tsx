@@ -9,13 +9,26 @@ Contact: aitdlnetwork@outlook.com | jawahar.mallah@gmail.com
 
 import React, { useState, useEffect } from 'react';
 import { ERPDatabaseProvider, useERPDatabase } from '@/lib/erp/DatabaseContext';
-import { Settings, FileText, Users, Box, HardDrive, ShoppingCart, AlertCircle, RefreshCw, ChevronLeft, BookOpen, Book } from 'lucide-react';
+import { useI18n } from '@/lib/i18n/I18nContext';
+import { Settings, FileText, Users, Box, HardDrive, ShoppingCart, AlertCircle, RefreshCw, ChevronLeft, BookOpen, Book, MessageSquare, Clock, CheckCircle, XCircle, Trash2, Heart, Lightbulb, Flag, Calendar } from 'lucide-react';
 import BusinessProfile from './components/BusinessProfile';
 import ClientsPanel from './components/ClientsPanel';
 import ProductsPanel from './components/ProductsPanel';
 import SalesPanel from './components/SalesPanel';
 import PurchasesPanel from './components/PurchasesPanel';
 import LedgerPanel from './components/LedgerPanel';
+import TaskModal from './components/TaskModal';
+
+const quotes = [
+  "Action is the foundational key to all success. — Pablo Picasso",
+  "The secret of getting ahead is getting started. — Mark Twain",
+  "Success is not final; failure is not fatal: It is the courage to continue that counts.",
+  "Don't count the days, make the days count. — Muhammad Ali",
+  "Your time is limited, don't waste it living someone else's life. — Steve Jobs",
+  "Udyamena hi sidhyanti karyani na manorathaih. — Sanskrit Proverb",
+  "Business is the art of extracting money from the pocket of another.",
+  "Great things are done by a series of small things brought together. — Vincent Van Gogh"
+];
 
 // ─── Manual Panel ───────────────────────────────────────────────────────────
 function ManualPanel() {
@@ -84,7 +97,7 @@ function ManualPanel() {
     <div className="p-8 max-w-4xl mx-auto space-y-8 animate-fadeIn">
       {/* Header */}
       <div className="border-l-4 border-primary pl-6 py-2">
-        <h2 className="text-2xl font-display font-black text-white uppercase tracking-tighter">User Manual</h2>
+        <h2 className="text-2xl font-display font-black text-white uppercase tracking-tighter">SmritiERP User Manual</h2>
         <p className="text-slate-500 text-xs font-display tracking-widest uppercase">SMRITIERP Core — Quick Reference Guide</p>
       </div>
 
@@ -216,11 +229,32 @@ function DashboardStats() {
 }
 
 function ERPRouter() {
-  const { isReady, bootStatus, error, db } = useERPDatabase();
+  const { t } = useI18n();
+  const { isReady, bootStatus, error, db, persistDB } = useERPDatabase();
   const [activeTab, setActiveTab] = useState('dashboard');
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [focusMode, setFocusMode] = useState(false);
-  const [hotkey, setHotkey] = useState('k'); // Default shortcut: Ctrl+K or k
+  const [hotkey, setHotkey] = useState('k');
+  const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
+
+  // PWA Install Listener
+  useEffect(() => {
+    const handler = (e: any) => {
+      e.preventDefault();
+      setDeferredPrompt(e);
+    };
+    window.addEventListener('beforeinstallprompt', handler);
+    return () => window.removeEventListener('beforeinstallprompt', handler);
+  }, []);
+
+  const handleInstall = async () => {
+    if (!deferredPrompt) return;
+    deferredPrompt.prompt();
+    const { outcome } = await deferredPrompt.userChoice;
+    if (outcome === 'accepted') {
+      setDeferredPrompt(null);
+    }
+  };
 
   // Load configuration from SQLite
   useEffect(() => {
@@ -234,7 +268,96 @@ function ERPRouter() {
     } catch(e) { console.error(e); }
   }, [db]);
 
-  // Global Hotkey Listener
+  // ─── SmritiNotes State & Logic ─────────────────────────────────────────────
+  const [notes, setNotes] = useState<any[]>([]);
+  const [noteInput, setNoteInput] = useState('');
+  const [quote, setQuote] = useState(quotes[0]);
+  const [isTaskModalOpen, setIsTaskModalOpen] = useState(false);
+  const [editingTask, setEditingTask] = useState<any>(null);
+
+  const fetchNotes = () => {
+    if (!db || !isReady) return;
+    try {
+      const res = db.exec("SELECT id, content, priority, due_date, category, description, status, created_at FROM smriti_notes ORDER BY created_at DESC LIMIT 20");
+      if (res[0]) {
+        const rows = res[0].values.map(v => ({
+          id: v[0],
+          content: v[1],
+          priority: v[2],
+          due_date: v[3],
+          category: v[4],
+          description: v[5],
+          status: v[6],
+          created_at: v[7]
+        }));
+        setNotes(rows);
+      } else {
+        setNotes([]);
+      }
+    } catch(e) { console.error("Notes fetch error:", e); }
+  };
+
+  useEffect(() => {
+    fetchNotes();
+    // Rotate quote
+    setQuote(quotes[Math.floor(Math.random() * quotes.length)]);
+  }, [db, isReady]);
+
+  const addNote = () => {
+    if (!noteInput.trim() || !db) return;
+    try {
+      db.run("INSERT INTO smriti_notes (content, status) VALUES (?, 'pending')", [noteInput]);
+      setNoteInput('');
+      fetchNotes();
+      persistDB();
+    } catch(e) { console.error(e); }
+  };
+
+  const cycleStatus = (id: number, current: string) => {
+    if (!db) return;
+    const flow = ['pending', 'in_process', 'completed', 'void'];
+    const next = flow[(flow.indexOf(current) + 1) % flow.length];
+    try {
+      db.run("UPDATE smriti_notes SET status=?, updated_at=datetime('now') WHERE id=?", [next, id]);
+      fetchNotes();
+      persistDB();
+    } catch(e) { console.error(e); }
+  };
+
+  const deleteNote = (id: number) => {
+    if (!db || !confirm("Delete task?")) return;
+    try {
+      db.run("DELETE FROM smriti_notes WHERE id=?", [id]);
+      fetchNotes();
+      persistDB();
+    } catch(e) { console.error(e); }
+  };
+
+  const saveTask = (form: any) => {
+    if (!db || !form.content.trim()) return;
+    try {
+      if (editingTask) {
+        db.run(
+          "UPDATE smriti_notes SET content=?, description=?, priority=?, due_date=?, category=?, updated_at=datetime('now') WHERE id=?",
+          [form.content, form.description, form.priority, form.due_date, form.category, editingTask.id]
+        );
+      } else {
+        db.run(
+          "INSERT INTO smriti_notes (content, description, priority, due_date, category, status) VALUES (?, ?, ?, ?, ?, 'pending')",
+          [form.content, form.description, form.priority, form.due_date, form.category]
+        );
+      }
+      fetchNotes();
+      persistDB();
+    } catch(e) { console.error(e); }
+  };
+
+  const openTaskModal = (task?: any) => {
+    setEditingTask(task || null);
+    setIsTaskModalOpen(true);
+  };
+
+  // ─── Global Hotkey Listener ─────────────────────────────────────────────
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       // Trigger if key matches (case insensitive) and not in an input field
@@ -276,16 +399,21 @@ function ERPRouter() {
     );
   }
 
-  const tabs = [
-    { id: 'dashboard', label: 'Overview', icon: HardDrive },
-    { id: 'sales', label: 'Sales & Invoices', icon: FileText },
-    { id: 'purchases', label: 'Purchases', icon: ShoppingCart },
-    { id: 'inventory', label: 'Inventory Master', icon: Box },
-    { id: 'clients', label: 'CRM / Entities', icon: Users },
-    { id: 'ledger', label: 'Ledger & Reports', icon: Book },
-    { id: 'settings', label: 'Business Profile', icon: Settings },
-    { id: 'manual', label: 'Manual', icon: BookOpen },
+  const businessTabs = [
+    { id: 'dashboard', label: t('erp_overview'), icon: HardDrive },
+    { id: 'sales', label: t('erp_sales'), icon: FileText },
+    { id: 'purchases', label: t('erp_purchases'), icon: ShoppingCart },
+    { id: 'inventory', label: t('erp_inventory'), icon: Box },
+    { id: 'clients', label: t('erp_crm'), icon: Users },
+    { id: 'ledger', label: t('erp_ledger'), icon: Book },
   ];
+
+  const systemTabs = [
+    { id: 'settings', label: t('erp_settings'), icon: Settings },
+    { id: 'manual', label: t('erp_manual'), icon: BookOpen },
+  ];
+
+  const allTabs = [...businessTabs, ...systemTabs];
 
   return (
     <div className={`flex h-screen bg-background-dark text-slate-300 font-body overflow-hidden ${focusMode ? 'fixed inset-0 z-[9999]' : ''}`}>
@@ -299,40 +427,148 @@ function ERPRouter() {
             </div>
             <div className="whitespace-nowrap">
               <div className="font-display font-black text-sm tracking-widest text-white uppercase group-hover:text-primary transition-colors">SMRITI<span className="text-primary opacity-80 group-hover:opacity-100 transition-opacity">ERP</span></div>
-              <div className="text-[9px] font-display uppercase tracking-[0.2em] text-slate-500">Private Workspace</div>
+              <div className="text-[9px] font-display uppercase tracking-[0.2em] text-slate-500">{t('erp_private_workspace')}</div>
             </div>
           </div>
 
-          <nav className="flex-1 px-4 space-y-2 overflow-y-auto overflow-x-hidden">
-            {tabs.map(tab => (
-              <button
-                key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
-                className={`w-full flex items-center gap-3 px-4 py-3 rounded-sm text-xs font-display tracking-widest uppercase transition-all whitespace-nowrap ${
-                  activeTab === tab.id 
-                    ? 'bg-primary/10 text-primary border border-primary/20 shadow-[0_0_15px_rgba(13,227,242,0.1)]' 
-                    : 'text-slate-400 hover:text-white hover:bg-white/5 border border-transparent'
-                }`}
-              >
-                <tab.icon size={16} className="shrink-0" />
-                {tab.label}
-              </button>
-            ))}
+          <nav className="flex-1 overflow-y-auto no-scrollbar scroll-smooth">
+            {/* Business Modules Section */}
+            <div className="px-4 py-2">
+              <div className="text-[8px] font-black text-slate-500 uppercase tracking-[0.2em] px-4 mb-2">{t('erp_sidebar_workspace')}</div>
+              <div className="space-y-1">
+                {businessTabs.map(tab => (
+                  <button
+                    key={tab.id}
+                    onClick={() => setActiveTab(tab.id)}
+                    className={`w-full flex items-center gap-3 px-4 py-2.5 rounded-sm text-[10px] font-display tracking-widest uppercase transition-all whitespace-nowrap ${
+                      activeTab === tab.id 
+                        ? 'bg-primary/10 text-primary border border-primary/20' 
+                        : 'text-slate-400 hover:text-white hover:bg-white/5 border border-transparent'
+                    }`}
+                  >
+                    <tab.icon size={14} className="shrink-0" />
+                    {tab.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Daily Focus / Tasks Section - ELEVATED */}
+            <div className="px-4 py-4 border-t border-white/5">
+              <div className="text-[8px] font-black text-slate-500 uppercase tracking-[0.2em] px-4 mb-3 flex items-center justify-between">
+                {t('erp_sidebar_focus')}
+                <div className="size-1.5 rounded-full bg-primary animate-pulse" />
+              </div>
+              
+              <div className="mx-2 rounded-sm border border-white/5 bg-[#0f0f1d]/50 overflow-hidden">
+                <div className="p-2 space-y-2">
+                  <button 
+                    onClick={() => openTaskModal()}
+                    className="w-full flex items-center justify-center gap-2 px-3 py-2 bg-primary/10 text-primary border border-primary/20 rounded-sm hover:bg-primary hover:text-background-dark transition-all group"
+                  >
+                    <Flag size={14} className="group-hover:animate-bounce" />
+                    <span className="text-[10px] font-black uppercase tracking-widest">{t('erp_task_modal_title')}</span>
+                  </button>
+
+                  <div className="space-y-1.5 max-h-[180px] overflow-y-auto no-scrollbar pt-1">
+                    {notes.map(n => (
+                      <div key={n.id} className="group relative flex items-start gap-2 p-2 rounded-sm bg-white/5 border border-white/5 hover:border-primary/20 hover:bg-primary/[0.02] transition-all cursor-pointer overflow-hidden">
+                        <div className={`absolute top-0 left-0 w-0.5 h-full ${
+                          n.priority === 'urgent' ? 'bg-red-500' :
+                          n.priority === 'high' ? 'bg-amber-500' :
+                          n.priority === 'medium' ? 'bg-blue-400' : 'bg-slate-500'
+                        }`} />
+                        <button onClick={(e) => { e.stopPropagation(); cycleStatus(n.id, n.status); }} className={`mt-0.5 shrink-0 transition-colors ${n.status === 'completed' ? 'text-green-500' : n.status === 'in_process' ? 'text-blue-400' : n.status === 'void' ? 'text-red-500' : 'text-slate-500 hover:text-slate-300'}`}>
+                           {n.status === 'completed' ? <CheckCircle size={10} /> : n.status === 'in_process' ? <Clock size={10} /> : n.status === 'void' ? <XCircle size={10} /> : <div className="size-2.5 border-2 border-current rounded-full" />}
+                        </button>
+                        <div className="flex-1 min-w-0" onClick={() => openTaskModal(n)}>
+                          <p className={`text-[10px] font-bold leading-tight break-words ${n.status === 'completed' ? 'line-through text-slate-500 opacity-50' : 'text-slate-300'}`}>{n.content}</p>
+                          {n.category && <div className="text-[7px] text-primary/40 uppercase font-black tracking-widest mt-0.5 flex items-center gap-1"><div className="size-1 rounded-full bg-primary/20" /> {t(('erp_category_' + n.category) as any)}</div>}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* System Section */}
+            <div className="px-4 py-2 border-t border-white/5">
+              <div className="text-[8px] font-black text-slate-500 uppercase tracking-[0.2em] px-4 mb-2">{t('erp_sidebar_system')}</div>
+              <div className="space-y-1">
+                {systemTabs.map(tab => (
+                  <button
+                    key={tab.id}
+                    onClick={() => setActiveTab(tab.id)}
+                    className={`w-full flex items-center gap-3 px-4 py-2.5 rounded-sm text-[10px] font-display tracking-widest uppercase transition-all whitespace-nowrap ${
+                      activeTab === tab.id 
+                        ? 'bg-primary/10 text-primary border border-primary/20' 
+                        : 'text-slate-400 hover:text-white hover:bg-white/5 border border-transparent'
+                    }`}
+                  >
+                    <tab.icon size={14} className="shrink-0" />
+                    {tab.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Daily Quote Card */}
+            <div className="px-4 py-6 mt-auto">
+              <div className="p-3 rounded-sm bg-gradient-to-br from-primary/10 to-transparent border border-primary/20 relative overflow-hidden group">
+                <div className="absolute -right-2 -bottom-2 text-primary/10 group-hover:scale-150 transition-transform">
+                  <Lightbulb size={32} />
+                </div>
+                <div className="text-[7px] text-primary/60 uppercase tracking-[0.2em] font-black mb-1 flex items-center gap-1">
+                   <div className="size-1 bg-primary animate-pulse" /> {t('erp_quote_title' as any)}
+                </div>
+                <p className="text-[9px] text-slate-400 leading-relaxed italic font-body">
+                  &ldquo;{quote}&rdquo;
+                </p>
+              </div>
+            </div>
           </nav>
           
-          <div className="p-4 border-t border-white/5 pb-8 space-y-3">
-            {/* Architect credit */}
-            <div className="px-2 py-3 rounded-sm bg-primary/5 border border-primary/10">
-              <div className="text-[8px] text-slate-600 uppercase tracking-widest font-bold mb-1">System Architect</div>
-              <div className="text-[11px] text-white font-display font-black tracking-wide truncate">Jawahar R Mallah</div>
-              <div className="text-[8px] text-primary/60 tracking-wider truncate">AITDL Network</div>
+          {/* Sidebar Footer */}
+          <div className="p-4 border-t border-white/5 space-y-3 bg-[#0a0a1a]">
+            {deferredPrompt && (
+              <button onClick={handleInstall} className="w-full flex items-center gap-3 p-3 rounded-sm bg-primary border border-primary/20 hover:scale-[1.02] transition-all">
+                <div className="size-8 bg-background-dark/20 rounded-sm flex items-center justify-center text-background-dark">
+                  <span className="material-symbols-outlined text-[18px]">install_desktop</span>
+                </div>
+                <div className="text-left">
+                  <div className="text-[9px] text-background-dark font-black uppercase tracking-widest leading-none mb-1">{t('erp_install_title')}</div>
+                  <div className="text-[7px] text-background-dark/70 font-bold uppercase tracking-widest leading-none">Offline Access</div>
+                </div>
+              </button>
+            )}
+
+            <div className="flex gap-2">
+              <div className="flex-1 px-3 py-2 rounded-sm bg-white/3 border border-white/5 overflow-hidden">
+                <div className="text-[7px] text-slate-600 uppercase tracking-widest font-bold mb-0.5">{t('erp_architect_title')}</div>
+                <div className="text-[10px] text-white font-display font-black tracking-wide truncate">Jawahar R Mallah</div>
+              </div>
+              <button onClick={() => window.location.href = '/'} className="size-10 flex items-center justify-center rounded-sm bg-white/5 text-slate-500 hover:text-white hover:bg-white/10 transition-all border border-white/10" title={t('erp_exit_home')}>
+                  <span className="material-symbols-outlined text-[18px]">logout</span>
+              </button>
             </div>
-            <button onClick={() => window.location.href = '/'} className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-sm text-[10px] font-display tracking-widest uppercase text-slate-500 hover:text-white hover:bg-white/5 transition-all border border-transparent">
-                <span className="material-symbols-outlined text-[14px]">arrow_back</span>
-                Exit to AITDL Home
-            </button>
+
+            <div className="pt-1 flex flex-col items-center">
+               <div className="flex items-center gap-2 mb-1 group">
+                 <div className="size-4 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center text-[8px] group-hover:rotate-[360deg] transition-transform duration-1000">🇮🇳</div>
+                 <span className="text-[8px] font-display font-black uppercase tracking-[0.2em] text-slate-600 group-hover:text-primary transition-colors">{t('erp_made_for_bharat')}</span>
+               </div>
+               <div className="text-[6px] text-slate-700 uppercase tracking-[0.2em]">Sovereign Node v1.5</div>
+            </div>
           </div>
         </div>
+
+        <TaskModal 
+          isOpen={isTaskModalOpen} 
+          onClose={() => setIsTaskModalOpen(false)} 
+          onSave={saveTask} 
+          editingTask={editingTask} 
+        />
 
       {/* Main Content Area */}
       <div className="flex-1 flex flex-col bg-[#0b0c16] relative overflow-hidden bg-mesh">
@@ -347,7 +583,7 @@ function ERPRouter() {
           >
             <ChevronLeft size={18} className={`transition-transform duration-300 ${sidebarOpen ? '' : 'rotate-180'}`} />
           </button>
-          <h1 className="font-display font-bold text-lg text-white uppercase tracking-wider">{tabs.find(t => t.id === activeTab)?.label}</h1>
+          <h1 className="font-display font-bold text-lg text-white uppercase tracking-wider">{allTabs.find(t => t.id === activeTab)?.label}</h1>
         </div>
 
         {/* Focus Mode Overlay Indicator (Subtle) */}

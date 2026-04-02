@@ -10,6 +10,7 @@ Contact: aitdlnetwork@outlook.com | jawahar.mallah@gmail.com
 import React, { useEffect, useState, useCallback } from 'react';
 import { useERPDatabase } from '@/lib/erp/DatabaseContext';
 import { Plus, Search, FileText, Trash2, Edit2 } from 'lucide-react';
+import { useI18n } from '@/lib/i18n/I18nContext';
 import InvoiceEditor from './InvoiceEditor';
 
 interface Bill {
@@ -25,6 +26,7 @@ interface Bill {
 }
 
 export default function SalesPanel() {
+  const { t } = useI18n();
   const { db, persistDB } = useERPDatabase();
   const [bills, setBills] = useState<Bill[]>([]);
   const [search, setSearch] = useState('');
@@ -143,31 +145,31 @@ export default function SalesPanel() {
 
   return (
     <div className="p-8 max-w-6xl mx-auto space-y-6 animate-fadeIn">
-      <div className="flex items-center justify-between">
+      <div className="flex justify-between items-end border-b border-white/5 pb-6">
         <div>
-          <h2 className="text-2xl font-display font-bold text-white mb-2">Sales & Invoicing</h2>
-          <p className="text-slate-400 text-sm">Create quotations, generate invoices, and track revenue.</p>
+           <h2 className="text-2xl font-display font-black text-white uppercase tracking-tighter">{t('erp_sales_title')}</h2>
+           <p className="text-slate-500 text-xs font-display tracking-widest uppercase">{t('erp_sales_subtitle')}</p>
         </div>
         <button onClick={createNewBill} className="bg-primary text-background-dark font-bold px-4 py-2 rounded-sm flex items-center gap-2 hover:bg-primary/90">
-          <Plus size={16} /> New Document
+          <Plus size={16} /> {t('erp_sales_new_doc')}
         </button>
       </div>
 
       <div className="grid grid-cols-4 gap-4">
         <div className="bg-white/5 border border-white/10 p-4 rounded-sm">
-          <div className="text-xs text-slate-500 uppercase tracking-widest font-bold mb-1">Total Docs</div>
+          <div className="text-xs text-slate-500 uppercase tracking-widest font-bold mb-1">{t('erp_sales_total_docs')}</div>
           <div className="text-2xl font-display text-white">{totalBills}</div>
         </div>
         <div className="bg-white/5 border border-white/10 p-4 rounded-sm">
-          <div className="text-xs text-slate-500 uppercase tracking-widest font-bold mb-1">Paid Docs</div>
+          <div className="text-xs text-slate-500 uppercase tracking-widest font-bold mb-1">{t('erp_sales_paid_docs')}</div>
           <div className="text-2xl font-display text-white">{paidBills}</div>
         </div>
         <div className="bg-white/5 border border-white/10 p-4 rounded-sm">
-          <div className="text-xs text-slate-500 uppercase tracking-widest font-bold mb-1">Collected Revenue</div>
+          <div className="text-xs text-slate-500 uppercase tracking-widest font-bold mb-1">{t('erp_sales_collected_rev')}</div>
           <div className="text-2xl font-display text-primary">₹{revenue.toLocaleString('en-IN', {minimumFractionDigits: 2})}</div>
         </div>
         <div className="bg-white/5 border border-white/10 p-4 rounded-sm">
-          <div className="text-xs text-slate-500 uppercase tracking-widest font-bold mb-1">Pending Dues</div>
+          <div className="text-xs text-slate-500 uppercase tracking-widest font-bold mb-1">{t('erp_sales_pending_dues')}</div>
           <div className="text-2xl font-display text-red-400">₹{pending.toLocaleString('en-IN', {minimumFractionDigits: 2})}</div>
         </div>
       </div>

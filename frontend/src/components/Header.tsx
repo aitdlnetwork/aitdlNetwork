@@ -25,8 +25,13 @@ export default function Header() {
 
   const langLabels: Record<Language, { label: string; flag: string }> = {
     en: { label: "EN", flag: "🇬🇧" },
-    hi: { label: "हिन्दी", flag: "🇮🇳" },
-    sa: { label: "संस्कृतम्", flag: "🔱" }
+    hi: { label: "HI", flag: "🇮🇳" },
+    sa: { label: "SA", flag: "🇮🇳" },
+    mr: { label: "MR", flag: "🇮🇳" },
+    gu: { label: "GU", flag: "🇮🇳" },
+    pa: { label: "PA", flag: "🇮🇳" },
+    ta: { label: "TA", flag: "🇮🇳" },
+    te: { label: "TE", flag: "🇮🇳" }
   };
 
   React.useEffect(() => {
@@ -132,17 +137,73 @@ export default function Header() {
               </button>
             </div>
 
-            <div className="flex items-center bg-white/5 border border-white/10 rounded-lg overflow-hidden font-display text-[9px] font-black tracking-widest uppercase">
-              {(Object.keys(langLabels) as Language[]).map((lang, idx) => (
-                <button 
-                  key={lang} 
-                  onClick={() => setLanguage(lang)} 
-                  className={`px-3 py-1.5 transition-colors ${idx < Object.keys(langLabels).length - 1 ? 'border-r border-white/10' : ''} ${language === lang ? 'bg-primary text-background-dark' : 'text-slate-400 hover:text-primary'}`}
-                  aria-label={`Switch to ${langLabels[lang].label}`}
-                >
-                  {langLabels[lang].label === 'संस्कृतम्' ? 'SA' : lang.toUpperCase()}
-                </button>
-              ))}
+            <div className="relative">
+              <button 
+                onClick={() => setIsLangOpen(!isLangOpen)}
+                className="flex items-center gap-2 bg-white/5 border border-white/10 rounded-lg px-3 py-1.5 transition-all hover:border-primary/50 group"
+                aria-label="Select Language"
+              >
+                <span className="text-[14px] leading-none mb-0.5">{langLabels[language].flag}</span>
+                <span className="font-display text-[9px] font-black tracking-widest uppercase text-slate-300 group-hover:text-primary transition-colors">
+                  {langLabels[language].label}
+                </span>
+                <span className={`material-symbols-outlined text-[14px] text-slate-500 transition-transform duration-300 ${isLangOpen ? 'rotate-180' : ''}`}>
+                  expand_more
+                </span>
+              </button>
+
+              {isLangOpen && (
+                <>
+                  <div 
+                    className="fixed inset-0 z-40" 
+                    onClick={() => setIsLangOpen(false)}
+                  />
+                  <div className="absolute top-full right-0 mt-2 w-48 bg-background-dark/95 backdrop-blur-2xl border border-white/10 rounded-xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.5)] z-50 animate-fade-in py-1">
+                    <div className="px-3 py-2 border-b border-white/5 bg-white/5">
+                      <span className="text-[8px] font-display font-black uppercase tracking-[0.2em] text-slate-500">{t('nav_text_size') || 'Select Language'}</span>
+                    </div>
+                    
+                    <div className="max-h-[300px] overflow-y-auto no-scrollbar">
+                      {(Object.keys(langLabels) as Language[]).map((lang) => (
+                        <button 
+                          key={lang} 
+                          onClick={() => {
+                            setLanguage(lang);
+                            setIsLangOpen(false);
+                          }} 
+                          className={`w-full flex items-center justify-between px-4 py-3 text-left transition-all hover:bg-primary/10 group ${language === lang ? 'bg-primary/5' : ''}`}
+                        >
+                          <div className="flex items-center gap-3">
+                            <span className="text-lg">{langLabels[lang].flag}</span>
+                            <div className="flex flex-col">
+                              <span className={`text-[11px] font-display font-bold tracking-wide ${language === lang ? 'text-primary' : 'text-slate-200 group-hover:text-white'}`}>
+                                {lang === 'en' ? 'English' : 
+                                 lang === 'hi' ? 'हिन्दी' : 
+                                 lang === 'sa' ? 'संस्कृतम्' : 
+                                 lang === 'mr' ? 'मराठी' : 
+                                 lang === 'gu' ? 'ગુજરાતી' : 
+                                 lang === 'pa' ? 'ਪੰਜਾਬੀ' : 
+                                 lang === 'ta' ? 'தமிழ்' : 'తెలుగు'}
+                              </span>
+                              <span className="text-[8px] text-slate-500 font-display uppercase tracking-widest">{langLabels[lang].label}</span>
+                            </div>
+                          </div>
+                          {language === lang && (
+                            <span className="material-symbols-outlined text-primary text-sm">check_circle</span>
+                          )}
+                        </button>
+                      ))}
+                    </div>
+
+                    <div className="p-2 border-t border-white/5 bg-primary/5">
+                      <div id="google_translate_element" className="google-translate-wrapper" />
+                      <p className="text-[7px] text-slate-500 mt-1 px-2 uppercase tracking-[0.1em] text-center border-t border-white/5 pt-1">
+                        Global Translation Powered by Google
+                      </p>
+                    </div>
+                  </div>
+                </>
+              )}
             </div>
 
             <Link href="/login" className="px-5 py-2 rounded-lg bg-primary/10 border border-primary/20 text-primary font-display font-black text-[10px] hover:bg-primary hover:text-background-dark transition-all uppercase tracking-widest flex items-center gap-2 shadow-[0_0_15px_rgba(13,227,242,0.1)] animate-portal-glow">

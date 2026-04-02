@@ -208,9 +208,74 @@ export interface TranslationDict {
   hero_trust_backups: string;
   hero_trust_nodes: string;
   hero_trust_security: string;
+
+  // SmritiERP Multilingual Core
+  erp_overview: string;
+  erp_sales: string;
+  erp_purchases: string;
+  erp_inventory: string;
+  erp_crm: string;
+  erp_ledger: string;
+  erp_settings: string;
+  erp_manual: string;
+  erp_private_workspace: string;
+  erp_exit_home: string;
+  erp_architect_title: string;
+  
+  // ERP Business Profile Panel
+  erp_profile_title: string;
+  erp_profile_subtitle: string;
+  erp_profile_export: string;
+  erp_profile_import: string;
+  erp_profile_save: string;
+
+  // ERP Sales Panel
+  erp_sales_title: string;
+  erp_sales_subtitle: string;
+  erp_sales_new_doc: string;
+  erp_sales_total_docs: string;
+  erp_sales_paid_docs: string;
+  erp_sales_collected_rev: string;
+  erp_sales_pending_dues: string;
+
+  // ERP Sidebar Components
+  erp_notes_title: string;
+  erp_notes_placeholder: string;
+  erp_quote_title: string;
+  erp_made_for_bharat: string;
+  erp_status_pending: string;
+  erp_status_in_process: string;
+  erp_status_completed: string;
+  erp_status_void: string;
+
+  // ERP PWA Installation
+  erp_install_title: string;
+  erp_install_desc: string;
+  erp_install_btn: string;
+
+  // ERP Advanced Tasks
+  erp_task_modal_title: string;
+  erp_task_modal_edit: string;
+  erp_task_content: string;
+  erp_task_description: string;
+  erp_task_priority: string;
+  erp_task_due_date: string;
+  erp_task_category: string;
+  erp_task_save: string;
+  erp_priority_low: string;
+  erp_priority_medium: string;
+  erp_priority_high: string;
+  erp_priority_urgent: string;
+  erp_category_general: string;
+  erp_category_sales: string;
+  erp_category_purchase: string;
+  erp_category_personal: string;
+  erp_sidebar_workspace: string;
+  erp_sidebar_focus: string;
+  erp_sidebar_system: string;
 }
 
-export const translations: Record<string, TranslationDict> = {
+export const translations: Record<string, any> = {
   en: {
     nav_about: "About",
     nav_services: "Services",
@@ -389,7 +454,60 @@ export const translations: Record<string, TranslationDict> = {
     partner_placeholder_comments: "How do you plan to scale with AITDL?",
     hero_trust_backups: "Sovereign infrastructure backups",
     hero_trust_nodes: "Fully sandboxed local nodes",
-    hero_trust_security: "Enterprise-grade SSL & Encryption"
+    hero_trust_security: "Enterprise-grade SSL & Encryption",
+    erp_overview: "Overview",
+    erp_sales: "Sales & Invoices",
+    erp_purchases: "Purchases",
+    erp_inventory: "Inventory Master",
+    erp_crm: "CRM / Entities",
+    erp_ledger: "Ledger & Reports",
+    erp_settings: "Business Profile",
+    erp_manual: "Manual",
+    erp_private_workspace: "Private Workspace",
+    erp_exit_home: "Exit to AITDL Home",
+    erp_architect_title: "System Architect",
+    erp_profile_title: "Business Intelligence Profile",
+    erp_profile_subtitle: "Configure your local workspace identity.",
+    erp_profile_export: "Export Workspace File (.sqlite)",
+    erp_profile_import: "Restore your Data",
+    erp_profile_save: "Save & Synchronize",
+    erp_sales_title: "Sales & Invoicing",
+    erp_sales_subtitle: "Manage billing, receipts, and receivables.",
+    erp_sales_new_doc: "New Document",
+    erp_sales_total_docs: "Total Docs",
+    erp_sales_paid_docs: "Paid Docs",
+    erp_sales_collected_rev: "Collected Revenue",
+    erp_sales_pending_dues: "Pending Dues",
+    erp_install_title: "Install SmritiERP",
+    erp_install_desc: "Install SmritiERP for 100% Offline Access.",
+    erp_install_btn: "Install Now",
+    erp_notes_title: "Daily SmiritiNotes",
+    erp_notes_placeholder: "Capturing a thought...",
+    erp_quote_title: "Today's Quote",
+    erp_made_for_bharat: "Made for Bharat",
+    erp_status_pending: "Pending",
+    erp_status_in_process: "In Process",
+    erp_status_completed: "Completed",
+    erp_status_void: "Void/Rejected",
+    erp_task_modal_title: "Add New Task",
+    erp_task_modal_edit: "Edit Task",
+    erp_task_content: "Task Title",
+    erp_task_description: "Notes / Description",
+    erp_task_priority: "Priority",
+    erp_task_due_date: "Due Date",
+    erp_task_category: "Category",
+    erp_task_save: "Save Task",
+    erp_priority_low: "Low",
+    erp_priority_medium: "Medium",
+    erp_priority_high: "High",
+    erp_priority_urgent: "Urgent",
+    erp_category_general: "General",
+    erp_category_sales: "Sales",
+    erp_category_purchase: "Purchase",
+    erp_category_personal: "Personal",
+    erp_sidebar_workspace: "Workspace",
+    erp_sidebar_focus: "Daily Focus",
+    erp_sidebar_system: "Workspace Config"
   },
   hi: {
     nav_about: "हमारे बारे में",
@@ -569,8 +687,62 @@ export const translations: Record<string, TranslationDict> = {
     partner_placeholder_comments: "आप AITDL के साथ स्केलिंग की योजना कैसे बनाते हैं?",
     hero_trust_backups: "संप्रभु बुनियादी ढांचा बैकअप",
     hero_trust_nodes: "पूरी तरह से सैंडबॉक्स्ड स्थानीय नोड्स",
-    hero_trust_security: "एंटरप्राइज-ग्रेड एसएसएल और एन्क्रिप्शन"
+    hero_trust_security: "एंटरप्राइज-ग्रेड एसएसएल और एन्क्रिप्शन",
+    erp_overview: "अवलोकन",
+    erp_sales: "बिक्री और चालान",
+    erp_purchases: "खरीदारी विवरण",
+    erp_inventory: "इन्वेंटरी स्टॉक",
+    erp_crm: "संस्थाएं और सीआरएम",
+    erp_ledger: "खाता और रिपोर्ट",
+    erp_settings: "व्यापार प्रोफाइल",
+    erp_manual: "मार्गदर्शिका",
+    erp_private_workspace: "निजी कार्यक्षेत्र",
+    erp_exit_home: "AITDL होम पर जाएं",
+    erp_architect_title: "सिस्टम आर्किटेक्ट",
+    erp_profile_title: "व्यावसायिक खुफिया प्रोफ़ाइल",
+    erp_profile_subtitle: "अपनी स्थानीय कार्यक्षेत्र पहचान कॉन्फ़िगर करें।",
+    erp_profile_export: "कार्यक्षेत्र फ़ाइल निर्यात करें (.sqlite)",
+    erp_profile_import: "अपना डेटा पुनर्स्थापित करें",
+    erp_profile_save: "सहेजें और समन्वयित करें",
+    erp_sales_title: "बिक्री और चालान",
+    erp_sales_subtitle: "बिलिंग, रसीदें और प्राप्तियां प्रबंधित करें।",
+    erp_sales_new_doc: "नया दस्तावेज़",
+    erp_sales_total_docs: "कुल दस्तावेज़",
+    erp_sales_paid_docs: "भुगतान किए गए दस्तावेज़",
+    erp_sales_collected_rev: "एकत्रित राजस्व",
+    erp_sales_pending_dues: "लंबित बकाया",
+    erp_install_title: "SmritiERP इंस्टॉल करें",
+    erp_install_desc: "100% ऑफलाइन उपयोग के लिए स्मृति ईआरपी प्राप्त करें।",
+    erp_install_btn: "अभी इंस्टॉल करें",
+    erp_notes_title: "दैनिक स्मृतिनोट्स",
+    erp_notes_placeholder: "एक विचार लिखें...",
+    erp_quote_title: "आज का सुविचार",
+    erp_made_for_bharat: "भारत के लिए निर्मित",
+    erp_status_pending: "लंबित",
+    erp_status_in_process: "प्रगति में",
+    erp_status_completed: "पूर्ण",
+    erp_status_void: "अस्वीकृत",
+    erp_task_modal_title: "नया कार्य जोड़ें",
+    erp_task_modal_edit: "कार्य संपादित करें",
+    erp_task_content: "कार्य शीर्षक",
+    erp_task_description: "नोट्स / विवरण",
+    erp_task_priority: "प्राथमिकता",
+    erp_task_due_date: "नियत तिथि",
+    erp_task_category: "श्रेणी",
+    erp_task_save: "कार्य सहेजें",
+    erp_priority_low: "कम",
+    erp_priority_medium: "मध्यम",
+    erp_priority_high: "उच्च",
+    erp_priority_urgent: "अति आवश्यक",
+    erp_category_general: "सामान्य",
+    erp_category_sales: "बिक्री",
+    erp_category_purchase: "खरीद",
+    erp_category_personal: "व्यक्तिगत",
+    erp_sidebar_workspace: "कार्यक्षेत्र",
+    erp_sidebar_focus: "दैनिक फोकस",
+    erp_sidebar_system: "कार्यक्षेत्र कॉन्फ़िगरेशन"
   },
+
   sa: {
     nav_about: "विषये",
     nav_services: "सेवाः",
@@ -749,6 +921,280 @@ export const translations: Record<string, TranslationDict> = {
     partner_placeholder_comments: "भवान् AITDL इत्यनेन सह कथं स्केलिंग् योजनां करोति?",
     hero_trust_backups: "संप्रभु संरचना बैकअप",
     hero_trust_nodes: "पूर्णतया सैंडबॉक्स्ड स्थानीय नोड्स",
-    hero_trust_security: "एंटरप्राइज-स्तर एसएसएल सुरक्षा"
+    hero_trust_security: "एंटरप्राइज-स्तर एसएसएल सुरक्षा",
+    erp_overview: "अवलोकनम्",
+    erp_sales: "विक्रय एवं चालान",
+    erp_purchases: "क्रय विवरणम्",
+    erp_inventory: "सामग्री प्रबन्धनम्",
+    erp_crm: "संस्था सीआरएम च",
+    erp_ledger: "खाता एवं विवरणम्",
+    erp_settings: "व्यापार प्रोफाइल",
+    erp_manual: "मार्गदर्शिका",
+    erp_private_workspace: "निजी कार्यक्षेत्रम्",
+    erp_exit_home: "AITDL मुख्यपृष्ठे गच्छन्तु",
+    erp_architect_title: "तन्त्र संरचनाकारः",
+    erp_profile_title: "व्यावसायिक खुफिया प्रोफाइल",
+    erp_profile_subtitle: "स्वस्य स्थानीय कार्यक्षेत्रस्य परिचयं रचयन्तु।",
+    erp_profile_export: "कार्यक्षेत्राधारितं निर्यातं कुर्वन्तु (.sqlite)",
+    erp_profile_import: "स्वस्य दत्तांशं पुनः स्थापयन्तु",
+    erp_profile_save: "संरक्षन्तु समन्वयन्तु च",
+    erp_sales_title: "विक्रय एवं चालान",
+    erp_sales_subtitle: "बिलिङ्ग, रसीदं, प्राप्तं च प्रबन्धयन्तु।",
+    erp_sales_new_doc: "नूतन प्रलेखः",
+    erp_sales_total_docs: "कुल प्रलेखाः",
+    erp_sales_paid_docs: "दत्त्त प्रलेखाः",
+    erp_sales_collected_rev: "संग्रहित राजस्व",
+    erp_sales_pending_dues: "लम्बित देयम्",
+    erp_install_title: "SmritiERP संस्थापयन्तु",
+    erp_install_desc: "100% ऑफलाइन उपयोगाय स्मृति ईआरपी स्थापय।",
+    erp_install_btn: "अधुना स्थापयन्तु",
+    erp_notes_title: "दैनिक स्मृति-टिप्पणी",
+    erp_notes_placeholder: "विचारस्य संग्रहणं करोति...",
+    erp_quote_title: "सूक्ति-सुधा",
+    erp_made_for_bharat: "भारतार्थं निर्मितम्",
+    erp_status_pending: "प्रतीक्षितम्",
+    erp_status_in_process: "प्रक्रियायाम्",
+    erp_status_completed: "पूर्णम्",
+    erp_status_void: "निरस्तम्"
+  },
+  mr: {
+    nav_about: "आमच्याबद्दल",
+    hero_title: "शाळा व्यवस्थापन आणि शैक्षणिक ऑटोमेशन",
+    hero_subtitle: "भारतीय शैक्षणिक संस्थांसाठी 'सॉवरेन' आणि खासगी क्लाउड-नेटिव्ह सॉफ्टवेअर.",
+    erp_overview: "अवलोकन",
+    erp_sales: "विक्री आणि बीजक",
+    erp_purchases: "खरेदी",
+    erp_inventory: "इन्व्हेंटरी मास्टर",
+    erp_crm: "CRM / घटक",
+    erp_ledger: "लेजर आणि अहवाल",
+    erp_settings: "व्यवसाय प्रोफाइल",
+    erp_manual: "मार्गदर्शिका",
+    erp_private_workspace: "खाजगी कार्यक्षेत्र",
+    erp_exit_home: "AITDL होम वर जा",
+    erp_architect_title: "सिस्टम आर्किटेक्ट",
+    nav_services: "सेवा",
+    nav_portfolio: "पोर्टफोलिओ",
+    nav_contact: "संपर्क",
+    nav_dashboard: "डॅशबोर्ड",
+    footer_link_login: "लॉगिन",
+    footer_link_analytics: "विश्लेषण",
+    footer_link_support: "मदत केंद्र",
+    footer_link_partners: "भागीदार",
+    footer_link_founders: "संस्थापक",
+    erp_profile_title: "तथ्य विश्लेषण प्रोफाइल",
+    erp_profile_subtitle: "आपली स्थानिक कार्यक्षेत्र ओळख कॉन्फिगर करा.",
+    erp_profile_export: "कार्यक्षेत्र फाईल निर्यात करा (.sqlite)",
+    erp_profile_import: "डेटा पुनर्संचयित करा",
+    erp_profile_save: "जतन आणि सिंक्रोनाइझ करा",
+    erp_sales_title: "विक्री आणि इनव्हॉइसिंग",
+    erp_sales_subtitle: "बिलिंग, पावत्या आणि येणी व्यवस्थापित करा.",
+    erp_sales_new_doc: "नवीन दस्तऐवज",
+    erp_sales_total_docs: "एकूण दस्तऐवज",
+    erp_sales_paid_docs: "भरलेले दस्तऐवज",
+    erp_sales_collected_rev: "एकत्रित महसूल",
+    erp_sales_pending_dues: "लंबित येणी",
+    erp_install_title: "डेस्कटॉप नोड इंस्टॉल करा",
+    erp_install_desc: "100% ऑफलाइन वापरासाठी स्मृती ERP मिळवा.",
+    erp_install_btn: "आता इंस्टॉल करा",
+    erp_notes_title: "दैनिक स्मृतिनोट्स",
+    erp_notes_placeholder: "एक विचार लिहा...",
+    erp_quote_title: "आजचा सुविचार",
+    erp_made_for_bharat: "भारतासाठी निर्मित",
+    erp_status_pending: "प्रलंबित",
+    erp_status_in_process: "प्रक्रियेत",
+    erp_status_completed: "पूर्ण",
+    erp_status_void: "अस्वीकृत"
+  },
+  gu: {
+    nav_about: "અમારા વિશે",
+    hero_title: "શાળા વ્યવસ્થાપન અને શૈક્ષણિક ઓટોમેશન",
+    hero_subtitle: "ભારતીય શૈક્ષણિક સંસ્થાઓ માટે 'સાર્વભૌમ' અને ખાનગી ક્લાઉડ-નેટિવ સોફ્ટવેર.",
+    erp_overview: "ઝાંખી",
+    erp_sales: "વેચાણ અને ઇન્વોઇસ",
+    erp_purchases: "ખરીદી",
+    erp_inventory: "ઇન્વેન્ટરી માસ્ટર",
+    erp_crm: "CRM / સંસ્થાઓ",
+    erp_ledger: "લેજર અને અહેવાલો",
+    erp_settings: "બિઝનેસ પ્રોફાઇલ",
+    erp_manual: "માર્ગદર્શિકા",
+    erp_private_workspace: "ખાનગી કાર્યસ્થળ",
+    erp_exit_home: "AITDL હોમ પર જાઓ",
+    erp_architect_title: "સિસ્ટમ આર્કિટેક્ટ",
+    nav_services: "સેવાઓ",
+    nav_portfolio: "પોર્ટફોલિયો",
+    nav_contact: "સંપર્ક",
+    nav_dashboard: "ડેશબોર્ડ",
+    footer_link_login: "લોગિન",
+    footer_link_analytics: "એનાલિટિક્સ",
+    footer_link_support: "સપોર્ટ",
+    footer_link_partners: "ભાગીદારો",
+    footer_link_founders: "સ્થાપકો",
+    erp_profile_title: "બિઝનેસ ઇન્ટેલિજન્સ પ્રોફાઇલ",
+    erp_profile_subtitle: "તમારી સ્થાનિક વર્કસ્પેસ ઓળખ ગોઠવો.",
+    erp_profile_export: "વર્કસ્પેસ ફાઇલ નિકાસ કરો (.sqlite)",
+    erp_profile_import: "તમારો ડેટા પુનઃસ્થાપિત કરો",
+    erp_profile_save: "સાચવો અને સિંક્રનાઇઝ કરો",
+    erp_sales_title: "વેચાણ અને ઇન્વોઇસિંગ",
+    erp_sales_subtitle: "બિલિંગ, રસીદો અને લેણાંનું સંચાલન કરો.",
+    erp_sales_new_doc: "નવો દસ્તાવેજ",
+    erp_sales_total_docs: "કુલ દસ્તાવેજો",
+    erp_sales_paid_docs: "ચૂકવેલ દસ્તાવેજો",
+    erp_sales_collected_rev: "એકત્રિત મહેસૂલ",
+    erp_sales_pending_dues: "બાકી લેણાં",
+    erp_install_title: "ડેસ્કટોપ નોડ ઇન્સ્ટોલ કરો",
+    erp_install_desc: "100% ઑફલાઇન ઉપયોગ માટે સ્મૃતિ ERP મેળવો.",
+    erp_install_btn: "હમણાં ઇન્સ્ટોલ કરો",
+    erp_notes_title: "દૈનિક સ્મૃતિનોટ્સ",
+    erp_notes_placeholder: "એક વિચાર લખો...",
+    erp_quote_title: "આજનો સુવિચાર",
+    erp_made_for_bharat: "ભારત માટે નિર્મિત",
+    erp_status_pending: "બાકી",
+    erp_status_in_process: "પ્રક્રિયામાં",
+    erp_status_completed: "પૂર્ણ",
+    erp_status_void: "અસ્વીકૃત"
+  },
+  pa: {
+    nav_about: "ਸਾਡੇ ਬਾਰੇ",
+    hero_title: "ਸਕੂਲ ਪ੍ਰਬੰਧਨ ਅਤੇ ਵਿਦਿਅਕ ਆਟੋਮੇਸ਼ਨ",
+    hero_subtitle: "ਭਾਰਤੀ ਵਿਦਿਅਕ ਸੰਸਥਾਵਾਂ ਲਈ 'ਸਾਵਰੇਨ' ਅਤੇ ਪ੍ਰਾਈਵੇਟ ਕਲਾਉਡ-ਨੇਟਿਵ ਸਾਫਟਵੇਅਰ।",
+    erp_overview: "ਸੰਖੇਪ",
+    erp_sales: "ਵਿਕਰੀ ਅਤੇ ਇਨਵੌਇਸ",
+    erp_purchases: "ਖਰੀਦਦਾਰੀ",
+    erp_inventory: "ਇਨਵੈਂਟਰੀ ਮਾਸਟਰ",
+    erp_crm: "CRM / ਇਕਾਈਆਂ",
+    erp_ledger: "ਲੇਜ਼ਰ ਅਤੇ ਰਿਪੋਰਟਾਂ",
+    erp_settings: "ਬਿਜ਼ਨਸ ਪ੍ਰੋਫਾਈਲ",
+    erp_manual: "ਮੈਨੂਅਲ",
+    erp_private_workspace: "ਨਿੱਜੀ ਵਰਕਸਪੇਸ",
+    erp_exit_home: "AITDL ਹੋਮ 'ਤੇ ਜਾਓ",
+    erp_architect_title: "ਸਿਸਟਮ ਆਰਕੀਟੈਕਟ",
+    nav_services: "ਸੇਵਾਵਾਂ",
+    nav_portfolio: "ਪੋਰਟਫੋਲੀਓ",
+    nav_contact: "ਸੰਪਰਕ",
+    nav_dashboard: "ਡੈਸ਼ਬੋਰਡ",
+    footer_link_login: "ਲੌਗਇਨ",
+    footer_link_analytics: "ਐਨਾਲਿਟਿਕਸ",
+    footer_link_support: "ਸਹਾਇਤਾ",
+    footer_link_partners: "ਭਾਈਵਾਲ",
+    footer_link_founders: "ਸੰਸਥਾਪਕ",
+    erp_profile_title: "ਬਿਜ਼ਨਸ ਇੰਟੈਲੀਜੈਂਸ ਪ੍ਰੋਫਾਈਲ",
+    erp_profile_subtitle: "ਆਪਣੀ ਸਥਾਨਕ ਵਰਕਸਪੇਸ ਪਛਾਣ ਨੂੰ ਕੌਂਫਿਗਰ ਕਰੋ।",
+    erp_profile_export: "ਵਰਕਸਪੇਸ ਫਾਈਲ ਐਕਸਪੋਰਟ ਕਰੋ (.sqlite)",
+    erp_profile_import: "ਆਪਣਾ ਡੇਟਾ ਰੀਸਟੋਰ ਕਰੋ",
+    erp_profile_save: "ਸੇਵ ਅਤੇ ਸਿੰਕ੍ਰੋਨਾਈਜ਼ ਕਰੋ",
+    erp_sales_title: "ਵਿਕਰੀ ਅਤੇ ਇਨਵੌਇਸਿੰਗ",
+    erp_sales_subtitle: "ਬਿਲਿੰਗ, ਰਸੀਦਾਂ ਅਤੇ ਬਕਾਏ ਪ੍ਰਬੰਧਿਤ ਕਰੋ।",
+    erp_sales_new_doc: "ਨਵਾਂ ਦਸਤਾਵੇਜ਼",
+    erp_sales_total_docs: "ਕੁੱਲ ਦਸਤਾਵੇਜ਼",
+    erp_sales_paid_docs: "ਭੁਗਤਾਨ ਕੀਤੇ ਦਸਤਾਵੇਜ਼",
+    erp_sales_collected_rev: "ਇਕੱਠਾ ਹੋਇਆ ਮਾਲੀਆ",
+    erp_sales_pending_dues: "ਬਕਾਇਆ",
+    erp_install_title: "ਡੈਸਕਟੌਪ ਨੋਡ ਸਥਾਪਿਤ ਕਰੋ",
+    erp_install_desc: "100% ਔਫਲਾਈન ਵਰਤੋਂ ਲਈ ਸਮ੍ਰਿਤੀ ERP ਪ੍ਰਾਪਤ ਕਰੋ।",
+    erp_install_btn: "ਹੁਣੇ ਇੰਸਟਾਲ ਕਰੋ",
+    erp_notes_title: "ਰੋਜ਼ਾਨਾ ਸਮ੍ਰਿਤੀ ਨੋਟਸ",
+    erp_notes_placeholder: "ਇੱਕ ਵਿਚਾਰ ਲਿਖੋ...",
+    erp_quote_title: "ਅੱਜ ਦਾ ਵਿਚਾਰ",
+    erp_made_for_bharat: "ਭਾਰਤ ਲਈ ਬਣਾਇਆ",
+    erp_status_pending: "ਬਾਕੀ",
+    erp_status_in_process: "ਪ੍ਰਕਿਰਿਆ ਵਿੱਚ",
+    erp_status_completed: "ਪੂਰਾ",
+    erp_status_void: "ਰੱਦ"
+  },
+  ta: {
+    nav_about: "எங்களைப் பற்றி",
+    hero_title: "பள்ளி மேலாண்மை மற்றும் கல்வி ஆட்டோமேஷன்",
+    hero_subtitle: "இந்திய கல்வி நிறுவனங்களுக்கான 'சவரன்' மற்றும் தனியார் கிளவுட் மென்பொருள்.",
+    erp_overview: "கண்ணோட்டம்",
+    erp_sales: "விற்பனை மற்றும் இன்வாய்ஸ்கள்",
+    erp_purchases: "கொள்முதல்",
+    erp_inventory: "சரக்கு இருப்பு மேலாண்மை",
+    erp_crm: "CRM / நிறுவனங்கள்",
+    erp_ledger: "பேரேடு மற்றும் அறிக்கைகள்",
+    erp_settings: "வணிக சுயவிவரம்",
+    erp_manual: "கையேடு",
+    erp_private_workspace: "தனிப்பட்ட பணியிடம்",
+    erp_exit_home: "AITDL முகப்பிற்குச் செல்",
+    erp_architect_title: "முறைமை வடிவமைப்பாளர்",
+    nav_services: "சேவைகள்",
+    nav_portfolio: "போர்ட்ஃபோலியோ",
+    nav_contact: "தொடர்பு",
+    nav_dashboard: "டாஷ்போர்டு",
+    footer_link_login: "உள்நுழை",
+    footer_link_analytics: "பகுப்பாய்வு",
+    footer_link_support: "ஆதரவு",
+    footer_link_partners: "பங்குதாரர்கள்",
+    footer_link_founders: "நிறுவனர்கள்",
+    erp_profile_title: "வணிக நுண்ணறிவு சுயவிவரம்",
+    erp_profile_subtitle: "உங்கள் உள்ளூர் பணியிட அடையாளத்தை உள்ளமைக்கவும்.",
+    erp_profile_export: "பணியிடக் கோப்பை ஏற்றுமதி செய் (.sqlite)",
+    erp_profile_import: "உங்கள் தரவை மீட்டமைக்கவும்",
+    erp_profile_save: "சேமி மற்றும் ஒத்திசை",
+    erp_sales_title: "விற்பனை மற்றும் விலைப்பட்டியல்",
+    erp_sales_subtitle: "பில்லிங், ரசீதுகள் மற்றும் பெறத்தக்கவைகளை நிர்வகிக்கவும்.",
+    erp_sales_new_doc: "புதிய ஆவணம்",
+    erp_sales_total_docs: "மொத்த ஆவணங்கள்",
+    erp_sales_paid_docs: "செலுத்தப்பட்ட ஆவணங்கள்",
+    erp_sales_collected_rev: "சேகரிக்கப்பட்ட வருவாய்",
+    erp_sales_pending_dues: "நிலுவைத் தொகைகள்",
+    erp_install_title: "டெஸ்க்டாப் முனையத்தை நிறுவு",
+    erp_install_desc: "100% ஆஃப்லைன் பயன்பாட்டிற்காக ஸ்மிருதி ஈஆர்பியைப் பெறுங்கள்.",
+    erp_install_btn: "இப்பொழுதே நிறுவு",
+    erp_notes_title: "தினசரி ஸ்மிருதி குறிப்புகள்",
+    erp_notes_placeholder: "ஒரு குறிப்பை எழுதவும்...",
+    erp_quote_title: "இன்றைய பொன்மொழி",
+    erp_made_for_bharat: "பாரதத்திற்காக உருவாக்கப்பட்டது",
+    erp_status_pending: "நிலுவையில் உள்ளது",
+    erp_status_in_process: "செயல்பாட்டில் உள்ளது",
+    erp_status_completed: "முடிந்தது",
+    erp_status_void: "ரத்து செய்யப்பட்டது"
+  },
+  te: {
+    nav_about: "మా గురించి",
+    hero_title: "పాఠశాల నిర్వహణ మరియు విద్యా ఆటోమేషన్",
+    hero_subtitle: "భారతీయ విద్యా సంస్థల కోసం 'సార్వభౌమ' మరియు ప్రైవేట్ క్లౌడ్ సాఫ్ట్‌వేర్.",
+    erp_overview: "అవలోకనం",
+    erp_sales: "అమ్మకాలు మరియు ఇన్‌వాయిస్‌లు",
+    erp_purchases: "కొనుగోళ్లు",
+    erp_inventory: "ఇన్వెంటరీ మాస్టర్",
+    erp_crm: "CRM / సంస్థలు",
+    erp_ledger: "లెడ్జర్ మరియు నివేదికలు",
+    erp_settings: "బిజినెస్ ప్రొఫైల్",
+    erp_manual: "మాన్యువల్",
+    erp_private_workspace: "ప్రైవేట్ వర్క్‌స్పేస్",
+    erp_exit_home: "AITDL హోమ్‌కు వెళ్లండి",
+    erp_architect_title: "సిస్టమ్ ఆర్కిటెక్ట్",
+    nav_services: "సేవలు",
+    nav_portfolio: "పోర్ట్‌ఫోలియో",
+    nav_contact: "సంప్రదించండి",
+    nav_dashboard: "డ్యాష్‌బోర్డ్",
+    footer_link_login: "లాగిన్",
+    footer_link_analytics: "విశ్లేషణలు",
+    footer_link_support: "మద్దతు",
+    footer_link_partners: "భాగస్వాములు",
+    footer_link_founders: "వ్యవస్థాపకులు",
+    erp_profile_title: "బిజినెస్ ఇంటెలిజెన్స్ ప్రొఫైల్",
+    erp_profile_subtitle: "మీ స్థానిక వర్క్‌స్పేస్ గుర్తింపును కాన్ఫిగర్ చేయండి.",
+    erp_profile_export: "వర్క్‌స్పేస్ ఫైల్‌ను ఎగుమతి చేయండి (.sqlite)",
+    erp_profile_import: "మీ డేటాను పునరుద్ధరించండి",
+    erp_profile_save: "సేవ్ మరియు సింక్రొనైజ్",
+    erp_sales_title: "అమ్మకాలు మరియు ఇన్‌వాయిస్",
+    erp_sales_subtitle: "బిల్లింగ్, రసీదులు మరియు బకాయిలను నిర్వహించండి.",
+    erp_sales_new_doc: "కొత్త పత్రం",
+    erp_sales_total_docs: "మొత్తం పత్రాలు",
+    erp_sales_paid_docs: "చెల్లించిన పత్రాలు",
+    erp_sales_collected_rev: "సేకరించిన ఆదాయం",
+    erp_sales_pending_dues: "పెండింగ్ బకాయిలు",
+    erp_install_title: "డెస్క్‌టాప్ నోడ్ ఇన్‌స్టాల్ చేయండి",
+    erp_install_desc: "100% ఆఫ్‌లైన్ ఉపయోగం కోసం స్మృతి ERP పొందండి.",
+    erp_install_btn: "ఇప్పుడే ఇన్‌స్టాల్ చేయండి",
+    erp_notes_title: "రోజువారీ స్మృతి నోట్స్",
+    erp_notes_placeholder: "ఒక భావాన్ని రాయండి...",
+    erp_quote_title: "నేటి సూక్తి",
+    erp_made_for_bharat: "భారత్ కోసం నిర్మించబడింది",
+    erp_status_pending: "పెండింగ్",
+    erp_status_in_process: "ప్రక్రియలో ఉంది",
+    erp_status_completed: "పూర్తయింది",
+    erp_status_void: "రద్దు చేయబడింది"
   }
 };

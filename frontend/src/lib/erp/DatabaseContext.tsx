@@ -180,6 +180,43 @@ export const ERPDatabaseProvider: React.FC<{ children: React.ReactNode }> = ({ c
           notes TEXT,
           created_at TEXT DEFAULT (datetime('now'))
         )`);
+        
+        database.run(`CREATE TABLE IF NOT EXISTS smriti_notes (
+          id INTEGER PRIMARY KEY AUTOINCREMENT, 
+          content TEXT, 
+          priority TEXT DEFAULT 'low',
+          due_date TEXT,
+          category TEXT,
+          description TEXT,
+          status TEXT DEFAULT 'pending', 
+          created_at TEXT DEFAULT (datetime('now')),
+          updated_at TEXT DEFAULT (datetime('now'))
+        )`);
+
+        // Migration: Ensure new columns exist for existing databases
+        try { database.run(`ALTER TABLE smriti_notes ADD COLUMN priority TEXT DEFAULT 'low'`); } catch(e) {}
+        try { database.run(`ALTER TABLE smriti_notes ADD COLUMN due_date TEXT`); } catch(e) {}
+        try { database.run(`ALTER TABLE smriti_notes ADD COLUMN category TEXT`); } catch(e) {}
+        try { database.run(`ALTER TABLE smriti_notes ADD COLUMN description TEXT`); } catch(e) {}
+
+        // Phase 2 Migration: Professional Document Fields
+        try { database.run(`ALTER TABLE bills ADD COLUMN from_gstin TEXT`); } catch(e) {}
+        try { database.run(`ALTER TABLE bills ADD COLUMN from_pan TEXT`); } catch(e) {}
+        try { database.run(`ALTER TABLE bills ADD COLUMN to_gstin TEXT`); } catch(e) {}
+        try { database.run(`ALTER TABLE bills ADD COLUMN to_pan TEXT`); } catch(e) {}
+        
+        try { database.run(`ALTER TABLE purchases ADD COLUMN from_gstin TEXT`); } catch(e) {}
+        try { database.run(`ALTER TABLE purchases ADD COLUMN from_pan TEXT`); } catch(e) {}
+        try { database.run(`ALTER TABLE purchases ADD COLUMN to_gstin TEXT`); } catch(e) {}
+        try { database.run(`ALTER TABLE purchases ADD COLUMN to_pan TEXT`); } catch(e) {}
+
+        try { database.run(`ALTER TABLE products ADD COLUMN hsn_code TEXT`); } catch(e) {}
+        try { database.run(`ALTER TABLE products ADD COLUMN default_uom TEXT DEFAULT 'pcs'`); } catch(e) {}
+
+        // Phase 3: Profile persistency
+        try { database.run(`ALTER TABLE clients ADD COLUMN pan TEXT`); } catch(e) {}
+        try { database.run(`ALTER TABLE vendors ADD COLUMN pan TEXT`); } catch(e) {}
+
 
         // DIAGNOSTICS: Verify engine is healthy
         try {

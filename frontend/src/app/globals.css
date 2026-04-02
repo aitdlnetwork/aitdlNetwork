@@ -20,6 +20,7 @@ Copyright © AITDL Network 2026 | Vikram Samvat 2083
 */
 
 @import "tailwindcss";
+@source "../**/*.{ts,tsx}";
 
 @theme {
   --color-primary: #0de3f2;
@@ -226,4 +227,32 @@ Copyright © AITDL Network 2026 | Vikram Samvat 2083
 
   .hide-scrollbar::-webkit-scrollbar { display: none; }
   .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+  /* Premium Google Translate Widget Styling */
+  .goog-te-gadget-simple {
+    background-color: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    border-radius: 8px !important;
+  }
+  .goog-te-gadget-icon { display: none !important; }
+  .goog-te-menu-value {
+    color: var(--color-text-muted) !important;
+    font-family: var(--font-display) !important;
+    font-size: 10px !important;
+    font-weight: 900 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.1em !important;
+    padding: 0 !important;
+  }
+  .goog-te-menu-value span:last-child { display: none !important; }
+  .goog-te-menu-value span:first-child { margin-right: 0 !important; }
+  .goog-te-menu-frame { box-shadow: 0 20px 50px rgba(0,0,0,0.5) !important; border-radius: 12px !important; }
+  
+  /* Hide the ugly Google top bar */
+  .goog-te-banner-frame.skiptranslate, .goog-te-gadget-icon { display: none !important; }
+  body { top: 0px !important; }
+  .skiptranslate { font-family: inherit !important; }
 }

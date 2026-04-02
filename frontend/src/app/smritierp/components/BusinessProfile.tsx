@@ -9,8 +9,10 @@ Contact: aitdlnetwork@outlook.com | jawahar.mallah@gmail.com
 
 import React, { useEffect, useState } from 'react';
 import { useERPDatabase } from '@/lib/erp/DatabaseContext';
+import { useI18n } from '@/lib/i18n/I18nContext';
 
 export default function BusinessProfile() {
+  const { t } = useI18n();
   const { db, persistDB, lastUpdated, exportDatabase, importDatabase } = useERPDatabase();
   const [fields, setFields] = useState({
     fromName: '',
@@ -87,8 +89,8 @@ export default function BusinessProfile() {
     <div className="p-8 space-y-8 animate-fadeIn max-w-5xl mx-auto pb-24">
       <div className="flex justify-between items-end border-b border-white/5 pb-6">
         <div>
-           <h2 className="text-2xl font-display font-black text-white uppercase tracking-tighter">Business Intelligence Profile</h2>
-           <p className="text-slate-500 text-xs font-display tracking-widest uppercase">Configure your local workspace identity.</p>
+           <h2 className="text-2xl font-display font-black text-white uppercase tracking-tighter">{t('erp_profile_title')}</h2>
+           <p className="text-slate-500 text-xs font-display tracking-widest uppercase">{t('erp_profile_subtitle')}</p>
         </div>
         <div className="text-right">
            <div className="text-[10px] text-slate-500 uppercase tracking-widest font-bold">Workspace Status: <span className="text-green-400">Online</span></div>
@@ -114,10 +116,10 @@ export default function BusinessProfile() {
                   onClick={exportDatabase}
                   className="px-4 py-2 bg-white/5 border border-white/10 rounded-sm text-[10px] font-bold uppercase tracking-widest text-slate-400 hover:text-white hover:bg-white/10 transition-all flex items-center gap-2"
                  >
-                    <span className="material-symbols-outlined text-[14px]">download</span> Export Workspace File (.sqlite)
+                    <span className="material-symbols-outlined text-[14px]">download</span> {t('erp_profile_export')}
                  </button>
                  <label className="px-4 py-2 bg-white/5 border border-white/10 rounded-sm text-[10px] font-bold uppercase tracking-widest text-slate-400 hover:text-white hover:bg-white/10 transition-all flex items-center gap-2 cursor-pointer">
-                    <span className="material-symbols-outlined text-[14px]">upload</span> Restore your Data
+                    <span className="material-symbols-outlined text-[14px]">upload</span> {t('erp_profile_import')}
                     <input type="file" onChange={handleImportFile} className="hidden" accept=".sqlite" />
                  </label>
               </div>
@@ -241,7 +243,7 @@ export default function BusinessProfile() {
           </div>
           <div className="flex items-end">
              <button onClick={handleSave} className="w-full bg-primary text-background-dark font-bold font-display px-8 py-2 rounded-sm hover:bg-primary/90 transition-colors uppercase tracking-widest text-xs">
-                Save & Synchronize
+                {t('erp_profile_save')}
              </button>
           </div>
         </div>

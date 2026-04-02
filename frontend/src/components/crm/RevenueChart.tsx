@@ -37,7 +37,7 @@ export default function RevenueChart({ data, height = 200 }: RevenueChartProps) 
           <p className="text-slate-500 text-[10px] font-body uppercase tracking-widest">Sovereign Node Performance</p>
         </div>
         <div className="text-right">
-          <span className="text-[#00FF9D] font-display font-bold text-lg">₹{maxAmount.toLocaleString()}</span>
+          <span className="text-[#00FF9D] font-display font-bold text-lg">₹{maxAmount.toLocaleString('en-IN')}</span>
           <p className="text-slate-500 text-[10px] font-body uppercase tracking-widest">Peak Node Yield</p>
         </div>
       </div>

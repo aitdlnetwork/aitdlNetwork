@@ -9,7 +9,7 @@ Contact: aitdlnetwork@outlook.com | jawahar.mallah@gmail.com
 
 import React, { useEffect, useState, useCallback } from 'react';
 import { useERPDatabase } from '@/lib/erp/DatabaseContext';
-import { Book, Search, ArrowUpRight, ArrowDownRight, Package, DollarSign } from 'lucide-react';
+import { Book, Search, ArrowUpRight, ArrowDownRight, Package, IndianRupee } from 'lucide-react';
 
 interface FinancialEntry {
   id: number;
@@ -148,7 +148,7 @@ export default function LedgerPanel() {
         <button 
           onClick={() => setActiveTab('financial')} 
           className={`px-6 py-2 rounded-sm text-sm tracking-widest uppercase font-bold transition flex items-center gap-2 ${activeTab === 'financial' ? 'bg-primary text-background-dark' : 'text-slate-400 hover:text-white'}`}>
-          <DollarSign size={16} /> Financial Cashbook
+          <IndianRupee size={16} /> Financial Cashbook
         </button>
         <button 
           onClick={() => setActiveTab('stock')} 
