@@ -33,9 +33,9 @@ Copyright © AITDL Network 2026 | Vikram Samvat 2083
   --font-display: "Space Grotesk", sans-serif;
   --font-body: "Outfit", sans-serif;
 
-  --radius-DEFAULT: 0.5rem;
-  --radius-lg: 0.75rem;
-  --radius-xl: 1.5rem;
+  --radius-DEFAULT: 0.2rem;
+  --radius-lg: 0.3rem;
+  --radius-xl: 0.4rem;
   --radius-full: 9999px;
 
   --bg-hero-glow: radial-gradient(circle at 50% 0%, rgba(13, 227, 242, 0.2) 0%, transparent 60%);

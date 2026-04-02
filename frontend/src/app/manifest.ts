@@ -1,0 +1,20 @@
+import { MetadataRoute } from 'next';
+
+export default function manifest(): MetadataRoute.Manifest {
+  return {
+    name: 'AITDL Micro-ERP | Sovereign Business Node',
+    short_name: 'Micro-ERP',
+    description: 'Sovereign ERP, Inventory, and CRM for AITDL Network.',
+    start_url: '/micro-erp',
+    display: 'standalone',
+    background_color: '#070B14',
+    theme_color: '#0de3f2',
+    icons: [
+      {
+        src: '/icon.png',
+        sizes: '512x512',
+        type: 'image/png',
+      },
+    ],
+  };
+}
