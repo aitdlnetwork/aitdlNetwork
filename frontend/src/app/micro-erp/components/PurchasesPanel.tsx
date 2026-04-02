@@ -7,14 +7,26 @@ Contact: aitdlnetwork@outlook.com | jawahar.mallah@gmail.com
 
 "use client";
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useERPDatabase } from '@/lib/erp/DatabaseContext';
 import { Plus, Search, ShoppingCart, Trash2, Edit2 } from 'lucide-react';
 import PurchaseEditor from './PurchaseEditor';
 
+interface Bill {
+  id: number;
+  num: string;
+  type: string;
+  vendor: string;
+  vendor_id?: number;
+  date: string;
+  total: number;
+  status: string;
+  currency: string;
+}
+
 export default function PurchasesPanel() {
   const { db, persistDB } = useERPDatabase();
-  const [bills, setBills] = useState<any[]>([]);
+  const [bills, setBills] = useState<Bill[]>([]);
   const [search, setSearch] = useState('');
   
   // View states: 'list', 'editor'
@@ -23,29 +35,30 @@ export default function PurchasesPanel() {
 
   // Payment States
   const [showPaymentModal, setShowPaymentModal] = useState(false);
-  const [selectedBill, setSelectedBill] = useState<any>(null);
+  const [selectedBill, setSelectedBill] = useState<Bill | null>(null);
   const [paymentAmount, setPaymentAmount] = useState('');
   const [paymentDate, setPaymentDate] = useState(new Date().toISOString().split('T')[0]);
 
-  useEffect(() => {
-    if (view === 'list') {
-      loadBills();
-    }
-  }, [db, search, view]);
-
-  const loadBills = () => {
+  const loadBills = useCallback(() => {
     if (!db) return;
     try {
       const q = search.toLowerCase();
-      // purchases schema: id, bill_number, doc_type, status, to_name, issue_date, total, currency
-      const res = db.exec(`SELECT id, bill_number, doc_type, to_name, issue_date, total, status, currency FROM purchases ORDER BY id DESC`);
+      // purchases schema: id, bill_number, doc_type, status, to_name, to_id, issue_date, total, currency
+      const res = db.exec(`SELECT id, bill_number, doc_type, to_name, to_id, issue_date, total, status, currency FROM purchases ORDER BY id DESC`);
       if (res[0]) {
-        const rows = res[0].values.map((r: any[]) => ({
-          id: r[0], num: r[1], type: r[2], vendor: r[3],
-          date: r[4], total: r[5], status: r[6], currency: r[7]
-        })).filter((b: any) => 
-          (b.num && b.num.toLowerCase().includes(q)) || 
-          (b.vendor && b.vendor.toLowerCase().includes(q))
+        const rows = res[0].values.map((r: unknown[]) => ({
+          id: r[0] as number, 
+          num: r[1] as string, 
+          type: r[2] as string, 
+          vendor: r[3] as string,
+          vendor_id: r[4] as number,
+          date: r[5] as string, 
+          total: r[6] as number, 
+          status: r[7] as string, 
+          currency: r[8] as string
+        })).filter((bValue: Bill) => 
+          (bValue.num && bValue.num.toLowerCase().includes(q)) || 
+          (bValue.vendor && bValue.vendor.toLowerCase().includes(q))
         );
         setBills(rows);
       } else {
@@ -54,9 +67,15 @@ export default function PurchasesPanel() {
     } catch(e) {
       console.error(e);
     }
-  };
+  }, [db, search]);
 
-  const handleRecordPayment = (bill: any) => {
+  useEffect(() => {
+    if (view === 'list') {
+      setTimeout(() => loadBills(), 0);
+    }
+  }, [view, loadBills]);
+
+  const handleRecordPayment = (bill: Bill) => {
     setSelectedBill(bill);
     setPaymentAmount(bill.total.toString());
     setShowPaymentModal(true);

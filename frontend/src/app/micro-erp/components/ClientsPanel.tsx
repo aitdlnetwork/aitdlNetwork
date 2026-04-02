@@ -7,7 +7,7 @@ Contact: aitdlnetwork@outlook.com | jawahar.mallah@gmail.com
 
 "use client";
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useERPDatabase } from '@/lib/erp/DatabaseContext';
 import { Pencil, Trash2, Plus, Users, Search } from 'lucide-react';
 
@@ -30,11 +30,7 @@ export default function ClientsPanel() {
   
   const [form, setForm] = useState({ name: '', email: '', phone: '', addr: '', gst: '' });
 
-  useEffect(() => {
-    loadEntities();
-  }, [db, search, entityType]);
-
-  const loadEntities = () => {
+  const loadEntities = useCallback(() => {
     if (!db) return;
     try {
       const q = search.toLowerCase();
@@ -55,7 +51,11 @@ export default function ClientsPanel() {
     } catch(e) {
       console.error(e);
     }
-  };
+  }, [db, search, entityType]);
+
+  useEffect(() => {
+    loadEntities();
+  }, [loadEntities]);
 
   const handleSave = (e: React.FormEvent) => {
     e.preventDefault();

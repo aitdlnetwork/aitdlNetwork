@@ -7,14 +7,26 @@ Contact: aitdlnetwork@outlook.com | jawahar.mallah@gmail.com
 
 "use client";
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useERPDatabase } from '@/lib/erp/DatabaseContext';
 import { Plus, Search, FileText, Trash2, Edit2 } from 'lucide-react';
 import InvoiceEditor from './InvoiceEditor';
 
+interface Bill {
+  id: number;
+  num: string;
+  type: string;
+  client: string;
+  client_id?: number;
+  date: string;
+  total: number;
+  status: string;
+  currency: string;
+}
+
 export default function SalesPanel() {
   const { db, persistDB } = useERPDatabase();
-  const [bills, setBills] = useState<any[]>([]);
+  const [bills, setBills] = useState<Bill[]>([]);
   const [search, setSearch] = useState('');
   
   // View states: 'list', 'editor'
@@ -23,35 +35,30 @@ export default function SalesPanel() {
   
   // Payment States
   const [showPaymentModal, setShowPaymentModal] = useState(false);
-  const [selectedBill, setSelectedBill] = useState<any>(null);
+  const [selectedBill, setSelectedBill] = useState<Bill | null>(null);
   const [paymentAmount, setPaymentAmount] = useState('');
   const [paymentDate, setPaymentDate] = useState(new Date().toISOString().split('T')[0]);
 
-  useEffect(() => {
-    if (view === 'list') {
-      loadBills();
-    }
-  }, [db, search, view]);
-
-  const loadBills = () => {
+  const loadBills = useCallback(() => {
     if (!db) return;
     try {
       const q = search.toLowerCase();
-      // bills schema: id, bill_number, doc_type, status, to_name, issue_date, total, currency
-      const res = db.exec(`SELECT id, bill_number, doc_type, to_name, issue_date, total, status, currency FROM bills ORDER BY id DESC`);
+      // bills schema: id, bill_number, doc_type, to_name, client_id, issue_date, total, status, currency
+      const res = db.exec(`SELECT id, bill_number, doc_type, to_name, client_id, issue_date, total, status, currency FROM bills ORDER BY id DESC`);
       if (res[0]) {
-        const rows = res[0].values.map((r: any[]) => ({
+        const rows = res[0].values.map((r: unknown[]) => ({
           id: r[0] as number,
           num: r[1] as string || '',
           type: r[2] as string || '',
           client: r[3] as string || '',
-          date: r[4] as string || '',
-          total: r[5] as number || 0,
-          status: r[6] as string || 'draft',
-          currency: r[7] as string || '₹'
-        })).filter((b) => 
-          b.num.toLowerCase().includes(q) || 
-          b.client.toLowerCase().includes(q)
+          client_id: r[4] as number,
+          date: r[5] as string || '',
+          total: r[6] as number || 0,
+          status: r[7] as string || 'draft',
+          currency: r[8] as string || '₹'
+        })).filter((bValue: Bill) => 
+          bValue.num.toLowerCase().includes(q) || 
+          bValue.client.toLowerCase().includes(q)
         );
         setBills(rows);
       } else {
@@ -60,9 +67,15 @@ export default function SalesPanel() {
     } catch(e) {
       console.error(e);
     }
-  };
+  }, [db, search]);
 
-  const handleRecordPayment = (bill: any) => {
+  useEffect(() => {
+    if (view === 'list') {
+      setTimeout(() => loadBills(), 0);
+    }
+  }, [view, loadBills]);
+
+  const handleRecordPayment = (bill: Bill) => {
     setSelectedBill(bill);
     setPaymentAmount(bill.total.toString());
     setShowPaymentModal(true);

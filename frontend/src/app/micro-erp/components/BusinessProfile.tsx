@@ -40,9 +40,10 @@ export default function BusinessProfile() {
      if (confirm("Restore your Business Data? This will replace your current local records with the backup file. Proceed?")) {
         importDatabase(file).then(() => {
            setToast('Data Restored Successfully. Reloading...');
-        }).catch(err => {
+        }).catch((err: unknown) => {
            console.error(err);
-           setToast('Restore Failed.');
+           const msg = err instanceof Error ? err.message : 'Unknown error';
+           setToast(`Restore Failed: ${msg}`);
         });
      }
   };
@@ -53,14 +54,14 @@ export default function BusinessProfile() {
       const res = db.exec(`SELECT key, value FROM business_profile`);
       if (res[0]) {
         const loaded: Record<string, string> = {};
-        res[0].values.forEach(([key, val]) => {
-          if (key) loaded[key as string] = (val as string) || '';
+        res[0].values.forEach((row) => {
+          const key = row[0] as string;
+          const val = row[1] as string;
+          if (key) loaded[key] = val || '';
         });
-        setFields(prev => ({ ...prev, ...loaded }));
+        setTimeout(() => setFields(prev => ({ ...prev, ...loaded })), 0);
       }
-    } catch(e) {
-      console.error(e);
-    }
+    } catch(e) { console.error(e); }
   }, [db]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -124,9 +125,11 @@ export default function BusinessProfile() {
            
            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div className="space-y-3 md:col-span-2">
-                 <div className="text-[10px] text-slate-400 leading-relaxed uppercase tracking-wider bg-black/20 p-4 border border-white/5 rounded-sm italic">
-                    "AITDL Network follows a Zero-Knowledge model. We do not sync, track, or possess your database. Use the 'Export' feature to carry your business data on a thumb drive or private cloud."
-                 </div>
+              <div className="bg-white/5 border border-white/10 p-6 rounded-sm italic">
+                <p className="text-slate-400 text-xs leading-relaxed">
+                  The AITDL Micro-ERP operates on a &quot;Zero-Knowledge&quot; model. We do not sync, track, or possess your database. Use the tools below to manage your data portability. Your business is your own—not our cloud.&quot;
+                </p>
+              </div>
                  <div className="flex items-center gap-6">
                     <div className="flex items-center gap-3">
                        <div className="size-2 bg-green-400 rounded-full animate-pulse"></div>

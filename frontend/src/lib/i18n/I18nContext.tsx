@@ -7,7 +7,7 @@ Contact: aitdlnetwork@outlook.com | jawahar.mallah@gmail.com
 
 'use client';
 
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { translations, TranslationDict } from './translations';
 
 export type Language = 'en' | 'hi' | 'sa';
@@ -28,27 +28,29 @@ export function I18nProvider({ children }: { children: React.ReactNode }) {
     if (typeof window !== 'undefined') {
       const saved = localStorage.getItem('aitdl_lang') as Language;
       if (saved && ['en', 'hi', 'sa'].includes(saved)) {
-        setLanguageState(saved);
+        setTimeout(() => setLanguageState(saved), 0);
       }
     }
   }, []);
 
-  const setLanguage = (lang: Language) => {
+  const setLanguage = useCallback((lang: Language) => {
     setLanguageState(lang);
     if (typeof window !== 'undefined') {
       localStorage.setItem('aitdl_lang', lang);
     }
-  };
+  }, []);
 
-  const t = <K extends keyof TranslationDict>(key: K): TranslationDict[K] => {
+  const t = useCallback(<K extends keyof TranslationDict>(key: K): TranslationDict[K] => {
     const dict = translations[language] || translations['en'];
     // Use fallback to English if key missing in current language
     const value = dict[key] !== undefined ? dict[key] : translations['en'][key];
     return (value !== undefined ? value : key) as TranslationDict[K];
-  };
+  }, [language]);
+
+  const contextValue = React.useMemo(() => ({ language, setLanguage, t }), [language, setLanguage, t]);
 
   return (
-    <I18nContext.Provider value={{ language, setLanguage, t }}>
+    <I18nContext.Provider value={contextValue}>
       {children}
     </I18nContext.Provider>
   );

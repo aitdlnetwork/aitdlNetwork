@@ -7,15 +7,40 @@ Contact: aitdlnetwork@outlook.com | jawahar.mallah@gmail.com
 
 "use client";
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useERPDatabase } from '@/lib/erp/DatabaseContext';
 import { ChevronLeft, Save, Printer, Plus, Trash2, CheckCircle, AlertCircle } from 'lucide-react';
 
+interface Item {
+  id?: number | null;
+  name: string;
+  desc: string;
+  qty: number;
+  rate: number;
+}
+
+interface Vendor {
+  id: number;
+  name: string;
+  addr?: string;
+}
+
+interface Product {
+  id: number;
+  name: string;
+  description: string;
+  purchase_rate: number;
+  default_qty: number;
+  unit: string;
+  stock: number;
+  category: string;
+}
+
 export default function PurchaseEditor({ billId, onClose }: { billId: number | null, onClose: () => void }) {
   const { db, persistDB } = useERPDatabase();
-  const [items, setItems] = useState<any[]>([{ name: '', desc: '', qty: 1, rate: 0 }]);
-  const [vendors, setVendors] = useState<any[]>([]);
-  const [products, setProducts] = useState<any[]>([]);
+  const [items, setItems] = useState<Item[]>([{ name: '', desc: '', qty: 1, rate: 0 }]);
+  const [vendors, setVendors] = useState<Vendor[]>([]);
+  const [products, setProducts] = useState<Product[]>([]);
   
   const [form, setForm] = useState({
     billNum: '', docType: 'PURCHASE ORDER', billStatus: 'draft',
@@ -33,59 +58,33 @@ export default function PurchaseEditor({ billId, onClose }: { billId: number | n
   const [oldBillNum, setOldBillNum] = useState<string | null>(null);
   const didLoad = useRef(false);
 
-  useEffect(() => {
-    if (!db) return;
-    
-    const vRes = db.exec(`SELECT id, name FROM vendors ORDER BY name`);
-    if (vRes[0]) setVendors(vRes[0].values);
-
-    const pRes = db.exec(`
-      SELECT id, name, description, purchase_rate, default_qty, unit,
-             COALESCE((SELECT SUM(CASE WHEN type='IN' THEN qty WHEN type='OUT' THEN -qty ELSE qty END) FROM inventory_ledger WHERE product_id = products.id), 0) as stock,
-             category
-      FROM products ORDER BY name
-    `);
-    if (pRes[0]) setProducts(pRes[0].values);
-
-    loadBusinessProfile();
-
-    if (didLoad.current) return;
-    didLoad.current = true;
-
-    if (billId) {
-      loadBillFromDb(billId);
-    } else {
-      generateBillNumber();
-    }
-  }, [db, billId]);
-
-  const loadBusinessProfile = () => {
+  const loadBusinessProfile = useCallback(() => {
     if (!db) return;
     const res = db.exec(`SELECT key, value FROM business_profile WHERE key IN ('fromName', 'fromAddr')`);
     if (res[0]) {
-      const loaded: any = {};
-      res[0].values.forEach(([key, val]) => { loaded[key as string] = val; });
+      const loaded: Record<string, string> = {};
+      res[0].values.forEach(([key, val]) => { loaded[key as string] = val as string; });
       setBusinessName(loaded.fromName || '');
       setBusinessAddr(loaded.fromAddr || '');
     }
-  };
+  }, [db]);
 
-  const generateBillNumber = () => {
+  const generateBillNumber = useCallback(() => {
     if (!db) return;
     const r = db.exec(`SELECT COUNT(*) FROM purchases`);
     const count = (r[0]?.values[0]?.[0] as number || 0) + 1;
     const yr = new Date().getFullYear();
     setForm(prev => ({ ...prev, billNum: `PO-${yr}-${String(count).padStart(3, '0')}` }));
-  };
+  }, [db]);
 
-  const loadBillFromDb = (id: number) => {
+  const loadBillFromDb = useCallback((id: number) => {
     if (!db) return;
     const r = db.exec(`SELECT * FROM purchases WHERE id=?`, [id]);
     if (!r[0]) return;
     
     const cols = r[0].columns;
     const vals = r[0].values[0];
-    const row: any = {};
+    const row: Record<string, any> = {};
     cols.forEach((c, i) => row[c] = vals[i]);
 
     setForm({
@@ -97,7 +96,54 @@ export default function PurchaseEditor({ billId, onClose }: { billId: number | n
     });
     setOldBillNum(row.bill_number);
     try { setItems(JSON.parse(row.items_json || '[]')); } catch { setItems([]); }
-  };
+  }, [db]);
+
+  useEffect(() => {
+    if (!db) return;
+    
+    try {
+      const vRes = db.exec(`SELECT id, name, addr FROM vendors ORDER BY name`);
+      if (vRes[0]) {
+        setVendors(vRes[0].values.map(v => ({
+          id: v[0] as number,
+          name: v[1] as string,
+          addr: v[2] as string
+        })));
+      }
+
+      const pRes = db.exec(`
+        SELECT id, name, description, purchase_rate, default_qty, unit,
+               COALESCE((SELECT SUM(CASE WHEN type='IN' THEN qty WHEN type='OUT' THEN -qty ELSE qty END) FROM inventory_ledger WHERE product_id = products.id), 0) as stock,
+               category
+        FROM products ORDER BY name
+      `);
+      if (pRes[0]) {
+        setProducts(pRes[0].values.map(p => ({
+          id: p[0] as number,
+          name: p[1] as string,
+          description: p[2] as string,
+          purchase_rate: p[3] as number,
+          default_qty: p[4] as number,
+          unit: p[5] as string,
+          stock: p[6] as number,
+          category: p[7] as string
+        })));
+      }
+
+      loadBusinessProfile();
+
+      if (didLoad.current) return;
+      didLoad.current = true;
+
+      if (billId) {
+        loadBillFromDb(billId);
+      } else {
+        generateBillNumber();
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  }, [db, billId, loadBusinessProfile, loadBillFromDb, generateBillNumber]);
 
   const handleVendorChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const id = e.target.value;
@@ -158,12 +204,13 @@ export default function PurchaseEditor({ billId, onClose }: { billId: number | n
       persistDB();
       setToast('Purchase Saved Successfully!');
       setTimeout(() => { onClose(); }, 800);
-    } catch(err: any) {
+    } catch(err: unknown) {
       console.error(err);
-      if (err.message?.includes('UNIQUE constraint failed')) {
+      const msg = err instanceof Error ? err.message : 'Unknown error';
+      if (msg.includes('UNIQUE constraint failed')) {
         setErrorMsg(`Duplicate Entry: The bill number "${form.billNum}" is already in use.`);
       } else {
-        setErrorMsg("Error saving document: " + err.message);
+        setErrorMsg("Error saving document: " + msg);
       }
     }
   };
@@ -240,7 +287,7 @@ export default function PurchaseEditor({ billId, onClose }: { billId: number | n
               <label className="text-xs text-slate-400 uppercase">Select Vendor</label>
               <select value={form.vendorId} onChange={handleVendorChange} className="w-full bg-black/30 border border-white/10 rounded-sm px-3 py-1.5 text-sm text-white outline-none focus:border-primary mb-2">
                 <option value="">-- Custom (No Vendor) --</option>
-                {vendors.map((v: any) => <option key={v[0]} value={v[0]}>{v[1]}</option>)}
+                {vendors.map((v) => <option key={v.id} value={v.id}>{v.name}</option>)}
               </select>
             </div>
             <div>
@@ -294,16 +341,16 @@ export default function PurchaseEditor({ billId, onClose }: { billId: number | n
                    <select onChange={(e) => {
                      const id = e.target.value;
                      if(!id) return;
-                     const p = products.find(prod => prod[0].toString() === id);
-                     if(p) setItems([...items, { id: p[0], name: p[1], desc: p[2]||'', qty: p[4]||1, rate: p[3]||0 }]);
+                     const p = products.find(prod => prod.id.toString() === id);
+                     if(p) setItems([...items, { id: p.id, name: p.name, desc: p.description||'', qty: p.default_qty||1, rate: p.purchase_rate||0 }]);
                      e.target.value = '';
                    }} className="bg-black/50 border border-white/10 rounded-sm px-3 py-1 text-xs text-white outline-none">
                      <option value="">+ From Catalogue</option>
-                     {products.map((p: any) => {
-                       const isService = p[7]?.toLowerCase() === 'service' || p[7]?.toLowerCase() === 'digital';
+                     {products.map((p) => {
+                       const isService = p.category?.toLowerCase() === 'service' || p.category?.toLowerCase() === 'digital';
                        return (
-                         <option key={p[0]} value={p[0]}>
-                           {p[1]} {!isService ? `(Stock: ${p[6]} ${p[5]})` : '(Service)'}
+                         <option key={p.id} value={p.id}>
+                           {p.name} {!isService ? `(Stock: ${p.stock} ${p.unit})` : '(Service)'}
                          </option>
                        );
                      })}

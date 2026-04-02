@@ -7,7 +7,7 @@ Contact: aitdlnetwork@outlook.com | jawahar.mallah@gmail.com
 
 "use client";
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useERPDatabase } from '@/lib/erp/DatabaseContext';
 import { Pencil, Trash2, Plus, Box, Search, PackageOpen } from 'lucide-react';
 
@@ -35,11 +35,7 @@ export default function ProductsPanel() {
     unit: 'pcs', default_rate: '', purchase_rate: '', sku: '' 
   });
 
-  useEffect(() => {
-    loadProducts();
-  }, [db, search]);
-
-  const loadProducts = () => {
+  const loadProducts = useCallback(() => {
     if (!db) return;
     try {
       const q = search.toLowerCase();
@@ -68,7 +64,11 @@ export default function ProductsPanel() {
     } catch(e) {
       console.error(e);
     }
-  };
+  }, [db, search]);
+
+  useEffect(() => {
+    loadProducts();
+  }, [loadProducts]);
 
   const handleSave = (e: React.FormEvent) => {
     e.preventDefault();

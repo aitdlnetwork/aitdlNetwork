@@ -7,15 +7,40 @@ Contact: aitdlnetwork@outlook.com | jawahar.mallah@gmail.com
 
 "use client";
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useERPDatabase } from '@/lib/erp/DatabaseContext';
 import { ChevronLeft, Save, Printer, Plus, Trash2, CheckCircle, AlertCircle } from 'lucide-react';
 
+interface Item {
+  id?: number | null;
+  name: string;
+  desc: string;
+  qty: number;
+  rate: number;
+}
+
+interface Client {
+  id: number;
+  name: string;
+  addr?: string;
+}
+
+interface Product {
+  id: number;
+  name: string;
+  description: string;
+  default_rate: number;
+  default_qty: number;
+  unit: string;
+  stock: number;
+  category: string;
+}
+
 export default function InvoiceEditor({ billId, onClose }: { billId: number | null, onClose: () => void }) {
   const { db, persistDB } = useERPDatabase();
-  const [items, setItems] = useState<any[]>([{ name: '', desc: '', qty: 1, rate: 0 }]);
-  const [clients, setClients] = useState<any[]>([]);
-  const [products, setProducts] = useState<any[]>([]);
+  const [items, setItems] = useState<Item[]>([{ name: '', desc: '', qty: 1, rate: 0 }]);
+  const [clients, setClients] = useState<Client[]>([]);
+  const [products, setProducts] = useState<Product[]>([]);
   const [oldBillNum, setOldBillNum] = useState<string | null>(null);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [toast, setToast] = useState('');
@@ -34,42 +59,13 @@ export default function InvoiceEditor({ billId, onClose }: { billId: number | nu
     showSign: true, showForCompany: true, showAITDLBrand: true
   });
 
-  useEffect(() => {
-    if (!db) return;
-    
-    // Load dropdowns (always refresh on db change)
-    const cRes = db.exec(`SELECT id, name FROM clients ORDER BY name`);
-    if (cRes[0]) setClients(cRes[0].values);
-
-    const pRes = db.exec(`
-      SELECT id, name, description, default_rate, default_qty, unit,
-             COALESCE((SELECT SUM(CASE WHEN type='IN' THEN qty WHEN type='OUT' THEN -qty ELSE qty END) FROM inventory_ledger WHERE product_id = products.id), 0) as stock,
-             category
-      FROM products ORDER BY name
-    `);
-    if (pRes[0]) setProducts(pRes[0].values);
-
-    // Guard: only load/init the document once per editor mount to
-    // prevent HMR / React Strict Mode re-mounts overwriting unsaved edits.
-    if (didLoad.current) return;
-    didLoad.current = true;
-
-    if (billId) {
-      loadBillFromDb(billId);
-    } else {
-      // New bill setup: load business profile defaults + auto generate number
-      loadBusinessProfile();
-      generateBillNumber();
-    }
-  }, [db, billId]);
-
-  const loadBusinessProfile = () => {
+  const loadBusinessProfile = useCallback(() => {
     if (!db) return;
     const res = db.exec(`SELECT key, value FROM business_profile`);
     if (res[0]) {
-      const loaded: any = {};
+      const loaded: Record<string, string> = {};
       res[0].values.forEach(([key, val]) => {
-        if (key) loaded[key as string] = val;
+        if (key) loaded[key as string] = val as string;
       });
       setForm(f => ({
         ...f,
@@ -91,24 +87,24 @@ export default function InvoiceEditor({ billId, onClose }: { billId: number | nu
         discount: parseFloat(loaded.defaultDiscount) || 0
       }));
     }
-  };
+  }, [db]);
 
-  const generateBillNumber = () => {
+  const generateBillNumber = useCallback(() => {
     if (!db) return;
     const r = db.exec(`SELECT COUNT(*) FROM bills`);
     const count = (r[0]?.values[0]?.[0] as number || 0) + 1;
     const yr = new Date().getFullYear();
     setForm(prev => ({ ...prev, billNum: `INV-${yr}-${String(count).padStart(3, '0')}` }));
-  };
+  }, [db]);
 
-  const loadBillFromDb = (id: number) => {
+  const loadBillFromDb = useCallback((id: number) => {
     if (!db) return;
     const r = db.exec(`SELECT * FROM bills WHERE id=?`, [id]);
     if (!r[0]) return;
     
     const cols = r[0].columns;
     const vals = r[0].values[0];
-    const row: any = {};
+    const row: Record<string, any> = {};
     cols.forEach((c, i) => row[c] = vals[i]);
 
     setOldBillNum(row.bill_number || null);
@@ -125,7 +121,54 @@ export default function InvoiceEditor({ billId, onClose }: { billId: number | nu
       showSign: !!row.show_sign, showForCompany: !!row.show_for_company, showAITDLBrand: row.show_aitdl !== 0
     });
     try { setItems(JSON.parse(row.items_json || '[]')); } catch { setItems([]); }
-  };
+  }, [db]);
+
+  useEffect(() => {
+    if (!db) return;
+    
+    try {
+      // Load dropdowns
+      const cRes = db.exec(`SELECT id, name, addr FROM clients ORDER BY name`);
+      if (cRes[0]) {
+        setClients(cRes[0].values.map(c => ({
+          id: c[0] as number,
+          name: c[1] as string,
+          addr: c[2] as string
+        })));
+      }
+
+      const pRes = db.exec(`
+        SELECT id, name, description, default_rate, default_qty, unit,
+               COALESCE((SELECT SUM(CASE WHEN type='IN' THEN qty WHEN type='OUT' THEN -qty ELSE qty END) FROM inventory_ledger WHERE product_id = products.id), 0) as stock,
+               category
+        FROM products ORDER BY name
+      `);
+      if (pRes[0]) {
+        setProducts(pRes[0].values.map(p => ({
+          id: p[0] as number,
+          name: p[1] as string,
+          description: p[2] as string,
+          default_rate: p[3] as number,
+          default_qty: p[4] as number,
+          unit: p[5] as string,
+          stock: p[6] as number,
+          category: p[7] as string
+        })));
+      }
+
+      if (didLoad.current) return;
+      didLoad.current = true;
+
+      if (billId) {
+        loadBillFromDb(billId);
+      } else {
+        loadBusinessProfile();
+        generateBillNumber();
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  }, [db, billId, loadBillFromDb, loadBusinessProfile, generateBillNumber]);
 
   const handleClientChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const id = e.target.value;
@@ -194,12 +237,13 @@ export default function InvoiceEditor({ billId, onClose }: { billId: number | nu
       persistDB();
       setToast('Invoice Saved Successfully!');
       setTimeout(() => { onClose(); }, 800);
-    } catch(err: any) {
+    } catch(err: unknown) {
       console.error(err);
-      if (err.message?.includes('UNIQUE constraint failed')) {
+      const msg = err instanceof Error ? err.message : 'Unknown error';
+      if (msg.includes('UNIQUE constraint failed')) {
         setErrorMsg(`Duplicate Entry: The bill/invoice number "${form.billNum}" is already in use.`);
       } else {
-        setErrorMsg("Error saving document: " + err.message);
+        setErrorMsg("Error saving document: " + msg);
       }
     }
   };
@@ -286,7 +330,7 @@ export default function InvoiceEditor({ billId, onClose }: { billId: number | nu
               <label className="text-xs text-slate-400 uppercase">Select Client</label>
               <select value={form.clientId} onChange={handleClientChange} className="w-full bg-black/30 border border-white/10 rounded-sm px-3 py-1.5 text-sm text-white outline-none focus:border-primary mb-2">
                 <option value="">-- Custom (No Client) --</option>
-                {clients.map((c: any) => <option key={c[0]} value={c[0]}>{c[1]}</option>)}
+                {clients.map((c) => <option key={c.id} value={c.id}>{c.name}</option>)}
               </select>
             </div>
             <div>
@@ -340,16 +384,16 @@ export default function InvoiceEditor({ billId, onClose }: { billId: number | nu
                    <select onChange={(e) => {
                      const id = e.target.value;
                      if(!id) return;
-                     const p = products.find(prod => prod[0].toString() === id);
-                     if(p) setItems([...items, { id: p[0], name: p[1], desc: p[2]||'', qty: p[4]||1, rate: p[3]||0 }]);
+                     const p = products.find(prod => prod.id.toString() === id);
+                     if(p) setItems([...items, { id: p.id, name: p.name, desc: p.description||'', qty: p.default_qty||1, rate: p.default_rate||0 }]);
                      e.target.value = ''; // reset
                    }} className="bg-black/50 border border-white/10 rounded-sm px-3 py-1 text-xs text-white outline-none">
                      <option value="">+ From Catalogue</option>
-                     {products.map((p: any) => {
-                       const isService = p[7]?.toLowerCase() === 'service' || p[7]?.toLowerCase() === 'digital';
+                     {products.map((p) => {
+                       const isService = p.category?.toLowerCase() === 'service' || p.category?.toLowerCase() === 'digital';
                        return (
-                         <option key={p[0]} value={p[0]}>
-                           {p[1]} {!isService ? `(Stock: ${p[6]} ${p[5]})` : '(Service)'}
+                         <option key={p.id} value={p.id}>
+                           {p.name} {!isService ? `(Stock: ${p.stock} ${p.unit})` : '(Service)'}
                          </option>
                        );
                      })}

@@ -9,12 +9,129 @@ Contact: aitdlnetwork@outlook.com | jawahar.mallah@gmail.com
 
 import React, { useState, useEffect } from 'react';
 import { ERPDatabaseProvider, useERPDatabase } from '@/lib/erp/DatabaseContext';
-import { Settings, FileText, Users, Box, HardDrive, ShoppingCart, AlertCircle, RefreshCw, ChevronLeft } from 'lucide-react';
+import { Settings, FileText, Users, Box, HardDrive, ShoppingCart, AlertCircle, RefreshCw, ChevronLeft, BookOpen, Book } from 'lucide-react';
 import BusinessProfile from './components/BusinessProfile';
 import ClientsPanel from './components/ClientsPanel';
 import ProductsPanel from './components/ProductsPanel';
 import SalesPanel from './components/SalesPanel';
 import PurchasesPanel from './components/PurchasesPanel';
+import LedgerPanel from './components/LedgerPanel';
+
+// ─── Manual Panel ───────────────────────────────────────────────────────────
+function ManualPanel() {
+  const sections = [
+    {
+      title: 'Getting Started',
+      icon: '🚀',
+      items: [
+        { q: 'What is AITDL Micro-ERP?', a: 'A sovereign, offline-first ERP engine that runs entirely inside your browser using a WebAssembly SQLite engine. No server. No cloud. Your data never leaves your device.' },
+        { q: 'How is data stored?', a: 'All data is persisted in your browser\'s LocalStorage as a compressed SQLite binary. Use the Export function in Business Profile to create portable backups (.sqlite).' },
+        { q: 'How do I back up my data?', a: 'Navigate to Business Profile → click "Export Database". This downloads a dated .sqlite file you can keep offline or import back later.' },
+      ]
+    },
+    {
+      title: 'Sales & Invoicing',
+      icon: '🧾',
+      items: [
+        { q: 'How do I create an invoice?', a: 'Go to Sales & Invoices → click "New Document". Select the document type (Invoice, Quotation, etc.), fill in client details, add line items, and save.' },
+        { q: 'Supported document types?', a: 'Tax Invoice, Proforma Invoice, Quotation, Credit Note, and Delivery Challan. Each generates a print-ready PDF layout.' },
+        { q: 'How do I record a payment?', a: 'In the Sales list, click the "Pay" button on any invoice. Enter the amount received and date — this logs a RECEIPT entry in the Financial Ledger and marks the invoice as Paid.' },
+      ]
+    },
+    {
+      title: 'Purchases & Procurement',
+      icon: '📦',
+      items: [
+        { q: 'How do I record a purchase?', a: 'Go to Purchases → click "New Purchase". Select a vendor, add the items received, and save. Inventory is automatically credited via the Inventory Ledger.' },
+        { q: 'Where do vendors come from?', a: 'Vendors are managed inside CRM / Entities. Add vendors there first before creating purchase orders.' },
+      ]
+    },
+    {
+      title: 'Inventory Master',
+      icon: '🗃️',
+      items: [
+        { q: 'How is stock tracked?', a: 'Every saved Sale (OUT) and Purchase (IN) writes a record to the Inventory Ledger. The current stock shown is the cumulative net of all such entries per product.' },
+        { q: 'How do I add a new product?', a: 'Go to Inventory Master → click "Add Product". Fill in name, SKU, unit, purchase rate, and selling rate. You can set a minimum stock alert threshold.' },
+      ]
+    },
+    {
+      title: 'CRM / Network Entities',
+      icon: '👥',
+      items: [
+        { q: 'What is the difference between a Client and a Vendor?', a: 'Clients are entities you sell to (appear in Sales). Vendors are entities you buy from (appear in Purchases). Both are managed in the CRM / Entities panel.' },
+        { q: 'Can I store GST and contact info?', a: 'Yes. Each entity record supports Name, Address, GSTIN, Email, Phone, and a Contact Person field.' },
+      ]
+    },
+    {
+      title: 'Ledger & Reports',
+      icon: '📘',
+      items: [
+        { q: 'How do I view my cash balance?', a: 'Go to Ledger & Reports → Financial Cashbook. It displays all logged Receipts (Inflow) and Payments (Outflow) and calculates your Net Cash Position automatically.' },
+        { q: 'How is the Stock Ledger different from the Inventory Master?', a: 'Inventory Master shows your current overall stock count. The Stock Ledger tab shows the chronological log of every individual stock addition (IN) and deduction (OUT) event over time.' },
+      ]
+    },
+    {
+      title: 'Keyboard & Focus',
+      icon: '⌨️',
+      items: [
+        { q: 'What is Sovereign Focus Mode?', a: 'Pressing the configured hotkey (default: K) hides the sidebar and header for a distraction-free, full-screen workspace. Press the same key again to exit.' },
+        { q: 'How do I change the Focus Mode hotkey?', a: 'Go to Business Profile → find the Shortcut / Stealth Key field and enter your preferred single key.' },
+      ]
+    },
+  ];
+
+  return (
+    <div className="p-8 max-w-4xl mx-auto space-y-8 animate-fadeIn">
+      {/* Header */}
+      <div className="border-l-4 border-primary pl-6 py-2">
+        <h2 className="text-2xl font-display font-black text-white uppercase tracking-tighter">User Manual</h2>
+        <p className="text-slate-500 text-xs font-display tracking-widest uppercase">AITDL Micro-ERP Engine — Quick Reference Guide</p>
+      </div>
+
+      {/* Architect card */}
+      <div className="bg-primary/5 border border-primary/20 rounded-sm p-5 flex items-center gap-5">
+        <div className="size-12 rounded-sm bg-primary/20 flex items-center justify-center text-primary shrink-0">
+          <BookOpen size={22} />
+        </div>
+        <div>
+          <div className="text-[10px] text-slate-500 uppercase tracking-widest font-bold mb-1">System Architect</div>
+          <div className="text-white font-display font-black text-base tracking-wide">Jawahar R Mallah</div>
+          <div className="text-[10px] text-primary/70 tracking-widest">AITDL Network · aitdlnetwork@outlook.com</div>
+        </div>
+        <div className="ml-auto hidden sm:block">
+          <span className="px-3 py-1 bg-primary text-background-dark text-[9px] font-black uppercase tracking-widest rounded-sm">v1.5 Sovereign</span>
+        </div>
+      </div>
+
+      {/* FAQ Sections */}
+      {sections.map((section, si) => (
+        <div key={si} className="space-y-3">
+          <div className="flex items-center gap-3 mb-4">
+            <span className="text-xl">{section.icon}</span>
+            <h3 className="text-sm font-display font-black text-white uppercase tracking-widest">{section.title}</h3>
+            <div className="flex-1 h-px bg-white/5" />
+          </div>
+          {section.items.map((item, ii) => (
+            <div key={ii} className="bg-white/3 border border-white/8 hover:border-primary/20 rounded-sm p-5 transition-all group">
+              <div className="flex items-start gap-3">
+                <div className="size-5 rounded-sm bg-primary/15 text-primary text-[10px] font-black flex items-center justify-center shrink-0 mt-0.5 group-hover:bg-primary/25 transition-colors">Q</div>
+                <div>
+                  <div className="text-sm font-bold text-white mb-2">{item.q}</div>
+                  <div className="text-xs text-slate-400 leading-relaxed">{item.a}</div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      ))}
+
+      {/* Footer note */}
+      <div className="text-center text-[10px] text-slate-600 uppercase tracking-widest pt-4 border-t border-white/5">
+        AITDL Network © 2026 · Vikram Samvat 2083 · All data is sovereign and stored locally.
+      </div>
+    </div>
+  );
+}
 
 function DashboardStats() {
   const { db } = useERPDatabase();
@@ -33,11 +150,16 @@ function DashboardStats() {
       const invRes = db.exec("SELECT COUNT(*) FROM products");
       const clientRes = db.exec("SELECT COUNT(*) FROM clients");
 
-      setStats({
+      const newStats = {
         sales: salesRes[0]?.values[0][0] as number || 0,
         purchases: purcRes[0]?.values[0][0] as number || 0,
         inventory: invRes[0]?.values[0][0] as number || 0,
         clients: clientRes[0]?.values[0][0] as number || 0
+      };
+      
+      // Use requestAnimationFrame to avoid synchronous setState inside effect warning
+      requestAnimationFrame(() => {
+        setStats(newStats);
       });
     } catch(e) {
       console.error(e);
@@ -105,7 +227,10 @@ function ERPRouter() {
     if (!db) return;
     try {
       const res = db.exec("SELECT value FROM business_profile WHERE key='shortcut_stealth'");
-      if (res[0]) setHotkey(res[0].values[0][0] as string);
+      if (res[0]) {
+        const val = res[0].values[0][0] as string;
+        setTimeout(() => setHotkey(val), 0);
+      }
     } catch(e) { console.error(e); }
   }, [db]);
 
@@ -157,7 +282,9 @@ function ERPRouter() {
     { id: 'purchases', label: 'Purchases', icon: ShoppingCart },
     { id: 'inventory', label: 'Inventory Master', icon: Box },
     { id: 'clients', label: 'CRM / Entities', icon: Users },
+    { id: 'ledger', label: 'Ledger & Reports', icon: Book },
     { id: 'settings', label: 'Business Profile', icon: Settings },
+    { id: 'manual', label: 'Manual', icon: BookOpen },
   ];
 
   return (
@@ -194,7 +321,13 @@ function ERPRouter() {
             ))}
           </nav>
           
-          <div className="p-4 border-t border-white/5 pb-8">
+          <div className="p-4 border-t border-white/5 pb-8 space-y-3">
+            {/* Architect credit */}
+            <div className="px-2 py-3 rounded-sm bg-primary/5 border border-primary/10">
+              <div className="text-[8px] text-slate-600 uppercase tracking-widest font-bold mb-1">System Architect</div>
+              <div className="text-[11px] text-white font-display font-black tracking-wide truncate">Jawahar R Mallah</div>
+              <div className="text-[8px] text-primary/60 tracking-wider truncate">AITDL Network</div>
+            </div>
             <button onClick={() => window.location.href = '/'} className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-sm text-[10px] font-display tracking-widest uppercase text-slate-500 hover:text-white hover:bg-white/5 transition-all border border-transparent">
                 <span className="material-symbols-outlined text-[14px]">arrow_back</span>
                 Exit to AITDL Home
@@ -224,7 +357,7 @@ function ERPRouter() {
         {/* Focus Mode Overlay Indicator (Subtle) */}
         {focusMode && (
           <div className="absolute top-4 left-1/2 -translate-x-1/2 z-50 bg-primary/10 border border-primary/20 text-primary px-3 py-1 rounded-sm text-[9px] uppercase tracking-widest pointer-events-none animate-pulse">
-            Sovereign Focus Mode Active | Press '{hotkey}' to Exit
+            Sovereign Focus Mode Active | Press &apos;{hotkey}&apos; to Exit
           </div>
         )}
 
@@ -234,7 +367,9 @@ function ERPRouter() {
           {activeTab === 'purchases' && <PurchasesPanel />}
           {activeTab === 'inventory' && <ProductsPanel />}
           {activeTab === 'clients' && <ClientsPanel />}
+          {activeTab === 'ledger' && <LedgerPanel />}
           {activeTab === 'settings' && <BusinessProfile />}
+          {activeTab === 'manual' && <ManualPanel />}
         </div>
       </div>
     </div>

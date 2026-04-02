@@ -22,15 +22,16 @@ interface DatabaseContextType {
 const DatabaseContext = createContext<DatabaseContextType | undefined>(undefined);
 
 // LIGHTWEIGHT POLLING FOR THE GLOBAL SCRIPT (Injected in layout.tsx)
-async function getSqlJs(): Promise<any> {
+async function getSqlJs(): Promise<((config?: { wasmBinary: ArrayBuffer }) => Promise<SqlJsStatic>) | null> {
   if (typeof window === 'undefined') return null;
 
   return new Promise((resolve, reject) => {
     const deadline = Date.now() + 20000;
     const check = () => {
       // Look for the global function provided by /sql-wasm.js
-      if ((window as any).initSqlJs) {
-        resolve((window as any).initSqlJs);
+      const win = window as unknown as { initSqlJs?: (config?: { wasmBinary: ArrayBuffer }) => Promise<SqlJsStatic> };
+      if (win.initSqlJs) {
+        resolve(win.initSqlJs);
       } else if (Date.now() > deadline) {
         reject(new Error('Sovereign Engine Glue (initSqlJs) timed out. Check layout.tsx.'));
       } else {
@@ -54,6 +55,7 @@ export const ERPDatabaseProvider: React.FC<{ children: React.ReactNode }> = ({ c
       try {
         setBootStatus('Warming up Engine Glue...');
         const initFunc = await getSqlJs();
+        if (!initFunc) throw new Error('Engine Glue (initSqlJs) is missing.');
 
         // Manual WASM Binary Fetch (Highest Reliability)
         setBootStatus('Fetching WASM Bytecode...');
@@ -86,12 +88,10 @@ export const ERPDatabaseProvider: React.FC<{ children: React.ReactNode }> = ({ c
 
         if (saved) {
           try {
-            setBootStatus('Parsing Database...');
-            // Decoding in chunks (already tested working)
+            // Decoding: atob is generally fast enough, but we use modern Uint8Array.from for safety if needed
             const binaryString = atob(saved);
-            const len = binaryString.length;
-            const bytes = new Uint8Array(len);
-            for (let i = 0; i < len; i++) {
+            const bytes = new Uint8Array(binaryString.length);
+            for (let i = 0; i < binaryString.length; i++) {
               bytes[i] = binaryString.charCodeAt(i);
             }
             database = new SQL.Database(bytes);
@@ -194,10 +194,11 @@ export const ERPDatabaseProvider: React.FC<{ children: React.ReactNode }> = ({ c
           setBootStatus('Workspace is Online');
           setIsReady(true);
         }
-      } catch (e: any) {
+      } catch (e: unknown) {
         if (!active) return;
+        const msg = (e instanceof Error) ? e.message : 'Unknown DB Error';
         console.error('ERPEngine: Critical Failure:', e);
-        setError(e.message || 'Failed to initialize database');
+        setError(msg);
       }
     }
 
@@ -214,9 +215,11 @@ export const ERPDatabaseProvider: React.FC<{ children: React.ReactNode }> = ({ c
     // Initial fetch of last updated
     try {
       const res = db.exec("SELECT value FROM business_profile WHERE key='last_updated_at'");
-      if (res[0]) setLastUpdated(res[0].values[0][0] as string);
+      if (res[0]) {
+        const val = res[0].values[0][0] as string;
+        setTimeout(() => setLastUpdated(val), 0);
+      }
     } catch(e) { console.error(e); }
-
     const persist = () => {
       if (!db || !isReady) return;
       try {
@@ -227,15 +230,16 @@ export const ERPDatabaseProvider: React.FC<{ children: React.ReactNode }> = ({ c
         db.run("UPDATE business_profile SET value=? WHERE key='last_updated_at'", [now]);
         setLastUpdated(now);
 
+        // Optimized binary to base64 conversion using chunking to prevent stack overflow
         const data = db.export();
-        let binary = '';
         const bytes = new Uint8Array(data);
-        const len = bytes.byteLength;
-        for (let i = 0; i < len; i++) {
-          binary += String.fromCharCode(bytes[i]);
+        let binary = '';
+        const chunkSize = 8192;
+        for (let i = 0; i < bytes.length; i += chunkSize) {
+          binary += String.fromCharCode.apply(null, Array.from(bytes.subarray(i, i + chunkSize)));
         }
         localStorage.setItem('billforge_erp_db', btoa(binary));
-      } catch (e) {
+      } catch (e: unknown) {
         console.error('ERPEngine: Persistence failed:', e);
       }
     };
@@ -245,6 +249,7 @@ export const ERPDatabaseProvider: React.FC<{ children: React.ReactNode }> = ({ c
     return () => {
       clearInterval(interval);
       window.removeEventListener('beforeunload', persist);
+      persist(); // Final save on cleanup
     };
   }, [db, isReady]);
 
@@ -257,10 +262,11 @@ export const ERPDatabaseProvider: React.FC<{ children: React.ReactNode }> = ({ c
       setLastUpdated(now);
 
       const data = db.export();
-      let binary = '';
       const bytes = new Uint8Array(data);
-      for (let i = 0; i < bytes.byteLength; i++) {
-        binary += String.fromCharCode(bytes[i]);
+      let binary = '';
+      const chunkSize = 8192;
+      for (let i = 0; i < bytes.length; i += chunkSize) {
+        binary += String.fromCharCode.apply(null, Array.from(bytes.subarray(i, i + chunkSize)));
       }
       localStorage.setItem('billforge_erp_db', btoa(binary));
       console.log('ERPEngine: Manual save completed.');
@@ -283,8 +289,8 @@ export const ERPDatabaseProvider: React.FC<{ children: React.ReactNode }> = ({ c
 
       const filename = `aitdl_in_${datePart}_${timePart}_VS${vsYear}.sqlite`;
 
-      // Use Blob with a cast to any to resolve TS conflicts with Uint8Array vs SharedArrayBuffer
-      const blob = new Blob([data as any], { type: 'application/x-sqlite3' });
+      // Use BlobPart[] to resolve TS conflicts without using 'any'
+      const blob = new Blob([data as unknown as BlobPart], { type: 'application/x-sqlite3' });
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
