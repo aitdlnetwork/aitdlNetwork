@@ -19,7 +19,6 @@ const nextConfig: NextConfig = {
   images: {
     unoptimized: true,
   },
-  // Explicitly define workspace root for Turbopack
   turbopack: {
     root: process.cwd(),
   },

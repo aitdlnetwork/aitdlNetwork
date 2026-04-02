@@ -87,6 +87,10 @@ export default function Header() {
             {t('nav_portfolio')}
             <span className={`${navLinkUnderline} ${pathname === '/portfolio' ? 'w-full' : ''}`}></span>
           </Link>
+          <Link href="/micro-erp" className={`${navLinkClass} ${pathname.startsWith('/micro-erp') ? 'text-primary' : ''}`}>
+            Micro-ERP & Tools
+            <span className={`${navLinkUnderline} ${pathname.startsWith('/micro-erp') ? 'w-full' : ''}`}></span>
+          </Link>
           <Link href="/about" className={`${navLinkClass} ${pathname === '/about' ? 'text-primary' : ''}`}>
             {t('nav_about')}
             <span className={`${navLinkUnderline} ${pathname === '/about' ? 'w-full' : ''}`}></span>
@@ -168,6 +172,7 @@ export default function Header() {
           <div className="flex flex-col gap-4">
             <Link href="/services" onClick={() => setIsMobileMenuOpen(false)} className="text-xl font-display font-bold text-white">{t('nav_services')}</Link>
             <Link href="/portfolio" onClick={() => setIsMobileMenuOpen(false)} className="text-xl font-display font-bold text-white">{t('nav_portfolio')}</Link>
+            <Link href="/micro-erp" onClick={() => setIsMobileMenuOpen(false)} className="text-xl font-display font-bold text-primary">Micro-ERP & Tools</Link>
             <Link href="/about" onClick={() => setIsMobileMenuOpen(false)} className="text-xl font-display font-bold text-white">{t('nav_about')}</Link>
             <Link href="/contact" onClick={() => setIsMobileMenuOpen(false)} className="text-xl font-display font-bold text-white">{t('nav_contact')}</Link>
           </div>

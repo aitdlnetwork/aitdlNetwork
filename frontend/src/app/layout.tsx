@@ -58,6 +58,9 @@ export default function RootLayout({
             })(window,document,'script','dataLayer','GTM-MW8ZLVVF');
           `}
         </Script>
+
+        {/* ERPEngine: WASM Glue Layer — Pre-loaded for Sovereign Engine Speed */}
+        <Script src="/sql-wasm.js" strategy="beforeInteractive" />
         
         {/* SEO Preconnect */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
