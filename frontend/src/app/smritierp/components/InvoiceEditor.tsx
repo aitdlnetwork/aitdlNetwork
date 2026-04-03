@@ -12,7 +12,7 @@ import { ChevronLeft, Save, Printer, Trash2, CheckCircle, AlertCircle, Loader2, 
 
 interface Item { id?: number | null; name: string; desc: string; qty: number; rate: number; hsn?: string; uom?: string; }
 interface Client { id: number; name: string; addr?: string; gst?: string; pan?: string; price_group?: string; }
-interface Product { id: number; name: string; description: string; default_rate: number; default_qty: number; unit: string; stock: number; category: string; hsn_code?: string; custom_fields?: Record<string, string>; }
+interface Product { id: number; name: string; description: string; default_rate: number; default_qty: number; unit: string; stock: number; category: string; hsn_code?: string; attr1?: string; attr2?: string; attr3?: string; custom_fields?: Record<string, string>; }
 
 function numberToWords(num: number): string {
   const a = ['','One ','Two ','Three ','Four ','Five ','Six ','Seven ','Eight ','Nine ','Ten ','Eleven ','Twelve ','Thirteen ','Fourteen ','Fifteen ','Sixteen ','Seventeen ','Eighteen ','Nineteen '];
@@ -138,11 +138,11 @@ export default function InvoiceEditor({ billId: initialBillId, onClose }: { bill
     try {
       const cRes = db.exec('SELECT id, name, addr, gst, pan, price_group FROM clients ORDER BY name');
       if (cRes[0]) setClients(cRes[0].values.map(c => ({ id: c[0] as number, name: c[1] as string, addr: c[2] as string, gst: c[3] as string, pan: c[4] as string, price_group: c[5] as string })));
-      const pRes = db.exec('SELECT id, name, description, default_rate, default_qty, unit, COALESCE((SELECT SUM(CASE WHEN type=\'IN\' THEN qty ELSE -qty END) FROM inventory_ledger WHERE product_id=products.id),0) as stock, category, hsn_code, custom_fields FROM products ORDER BY name');
+      const pRes = db.exec('SELECT id, name, description, default_rate, default_qty, unit, COALESCE((SELECT SUM(CASE WHEN type=\'IN\' THEN qty ELSE -qty END) FROM inventory_ledger WHERE product_id=products.id),0) as stock, category, hsn_code, attr1, attr2, attr3, custom_fields FROM products ORDER BY name');
       if (pRes[0]) setProducts(pRes[0].values.map(p => {
         let cf = {};
-        try { cf = JSON.parse(p[9] as string || '{}'); } catch(e){}
-        return { id: p[0] as number, name: p[1] as string, description: p[2] as string, default_rate: p[3] as number, default_qty: p[4] as number, unit: p[5] as string, stock: p[6] as number, category: p[7] as string, hsn_code: p[8] as string, custom_fields: cf };
+        try { cf = JSON.parse(p[12] as string || '{}'); } catch(e){}
+        return { id: p[0] as number, name: p[1] as string, description: p[2] as string, default_rate: p[3] as number, default_qty: p[4] as number, unit: p[5] as string, stock: p[6] as number, category: p[7] as string, hsn_code: p[8] as string, attr1: p[9] as string, attr2: p[10] as string, attr3: p[11] as string, custom_fields: cf };
       }));
       if (didLoad.current) return;
       didLoad.current = true;
@@ -311,15 +311,13 @@ export default function InvoiceEditor({ billId: initialBillId, onClose }: { bill
 
             {/* Taxes */}
             <div>
-              <div className={SEC}>Pricing Policy & Taxes</div>
-              <div className="mb-2">
-                 <label className={LBL}>Active Pricing Tier</label>
-                 <select value={form.price_group} onChange={e => setForm(f => ({ ...f, price_group: e.target.value }))} className={INP + ' text-purple-400 font-bold border-purple-500/20'}>
-                    <option value="">-- Standard (Default) --</option>
-                    {Object.keys(priceGroups).map(pg => (
-                      <option key={pg} value={pg}>{pg} ({priceGroups[pg]})</option>
-                    ))}
-                 </select>
+              <div className="flex items-center justify-between mb-2">
+                <div className={SEC} style={{ marginBottom: 0 }}>Pricing & Taxes</div>
+                {form.price_group && (
+                  <div className="px-2 py-0.5 rounded-full bg-purple-500/20 border border-purple-500/30 text-[8px] font-black text-purple-400 uppercase tracking-widest">
+                    Policy: {form.price_group}
+                  </div>
+                )}
               </div>
               <div className="grid grid-cols-2 gap-2">
                 <div><label className={LBL}>Discount %</label><input type="number" value={form.discount} onChange={e => setForm(f => ({ ...f, discount: parseFloat(e.target.value) || 0 }))} className={INP} min="0" max="100" /></div>
@@ -353,7 +351,11 @@ export default function InvoiceEditor({ billId: initialBillId, onClose }: { bill
                     e.target.value = ''; 
                   }} className="text-[9px] bg-black/30 border border-white/10 text-slate-400 rounded-sm px-2 py-1 outline-none">
                     <option value="">+ Catalogue</option>
-                    {products.map(p => <option key={p.id} value={p.id}>{p.name}</option>)}
+                    {products.map(p => (
+                      <option key={p.id} value={p.id}>
+                        {p.name} {p.attr1 ? `[${p.attr1}]` : ''} {p.attr2 ? `[${p.attr2}]` : ''}
+                      </option>
+                    ))}
                   </select>
                   <button onClick={() => setItems(prev => [...prev, { name: '', desc: '', qty: 1, rate: 0, hsn: '', uom: 'pcs' }])} className="flex items-center gap-1 text-[9px] font-black uppercase text-primary hover:bg-primary/10 px-2 py-1 rounded-sm transition-colors">
                     <Plus size={10} /> Add
