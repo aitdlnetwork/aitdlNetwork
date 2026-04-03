@@ -256,3 +256,68 @@ Copyright © AITDL Network 2026 | Vikram Samvat 2083
   body { top: 0px !important; }
   .skiptranslate { font-family: inherit !important; }
 }
+
+/* ─── ERP MODE — Hide site chrome, give SmritiERP full screen ────────────── */
+body.erp-mode header,
+body.erp-mode footer,
+body.erp-mode nav,
+body.erp-mode .fixed.inset-0.pointer-events-none,
+body.erp-mode #google_translate_element {
+  display: none !important;
+}
+
+/* Remove the 72px header offset so ERP fills from top */
+body.erp-mode .min-h-screen.flex.flex-col {
+  padding-top: 0 !important;
+}
+
+body.erp-mode main {
+  min-height: 100vh;
+}
+
+/* ─── GLOBAL PRINT RULES — SmritiERP Document Engine ─────────────────────── */
+@media print {
+  /* Hide the entire site shell: header, footer, nav, blobs, GTM frames */
+  header,
+  footer,
+  nav,
+  iframe,
+  .goog-te-banner-frame,
+  #google_translate_element,
+  .skiptranslate,
+  [class*="glass-nav"],
+  /* The ambient glow background divs */
+  .fixed.inset-0.pointer-events-none,
+  /* Next.js layout wrapper pt-[72px] decoration elements */
+  body > div > div.fixed {
+    display: none !important;
+  }
+
+  /* Remove the 72px header padding from the page wrapper */
+  body > div {
+    padding-top: 0 !important;
+  }
+
+  /* Body reset */
+  body {
+    background: white !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+  }
+
+  /* The A4 document covers everything at actual print size */
+  .document-a4-sheet {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 794px !important;
+    height: 1123px !important;
+    transform: none !important;
+    overflow: hidden !important;
+    box-shadow: none !important;
+    margin: 0 !important;
+    background: white !important;
+    z-index: 99999 !important;
+  }
+}

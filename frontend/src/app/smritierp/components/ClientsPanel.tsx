@@ -18,6 +18,7 @@ interface Client {
   phone: string;
   addr: string;
   gst: string;
+  price_group: string;
 }
 
 export default function ClientsPanel() {
@@ -27,14 +28,16 @@ export default function ClientsPanel() {
   const [search, setSearch] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingId, setEditingId] = useState<number | null>(null);
+  const [priceGroups, setPriceGroups] = useState<string[]>([]);
   
-  const [form, setForm] = useState({ name: '', email: '', phone: '', addr: '', gst: '' });
+  const [form, setForm] = useState({ name: '', email: '', phone: '', addr: '', gst: '', price_group: '' });
 
   const loadEntities = useCallback(() => {
     if (!db) return;
     try {
       const q = search.toLowerCase();
-      const res = db.exec(`SELECT id, name, email, phone, addr, gst FROM ${entityType} ORDER BY name`);
+      const cols = entityType === 'clients' ? 'id, name, email, phone, addr, gst, price_group' : 'id, name, email, phone, addr, gst';
+      const res = db.exec(`SELECT ${cols} FROM ${entityType} ORDER BY name`);
       if (res[0]) {
         const rows = res[0].values.map(r => ({
           id: r[0] as number,
@@ -42,15 +45,23 @@ export default function ClientsPanel() {
           email: r[2] as string || '',
           phone: r[3] as string || '',
           addr: r[4] as string || '',
-          gst: r[5] as string || ''
+          gst: r[5] as string || '',
+          price_group: r[6] as string || ''
         })).filter(c => c.name.toLowerCase().includes(q) || c.email.toLowerCase().includes(q));
         setClients(rows);
       } else {
         setClients([]);
       }
-    } catch(e) {
+    } catch (e) {
       console.error(e);
     }
+    try {
+      const pRes = db.exec(`SELECT value FROM business_profile WHERE key = 'inv_price_groups'`);
+      if (pRes[0]) {
+         const pgStr = pRes[0].values[0][0] as string || '';
+         setPriceGroups(pgStr.split(',').map(s => s.split(':')[0].trim()).filter(Boolean));
+      }
+    } catch(e) {}
   }, [db, search, entityType]);
 
   useEffect(() => {
@@ -61,9 +72,17 @@ export default function ClientsPanel() {
     e.preventDefault();
     if (!db) return;
     if (editingId) {
-      db.run(`UPDATE ${entityType} SET name=?, email=?, phone=?, addr=?, gst=? WHERE id=?`, [form.name, form.email, form.phone, form.addr, form.gst, editingId]);
+      if (entityType === 'clients') {
+        db.run(`UPDATE clients SET name=?, email=?, phone=?, addr=?, gst=?, price_group=? WHERE id=?`, [form.name, form.email, form.phone, form.addr, form.gst, form.price_group, editingId]);
+      } else {
+        db.run(`UPDATE vendors SET name=?, email=?, phone=?, addr=?, gst=? WHERE id=?`, [form.name, form.email, form.phone, form.addr, form.gst, editingId]);
+      }
     } else {
-      db.run(`INSERT INTO ${entityType} (name, email, phone, addr, gst) VALUES(?,?,?,?,?)`, [form.name, form.email, form.phone, form.addr, form.gst]);
+      if (entityType === 'clients') {
+        db.run(`INSERT INTO clients (name, email, phone, addr, gst, price_group) VALUES(?,?,?,?,?,?)`, [form.name, form.email, form.phone, form.addr, form.gst, form.price_group]);
+      } else {
+        db.run(`INSERT INTO vendors (name, email, phone, addr, gst) VALUES(?,?,?,?,?)`, [form.name, form.email, form.phone, form.addr, form.gst]);
+      }
     }
     persistDB();
     setIsModalOpen(false);
@@ -82,10 +101,10 @@ export default function ClientsPanel() {
   const openForm = (client?: Client) => {
     if (client) {
       setEditingId(client.id);
-      setForm({ name: client.name, email: client.email, phone: client.phone, addr: client.addr, gst: client.gst });
+      setForm({ name: client.name, email: client.email, phone: client.phone, addr: client.addr, gst: client.gst, price_group: client.price_group || '' });
     } else {
       setEditingId(null);
-      setForm({ name: '', email: '', phone: '', addr: '', gst: '' });
+      setForm({ name: '', email: '', phone: '', addr: '', gst: '', price_group: '' });
     }
     setIsModalOpen(true);
   };
@@ -137,6 +156,7 @@ export default function ClientsPanel() {
                 <th className="px-6 py-4 font-bold">{entityType === 'clients' ? 'Client' : 'Vendor'} / Company</th>
                 <th className="px-6 py-4 font-bold">Contact</th>
                 <th className="px-6 py-4 font-bold">Tax / GST</th>
+                {entityType === 'clients' && <th className="px-6 py-4 font-bold text-center">Price Group</th>}
                 <th className="px-6 py-4 font-bold text-right">Actions</th>
               </tr>
             </thead>
@@ -152,6 +172,11 @@ export default function ClientsPanel() {
                     <div className="text-xs text-slate-500">{c.phone}</div>
                   </td>
                   <td className="px-6 py-4 font-mono text-xs">{c.gst || '—'}</td>
+                  {entityType === 'clients' && (
+                    <td className="px-6 py-4 text-center">
+                       {c.price_group ? <span className="bg-purple-500/20 text-purple-400 border border-purple-500/30 px-2 py-1 rounded-sm text-[10px] font-bold tracking-widest uppercase">{c.price_group}</span> : <span className="text-slate-600 text-xs">—</span>}
+                    </td>
+                  )}
                   <td className="px-6 py-4 flex items-center justify-end gap-2">
                     <button onClick={() => openForm(c)} className="p-2 text-slate-400 hover:text-white bg-white/5 hover:bg-white/10 rounded-sm"><Pencil size={14}/></button>
                     <button onClick={() => handleDelete(c.id)} className="p-2 text-red-400 hover:text-red-300 bg-white/5 hover:bg-red-400/10 rounded-sm"><Trash2 size={14}/></button>
@@ -193,6 +218,17 @@ export default function ClientsPanel() {
                 <label className="block text-xs uppercase text-slate-400 mb-1">GSTIN / Tax ID</label>
                 <input value={form.gst} onChange={e=>setForm({...form, gst: e.target.value})} className="w-full font-mono bg-background-dark/50 border border-white/10 rounded-sm px-4 py-2 text-white outline-none focus:border-primary" />
               </div>
+              
+              {entityType === 'clients' && priceGroups.length > 0 && (
+                <div className="bg-purple-500/10 p-4 border border-purple-500/30 rounded-sm mt-4">
+                   <label className="block text-[10px] uppercase font-black tracking-widest text-purple-400 mb-2 flex items-center gap-2"><span className="material-symbols-outlined text-[14px]">price_change</span> Assign Price Policy / Group</label>
+                   <select value={form.price_group} onChange={e=>setForm({...form, price_group: e.target.value})} className="w-full bg-black/50 border border-white/10 rounded-sm px-4 py-2 text-white text-xs outline-none focus:border-purple-500">
+                      <option value="">-- Standard Pricing --</option>
+                      {priceGroups.map(pg => <option key={pg} value={pg}>{pg}</option>)}
+                   </select>
+                </div>
+              )}
+              
               <div className="pt-4 flex gap-3">
                 <button type="button" onClick={() => setIsModalOpen(false)} className="flex-1 bg-white/5 text-white py-2 rounded-sm hover:bg-white/10 transition uppercase tracking-widest text-xs font-bold">Cancel</button>
                 <button type="submit" className="flex-1 bg-primary text-background-dark py-2 rounded-sm hover:bg-primary/90 transition uppercase tracking-widest text-xs font-bold">Save</button>

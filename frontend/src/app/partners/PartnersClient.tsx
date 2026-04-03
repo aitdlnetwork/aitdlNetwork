@@ -110,7 +110,7 @@ export default function PartnersPage() {
                   <h4 className="font-display font-bold text-lg text-white mb-2">{tier.title}</h4>
                   <p className="text-sm text-slate-400 mb-4">{tier.desc}</p>
                   <div className="flex flex-wrap gap-2">
-                    {tier.points.map((p, i) => (
+                    {tier.points.map((p: string, i: number) => (
                       <span key={i} className="text-[10px] px-2 py-0.5 rounded-md bg-white/5 border border-white/10 text-slate-500 font-medium">{p}</span>
                     ))}
                   </div>

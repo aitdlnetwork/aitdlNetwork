@@ -27,10 +27,15 @@ Copyright © AITDL Network 2026 | Vikram Samvat 2083
 import React from 'react';
 import Link from 'next/link';
 import { useI18n } from '@/lib/i18n/I18nContext';
+import { usePathname } from 'next/navigation';
 
 export default function Footer() {
   const { t, language } = useI18n();
+  const pathname = usePathname();
   const currentYear = new Date().getFullYear();
+
+  // Hide site footer on SmritiERP — standalone fullscreen app
+  if (pathname.startsWith('/smritierp')) return null;
 
   const t_local = (en: string, hi: string, sa: string) => {
     if (language === 'hi') return hi;

@@ -61,6 +61,9 @@ export default function Header() {
   const navLinkClass = "text-[11px] font-bold tracking-widest uppercase text-text-muted hover:text-primary transition-all relative group py-2";
   const navLinkUnderline = "absolute bottom-0 left-0 w-0 h-[1px] bg-primary transition-all duration-300 group-hover:w-full";
 
+  // Hide site navigation on SmritiERP — it runs as a standalone fullscreen app
+  if (pathname.startsWith('/smritierp')) return null;
+
   return (
     <nav 
       aria-label="Main navigation"

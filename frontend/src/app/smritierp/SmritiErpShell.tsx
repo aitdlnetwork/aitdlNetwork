@@ -10,13 +10,14 @@ Contact: aitdlnetwork@outlook.com | jawahar.mallah@gmail.com
 import React, { useState, useEffect } from 'react';
 import { ERPDatabaseProvider, useERPDatabase } from '@/lib/erp/DatabaseContext';
 import { useI18n } from '@/lib/i18n/I18nContext';
-import { Settings, FileText, Users, Box, HardDrive, ShoppingCart, AlertCircle, RefreshCw, ChevronLeft, BookOpen, Book, MessageSquare, Clock, CheckCircle, XCircle, Trash2, Heart, Lightbulb, Flag, Calendar } from 'lucide-react';
+import { Settings, FileText, Users, Box, HardDrive, ShoppingCart, AlertCircle, RefreshCw, ChevronLeft, BookOpen, Book, MessageSquare, Clock, CheckCircle, XCircle, Trash2, Heart, Lightbulb, Flag, Calendar, Barcode } from 'lucide-react';
 import BusinessProfile from './components/BusinessProfile';
 import ClientsPanel from './components/ClientsPanel';
 import ProductsPanel from './components/ProductsPanel';
 import SalesPanel from './components/SalesPanel';
 import PurchasesPanel from './components/PurchasesPanel';
 import LedgerPanel from './components/LedgerPanel';
+import BarcodeModule from './components/BarcodeModule';
 import TaskModal from './components/TaskModal';
 
 const quotes = [
@@ -403,9 +404,13 @@ function ERPRouter() {
     { id: 'dashboard', label: t('erp_overview'), icon: HardDrive },
     { id: 'sales', label: t('erp_sales'), icon: FileText },
     { id: 'purchases', label: t('erp_purchases'), icon: ShoppingCart },
-    { id: 'inventory', label: t('erp_inventory'), icon: Box },
     { id: 'clients', label: t('erp_crm'), icon: Users },
-    { id: 'ledger', label: t('erp_ledger'), icon: Book },
+    { id: 'ledger', label: 'Ledger & Reports', icon: Book },
+  ];
+
+  const invTabs = [
+    { id: 'products', label: 'Inventory Master', icon: Box },
+    { id: 'barcode', label: 'Barcode Station', icon: Barcode }, // Advanced Hardware Module
   ];
 
   const systemTabs = [
@@ -452,6 +457,21 @@ function ERPRouter() {
                 ))}
               </div>
             </div>
+
+            {/* Warehouse Ops */}
+            <div className="text-[10px] uppercase font-black tracking-[0.2em] text-slate-600 mb-4 px-4">Warehouse Ops</div>
+            <nav className="space-y-1">
+              {invTabs.map(t => (
+                <button
+                  key={t.id}
+                  onClick={() => { setActiveTab(t.id); if (window.innerWidth < 1024) setSidebarOpen(false); }}
+                  className={`w-full flex items-center gap-3 px-4 py-3 rounded-sm text-sm font-bold transition-all
+                    ${activeTab === t.id ? 'bg-primary/10 text-primary border-l-2 border-primary' : 'text-slate-400 hover:text-white hover:bg-white/5 border-l-2 border-transparent'}`}
+                >
+                  <t.icon size={18} /> {t.label}
+                </button>
+              ))}
+            </nav>
 
             {/* Daily Focus / Tasks Section - ELEVATED */}
             <div className="px-4 py-4 border-t border-white/5">
@@ -595,13 +615,14 @@ function ERPRouter() {
 
         <div className="flex-1 overflow-auto z-10">
           {activeTab === 'dashboard' && <DashboardStats />}
+          {activeTab === 'manual' && <ManualPanel />}
+          {activeTab === 'settings' && <BusinessProfile />}
+          {activeTab === 'clients' && <ClientsPanel />}
+          {activeTab === 'products' && <ProductsPanel />}
+          {activeTab === 'barcode' && <BarcodeModule />}
           {activeTab === 'sales' && <SalesPanel />}
           {activeTab === 'purchases' && <PurchasesPanel />}
-          {activeTab === 'inventory' && <ProductsPanel />}
-          {activeTab === 'clients' && <ClientsPanel />}
           {activeTab === 'ledger' && <LedgerPanel />}
-          {activeTab === 'settings' && <BusinessProfile />}
-          {activeTab === 'manual' && <ManualPanel />}
         </div>
       </div>
     </div>
@@ -609,6 +630,12 @@ function ERPRouter() {
 }
 
 export default function SmritiErpShell() {
+  useEffect(() => {
+    // Hide website header/footer — ERP runs as standalone fullscreen app
+    document.body.classList.add('erp-mode');
+    return () => { document.body.classList.remove('erp-mode'); };
+  }, []);
+
   return (
     <ERPDatabaseProvider>
       <ERPRouter />

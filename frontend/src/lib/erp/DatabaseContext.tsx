@@ -122,14 +122,39 @@ export const ERPDatabaseProvider: React.FC<{ children: React.ReactNode }> = ({ c
           created_at TEXT DEFAULT (datetime('now'))
         )`);
 
+        // ── Inventory Master (Expanded for Retail/Shoper9)
         database.run(`CREATE TABLE IF NOT EXISTS products (
-          id INTEGER PRIMARY KEY AUTOINCREMENT, 
-          name TEXT, description TEXT, category TEXT, sku TEXT, 
-          purchase_rate REAL DEFAULT 0, default_rate REAL DEFAULT 0, 
-          default_qty REAL DEFAULT 1, unit TEXT, min_stock REAL DEFAULT 0, 
-          created_at TEXT DEFAULT (datetime('now')),
-          updated_at TEXT DEFAULT (datetime('now'))
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name TEXT NOT NULL,
+            description TEXT,
+            category TEXT,
+            purchase_rate REAL DEFAULT 0,
+            sales_rate REAL DEFAULT 0,
+            mrp REAL DEFAULT 0,
+            unit TEXT DEFAULT 'pcs',
+            default_qty REAL DEFAULT 1,
+            hsn_code TEXT,
+            min_stock_alert INTEGER DEFAULT 0,
+            sku TEXT,
+            barcode TEXT,
+            attr1 TEXT,
+            attr2 TEXT,
+            attr3 TEXT,
+            created_at DATETIME DEFAULT CURRENT_TIMESTAMP
         )`);
+
+        // ── NON-DESTRUCTIVE SCHEMA UPGRADES (v1.5)
+        // If the table already existed, ensure the new columns are present without dropping data.
+        const addCol = (table: string, col: string, def: string) => {
+            try { database.run(`ALTER TABLE ${table} ADD COLUMN ${col} ${def}`); } catch (e) { /* Column likely exists */ }
+        };
+        addCol('products', 'mrp', 'REAL DEFAULT 0');
+        addCol('products', 'sku', 'TEXT');
+        addCol('products', 'barcode', 'TEXT');
+        addCol('products', 'attr1', 'TEXT'); // Customizable: e.g. Brand
+        addCol('products', 'attr2', 'TEXT'); // Customizable: e.g. Size
+        addCol('products', 'attr3', 'TEXT'); // Customizable: e.g. Color
+        addCol('products', 'custom_fields', "TEXT DEFAULT '{}'"); // EAV Infinite JSON Document
 
         database.run(`CREATE TABLE IF NOT EXISTS bills (
           id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -216,6 +241,8 @@ export const ERPDatabaseProvider: React.FC<{ children: React.ReactNode }> = ({ c
         // Phase 3: Profile persistency
         try { database.run(`ALTER TABLE clients ADD COLUMN pan TEXT`); } catch(e) {}
         try { database.run(`ALTER TABLE vendors ADD COLUMN pan TEXT`); } catch(e) {}
+        try { database.run(`ALTER TABLE clients ADD COLUMN price_group TEXT`); } catch(e) {}
+        try { database.run(`ALTER TABLE bills ADD COLUMN price_group TEXT`); } catch(e) {}
 
 
         // DIAGNOSTICS: Verify engine is healthy
